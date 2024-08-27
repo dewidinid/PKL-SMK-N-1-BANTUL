@@ -7,15 +7,25 @@
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/scrolllogo.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card-tipe-pkl.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card-tim-pkl.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
         <div class="contact-info">
             <div>
-                <span >Email: smkn1bantul@gmail.com</span> |
-                <span>Phone: 0890 24516</span>
+                <a>
+                    <i class="bi bi-envelope me-2"></i>
+                    <span>smkn1bantul@gmail.com</span> 
+                </a>
+                <a>
+                    <i class="bi bi-phone me-2"></i>
+                    <span>0890 24516</span>
+                </a>
             </div>
             <div>
                 <a href="#">

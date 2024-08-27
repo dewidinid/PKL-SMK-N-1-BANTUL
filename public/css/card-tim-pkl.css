@@ -1,0 +1,9 @@
+.custom-card {
+    background-color: #0275d8; /* Warna biru yang sama seperti footer */
+    color: white;
+    border: none;
+}
+
+.custom-card .card-title, .custom-card .card-text {
+    color: white; /* Teks dalam kartu juga berwarna putih */
+}
