@@ -4,38 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .footer {
-            background-color: #0275d8;
-            color: white;
-            padding: 20px 0;
-            margin-top: 20px;
-        }
-        .footer .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .footer .footer-description {
-            max-width: 50%;
-        }
-        .footer .footer-contact {
-            max-width: 30%;
-        }
-        .footer .social-icons a {
-            color: white;
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        .footer-bottom {
-            background-color: #025aa5;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
     <footer class="footer">

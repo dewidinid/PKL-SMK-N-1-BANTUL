@@ -4,63 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Umum</title>
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/scrolllogo.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .header {
-            background-color: #0275d8;
-            color: white;
-            padding: 0 0;
-        }
-        .header .contact-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 70px;
-        }
-        .header .contact-info a {
-            color: white;
-            margin-left: 10px;
-        }
-        .header .navbar {
-            background-color: white;
-            color: black;
-            padding: 10px 70px;
-        }
-        .header .navbar a {
-            color: black;
-            margin-right: 10px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .header .navbar a:hover {
-            color: #0275d8;
-        }
-        /* Custom scrollbar styling (optional) */
-        .custom-scrollbar {
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background-color: #007bff;
-            border-radius: 3px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        .carousel,
-        .carousel-item,
-        .carousel-item img {
-            height: 100vh; /* Mengatur tinggi carousel agar sesuai dengan tinggi viewport */
-            width: 100vw;  /* Mengatur lebar carousel agar sesuai dengan lebar viewport */
-        }
-        .carousel-item img {
-            object-fit: cover; /* Mengatur gambar agar tetap proporsional saat mengisi ruang */
-        }
-    </style>
 </head>
 <body>
     <header class="header">
@@ -90,7 +38,7 @@
         <nav class="navbar">
             <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
+                <img src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
                 <strong>PKL SMK N 1 BANTUL</strong>
             </a>
             <div>

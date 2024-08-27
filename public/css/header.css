@@ -1,0 +1,29 @@
+.header {
+    background-color: #0275d8;
+    color: white;
+    padding: 0 0;
+}
+.header .contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 70px;
+}
+.header .contact-info a {
+    color: white;
+    margin-left: 10px;
+}
+.header .navbar {
+    background-color: white;
+    color: black;
+    padding: 10px 70px;
+}
+.header .navbar a {
+    color: black;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.header .navbar a:hover {
+    color: #0275d8;
+}
