@@ -1,9 +1,9 @@
-.custom-card {
+.sistem-card {
     height: 150px; /* Menentukan tinggi kartu */
     border-radius: 10px; /* Opsional: menambahkan sudut melengkung */
     font-size: 1.25rem; /* Ukuran teks dalam kartu */
 }
 
-.custom-card i {
+.sistem-card i {
     font-size: 2rem; /* Ukuran ikon */
 }

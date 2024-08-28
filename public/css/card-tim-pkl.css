@@ -1,9 +1,50 @@
-.custom-card {
-    background-color: #0275d8; /* Warna biru yang sama seperti footer */
-    color: white;
-    border: none;
+.card-container {
+    display: flex;
+    justify-content: space-between; /* Mengatur jarak antar card */
+    flex-wrap: wrap; /* Agar card turun ke baris baru jika tidak cukup ruang */
+    gap: 20px; /* Mengatur jarak antara card */
 }
 
-.custom-card .card-title, .custom-card .card-text {
-    color: white; /* Teks dalam kartu juga berwarna putih */
+.custom-card {
+    background-color: #0275d8 !important; /* Warna background sama dengan footer */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Sudut membulat */
+    text-align: center;
+    box-shadow: 10px 15px 8px rgba(0, 0, 0, 0.3), 10px 15px 20px rgba(0, 0, 0, 0.19); /* Efek bayangan lebih jelas */
+    flex: 1; /* Membuat card memiliki lebar yang fleksibel */
+    min-width: 250px; /* Menetapkan lebar minimum untuk card */
+    margin: 0 10px; /* Menambah margin kiri dan kanan untuk jarak horizontal */
+}
+
+.custom-card:hover {
+    transform: translateY(-5px); /* Efek timbul saat hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 
+                0 12px 40px rgba(0, 0, 0, 0.3); /* Shadow lebih besar saat hover */
+}
+
+.custom-card .card-img-top {
+    width: 200px; /* Ukuran lingkaran */
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 20px auto 10px; /* Margin untuk pusat gambar */
+
+}
+
+.custom-card .card-body {
+    padding: 15px;
+}
+
+.custom-card .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: white;
+}
+
+.custom-card .card-text {
+    font-size: 1rem;
+    margin-top: 5px;
+    color: white;
 }

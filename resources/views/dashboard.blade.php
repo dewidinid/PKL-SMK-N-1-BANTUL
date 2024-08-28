@@ -14,12 +14,12 @@
         </div>
     </div>
 </div> 
-<div class="container">
+<div id="info" class="container" >
     <div class="text-center mb-4">
         <br>
         <br>
         <div class="row justify-content-center mt-5 mb-3">
-            <div class="col-md-2 custom-spacing">
+            <div class="col-6 col-sm-4 col-md-2 custom-spacing">
                 <div class="card text-white bg-primary mb-3 square-card custom-shadow">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 custom-spacing">
+            <div class="col-6 col-sm-4 col-md-2 custom-spacing">
                 <div class="card text-white bg-primary mb-3 square-card custom-shadow">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-buildings-fill" viewBox="0 0 16 16">
@@ -43,8 +43,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 custom-spacing">
-                <div class="card text-white bg-primary mb-3 square-card custom-shadow">
+            <div class="col-6 col-sm-4 col-md-2 custom-spacing">
+                <div class="card text-white bg-primary mb-3 square-card custom-shadow ">
                     <div class="card-body d-flex flex-column justify-content-center align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-map-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.5.5 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.5.5 0 0 0-.196 0zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1z"/>
@@ -60,7 +60,7 @@
 
     <br>
     
-    <div class="text-center mb-5">
+    <div id="tentang-pkl" class="text-center mb-5" data-aos="fade-up">
         <h3>Tentang PKL</h3>
         <br>
         <p>
@@ -72,7 +72,7 @@
         <br>
         <br>
         <div class="logo-container">
-            <div class="d-flex justify-content-center logo-scroll">
+            <div class="d-flex justify-content-start logo-scroll">
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 1" class="img-fluid mx-2" style="width: 100px; height: auto;">
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 2" class="img-fluid mx-2" style="width: 100px; height: auto;">
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 3" class="img-fluid mx-2" style="width: 100px; height: auto;">
@@ -85,27 +85,26 @@
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 10" class="img-fluid mx-2" style="width: 100px; height: auto;">
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 11" class="img-fluid mx-2" style="width: 100px; height: auto;">
                 <img src="{{ asset('image/logo-telkom-indonesia.jpg') }}" alt="Logo 12" class="img-fluid mx-2" style="width: 100px; height: auto;">
-                <!-- Tambahkan logo lainnya sesuai kebutuhan -->
             </div>
-        </div>               
+        </div>             
     </div>
 
     <br>
     <br>
-    <div class="text-center mb-5">
+    <div id="sistem-pkl" class="text-center mb-5" data-aos="fade-up">
         <h3>Sistem PKL</h3>
         <br>
         <p>Sistem PKL adalah sistem yang digunakan untuk mempermudah dalam monitoring kegiatan PKL Siswa</p>
         <br>
         <div class="row justify-content-center mt-3 mb-3">
             <div class="col-md-3 mb-3 custom-spacing">
-                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center custom-card custom-shadow">
+                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL PKL">
                     <i class="bi bi-person-fill me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
                     <span class="ps-3">Mandiri</span>
                 </a>
             </div>
             <div class="col-md-3 mb-3 custom-spacing">
-                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center custom-card custom-shadow">
+                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL PKL">
                     <i class="bi bi-bounding-box-circles me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
                     <span class="ps-3">Pemetaan</span>
                 </a>
@@ -113,8 +112,11 @@
         </div>           
     </div>
 
-    <div class="text-center mb-5">
+    <br>
+    <div id="tim-pkl" class="text-center mb-5" data-aos="fade-up">
         <h3>Tim PKL</h3>
+        <br>
+        <br>
         <div class="row">
             <div class="col-md-3 mb-3">
                 <div class="card custom-card">
@@ -124,8 +126,34 @@
                         <p class="card-text">Peran</p>
                     </div>
                 </div>
-            </div>            
-            <!-- Tambahkan lebih banyak kartu anggota tim sesuai kebutuhan -->
+            </div>                                    
+            <div class="col-md-3 mb-3">
+                <div class="card custom-card">
+                    <img src="{{ asset('image/tim-pkl-1.jpg') }}" class="card-img-top" alt="Tim PKL">
+                    <div class="card-body">
+                        <h5 class="card-title">Daryati, S.Pd</h5>
+                        <p class="card-text">Peran</p>
+                    </div>
+                </div>
+            </div>  
+            <div class="col-md-3 mb-3">
+                <div class="card custom-card">
+                    <img src="{{ asset('image/tim-pkl-1.jpg') }}" class="card-img-top" alt="Tim PKL">
+                    <div class="card-body">
+                        <h5 class="card-title">Daryati, S.Pd</h5>
+                        <p class="card-text">Peran</p>
+                    </div>
+                </div>
+            </div>  
+            <div class="col-md-3 mb-3">
+                <div class="card custom-card">
+                    <img src="{{ asset('image/tim-pkl-1.jpg') }}" class="card-img-top" alt="Tim PKL">
+                    <div class="card-body">
+                        <h5 class="card-title">Daryati, S.Pd</h5>
+                        <p class="card-text">Peran</p>
+                    </div>
+                </div>
+            </div>  
         </div>
     </div>
 </div>

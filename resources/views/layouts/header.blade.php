@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/scrolllogo.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/card-tipe-pkl.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-tim-pkl.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -52,10 +53,11 @@
                 <strong>PKL SMK N 1 BANTUL</strong>
             </a>
             <div>
-                <a href="#">Beranda</a>
-                <a href="#">Tentang PKL</a>
-                <a href="#">Tim PKL</a>
-                <a href="#">Masuk</a>
+                    <a href="/">Beranda</a>
+                    <a href="#tentang-pkl">Tentang PKL</a>
+                    <a href="#sistem-pkl">Sistem PKL</a>
+                    <a href="#tim-pkl">Tim PKL</a>
+                    <a href="#">Masuk</a>
             </div>
             </div>
           </nav>
@@ -63,6 +65,12 @@
     </header>
 
     @yield('content')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+    AOS.init();
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
