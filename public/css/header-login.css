@@ -1,0 +1,29 @@
+.header-login {
+    background-color: #0275d8;
+    color: white;
+    padding: 0 0;
+}
+.header-login .contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 70px;
+}
+.header-login .contact-info a {
+    color: white;
+    margin-left: 10px;
+}
+.header-login .navbar {
+    background-color: white;
+    color: black;
+    padding: 10px 70px;
+}
+.header-login .navbar a {
+    color: black;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.header-login .navbar a:hover {
+    color: #0275d8;
+}

@@ -1,0 +1,17 @@
+.square-card {
+    width: 100%; /* Lebar mengikuti kolom */
+    padding-bottom: 100%; /* Tinggi diatur berdasarkan lebar untuk membuat persegi */
+    position: relative; /* Membuat elemen di dalamnya menjadi relatif */
+}
+
+.square-card .card-body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Menjaga konten berada di tengah kartu */
+}
