@@ -27,3 +27,16 @@
 .header .navbar a:hover {
     color: #0275d8;
 }
+.navbar-nav .nav-link {
+    color: black !important; /* Warna teks default hitam */
+    border-radius: 5px; /* Memberikan sedikit radius untuk tampilan yang lebih baik */
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: white;
+    color: #0275d8 !important; /* Warna teks saat hover */
+    padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
+}
+
+
+
