@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Umum</title>
+    {{-- <title>Dashboard Umum</title> --}}
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/scrolllogo.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
-<<<<<<< HEAD
-=======
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-tim-pkl.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
->>>>>>> 62e6b7d004ee37b0421e3e0516a233bb4737ad8a
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -74,14 +71,8 @@
                     </ul>
                 </div>
             </div>
-<<<<<<< HEAD
-            </div>
-        </nav>
-          
-=======
         </nav>
               
->>>>>>> 62e6b7d004ee37b0421e3e0516a233bb4737ad8a
     </header>
 
     @yield('content')

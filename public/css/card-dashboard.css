@@ -2,10 +2,7 @@
     width: 100%; /* Lebar mengikuti kolom */
     padding-bottom: 100%; /* Tinggi diatur berdasarkan lebar untuk membuat persegi */
     position: relative; /* Membuat elemen di dalamnya menjadi relatif */
-<<<<<<< HEAD
-=======
     transform: translateY(-5px); /* Efek hover untuk mengangkat kartu */
->>>>>>> 62e6b7d004ee37b0421e3e0516a233bb4737ad8a
 }
 
 .square-card .card-body {
@@ -19,8 +16,6 @@
     align-items: center;
     flex-direction: column; /* Menjaga konten berada di tengah kartu */
 }
-<<<<<<< HEAD
-=======
 
 .custom-spacing {
     margin-right: 40px; /* Sesuaikan nilai sesuai kebutuhan */
@@ -30,4 +25,3 @@
 .custom-shadow {
     box-shadow: 10px 15px 8px rgba(0, 0, 0, 0.2), 10px 15px 20px rgba(0, 0, 0, 0.19);
 }
->>>>>>> 62e6b7d004ee37b0421e3e0516a233bb4737ad8a

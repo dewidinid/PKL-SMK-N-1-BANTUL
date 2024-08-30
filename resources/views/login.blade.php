@@ -1,6 +1,7 @@
 @extends('layouts.headerlogin')
 
 @section('content')
+<link rel="stylesheet" href="img/Logo_SMKN1Bantul.png" rel="shortcut-icon">
 
     <div class="container register" style="font-family: 'IBM Plex Sans', sans-serif;">
         <div class="row">
