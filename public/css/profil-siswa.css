@@ -1,0 +1,43 @@
+.profile-container {
+    background: linear-gradient(to bottom, #0275d8, #000);
+    background-size: cover;
+    text-align: center;
+}
+
+.profile-container img {
+    padding-top: 150px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-logout {
+    background-color: #dc3545; /* Warna background tombol */
+    color: #fff; /* Warna teks tombol */
+    border-radius: 50%; /* Membuat tombol berbentuk bulat */
+    padding: 10px 15px; /* Memberikan padding pada tombol */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border: none; /* Menghilangkan border */
+    display: flex; /* Menggunakan flexbox untuk pengaturan konten di dalam tombol */
+    align-items: center; /* Mengatur ikon dan teks agar berada di tengah secara vertikal */
+}
+
+.form-group {
+    text-align: left;
+    text-decoration: white;
+    color: white;
+    max-width: 400px;
+    margin: 0 auto 15px auto;
+}
+
+

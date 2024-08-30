@@ -8,7 +8,18 @@ use App\Http\Controllers\SiswaController;
 // Route untuk menampilkan dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Route::get('/login', [showLoginForm::class, 'index'])->name('login');
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
+// Halaman home siswa
+Route::get('/home_siswa', [SiswaController::class, 'home'])->name('home_siswa');
+
+// Halaman profil siswa
+Route::get('/profil_siswa', [SiswaController::class, 'showProfile'])->name('profil_siswa');
+
+// Route to update profile form data
+Route::post('/update-profile', [SiswaController::class, 'updateProfile'])->name('updateProfile');
 
 Route::get('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan');
 
@@ -17,7 +28,3 @@ Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri')
 Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');
 
 Route::get('/laporanpkl_jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
-
-
-// // Route to handle PKL form submission
-// Route::post('/mandiri/submit', [PKLController::class, 'submitForm'])->name('mandiri.submit');

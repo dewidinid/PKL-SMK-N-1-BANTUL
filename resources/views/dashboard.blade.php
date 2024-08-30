@@ -98,15 +98,15 @@
         <br>
         <div class="row justify-content-center mt-3 mb-3">
             <div class="col-md-3 mb-3 custom-spacing">
-                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL PKL">
+                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL">
                     <i class="bi bi-person-fill me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
-                    <span class="ps-3">Mandiri</span>
+                    <span class="ps-3">MANDIRI</span>
                 </a>
             </div>
             <div class="col-md-3 mb-3 custom-spacing">
-                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL PKL">
+                <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Sistem PKL">
                     <i class="bi bi-bounding-box-circles me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
-                    <span class="ps-3">Pemetaan</span>
+                    <span class="ps-3">PEMETAAN</span>
                 </a>
             </div>
         </div>           

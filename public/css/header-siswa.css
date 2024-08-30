@@ -1,0 +1,50 @@
+.header-siswa {
+    background-color: #0275d8;
+    color: white;
+    padding: 0 0;
+    
+}
+
+.header-siswa .contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 70px;
+}
+.header-siswa .contact-info a {
+    color: white;
+    margin-left: 10px;
+}
+.header-siswa .navbar {
+    background-color: white;
+    color: black;
+    padding: 10px 70px;
+}
+.header-siswa .navbar a {
+    color: black;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.header-siswa .navbar a:hover {
+    color: #0275d8;
+}
+
+.navbar-nav .nav-link {
+    color: black !important; /* Warna teks default hitam */
+    border-radius: 5px; /* Memberikan sedikit radius untuk tampilan yang lebih baik */
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: white;
+    color: #0275d8 !important; /* Warna teks saat hover */
+    padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
+}
+
+.img-profile {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+

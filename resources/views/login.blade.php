@@ -15,26 +15,27 @@
         <!-- button login -->
             <div class="col-md-9 register-right" style="margin-top: 0px;left: 80px; margin-button:10px; ">
                 <div>
-                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist" style="width: 50%;">
-                        <li class="nav-item">
+                    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist" style="width: 50%; margin-top:15px;">
+                        <li class="nav-item" style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px; padding-right: 5px;" >
                         <a class="nav-link active" id="siswa-tab" data-toggle="tab" href="#siswa" role="tab" aria-controls="siswa"
                             aria-selected="true">Siswa</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px; padding-right: 5px;">
                         <a class="nav-link" id="pembimbing-tab" data-toggle="tab" href="#pembimbing" role="tab" aria-controls="pembimbing"
                             aria-selected="false">Pembimbing</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px; padding-right: 5px;">
                         <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin"
                             aria-selected="false">Admin</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" style="margin-top: 5px; margin-bottom: 5px; padding-left: 5px; padding-right: 5px;">
                         <a class="nav-link" id="dudi-tab" data-toggle="tab" href="#dudi" role="tab" aria-controls="dudi"
                             aria-selected="false">Dudi</a>
                         </li>
                     </ul>
                 </div>
 
+                <br>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="siswa" role="tabpanel" aria-labelledby="siswa-tab">
                         <h3 class="register-heading">Login sebagai Siswa</h3>

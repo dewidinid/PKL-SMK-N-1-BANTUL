@@ -1,0 +1,26 @@
+.kategori-card {
+    
+    width: 150px; /* Lebar penuh pada kolom grid */
+    height: 150px; /* Biarkan tinggi otomatis mengikuti konten */
+    background-color: #007bff !important; /* Warna background card kategori */
+    color: #fff; /* Warna teks */
+    border-radius: 8px; /* Sudut melengkung */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px; /* Padding dalam card */
+    text-align: center;
+}
+
+.kategori-card:hover {
+    transform: translateY(-5px); /* Gerakan naik saat hover */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+}
+
+/* Menyesuaikan ukuran ikon dan teks pada layar kecil */
+@media (max-width: 576px) {
+    .kategori-card i {
+        font-size: 24px; /* Ukuran ikon lebih kecil */
+    }
+    .kategori-card span {
+        font-size: 14px; /* Ukuran teks lebih kecil */
+    }
+}
