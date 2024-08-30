@@ -1,9 +1,14 @@
 .sistem-card {
-    height: 150px; /* Menentukan tinggi kartu */
-    border-radius: 10px; /* Opsional: menambahkan sudut melengkung */
-    font-size: 1.25rem; /* Ukuran teks dalam kartu */
+    width: 150px; 
+    height: 150px;
+    background-color: #007bff; /* Warna background card */
+    color: #fff; /* Warna teks */
+    border-radius: 8px; /* Sudut melengkung */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sistem-card i {
-    font-size: 2rem; /* Ukuran ikon */
+.sistem-card:hover {
+    transform: translateY(-5px); /* Gerakan naik saat hover */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
 }
+

@@ -72,13 +72,13 @@ class AuthController extends Controller
         return redirect()->route('login.form');
     }
 
-    /**
-     * Show the dashboard after login.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function dashboard()
-    {
-        return view('dashboard'); // Ganti dengan view dashboard yang sesuai
-    }
+    // /**
+    //  * Show the dashboard after login.
+    //  *
+    //  * @return \Illuminate\View\View
+    //  */
+    // public function dashboard()
+    // {
+    //     return view('dashboard'); // Ganti dengan view dashboard yang sesuai
+    // }
 }

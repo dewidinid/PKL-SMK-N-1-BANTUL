@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Umum</title>
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <title>Dashboard Siswa</title>
+    <link rel="stylesheet" href="{{ asset('css/header-siswa.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/scrolllogo.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/kategori-card.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/card-tim-pkl.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profil-siswa.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+    <header class="header-siswa">
         <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
                 <a href="mailto:smkn1bantul@gmail.com" class="me-3" style="text-decoration: none;">
@@ -53,20 +52,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Beranda</a>
+                            <a class="nav-link" href="{{ route('home_siswa') }}">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#tentang-pkl">Tentang PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sistem-pkl">Sistem PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tim-pkl">Tim PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Masuk</a>
-                        </li>
+                            <a class="nav-link" href="{{ route('profil_siswa') }}">
+                                <img src="" alt="Profil" class="img-profile">
+                            </a>
+                        </li>                        
                     </ul>
                 </div>
             </div>
@@ -78,15 +70,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
-            console.log('Navbar collapse shown');
-        });
-
-        document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
-            console.log('Navbar collapse hidden');
-        });
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
