@@ -1,0 +1,26 @@
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 2px;
+    background-color:#1679AB;
+    color: white;
+}
+    .pagination-btn {
+    background-color: #1679AB;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.pagination-btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+.pagination-number {
+    padding: 10px;
+    border: 1px solid #1679AB;
+    border-radius: 5px;
+    cursor: pointer;
+}
