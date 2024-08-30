@@ -1,0 +1,87 @@
+body {
+    background-color: #0f4c75;
+    background: linear-gradient(to bottom, #1679AB, #093145);
+    color: white;
+    margin: 0;
+}
+
+.navbar {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+.form-container {
+    /* background-color: #1b262c; */
+    padding: 30px;
+    border-radius: 10px;
+    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+    width: 50%;
+    max-width: 500px;
+}
+
+.form-control {
+    background-color: #1b262c;
+    color: white;
+    border: 1px solid #3282b8;
+    border-radius: 20px;
+}
+
+.form-control::placeholder {
+    color: #cfd8dc;
+}
+
+.form-label {
+    color: #ffffff;
+}
+
+.custom-file-upload {
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed #3282b8;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-file-upload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.custom-file-upload .file-upload-text {
+    color: #ffffff;
+}
+
+.button-container {
+    display: flex;           /* Menggunakan Flexbox */
+    justify-content: center; /* Memusatkan secara horizontal */
+    align-items: center;     /* Memusatkan secara vertikal */
+    height: 100vh;           /* Tinggi kontainer sebesar tinggi viewport */
+}
+
+.btn-submit {
+    background-color: #ffffff; /* Warna latar belakang putih */
+    border: 1px solid #ffffff; /* Border putih; ubah jika ingin border yang berbeda */
+    color:#ffffff; /* Ubah teks menjadi hitam atau warna yang diinginkan */
+    display: inline-block; /* Membuat tombol hanya sebesar konten */
+    padding: 10px 20px; /* Padding yang lebih proporsional untuk tombol */
+    border-radius: 5px; /* Membuat sudut tombol membulat */
+    margin: 0 auto; /* Mengatur margin otomatis untuk membuat tombol berada di tengah secara horizontal */
+    width: auto; /* Memastikan tombol hanya sebesar konten */
+    /* justify-content: center; */
+     text-align: center; /*Pusatkan teks di dalam tombol */
+}
+
+.btn-submit:hover {
+    background-color:#3282b8;
+}
+
