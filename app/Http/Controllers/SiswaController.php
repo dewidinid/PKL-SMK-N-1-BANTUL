@@ -64,6 +64,14 @@ class SiswaController extends Controller
 
      return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
  }
+
+ // Method untuk menampilkan halaman verifikasi akhir
+public function verifikasiAkhirPKL()
+{
+    return view('verifikasi_akhir_pkl');
+}
+
+
 }
 
 

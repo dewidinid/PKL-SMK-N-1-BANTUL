@@ -21,3 +21,5 @@ Route::get('/profil_siswa', [SiswaController::class, 'showProfile'])->name('prof
 // Route to update profile form data
 Route::post('/update-profile', [SiswaController::class, 'updateProfile'])->name('updateProfile');
 
+// Route untuk halaman verifikasi akhir PKL
+Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl');
