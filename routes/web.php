@@ -31,3 +31,7 @@ Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri')
 Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');
 
 Route::get('/laporanpkl_jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
+
+Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
+Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
+

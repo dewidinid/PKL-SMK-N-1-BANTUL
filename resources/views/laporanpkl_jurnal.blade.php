@@ -1,49 +1,15 @@
-@extends('layouts.header')
-<title>Laporan PKL (Jurnal) </title>
+@extends('layouts.headersiswa')
+
 
 @section('content')
-
-<style>
-    .table-bordered thead td, .table-bordered thead th {
-    border-bottom-width: 2px;
-    background-color:#1679AB;
-    color: white;
-}
-    .pagination-btn {
-    background-color: #1679AB;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.pagination-btn:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-.pagination-number {
-    padding: 10px;
-    border: 1px solid #1679AB;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.pagination-number.active {
-    background-color: #1679AB;
-    color: white;
-}
-</style>
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
         <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-primary" onclick="openForm()">+ Tambah</button>
+            <button class="btn btn-primary" onclick="openForm()" style="background-color: #0275db">+ Tambah</button>
         </div>
         <table class="table table-bordered">
-            <thead style="background-color: #1679AB !important; color : white !important;">
+            <thead >
                 <tr class="text-center" >
                     <th>No</th>
                     <th>Tanggal</th>
@@ -85,6 +51,10 @@
             </tbody> --}}
         </table>
     </div>
+
+    <br>
+    <br>
+    <br>
 
     <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
         <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>
@@ -156,94 +126,12 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
-    {{-- @section('scripts')
-<script>
-    $(document).on('click', '.pagination a', function(event) {
-        event.preventDefault();
-        var page = $(this).attr('href').split('page=')[1];
-
-        fetchJurnals(page);
-    });
-
-    function fetchJurnals(page) {
-        $.ajax({
-            url: "/jurnals?page=" + page,
-            success: function(data) {
-                $('#jurnal-table-container').html(data);
-            }
-        });
-    }
-</script> --}}
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function openForm() {
-            var modal = new bootstrap.Modal(document.getElementById('jurnalForm'));
-            modal.show();
-        }
-    </script>
-
-    <script>
-        let currentPage = 1;
-        const rowsPerPage = 1; // Jumlah baris per halaman
-        const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
-        const totalPages = Math.ceil(tableData.length / rowsPerPage);
-
-        function displayTablePage(page) {
-            const start = (page - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
-            tableData.forEach((row, index) => {
-                row.style.display = index >= start && index < end ? '' : 'none';
-            });
-        }
-
-        function setupPagination() {
-            const paginationNumbers = document.getElementById('pagination-numbers');
-            paginationNumbers.innerHTML = '';
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('div');
-                pageButton.className = 'pagination-number';
-                pageButton.innerText = i;
-                pageButton.addEventListener('click', () => goToPage(i));
-                paginationNumbers.appendChild(pageButton);
-            }
-        }
-
-        function goToPage(page) {
-            currentPage = page;
-            displayTablePage(page);
-            updatePaginationButtons();
-        }
-
-        function prevPage() {
-            if (currentPage > 1) {
-                goToPage(currentPage - 1);
-            }
-        }
-
-        function nextPage() {
-            if (currentPage < totalPages) {
-                goToPage(currentPage + 1);
-            }
-        }
-
-        function updatePaginationButtons() {
-            document.getElementById('prev-btn').disabled = currentPage === 1;
-            document.getElementById('next-btn').disabled = currentPage === totalPages;
-
-            document.querySelectorAll('.pagination-number').forEach((button, index) => {
-                button.classList.toggle('active', index + 1 === currentPage);
-            });
-        }
-
-        // Inisialisasi tampilan tabel dan pagination
-        displayTablePage(currentPage);
-        setupPagination();
-        updatePaginationButtons();
-
-    </script>
+   
 
 @include('layouts.footer')
 @endsection

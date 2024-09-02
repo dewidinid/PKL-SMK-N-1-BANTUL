@@ -119,4 +119,46 @@ public function verifikasiAkhirPKL()
         return view('jurnal.nextJurnal', compact('jurnals'));
     }
 
+    public function verifikasiAkhir()
+{
+    $isUploaded = true; // Ganti dengan logika cek apakah file sudah diupload
+    return view('verifikasi_akhir', compact('isUploaded'));
+}
+
+public function uploadLaporanPengimbasan(Request $request)
+{
+    $request->validate([
+        'laporan_pengimbasan' => 'required|file|mimes:pdf,doc,docx|max:2048',
+    ]);
+
+    // Proses penyimpanan file
+    $file = $request->file('laporan_pengimbasan');
+    $path = $file->store('laporan_pengimbasan', 'public');
+
+    // Simpan path atau informasi lainnya di database jika perlu
+    // Misalnya:
+    // Auth::user()->update(['laporan_pengimbasan' => $path]);
+
+    // Redirect kembali dengan pesan sukses
+    return back()->with('success', 'Laporan pengimbasan berhasil diupload!');
+}
+
+public function uploadLaporanAkhir(Request $request)
+    {
+        $request->validate([
+            'laporan_akhir' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        // Proses penyimpanan file
+        $file = $request->file('laporan_akhir');
+        $path = $file->store('laporan_akhir', 'public');
+
+        // Simpan path atau informasi lainnya di database jika perlu
+        // Misalnya:
+        // Auth::user()->update(['laporan_akhir' => $path]);
+
+        // Redirect kembali dengan pesan sukses
+        return back()->with('success_laporan_akhir', 'Laporan akhir berhasil diupload!');
+    }
+
 }

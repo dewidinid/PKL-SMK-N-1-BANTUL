@@ -1,0 +1,13 @@
+
+        .alur-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Membuat kontainer memiliki tinggi penuh layar */
+        }
+
+        .center-button-container{
+            display: flex;           /* Menggunakan Flexbox */
+            justify-content: center; /* Memusatkan secara horizontal */
+            align-items: center;     /* Memusatkan secara vertikal */
+        }
