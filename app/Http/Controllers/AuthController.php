@@ -68,17 +68,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Auth::logout();
-        return redirect()->route('login.form');
+        Auth::logout(); // Logout the user
+        return redirect('/'); // Redirect to the main dashboard
     }
-
-    // /**
-    //  * Show the dashboard after login.
-    //  *
-    //  * @return \Illuminate\View\View
-    //  */
-    // public function dashboard()
-    // {
-    //     return view('dashboard'); // Ganti dengan view dashboard yang sesuai
-    // }
 }

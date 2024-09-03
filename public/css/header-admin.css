@@ -1,0 +1,42 @@
+.header-admin {
+    background-color: #0275d8;
+    color: white;
+    padding: 0 0;
+}
+.header-admin .contact-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 70px;
+}
+.header-admin .contact-info a {
+    color: white;
+    margin-left: 10px;
+}
+.header-admin .navbar {
+    background-color: #fff;
+    color: black;
+    padding: 10px 70px;
+}
+.header-admin .navbar a {
+    color: black;
+    margin-right: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.header-admin .navbar a:hover {
+    color: #0275d8;
+}
+.navbar-nav .nav-link {
+    color: black !important; /* Warna teks default hitam */
+    border-radius: 5px; /* Memberikan sedikit radius untuk tampilan yang lebih baik */
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: white;
+    color: #0275d8 !important; /* Warna teks saat hover */
+    padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
+}
+
+
+

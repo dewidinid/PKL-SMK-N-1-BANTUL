@@ -49,7 +49,7 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 custom-spacing">
                     <a href="{{ route ('laporanpkl_jurnal') }}" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Laporan PKL">
                         <i class="bi bi-chat-left-text"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
-                        <span class="ps-3">LAPORAN PKL (JURNAL)</span>
+                        <span class="ps-3">LAPORAN/JURNAL PKL</span>
                     </a>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 custom-spacing">
