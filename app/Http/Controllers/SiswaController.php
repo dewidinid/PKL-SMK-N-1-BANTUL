@@ -85,17 +85,28 @@ public function verifikasiAkhirPKL()
     }
 
     public function submitForm(Request $request)
-    {
-        return view ('formpengajuan');
+{
+    $validated = $request->validate([
+        'nis' => 'required|string',
+        'name' => 'required|string',
+        'jurusan' => 'required|string',
+        'no_handphone' => 'required|string',
+        'rencana_tempat_pkl' => 'required|string',
+        'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
+    ]);
 
-        $validated = $request->validate([
-            'nis' => 'required|string',
-            'name' => 'required|string',
-            'jurusan' => 'required|string',
-            'no_handphone' => 'required|string',
-            'rencana_tempat_pkl' => 'required|string',
-            'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
-        ]);
+    // Menyimpan file proposal
+    $filePath = $request->file('proposal_pkl')->store('proposals');
+
+    // Menyimpan data pengajuan ke database
+    PengajuanPkl::create([
+        'nis' => $request->input('nis'),
+        'name' => $request->input('name'),
+        'jurusan' => $request->input('jurusan'),
+        'no_handphone' => $request->input('no_handphone'),
+        'rencana_tempat_pkl' => $request->input('rencana_tempat_pkl'),
+        'proposal_pkl' => $filePath,
+    ]);
 
         return redirect()->route('formpengajuan')->with('Berhasil', 'Pengajuan PKL berhasil dikirim!');
         return view ('mandiri');

@@ -3,8 +3,24 @@
     background-color: #0275d8;
     color: white;
 }
-    .pagination-btn {
-    background-color: #1679AB;
+
+/* Pastikan CSS ini dimuat dengan benar */
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2 !important; /* Warna latar belakang untuk baris ganjil */
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
+}
+
+/* CSS untuk memusatkan teks di header dan sel tabel */
+.table thead th, .table tbody td {
+    text-align: center; /* Memusatkan teks di kolom tabel */
+}
+
+
+.pagination-btn {
+    background-color: #0275d8;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -20,7 +36,7 @@
 
 .pagination-number {
     padding: 10px;
-    border: 1px solid #1679AB;
+    border: 1px solid #0275d8;
     border-radius: 5px;
     cursor: pointer;
 }

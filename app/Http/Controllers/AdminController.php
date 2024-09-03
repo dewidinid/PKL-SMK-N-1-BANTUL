@@ -12,6 +12,7 @@ class AdminController extends Controller
         return view('home_admin');
     }
     
+<<<<<<< HEAD
     public function dataSiswa()
     {
         // Anda dapat mengirimkan data ke view jika diperlukan
@@ -30,3 +31,20 @@ class AdminController extends Controller
         return view('ploting_siswa');
     }
 }
+=======
+    public function suratPengajuan()
+    {
+        // Mengambil data pengajuan PKL dari database
+        // $pengajuanPkl = PengajuanPkl::all(); // Ambil semua data pengajuan PKL
+
+        // Mengirimkan data ke view
+        return view('suratpengajuanmandiri');
+    }
+
+    public function guruPembimbing()
+    {
+        // Mengirimkan data ke view
+        return view('guru_pembimbing');
+    }
+}
+>>>>>>> b4f53ba9473792981d91fd2e6bc21c5bcd6e558e

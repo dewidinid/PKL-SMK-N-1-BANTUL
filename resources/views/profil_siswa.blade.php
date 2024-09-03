@@ -4,10 +4,15 @@
 
     <div class="profile-container">
         <!-- Logout Button -->
-        <a href="" class="btn btn-danger btn-logout position-absolute top-250 end-0 m-3" >
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+
+        <a href="#" class="btn btn-danger btn-logout position-absolute top-250 end-0 m-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="bi bi-box-arrow-right"></i>
             <span>Logout</span>
         </a>
+
 
         <div class="container">
             <!-- Display Profile Picture -->
