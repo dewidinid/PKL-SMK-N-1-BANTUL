@@ -44,7 +44,8 @@
                     <label for="proposal_pkl" class="form-label">Proposal PKL (Dijadikan satu)</label>
                     <div class="custom-file-upload">
                         <input type="file" id="proposal_pkl" name="proposal_pkl">
-                        <span class="file-upload-text"> + Add File</span>
+                      
+                        <span class="file-upload-text">   <i class="icofont-upload-alt"></i> Add File</span>
                     </div>
                 </div>
                 <br>

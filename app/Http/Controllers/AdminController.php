@@ -12,4 +12,21 @@ class AdminController extends Controller
         return view('home_admin');
     }
     
+    public function dataSiswa()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('data_siswa');
+    }
+
+    public function dataMitraDudi()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('data_mitradudi');
+    }
+
+    public function plotingSiswa()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('ploting_siswa');
+    }
 }

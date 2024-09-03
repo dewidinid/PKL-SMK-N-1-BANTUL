@@ -120,7 +120,6 @@
                     <form method="POST" id="jurnalForm">
                         {{-- action="{{ route('laporanpkl.store') }}"  --}}
                         @csrf
-                        <!-- Form fields as before -->
                     </form>
                 </div>
             </div>

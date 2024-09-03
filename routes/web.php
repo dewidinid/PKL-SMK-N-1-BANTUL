@@ -33,10 +33,10 @@ Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaa
 
 Route::get('/laporanpkl_jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
 
-<<<<<<< HEAD
 Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
-=======
 Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
 Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
 
->>>>>>> 71fa89770e339bd56603ebcdcd2cdd7da21dfef1
+Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa');
+Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi');
+Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa');
