@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\AdminController;
 
 // Route untuk menampilkan dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -31,3 +32,5 @@ Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri')
 Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');
 
 Route::get('/laporanpkl_jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
+
+Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
