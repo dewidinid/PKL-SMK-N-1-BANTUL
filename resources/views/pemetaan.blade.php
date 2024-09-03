@@ -1,18 +1,10 @@
-@extends('layouts.header')
+@extends('layouts.headersiswa')
 
 @section('content')
-<title>PKL Pemetaan </title>
 <br>
-    <h4 style="text-align: center;">ALUR PKL SMK N 1 BANTUL</h4>
+<br>
 
-    <style>
-        .alur-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Membuat kontainer memiliki tinggi penuh layar */
-        }
-    </style>
+    <h4 style="text-align: center;">ALUR PKL SMK N 1 BANTUL</h4>
 
     <div class="alur-container">
         <div>
@@ -20,8 +12,15 @@
         </div>
     </div>
 
+    <br>
+
 {{-- pengumuman --}}
 <h4 style="text-align: center;">Pengumuman</h4>
+
+<br>
+<br>
+<br>
+<br>
     
 @include('layouts.footer')
 @endsection

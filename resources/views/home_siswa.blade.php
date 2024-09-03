@@ -25,15 +25,15 @@
             <br>
             <div class="row justify-content-center mt-3 mb-3">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Kategori PKL">
+                    <a href="{{ route('mandiri') }}" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Kategori PKL">
                         <i class="bi bi-person-fill me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
                         <span class="ps-3">MANDIRI</span>
                     </a>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Kategori PKL">
+                    <a href="{{ route('pemetaan') }}" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Kategori PKL">
                         <i class="bi bi-bounding-box-circles me-2"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
-                        <span class="ps-3">PEMETAANA</span>
+                        <span class="ps-3">PEMETAAN</span>
                     </a>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <br>
             <div class="row justify-content-center mt-3 mb-3">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Laporan PKL">
+                    <a href="{{ route ('laporanpkl_jurnal') }}" class="btn btn-success btn-lg w-100 d-flex align-items-center justify-content-center kategori-card custom-shadow" alt="Laporan PKL">
                         <i class="bi bi-chat-left-text"></i> <!-- Ganti dengan ikon yang Anda inginkan -->
                         <span class="ps-3">LAPORAN PKL (JURNAL)</span>
                     </a>
