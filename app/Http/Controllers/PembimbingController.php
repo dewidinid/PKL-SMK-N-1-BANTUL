@@ -11,4 +11,26 @@ class PembimbingController extends Controller
         // Anda dapat mengirimkan data ke view jika diperlukan
         return view('home_pembimbing');
     }
+
+    public function hasilNilaiPKL()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('hasil_nilaipkl');
+    }
+
+    public function hasilLaporanPengimbasan()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('hasil_laporanpengimbasan');
+    }
+
+    public function pembimbingLaporanJurnal()
+    {
+        return view('pembimbing_laporanjurnal');
+    }
+
+    public function hasilLaporanAkhir()
+    {
+        return view('hasil_laporanakhir');
+    }
 }

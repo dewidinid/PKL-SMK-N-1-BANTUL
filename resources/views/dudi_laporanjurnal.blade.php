@@ -4,7 +4,18 @@
 
     <div class="container mt-5">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+        <br>
 
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div >
+                <select class="form-select d-inline-block w-auto" name="bulan">
+                    <option selected>Bulan</option>
+                </select>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
+                </select>
+            </div>
+        </div>
 
         <table class="table table-bordered">
             <thead >

@@ -17,7 +17,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="{{ route ('hasil_laporanjurnal') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
+                    <a href="{{ route ('dudi_laporanjurnal') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
                         <i class="bi bi-chat-left-text"></i> 
                         <span class="ps-3">LAPORAN/JURNAL PKL</span>
                     </a>
