@@ -42,7 +42,7 @@
                     <th>Tahun</th>
                 <br>
             </thead>
-            <tbody id="data-table">
+            <tbody id="data-table" >
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>

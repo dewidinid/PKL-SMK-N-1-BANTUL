@@ -1,4 +1,4 @@
-@extends('layouts.headersiswa')
+@extends('layouts.headeradmin')
 
 
 @section('content')

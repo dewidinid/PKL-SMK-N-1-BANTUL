@@ -1,4 +1,4 @@
-@extends('layouts.headersiswa')
+@extends('layouts.headeradmin')
 
 
 @section('content')
@@ -40,7 +40,7 @@
                     <td>Tahun</td>
                 <br>
             </thead>
-            <tbody id="data-table">
+            <tbody id="data-table" >
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>

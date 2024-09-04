@@ -11,7 +11,7 @@
             <br>
             <div class="row justify-content-center mt-3 mb-3">
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
+                    <a href="{{ route ('data_siswa') }}" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
                         <i class="bi bi-people-fill me-2"></i> 
                         <span class="ps-3">DATA SISWA</span>
                     </a>
@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Ploting Siswa">
+                    <a href="{{ route ('ploting_siswa') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Ploting Siswa">
                         <i class="bi bi-diagram-3"></i> 
                         <span class="ps-3">PLOTING SISWA</span>
                     </a>
@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="#" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Mitra Dudi">
+                    <a href="{{ route ('data_mitradudi') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Mitra Dudi">
                         <i class="bi bi-buildings"></i> 
                         <span class="ps-3">MITRA DUDI</span>
                     </a>

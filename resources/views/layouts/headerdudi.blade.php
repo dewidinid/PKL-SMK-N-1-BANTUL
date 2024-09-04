@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+    <title>Dashboard Dudi</title>
     <link rel="stylesheet" href="{{ asset('css/header-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
@@ -51,7 +51,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home_admin') }}">Beranda</a>
+                            <a class="nav-link" href="{{ route('home_dudi') }}">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
