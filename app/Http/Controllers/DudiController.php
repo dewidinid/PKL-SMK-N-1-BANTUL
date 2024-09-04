@@ -19,5 +19,9 @@ class DudiController extends Controller
         return view('nilai_pkl');
     }
 
+    public function hasilLaporanJurnal()
+    {
+        return view('hasil_laporanjurnal');
+    }
 
 }

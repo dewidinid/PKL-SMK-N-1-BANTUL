@@ -29,6 +29,5 @@
 <br>
 <br>
 
-
 @include('layouts.footer')
 @endsection

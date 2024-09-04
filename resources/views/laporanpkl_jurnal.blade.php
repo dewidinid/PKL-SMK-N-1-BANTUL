@@ -1,8 +1,6 @@
 @extends('layouts.headersiswa')
 
-
 @section('content')
-
     <div class="container mt-5">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
         <div class="d-flex justify-content-end mb-3">
@@ -130,7 +128,7 @@
     <br>
     <br>
 
-   
+
 
 @include('layouts.footer')
 @endsection

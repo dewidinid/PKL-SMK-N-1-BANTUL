@@ -1,5 +1,8 @@
 @extends('layouts.headerdudi')
+<<<<<<< HEAD
+=======
 
+>>>>>>> 4d57ad1bc3a40d630c2f6ecd3b518f8bbef7269f
 
 @section('content')
 <br>
@@ -8,7 +11,6 @@
     <h4 class="text-center">NILAI PKL SISWA</h4> <br>
 
     <div class="row">
-
             <a class="col text-start" href="#" class="btn btn-link">Template Nilai PKL</a>
         <div class="col text-end">
             <select class="form-select d-inline-block w-auto" name="tahun">
@@ -62,29 +64,30 @@
                 <td>K001</td>
                 <td>16034</td>
                 <td>Rulli Ardha Ramadhan</td>
-                <td>089189793298</td>
+                <td>Teknik Komputer Jaringan</td>
+                <td>TKJ 1</td>
                 <td>2024/2025</td>
 
-                    <td>
+                <td>
                     <form  method="POST" enctype="multipart/form-data">
                         {{-- action="{{ route('upload-file') }}" --}}
                         @csrf
                         <label for="file-upload" class="btn btn-primary d-flex align-items-center"> Upload </label>
                         <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
                     </form>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Import</button>
-                    </td>
-                    <td class="text-center">
-                        <input type="checkbox" name="check[]" value="1">
-                    </td>
+                </td>
+                <td>
+                    <button class="btn btn-primary">Import</button>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="1">
+                </td>
 
 
             </tr>
         </tbody>
     </table>
-    <br><br>
+    <br>
 
     <h4 class="text-center mt-5">DETAIL NILAI</h4> <br>
 
@@ -118,6 +121,48 @@
                     @endforeach
                 @endforeach
             </tbody> --}}
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>16034</td>
+                    <td>Rulli Ardha Ramadhan</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>16034</td>
+                    <td>Rulli Ardha Ramadhan</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>16034</td>
+                    <td>Rulli Ardha Ramadhan</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>16034</td>
+                    <td>Rulli Ardha Ramadhan</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                    <td>90</td>
+                </tr>
+            </tbody>
         </table>
     </div>
 
@@ -126,9 +171,7 @@
     </div>
 </div>
 
-<br><br>
-
-   
+<br><br>  
 
 @include('layouts.footer')
 @endsection
