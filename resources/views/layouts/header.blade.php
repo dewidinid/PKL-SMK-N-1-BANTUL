@@ -41,7 +41,7 @@
             </div>            
         </div>
   
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">

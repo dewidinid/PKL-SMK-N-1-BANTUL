@@ -44,8 +44,5 @@ class AdminController extends Controller
         // Mengirimkan data ke view
         return view('guru_pembimbing');
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> eea1e0119a582165ddcdb066c0d24c284afc0476
+

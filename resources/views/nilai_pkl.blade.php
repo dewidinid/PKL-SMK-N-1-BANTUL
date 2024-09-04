@@ -1,6 +1,4 @@
-
-
-    @extends('layouts.headersiswa')
+@extends('layouts.headerdudi')
 
 
 @section('content')

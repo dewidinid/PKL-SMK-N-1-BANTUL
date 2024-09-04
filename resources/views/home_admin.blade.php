@@ -1,8 +1,8 @@
 @extends('layouts.headeradmin')
 
 @section('content')
-<br>
-<br>
+<body>
+
     <div class="container">
         <div id="home_admin" class="text-center mb-5" data-aos="fade-up">
             <br>
@@ -49,6 +49,7 @@
 <br>
 <br>
 <br>
+</body>
 
 
 @include('layouts.footer')
