@@ -1,6 +1,6 @@
 .header-admin {
     background-color: #0275d8;
-    color: #fff !important;
+    color: #ffffff !important;
     padding: 0 0;
 }
 .header-admin .contact-info {
@@ -10,11 +10,11 @@
     padding: 0 70px;
 }
 .header-admin .contact-info a {
-    color: white;
+    color: #ffffff;
     margin-left: 10px;
 }
 .header-admin .navbar {
-    background-color: #fff;
+    background-color: #ffffff;
     color: black;
     padding: 10px 70px;
 }
@@ -33,7 +33,7 @@
 }
 
 .navbar-nav .nav-link:hover {
-    text-decoration: white;
+    text-decoration: #ffffff;
     color: #0275d8 !important; /* Warna teks saat hover */
     padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
 }
