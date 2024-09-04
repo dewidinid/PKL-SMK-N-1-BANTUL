@@ -1,8 +1,5 @@
 @extends('layouts.headerdudi')
-<<<<<<< HEAD
-=======
 
->>>>>>> 4d57ad1bc3a40d630c2f6ecd3b518f8bbef7269f
 
 @section('content')
 <br>
@@ -23,8 +20,8 @@
             </select>
         </div>
     </div>
-
-    <table class="table table-striped mt-5">
+<br>
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>No</th>
@@ -58,7 +55,7 @@
                 </tr>
             @endforeach
         </tbody> --}}
-        <tbody>
+        <tbody class="table table-striped">
             <tr>
                 <td>1</td>
                 <td>K001</td>
@@ -92,7 +89,7 @@
     <h4 class="text-center mt-5">DETAIL NILAI</h4> <br>
 
     <div class="table-responsive" style="max-height: 400px; overflow-y: scroll;">
-        <table class="table table-striped">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>No</th>
@@ -121,7 +118,7 @@
                     @endforeach
                 @endforeach
             </tbody> --}}
-            <tbody>
+            <tbody class="table table-striped">
                 <tr>
                     <td>1</td>
                     <td>16034</td>

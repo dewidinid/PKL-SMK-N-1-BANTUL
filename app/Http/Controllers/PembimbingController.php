@@ -12,6 +12,7 @@ class PembimbingController extends Controller
         return view('home_pembimbing');
     }
 
+<<<<<<< HEAD
     public function monitoringPKL()
     {
         return view('monitoring');
@@ -30,5 +31,27 @@ class PembimbingController extends Controller
     public function evaluasiPerSiswa()
     {
         return view('evaluasi_persiswa');
+=======
+    public function hasilNilaiPKL()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('hasil_nilaipkl');
+    }
+
+    public function hasilLaporanPengimbasan()
+    {
+        // Anda dapat mengirimkan data ke view jika diperlukan
+        return view('hasil_laporanpengimbasan');
+    }
+
+    public function pembimbingLaporanJurnal()
+    {
+        return view('pembimbing_laporanjurnal');
+    }
+
+    public function hasilLaporanAkhir()
+    {
+        return view('hasil_laporanakhir');
+>>>>>>> aedb92d27f0867be0b465817be7224f56acf2a5c
     }
 }
