@@ -11,17 +11,18 @@
             <br>
             <div class="row justify-content-center mt-3 mb-3">
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
+                    <a href="{{ route ('nilai_pkl') }}" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
                         <i class="bi bi-file-earmark-text"></i> 
                         <span class="ps-3">NILAI PKL</span>
                     </a>
                 </div>
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
+                    <a href="{{ route ('hasil_laporanjurnal') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
                         <i class="bi bi-chat-left-text"></i> 
                         <span class="ps-3">LAPORAN/JURNAL PKL</span>
                     </a>
                 </div>
+            </div>
         </div>
     </div>
 <br>
