@@ -22,12 +22,12 @@
                         <span class="ps-3">LAPORAN/JURNAL PKL</span>
                     </a>
                 </div>
+            </div>
         </div>
     </div>
 <br>
 <br>
 <br>
-
 
 @include('layouts.footer')
 @endsection
