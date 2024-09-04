@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DudiController;
+use App\Http\Controllers\PembimbingController;
 
 // Route untuk menampilkan dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -54,5 +55,9 @@ Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
 Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
 
+<<<<<<< HEAD
 Route::get('/hasil_laporanjurnal', [DudiController::class, 'hasilLaporanJurnal'])->name('hasil_laporanjurnal');
 
+=======
+Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing');
+>>>>>>> 4d57ad1bc3a40d630c2f6ecd3b518f8bbef7269f
