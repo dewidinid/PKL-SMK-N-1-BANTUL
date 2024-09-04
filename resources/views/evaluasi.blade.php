@@ -1,10 +1,10 @@
-@extends('layouts.headeradmin')
+@extends('layouts.headerpembimbing')
 
 
 @section('content')
 
 <div class="container mt-5">
-    <h4 class="text-center">MONITORING</h4>
+    <h4 class="text-center">EVALUASI PKL</h4>
   <!-- Filter Tahun dan Jurusan -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div >
@@ -29,7 +29,7 @@
                 <td>Konsentrasi Keahlian</td>
                 <td>Kelas</td>
                 <td>Tahun</td>
-                <td>Monitoring</td>
+                <td>Evaluasi</td>
             <br>
         </thead>
         <tbody id="data-table" >
@@ -49,7 +49,7 @@
                 <td>TKJ 1</td>
                 <td>2024/2025</td>
                 <td>
-                    <button class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
+                    <button class="btn" style="background-color: #e67e55; border-radius: 5px; padding: 5px;">
                         <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
                     </button>
                 </td>

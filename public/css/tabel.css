@@ -1,23 +1,86 @@
-.table-bordered thead td, .table-bordered thead th {
-    border-bottom-width: 2px;
+/* General table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.table thead {
+    background-color: #0275d8;
+    color: white;
+    border-radius: 5px;
+}
+
+.table thead th {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #C5D7E0;
+}
+
+.table tbody td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Total row styles */
+.table tfoot {
     background-color: #0275d8;
     color: white;
 }
 
-/* Pastikan CSS ini dimuat dengan benar */
-.table-striped tbody tr:nth-child(odd) {
-    background-color: #f2f2f2 !important; /* Warna latar belakang untuk baris ganjil */
+.table tfoot td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    text-align: center;
 }
 
-.table-striped tbody tr:nth-child(even) {
-    background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
+/* Rounded corners */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
 }
 
-/* CSS untuk memusatkan teks di header dan sel tabel */
-.table thead th, .table tbody td {
-    text-align: center; /* Memusatkan teks di kolom tabel */
-}
+/* Responsive table */
+@media (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
 
+    .table tr {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .table td {
+        display: block;
+        text-align: right;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+}
 
 .pagination-btn {
     background-color: #0275d8;

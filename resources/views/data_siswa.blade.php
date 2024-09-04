@@ -1,32 +1,31 @@
 @extends('layouts.headeradmin')
 
-
 @section('content')
 <br>
 <div class="container mt-5">
     <h4 class="text-center">DATA SISWA</h4>
-  <!-- Filter Tahun dan Jurusan -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div >
-        <select class="form-select d-inline-block w-auto" name="tahun">
-            <option selected>Tahun</option>
-            <!-- Tambahkan opsi tahun -->
-        </select>
-        <select class="form-select d-inline-block w-auto" name="jurusan">
-            <option selected>Jurusan</option>
-            <!-- Tambahkan opsi jurusan -->
-        </select>
-    </div>
+    <!-- Filter Tahun dan Jurusan -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div >
+            <select class="form-select d-inline-block w-auto" name="tahun">
+                <option selected>Tahun</option>
+                <!-- Tambahkan opsi tahun -->
+            </select>
+            <select class="form-select d-inline-block w-auto" name="jurusan">
+                <option selected>Jurusan</option>
+                <!-- Tambahkan opsi jurusan -->
+            </select>
+        </div>
 
-    <form  method="POST" enctype="multipart/form-data">
-        {{-- action="{{ route('upload-file') }}" --}}
-        @csrf
-        <label for="file-upload" class="btn btn-primary d-flex align-items-center">
-            Upload <i class="fas fa-upload ms-2"></i>
-        </label>
-        <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
-    </form>
-</div>
+        <form  method="POST" enctype="multipart/form-data">
+            {{-- action="{{ route('upload-file') }}" --}}
+            @csrf
+            <label for="file-upload" class="btn btn-primary d-flex align-items-center">
+                Upload <i class="fas fa-upload ms-2"></i>
+            </label>
+            <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+        </form>
+    </div>
 
         <table class="table table-bordered">
             <thead >
@@ -71,7 +70,7 @@
             </tbody> --}}
 
         </table>
-    </div>
+</div>
 
     <br>
     <br>
