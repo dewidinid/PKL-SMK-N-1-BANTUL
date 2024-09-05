@@ -49,9 +49,9 @@
                 <td>TKJ 1</td>
                 <td>2024/2025</td>
                 <td>
-                    <button class="btn" style="background-color: #e67e55; border-radius: 5px; padding: 5px;">
+                    <a href="{{ route ('evaluasi_persiswa')}}" class="btn" style="background-color: #e67e55; border-radius: 5px; padding: 5px;">
                         <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
-                    </button>
+                    </a>
                 </td>
             </tr>
         </tbody>

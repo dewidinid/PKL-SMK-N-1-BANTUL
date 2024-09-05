@@ -11,7 +11,7 @@
             <br>
             <div class="row justify-content-center mt-3 mb-3">
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
+                    <a href="{{ route ('monitoring') }}" class="btn btn-primary btn-lg w-100 h-70 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Data Siswa">
                         <i class="bi bi-display"></i>
                         <span class="ps-3">MONITORING PKL</span>
                     </a>
@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <div class="col-md-3 mb-3 custom-spacing">
-                    <a href="" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
+                    <a href="{{ route ('evaluasi') }}" class="btn btn-primary btn-lg w-100 d-flex align-items-center justify-content-center sistem-card custom-shadow" alt="Guru Pembimbing">
                         <i class="bi bi-bar-chart-line"></i>
                         <span class="ps-3">EVALUASI PKL</span>
                     </a>

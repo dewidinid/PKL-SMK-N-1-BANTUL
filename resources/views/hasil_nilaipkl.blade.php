@@ -52,7 +52,7 @@
             </tr>
         @endforeach
     </tbody> --}}
-    <tbody class="table table-striped">
+    <tbody class="table table-striped" id="data-table">
         <tr class="text-center align-middle">
             <td class="align-middle">1</td>
             <td class="align-middle">K001</td>

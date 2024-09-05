@@ -55,7 +55,6 @@ Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
 Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
 
-<<<<<<< HEAD
 Route::get('/hasil_laporanjurnal', [DudiController::class, 'hasilLaporanJurnal'])->name('hasil_laporanjurnal');
 
 // Home Pembimbing
@@ -66,7 +65,6 @@ Route::get('/monitoring_persiswa', [PembimbingController::class, 'monitoringPerS
 Route::get('/evaluasi', [PembimbingController::class, 'evaluasiPKL'])->name('evaluasi');
 
 Route::get('/evaluasi_persiswa', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa');
-=======
 Route::get('/dudi_laporanjurnal', [DudiController::class, 'dudiLaporanJurnal'])->name('dudi_laporanjurnal');
 
 Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing');
@@ -75,4 +73,3 @@ Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->n
 Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan');
 Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal');
 Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkhir'])->name('hasil_laporanakhir');
->>>>>>> aedb92d27f0867be0b465817be7224f56acf2a5c

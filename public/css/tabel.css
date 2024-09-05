@@ -1,90 +1,58 @@
-/* General table styles */
+/* CSS untuk tabel dengan sudut melengkung */
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 1rem;
-    text-align: left;
+    border-radius: 8px; /* Sudut melengkung pada tabel */
+    overflow: hidden; /* Menyembunyikan bagian luar dari sudut melengkung */
 }
 
 .table thead {
-    background-color: #0275d8;
-    color: white;
-    border-radius: 5px;
+    border-top-left-radius: 8px; /* Sudut melengkung di kiri atas header tabel */
+    border-top-right-radius: 8px; /* Sudut melengkung di kanan atas header tabel */
 }
 
-.table thead th {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
+.table tfoot  {
+    border-bottom-left-radius: 8px; /* Sudut melengkung di kiri bawah footer tabel */
 }
 
-.table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: #C5D7E0;
-}
-
-.table tbody td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-/* Total row styles */
 .table tfoot {
+    border-bottom-right-radius: 8px; /* Sudut melengkung di kanan bawah footer tabel */
+}
+
+/* Gaya header tabel */
+.table thead td, .table thead th {
+    border-bottom-width: 2px;
     background-color: #0275d8;
     color: white;
 }
 
+/* Gaya baris tabel ganjil dan genap */
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2 !important; /* Warna latar belakang untuk baris ganjil */
+}
+
+.table-striped tbody tr:nth-child(even) {
+    background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
+}
+
+/* CSS untuk memusatkan teks di header dan sel tabel kecuali kolom Evaluasi */
+.table thead th, .table tbody td {
+    text-align: center; /* Memusatkan teks di kolom tabel */
+}
+
+/* CSS khusus untuk kolom Evaluasi agar rata kiri */
+.table .left-align {
+    text-align: left; /* Rata kiri untuk kolom Evaluasi */
+}
+
+/* CSS untuk tfoot */
 .table tfoot td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    font-weight: bold;
-    text-align: center;
+    background-color: #0275d8 !important; /* Warna latar belakang untuk tfoot */
+    color: white !important;
+    font-weight: bold; /* Membuat teks pada tfoot lebih tebal */
+    text-align: center; /* Memusatkan teks di dalam sel tfoot */
+    border-top: 1px solid #0275d8; /* Menambahkan garis atas pada tfoot */
 }
 
-/* Rounded corners */
-.table {
-    border-radius: 10px;
-    overflow: hidden;
-}
 
-/* Responsive table */
-@media (max-width: 768px) {
-    .table thead {
-        display: none;
-    }
-
-<<<<<<< HEAD
-    .table tr {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .table td {
-        display: block;
-        text-align: right;
-        position: relative;
-        padding-left: 50%;
-    }
-
-    .table td:before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: bold;
-    }
-}
-
-=======
->>>>>>> aedb92d27f0867be0b465817be7224f56acf2a5c
 .pagination-btn {
     background-color: #0275d8;
     color: white;

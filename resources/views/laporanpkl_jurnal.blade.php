@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
         <div class="d-flex justify-content-end mb-3">
-            <button class="btn btn-primary" onclick="openForm()" style="background-color: #0275db">+ Tambah</button>
+            <button onclick="openForm()" style="background-color: #0275d8">+ Tambah</button>
         </div>
         <table class="table table-bordered">
             <thead >

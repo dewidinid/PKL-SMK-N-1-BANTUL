@@ -45,7 +45,4 @@ class AdminController extends Controller
         return view('guru_pembimbing');
     }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 4d57ad1bc3a40d630c2f6ecd3b518f8bbef7269f

@@ -117,7 +117,7 @@
                 <td>{{ array_sum(array_column($detailMonitoring, 'nilai_akhir')) }}</td>
             </tr>
         </tbody> --}}
-        <tbody>
+        <tbody class="table table-striped">
             <tr>
                 <td>Ke-1</td>
                 <td>90</td>
@@ -143,14 +143,14 @@
                 <td>90</td>
             </tr>
         </tbody>
-        <tfoot class="text-center" >
-            <tr style="background-color: #1976D2 !important" >
-                <th colspan="5" >Total Nilai</th>
-                <th>170</th> <!-- Contoh total dari semua nilai -->
+        <tfoot >
+            <tr>
+                <td colspan="5" >Total Nilai</td>
+                <td>170</td> <!-- Contoh total dari semua nilai -->
             </tr>
-            <tr style="background-color: #1976D2">
-                <th colspan="5">Rata-rata</th>
-                <th>85</th> <!-- Contoh rata-rata -->
+            <tr>
+                <td colspan="5">Rata-rata</td>
+                <td>85</td> <!-- Contoh rata-rata -->
             </tr>
         </tfoot>
 
@@ -161,7 +161,7 @@
         <span>90</span> <!-- Ganti nilai 90 dengan nilai dinamis dari database -->
     </div> --}}
 
-    <div class="mt-4 d-flex justify-content-center">
+    <div class="mt-4 d-flex justify-content-left">
         <button class="btn btn-primary">Export Nilai PKL</button>
     </div>
 </div>

@@ -33,29 +33,29 @@
                         <th>Nilai Akhir</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table table-striped">
                     <tr>
-                        <td data-label="Evaluasi">Laporan / Jurnal PKL</td>
+                        <td class="left-align" data-label="Evaluasi">Laporan / Jurnal PKL</td>
                         <td data-label="Persentase">10%</td>
                         <td data-label="Nilai Akhir">90</td>
                     </tr>
                     <tr>
-                        <td data-label="Evaluasi">Nilai PKL Dudi</td>
+                        <td class="left-align" data-label="Evaluasi">Nilai PKL Dudi</td>
                         <td data-label="Persentase">50%</td>
                         <td data-label="Nilai Akhir">90</td>
                     </tr>
                     <tr>
-                        <td data-label="Evaluasi">Monitoring Pembimbing</td>
+                        <td class="left-align" data-label="Evaluasi">Monitoring Pembimbing</td>
                         <td data-label="Persentase">20%</td>
                         <td data-label="Nilai Akhir">90</td>
                     </tr>
                     <tr>
-                        <td data-label="Evaluasi">Laporan Pengimbasan</td>
+                        <td class="left-align" data-label="Evaluasi">Laporan Pengimbasan</td>
                         <td data-label="Persentase">10%</td>
                         <td data-label="Nilai Akhir">90</td>
                     </tr>
                     <tr>
-                        <td data-label="Evaluasi">Laporan Akhir PKL</td>
+                        <td class="left-align" data-label="Evaluasi">Laporan Akhir PKL</td>
                         <td data-label="Persentase">10%</td>
                         <td data-label="Nilai Akhir">90</td>
                     </tr>
@@ -67,6 +67,7 @@
                     </tr>
                 </tfoot>
             </table>
+            
     
         </div> <!-- End of max-width wrapper -->
     </div>
@@ -79,7 +80,7 @@
         <span>90</span> <!-- Ganti nilai 90 dengan nilai dinamis dari database -->
     </div> --}}
 
-    <div class="mt-4 d-flex justify-content-center">
+    <div class="mt-4 d-flex justify-content-left">
         <button class="btn btn-primary">Export Evaluasi PKL</button>
     </div>
 </div>

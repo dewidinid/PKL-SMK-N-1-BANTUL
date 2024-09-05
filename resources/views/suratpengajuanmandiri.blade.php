@@ -7,7 +7,7 @@
     <h3 class="text-center">Surat Pengajuan PKL Mandiri</h3>
     <br>
     <br>
-    <table class="table table-striped table-bordered mt-4">
+    <table class="table table-bordered table-striped">
         <thead class="table-primary text-center">
             <tr>
                 <th>No</th>
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody id="data-table">
-            <tr>
+            <tr >
                 <td>1</td>
                 <td>
                     <div>1. 123456789</div>
@@ -39,7 +39,7 @@
                     <input type="checkbox" name="check[]" value="1">
                 </td>
             </tr>
-            <tr>
+            <tr >
                 <td>2</td>
                 <td>
                     <div>1. 345678901</div>
@@ -58,7 +58,7 @@
                     <input type="checkbox" name="check[]" value="2">
                 </td>
             </tr>
-            <tr>
+            <tr >
                 <td>3</td>
                 <td>
                     <div>1. 567890123</div>
