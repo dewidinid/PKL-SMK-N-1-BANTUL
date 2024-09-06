@@ -1,0 +1,97 @@
+.box-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.box-info .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Adjust width as needed */
+    height: 120px;
+    display: flex; /* Changed from column to row */
+    flex-direction: row; /* Align elements horizontally */
+    align-items: center;
+    gap: 20px; /* Space between icon and text */
+}
+
+.box-table {
+    display: flex;
+    position: relative; /* Ensures the link can be positioned */
+    background-color: #ffffff;
+    border-radius: 10px;
+    gap: 20px;
+    padding: 10px;
+    width: 650px;
+    height: 105px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    /* Adding a border to the box */
+    border: 1px solid #dcdcdc; /* Light grey border */
+}
+
+/* Remove default styles for the anchor tag */
+a.box-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    display: inline-block; /* Makes sure the anchor behaves like a block element */
+}
+
+/* Remove underline when hovering */
+a.box-link:hover {
+    text-decoration: none; /* No underline on hover */
+}
+
+/* Styling the "Lihat Semua" link */
+.lihat-semua {
+    color: #aaa; /* Light gray color */
+    position: absolute;
+    top: 70px;
+    right: 20px; /* Align to the right */
+    bottom: 10px; /* Adjust the bottom position as needed */
+    font-size: 14px;
+}
+
+
+.icon {
+    font-size: 30px;
+    width: 50px; /* Adjust width as needed */
+    height: 50px;
+    color: white;
+    /* padding: 10px; */
+    border-radius: 10%;
+    background-color: #e0e0e0; /* Add a background to make icons visible */
+}
+
+.icon-table {
+    align-items: center;
+    font-size: 45px;
+    width: 70px; /* Adjust width as needed */
+    height: 80px;
+    top: 10px;
+    color: white;
+    /* padding: 10px; */
+    border-radius: 10%;
+    background-color: #e0e0e0; /* Add a background to make icons visible */
+}
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.content p {
+    font-size: 16px;
+    margin: 0;
+    color: #666;
+}
+
+.content h3 {
+    font-size: 24px;
+    margin: 5px 0 0;
+    color: #333;
+}

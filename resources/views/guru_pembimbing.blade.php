@@ -3,7 +3,6 @@
 
 @section('content')
 
-<br>
 <div class="container mt-5">
     <h4 class="text-center">DATA GURU PEMBIMBING</h4>
 
@@ -26,7 +25,7 @@
         {{-- action="{{ route('upload-file') }}" --}}
         @csrf
         <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
-            Upload 
+            Upload <i class="bi bi-upload ms-2"></i>
         </label>
         <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
     </form>
@@ -80,12 +79,4 @@
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-
-   
-
-@include('layouts.footer')
 @endsection

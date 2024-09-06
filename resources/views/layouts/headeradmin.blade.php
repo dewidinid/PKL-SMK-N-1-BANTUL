@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tabel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/body.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/boxinfo.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="background">
     <header class="header-admin">
         <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
@@ -53,9 +55,6 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home_admin') }}">Beranda</a>
-                        </li>
-                        <li class="nav-item">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -70,8 +69,33 @@
               
     </header>
 
-    @yield('content')
 
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 mt-5">
+                @include('layouts.sidebar_admin')
+            </div>
+            
+            <!-- Main Content -->
+            <div class=" col-md-9" >
+                <div class="scrollable-container" id="main-content">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Footer -->
+    @include('layouts.footer')
+
+    
     <script>
         let currentPage = 1;
         const rowsPerPage = 10; // Jumlah baris per halaman
@@ -133,7 +157,7 @@
     </script>
     
     
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
     
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
@@ -148,6 +172,29 @@
 
         document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
             console.log('Navbar collapse hidden');
+        });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // Ajax untuk mengganti konten utama saat klik sidebar link
+        $(document).ready(function(){
+            $('.nav-link').click(function(e){
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#main-content').load(url + ' #main-content>*', function(){
+                    history.pushState(null, '', url);
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.nav-link').on('click', function(){
+                $('.nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
+                $(this).addClass('active');            // Tambahkan kelas aktif ke tautan yang diklik
+            });
         });
     </script>
     

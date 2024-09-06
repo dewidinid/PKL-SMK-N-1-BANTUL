@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container mt-5">
     <h3 class="text-center">Surat Pengajuan PKL Mandiri</h3>
     <br>
@@ -211,100 +210,100 @@
                 </td>
             </tr>
              <tr>
-        <td>11</td>
-        <td>
-            <div>1. 234567890</div>
-            <div>2. 345678901</div>
-        </td>
-        <td>
-            <div>1. Lily Adams</div>
-            <div>2. Oliver King</div>
-        </td>
-        <td>08912345678</td>
-        <td>SMK N 11 Bantul</td>
-        <td class="text-center">
-            <a href="{{ asset('storage/proposals/sample-proposal11.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
-        </td>
-        <td class="text-center">
-            <input type="checkbox" name="check[]" value="11">
-        </td>
-    </tr>
-    <tr>
-        <td>12</td>
-        <td>
-            <div>1. 345678901</div>
-            <div>2. 456789012</div>
-        </td>
-        <td>
-            <div>1. Henry Scott</div>
-            <div>2. Ava Davis</div>
-        </td>
-        <td>08812345678</td>
-        <td>SMK N 12 Yogyakarta</td>
-        <td class="text-center">
-            <a href="{{ asset('storage/proposals/sample-proposal12.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
-        </td>
-        <td class="text-center">
-            <input type="checkbox" name="check[]" value="12">
-        </td>
-    </tr>
-    <tr>
-        <td>13</td>
-        <td>
-            <div>1. 456789012</div>
-            <div>2. 567890123</div>
-        </td>
-        <td>
-            <div>1. Amelia Green</div>
-            <div>2. Logan Harris</div>
-        </td>
-        <td>08712345678</td>
-        <td>SMK N 13 Sleman</td>
-        <td class="text-center">
-            <a href="{{ asset('storage/proposals/sample-proposal13.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
-        </td>
-        <td class="text-center">
-            <input type="checkbox" name="check[]" value="13">
-        </td>
-    </tr>
-    <tr>
-        <td>14</td>
-        <td>
-            <div>1. 567890123</div>
-            <div>2. 678901234</div>
-        </td>
-        <td>
-            <div>1. Mason Carter</div>
-            <div>2. Mia Edwards</div>
-        </td>
-        <td>08612345678</td>
-        <td>SMK N 14 Gunungkidul</td>
-        <td class="text-center">
-            <a href="{{ asset('storage/proposals/sample-proposal14.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
-        </td>
-        <td class="text-center">
-            <input type="checkbox" name="check[]" value="14">
-        </td>
-    </tr>
-    <tr>
-        <td>15</td>
-        <td>
-            <div>1. 678901234</div>
-            <div>2. 789012345</div>
-        </td>
-        <td>
-            <div>1. Lucas White</div>
-            <div>2. Charlotte Lewis</div>
-        </td>
-        <td>08512345678</td>
-        <td>SMK N 15 Wates</td>
-        <td class="text-center">
-            <a href="{{ asset('storage/proposals/sample-proposal15.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
-        </td>
-        <td class="text-center">
-            <input type="checkbox" name="check[]" value="15">
-        </td>
-    </tr>
+                <td>11</td>
+                <td>
+                    <div>1. 234567890</div>
+                    <div>2. 345678901</div>
+                </td>
+                <td>
+                    <div>1. Lily Adams</div>
+                    <div>2. Oliver King</div>
+                </td>
+                <td>08912345678</td>
+                <td>SMK N 11 Bantul</td>
+                <td class="text-center">
+                    <a href="{{ asset('storage/proposals/sample-proposal11.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="11">
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>
+                    <div>1. 345678901</div>
+                    <div>2. 456789012</div>
+                </td>
+                <td>
+                    <div>1. Henry Scott</div>
+                    <div>2. Ava Davis</div>
+                </td>
+                <td>08812345678</td>
+                <td>SMK N 12 Yogyakarta</td>
+                <td class="text-center">
+                    <a href="{{ asset('storage/proposals/sample-proposal12.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="12">
+                </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>
+                    <div>1. 456789012</div>
+                    <div>2. 567890123</div>
+                </td>
+                <td>
+                    <div>1. Amelia Green</div>
+                    <div>2. Logan Harris</div>
+                </td>
+                <td>08712345678</td>
+                <td>SMK N 13 Sleman</td>
+                <td class="text-center">
+                    <a href="{{ asset('storage/proposals/sample-proposal13.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="13">
+                </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>
+                    <div>1. 567890123</div>
+                    <div>2. 678901234</div>
+                </td>
+                <td>
+                    <div>1. Mason Carter</div>
+                    <div>2. Mia Edwards</div>
+                </td>
+                <td>08612345678</td>
+                <td>SMK N 14 Gunungkidul</td>
+                <td class="text-center">
+                    <a href="{{ asset('storage/proposals/sample-proposal14.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="14">
+                </td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>
+                    <div>1. 678901234</div>
+                    <div>2. 789012345</div>
+                </td>
+                <td>
+                    <div>1. Lucas White</div>
+                    <div>2. Charlotte Lewis</div>
+                </td>
+                <td>08512345678</td>
+                <td>SMK N 15 Wates</td>
+                <td class="text-center">
+                    <a href="{{ asset('storage/proposals/sample-proposal15.pdf') }}" target="_blank" class="btn btn-primary">Download</a>
+                </td>
+                <td class="text-center">
+                    <input type="checkbox" name="check[]" value="15">
+                </td>
+            </tr>
         </tbody>
         
     </table>
@@ -321,12 +320,6 @@
     </div>
   
 </div>
+    
 
-<br>
-<br>
-<br>
-<br>
-<br>
-
-@include('layouts.footer')
 @endsection
