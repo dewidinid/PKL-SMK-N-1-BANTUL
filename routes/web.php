@@ -30,6 +30,8 @@ Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL
 
 Route::get('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan');
 
+Route::get('/formpengajuan', [SiswaController::class, 'buttonFormPengajuan'])->name('formpengajuan');
+
 // Route to display the Siswa form
 Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri');
 Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');

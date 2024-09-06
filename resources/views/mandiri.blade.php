@@ -15,7 +15,7 @@
     <br>
 
     <div class="center-button-container">
-        <button  type="submit" class="btn btn-outline-primary" value="submit">Form Pengajuan PKL Mandiri</button>
+        <a href="{{ route('formpengajuan')}}" class="btn btn-outline-primary">Form Pengajuan PKL Mandiri</a>
     </div>
     <br>
     <br>

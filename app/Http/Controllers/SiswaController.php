@@ -84,29 +84,35 @@ public function verifikasiAkhirPKL()
         return view('pemetaan'); 
     }
 
+
+    public function buttonFormPengajuan(){
+        return view('formpengajuan');
+    }
+
+
     public function submitForm(Request $request)
-{
-    $validated = $request->validate([
-        'nis' => 'required|string',
-        'name' => 'required|string',
-        'jurusan' => 'required|string',
-        'no_handphone' => 'required|string',
-        'rencana_tempat_pkl' => 'required|string',
-        'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
-    ]);
+    {
+        $validated = $request->validate([
+            'nis' => 'required|string',
+            'name' => 'required|string',
+            'jurusan' => 'required|string',
+            'no_handphone' => 'required|string',
+            'rencana_tempat_pkl' => 'required|string',
+            'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-    // Menyimpan file proposal
-    $filePath = $request->file('proposal_pkl')->store('proposals');
+        // Menyimpan file proposal
+        $filePath = $request->file('proposal_pkl')->store('proposals');
 
-    // Menyimpan data pengajuan ke database
-    PengajuanPkl::create([
-        'nis' => $request->input('nis'),
-        'name' => $request->input('name'),
-        'jurusan' => $request->input('jurusan'),
-        'no_handphone' => $request->input('no_handphone'),
-        'rencana_tempat_pkl' => $request->input('rencana_tempat_pkl'),
-        'proposal_pkl' => $filePath,
-    ]);
+        // Menyimpan data pengajuan ke database
+        PengajuanPkl::create([
+            'nis' => $request->input('nis'),
+            'name' => $request->input('name'),
+            'jurusan' => $request->input('jurusan'),
+            'no_handphone' => $request->input('no_handphone'),
+            'rencana_tempat_pkl' => $request->input('rencana_tempat_pkl'),
+            'proposal_pkl' => $filePath,
+        ]);
 
         return redirect()->route('formpengajuan')->with('Berhasil', 'Pengajuan PKL berhasil dikirim!');
         return view ('mandiri');
@@ -131,30 +137,30 @@ public function verifikasiAkhirPKL()
     }
 
     public function verifikasiAkhir()
-{
-    $isUploaded = true; // Ganti dengan logika cek apakah file sudah diupload
-    return view('verifikasi_akhir', compact('isUploaded'));
-}
+    {
+        $isUploaded = true; // Ganti dengan logika cek apakah file sudah diupload
+        return view('verifikasi_akhir', compact('isUploaded'));
+    }
 
-public function uploadLaporanPengimbasan(Request $request)
-{
-    $request->validate([
-        'laporan_pengimbasan' => 'required|file|mimes:pdf,doc,docx|max:2048',
-    ]);
+    public function uploadLaporanPengimbasan(Request $request)
+    {
+        $request->validate([
+            'laporan_pengimbasan' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        ]);
 
-    // Proses penyimpanan file
-    $file = $request->file('laporan_pengimbasan');
-    $path = $file->store('laporan_pengimbasan', 'public');
+        // Proses penyimpanan file
+        $file = $request->file('laporan_pengimbasan');
+        $path = $file->store('laporan_pengimbasan', 'public');
 
-    // Simpan path atau informasi lainnya di database jika perlu
-    // Misalnya:
-    // Auth::user()->update(['laporan_pengimbasan' => $path]);
+        // Simpan path atau informasi lainnya di database jika perlu
+        // Misalnya:
+        // Auth::user()->update(['laporan_pengimbasan' => $path]);
 
-    // Redirect kembali dengan pesan sukses
-    return back()->with('success', 'Laporan pengimbasan berhasil diupload!');
-}
+        // Redirect kembali dengan pesan sukses
+        return back()->with('success', 'Laporan pengimbasan berhasil diupload!');
+    }
 
-public function uploadLaporanAkhir(Request $request)
+    public function uploadLaporanAkhir(Request $request)
     {
         $request->validate([
             'laporan_akhir' => 'required|file|mimes:pdf,doc,docx|max:2048',
