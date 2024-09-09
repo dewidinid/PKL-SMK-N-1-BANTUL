@@ -5,6 +5,8 @@
 
 <div class="container mt-5">
     <h4 class="text-center">EVALUASI PKL</h4>
+    <br>
+    
   <!-- Filter Tahun dan Jurusan -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div >
@@ -72,9 +74,5 @@
 
     </table>
 </div>
-    <br>
-    <br>
-    <br>
-    <br>
-@include('layouts.footer')
+
 @endsection

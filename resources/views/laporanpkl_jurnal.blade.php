@@ -4,8 +4,10 @@
     <div class="container mt-5">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
         <div class="d-flex justify-content-end mb-3">
-            <button onclick="openForm()" style="background-color: #0275d8; color:#ffffff">+ Tambah</button>
-        </div>
+            <button onclick="openForm()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 5px; border-radius: 5px;">
+                <i class="bi bi-plus-lg"></i> Tambah
+            </button>
+        </div>        
         <table class="table table-bordered">
             <thead >
                 <tr class="text-center" >

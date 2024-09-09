@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container">
         <!-- Main Content -->
             <div id="home_admin" class="text-center mb-5" data-aos="fade-up">
@@ -50,8 +49,8 @@
                 <br>
                 <br>
                 <div class="box-info">
-                    <div class="box-table">
-                        <div class="icon-table" style="background-color: rgb(228, 225, 165);">
+                    <div class="box-ver">
+                        <div class="icon-ver" style="background-color: rgb(228, 225, 165);">
                             <i class="bi bi-envelope"></i>
                         </div>
                         <div class="content">
@@ -59,8 +58,8 @@
                             <a href="{{ route ('suratPengajuan')}}" class="lihat-semua">Lihat Semua</a>
                         </div>
                     </div>
-                    <div class="box-table">
-                        <div class="icon-table" style="background-color: #db9898;">
+                    <div class="box-ver">
+                        <div class="icon-ver" style="background-color: #db9898;">
                             <i class="bi bi-diagram-3"></i>
                         </div>
                         <div class="content">

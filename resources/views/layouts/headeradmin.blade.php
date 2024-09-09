@@ -177,26 +177,30 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        // Ajax untuk mengganti konten utama saat klik sidebar link
         $(document).ready(function(){
-            $('.nav-link').click(function(e){
+            // AJAX untuk mengganti konten utama saat klik sidebar link
+            $('.sidebar .nav-link').click(function(e){
                 e.preventDefault();
                 var url = $(this).attr('href');
                 $('#main-content').load(url + ' #main-content>*', function(){
                     history.pushState(null, '', url);
                 });
+    
+                // Mengatur kelas aktif
+                $('.sidebar .nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
+                $(this).addClass('active');                      // Tambahkan kelas aktif ke tautan yang diklik
             });
+    
+            // Menangani back/forward browser
+            window.onpopstate = function(event) {
+                var url = location.pathname;
+                $('#main-content').load(url + ' #main-content>*');
+                // Update aktif link
+                $('.sidebar .nav-link').removeClass('active');
+                $('.sidebar .nav-link[href="'+url+'"]').addClass('active');
+            };
         });
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $('.nav-link').on('click', function(){
-                $('.nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
-                $(this).addClass('active');            // Tambahkan kelas aktif ke tautan yang diklik
-            });
-        });
-    </script>
+    </script>    
     
 </body>
 </html>

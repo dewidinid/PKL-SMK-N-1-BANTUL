@@ -73,12 +73,5 @@
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
 
-   
-
-@include('layouts.footer')
 @endsection

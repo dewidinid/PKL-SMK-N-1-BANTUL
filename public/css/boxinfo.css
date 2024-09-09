@@ -1,3 +1,12 @@
+/* Container for the new layout */
+.container-kolom-info {
+    display: flex;
+    gap: 20px; /* Space between box-kolom and box-info */
+    justify-content: flex-start; /* Align items to the left */
+    align-items: flex-start; /* Align items at the top */
+    width: 100%; /* Ensure container takes full width */
+}
+
 .box-info {
     display: flex;
     justify-content: space-between;
@@ -15,10 +24,13 @@
     flex-direction: row; /* Align elements horizontally */
     align-items: center;
     gap: 20px; /* Space between icon and text */
+   
 }
 
-.box-table {
+
+.box-ver {
     display: flex;
+    text-align: center; 
     position: relative; /* Ensures the link can be positioned */
     background-color: #ffffff;
     border-radius: 10px;
@@ -33,15 +45,17 @@
 }
 
 /* Remove default styles for the anchor tag */
-a.box-link {
+.box-link {
     text-decoration: none; /* Remove underline */
     color: inherit; /* Inherit text color from parent */
     display: inline-block; /* Makes sure the anchor behaves like a block element */
 }
 
 /* Remove underline when hovering */
-a.box-link:hover {
+.box-link:hover {
     text-decoration: none; /* No underline on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Styling the "Lihat Semua" link */
@@ -65,7 +79,7 @@ a.box-link:hover {
     background-color: #e0e0e0; /* Add a background to make icons visible */
 }
 
-.icon-table {
+.icon-ver {
     align-items: center;
     font-size: 45px;
     width: 70px; /* Adjust width as needed */
@@ -84,6 +98,8 @@ a.box-link:hover {
     align-items: flex-start;
 }
 
+
+
 .content p {
     font-size: 16px;
     margin: 0;
@@ -94,4 +110,133 @@ a.box-link:hover {
     font-size: 24px;
     margin: 5px 0 0;
     color: #333;
+   
 }
+
+.content h4 {
+    font-size: 20px;
+    margin: 3px 0 0;
+    color: #333;
+   
+}
+
+/* Container for the new cards */
+.box-kolom {
+    display: flex;
+    flex-direction: column; /* Stack the cards vertically */
+    gap: 20px; /* Space between cards */
+    /* padding: 20px; */
+    
+   
+    /* justify-content: center;
+    align-items: center; */
+
+    
+}
+
+/* Styling for each card */
+.card-kolom {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative; /* Ensures the link can be positioned */
+
+    /* Adding a border to the box */
+    border: 1px solid #dcdcdc; /* Light grey border */
+}
+
+/* Remove underline when hovering */
+.card-kolom:hover {
+    text-decoration: none; /* No underline on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Remove default styles for the anchor tag */
+.box-kolom-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    display: inline-block; /* Make sure the link follows the size of the card */
+    width: 250px; /* Match the card's width */
+ 
+}
+
+/* Remove underline when hovering */
+.box-kolom-link:hover {
+    text-decoration: none; /* No underline on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon styling */
+.icon-kolom {
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: #e0e0e0; /* Add a background to make icons visible */
+}
+
+
+/* Text content inside the card */
+.content-kolom {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: flex-start;
+}
+
+.content-kolom p {
+    font-size: 16px;
+    margin: 0;
+    color: #666;
+}
+
+.content-kolom h3 {
+    font-size: 24px;
+    margin: 5px 0 0;
+    color: #333;
+}
+
+.content-kolom h5 {
+    text-decoration: none;
+    font-size: 20px;
+    margin-top:  -15px;
+    color: #333;
+}
+
+/* Link styling for "Lihat Semua" */
+.lihat-semua-kolom {
+    font-size: 14px;
+    color: #aaa;
+    position: absolute;
+    /* text-decoration: none; */
+    top: 90px;
+    right: 20px; /* Align to the right */
+    bottom: 10px; /* Adjust the bottom position as needed */
+    transition: color 0.2s;
+}
+
+.box-table {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    height: 260px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative; /* Ensures the link can be positioned */
+} 
+
