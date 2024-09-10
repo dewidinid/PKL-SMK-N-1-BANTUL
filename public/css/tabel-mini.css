@@ -1,76 +1,50 @@
-/* CSS untuk tabel dengan sudut melengkung */
-.table {
+/* CSS untuk tabel kecil dengan sudut melengkung */
+.table-mini {
+    font-size: 12px; /* Lebih kecil dari tabel biasa */
     border-radius: 8px; /* Sudut melengkung pada tabel */
     overflow: hidden; /* Menyembunyikan bagian luar dari sudut melengkung */
+    width: 100%; /* Lebih kecil agar tabel tidak memakan banyak ruang */
+    max-width: 600px; /* Membatasi lebar maksimum */
 }
 
-.table thead {
+.table-mini thead {
     border-top-left-radius: 8px; /* Sudut melengkung di kiri atas header tabel */
     border-top-right-radius: 8px; /* Sudut melengkung di kanan atas header tabel */
 }
 
-.table tfoot  {
+.table-mini tfoot {
     border-bottom-left-radius: 8px; /* Sudut melengkung di kiri bawah footer tabel */
-}
-
-.table tfoot {
     border-bottom-right-radius: 8px; /* Sudut melengkung di kanan bawah footer tabel */
 }
 
-/* Gaya header tabel */
-.table thead td, .table thead th {
+/* Gaya header tabel kecil */
+.table-mini thead td, .table-mini thead th {
     border-bottom-width: 2px;
     background-color: #0275d8;
     color: white;
+    padding: 6px; /* Mengurangi padding untuk ukuran lebih kecil */
 }
 
 /* Gaya baris tabel ganjil dan genap */
-.table-striped tbody tr:nth-child(odd) {
-    background-color: #f8f8f8 !important; /* Warna latar belakang untuk baris ganjil */
+.table-mini-striped tbody tr:nth-child(odd) {
+    background-color: #f2f2f2 !important; /* Warna latar belakang untuk baris ganjil */
 }
 
-.table-striped tbody tr:nth-child(even) {
+.table-mini-striped tbody tr:nth-child(even) {
     background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
 }
 
-/* CSS untuk memusatkan teks di header dan sel tabel kecuali kolom Evaluasi */
-.table thead th, .table tbody td {
+/* CSS untuk memusatkan teks di header dan sel tabel */
+.table-mini thead th, .table-mini tbody td {
     text-align: center; /* Memusatkan teks di kolom tabel */
+    padding: 5px; /* Mengurangi padding untuk ukuran lebih kecil */
 }
 
-/* CSS khusus untuk kolom Evaluasi agar rata kiri */
-.table .left-align {
-    text-align: left; /* Rata kiri untuk kolom Evaluasi */
-}
-
-/* CSS untuk tfoot */
-.table tfoot td {
+/* CSS untuk footer tabel kecil */
+.table-mini tfoot td {
     background-color: #0275d8 !important; /* Warna latar belakang untuk tfoot */
     color: white !important;
     font-weight: bold; /* Membuat teks pada tfoot lebih tebal */
     text-align: center; /* Memusatkan teks di dalam sel tfoot */
     border-top: 1px solid #0275d8; /* Menambahkan garis atas pada tfoot */
-}
-
-
-.pagination-btn {
-    background-color: #0275d8;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.pagination-btn:disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
-}
-
-.pagination-number {
-    padding: 10px;
-    border: 1px solid #0275d8;
-    border-radius: 5px;
-    cursor: pointer;
 }

@@ -8,12 +8,16 @@
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tabel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tabel-mini.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/body.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/boxinfo.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
+<body class="background">
     <header class="header-admin">
         <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
@@ -51,9 +55,6 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home_dudi') }}">Beranda</a>
-                        </li>
-                        <li class="nav-item">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -68,7 +69,54 @@
               
     </header>
 
-    @yield('content')
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 mt-5">
+                @include('layouts.sidebar_dudi')
+            </div>
+            
+            <!-- Main Content -->
+            <div class=" col-md-9" >
+                <div class="scrollable-container" id="main-content">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Footer -->
+    @include('layouts.footer')
+
+    <script>
+        // Function to handle file upload
+        function handleFileUpload() {
+            const fileUploadInput = document.getElementById('file-upload');
+            const importBtn = document.getElementById('import-btn');
+    
+            // Check if a file has been selected
+            if (fileUploadInput.files.length > 0) {
+                importBtn.disabled = false; // Enable the import button
+            }
+        }
+    
+        // Function to handle import button click
+        function handleImport() {
+            const checkbox = document.getElementById('checkbox');
+    
+            // Check the checkbox
+            checkbox.checked = true;
+    
+            // Optionally, submit the form for the file upload here
+            document.getElementById('upload-form').submit();
+        }
+    </script>
 
     <script>
         let currentPage = 1;
@@ -131,7 +179,7 @@
     </script>
     
     
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
     
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
@@ -148,6 +196,33 @@
             console.log('Navbar collapse hidden');
         });
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // AJAX untuk mengganti konten utama saat klik sidebar link
+            $('.sidebar .nav-link').click(function(e){
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#main-content').load(url + ' #main-content>*', function(){
+                    history.pushState(null, '', url);
+                });
+    
+                // Mengatur kelas aktif
+                $('.sidebar .nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
+                $(this).addClass('active');                      // Tambahkan kelas aktif ke tautan yang diklik
+            });
+    
+            // Menangani back/forward browser
+            window.onpopstate = function(event) {
+                var url = location.pathname;
+                $('#main-content').load(url + ' #main-content>*');
+                // Update aktif link
+                $('.sidebar .nav-link').removeClass('active');
+                $('.sidebar .nav-link[href="'+url+'"]').addClass('active');
+            };
+        });
+    </script>  
     
 </body>
 </html>

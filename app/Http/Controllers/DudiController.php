@@ -24,4 +24,6 @@ class DudiController extends Controller
         return view('dudi_laporanjurnal');
     }
 
+    
+
 }

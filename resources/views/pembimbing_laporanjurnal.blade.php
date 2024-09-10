@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container mt-5">
-        <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+        <h4 class="text-center">LAPORAN PKL (JURNAL)</h4>
         <br>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -73,12 +73,5 @@
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
-
-   
-
-@include('layouts.footer')
+  
 @endsection

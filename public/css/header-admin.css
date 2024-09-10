@@ -38,5 +38,9 @@
     padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
 }
 
-
-
+.scrollable-container {
+    max-height: 400px; /* Adjust the height as needed */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    /* border: 1px solid black;  */
+    padding: 10px;
+}

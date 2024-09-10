@@ -65,22 +65,24 @@
                 <td>TKJ 1</td>
                 <td>2024/2025</td>
 
-                <td>
-                    <form  method="POST" enctype="multipart/form-data">
+                <td style="text-align: center; vertical-align: middle;">
+                    <form id="upload-form" method="POST" enctype="multipart/form-data">
                         {{-- action="{{ route('upload-file') }}" --}}
                         @csrf
-                        <label for="file-upload" class="btn btn-primary d-flex align-items-center"> Upload </label>
-                        <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                        <label for="file-upload" class="btn btn-primary" style="border: none; padding: 5px 5px; border-radius: 5px;">
+                            Upload
+                        </label>
+                        <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload()">
                     </form>
                 </td>
-                <td>
-                    <button class="btn btn-primary">Import</button>
+                <td style="text-align: center; vertical-align: middle;">
+                    <button id="import-btn" class="btn btn-primary" style="border: none; padding: 5px 5px; border-radius: 5px;" disabled onclick="handleImport()">
+                        Import
+                    </button>
                 </td>
                 <td class="text-center">
-                    <input type="checkbox" name="check[]" value="1">
-                </td>
-
-
+                    <input id="checkbox" type="checkbox" name="check[]" value="1">
+                </td>                
             </tr>
         </tbody>
     </table>
@@ -168,7 +170,5 @@
     </div>
 </div>
 
-<br><br>  
 
-@include('layouts.footer')
 @endsection

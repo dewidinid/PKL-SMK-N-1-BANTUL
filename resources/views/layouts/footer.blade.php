@@ -14,7 +14,7 @@
                 <h5>E-PKL</h5>
                 <p>Sebuah website yang menyediakan informasi dan monitoring PKL (Praktek Kerja Lapangan) SMK N 1 Bantul</p>
                 <div class="social-icons">
-                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-twitter-x"></i></i></a>
                     <a href="#"><i class="bi bi-facebook"></i></a>
                     <a href="#"><i class="bi bi-instagram"></i></a>
                 </div>
