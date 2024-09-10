@@ -1,4 +1,4 @@
-@extends('layouts.header')
+@extends('layouts.headerr')
 
 @section('content')
 <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">

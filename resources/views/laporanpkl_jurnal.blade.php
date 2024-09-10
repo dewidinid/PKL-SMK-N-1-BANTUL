@@ -66,8 +66,8 @@
     <div class="modal" id="jurnalForm" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Jurnal Siswa</h5>
+                <div class="modal-header" style=" color: white; display: flex; justify-content: center; align-items: center;">
+                    <h5 class="modal-title" style=" color: #000000 ;flex: 1; text-align: center;">Form Jurnal Siswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -112,8 +112,10 @@
                             </div>
                             <br>
                             
-                            <button type="reset" class="btn btn-danger" >Reset</button>
-                            <button type="submit" class="btn btn-primary" style="margin-left: auto;" >Simpan</button>
+                            <div class="d-flex justify-content-center" style="gap: 190px; ">
+                                <button type="reset" class="btn btn-danger">Reset</button>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
                     </div>
                     <form method="POST" id="jurnalForm">
                         {{-- action="{{ route('laporanpkl.store') }}"  --}}
@@ -127,8 +129,6 @@
     <br>
     <br>
     <br>
-
-
 
 @include('layouts.footer')
 @endsection
