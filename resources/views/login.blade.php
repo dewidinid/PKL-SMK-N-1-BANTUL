@@ -64,7 +64,7 @@
                         <div class="row register-form">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="NIP / Id Pembimbing" name="username1" onkeydown="return alphaOnly(event);" required />
+                                    <input type="text" class="form-control" placeholder="NIP / NIK" name="username1" onkeydown="return alphaOnly(event);" required />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -101,20 +101,20 @@
                     <div class="tab-pane fade show" id="dudi" role="tabpanel" aria-labelledby="profile-tab">
                         <h3 class="register-heading">Login sebagai Dudi</h3>
                         <form method="post" action="dudi">
-                        <div class="row register-form">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Kode Dudi" name="username1" onkeydown="return alphaOnly(event);" required />
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Kode Dudi" name="username1" onkeydown="return alphaOnly(event);" required />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password *" name="password2" required />
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Password *" name="password2" required />
+                                    </div>
+                                    <button type="submit" class="btn btn-outline-primary" value="Login">Login</button>
                                 </div>
-                                <button type="submit" class="btn btn-outline-primary" value="Login">Login</button>
+                                <br>
                             </div>
-                            <br>
-                        </div>
                         </form>
                     </div>
                 </div>

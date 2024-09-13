@@ -21,14 +21,18 @@
         </select>
     </div>
 
-    <form  method="POST" enctype="multipart/form-data">
-        {{-- action="{{ route('upload-file') }}" --}}
-        @csrf
-        <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
-            Upload <i class="bi bi-upload ms-2"></i>
-        </label>
-        <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
-    </form>
+    <div class="d-flex justify-content-end align-items-center mb-3">
+        <form method="POST" enctype="multipart/form-data" class="d-flex">
+            @csrf
+            <div class="me-2">
+                <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
+                    Upload <i class="bi bi-upload ms-2"></i>
+                </label>
+                <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+            </div>
+            <button class="btn btn-warning">Import</button>
+        </form>
+    </div>
 </div>
 
         <table class="table table-bordered">
