@@ -3,8 +3,8 @@
 
 @section('content')
 
-<div class="container mt-5">
-    <h4 class="text-center">DATA MITRA DUDI</h4><br>
+<div class="container mt-5 table-wrapper">
+    <h4 class="text-center">DATA MITRA DUDI</h4>
     <br>
     <div class="d-flex justify-content-end align-items-center mb-3">
         <form method="POST" enctype="multipart/form-data" class="d-flex">
@@ -15,13 +15,13 @@
                 </label>
                 <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
             </div>
-            <button class="btn btn-warning">Import</button>
+            <button class="custom-btn" style="background-color: #F99417; ">Import</button>
         </form>
     </div>
     
 
-        <table class="table table-bordered">
-            <thead >
+        <table class=" table-striped custom-table">
+            <thead class="table-primary text-center" >
                 <tr class="text-center" >
                     <th>No</th>
                     <th>Kode Dudi</th>
@@ -29,11 +29,19 @@
                     <th>Alamat Dudi</th>
                     <th>No Handphone</th>
                     <th>Posisi PKL</th>
-                <br>
+                </tr>
             </thead>
             <tbody id="data-table">
                 <tr>
                     <td>1</td>
+                    <td>D001</td>
+                    <td>PT Telkom Indonesia</td>
+                    <td>Jl Damai, No 15, Yogyakarta</td>
+                    <td>0274 563876</td>
+                    <td>Cyber Security</td>
+                </tr>
+                <tr>
+                    <td>2</td>
                     <td>D001</td>
                     <td>PT Telkom Indonesia</td>
                     <td>Jl Damai, No 15, Yogyakarta</td>

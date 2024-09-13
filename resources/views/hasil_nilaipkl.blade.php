@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
         <h4 class="text-center">NILAI PKL SISWA</h4>
         <br>
         
@@ -20,8 +20,8 @@
 
     <br>
 
-    <table class="table table-bordered">
-        <thead>
+    <table class="table-striped custom-table">
+        <thead class="table-primary text-center">
             <tr>
                 <th>No</th>
                 <th>Kelompok</th>
@@ -52,22 +52,36 @@
                 </tr>
             @endforeach
         </tbody> --}}
-        <tbody class="table table-striped" id="data-table">
-            <tr class="text-center align-middle">
-                <td class="align-middle">1</td>
-                <td class="align-middle">K001</td>
-                <td class="align-middle">16034</td>
-                <td class="align-middle">Rulli Ardha Ramadhan</td>
-                <td class="align-middle">Teknik Komputer Jaringan</td>
-                <td class="align-middle">TKJ 1</td>
-                <td class="align-middle">2024/2025</td>
+        <tbody id="data-table">
+            <tr class="text-center ">
+                <td >1</td>
+                <td >K001</td>
+                <td >16034</td>
+                <td >Rulli Ardha Ramadhan</td>
+                <td >Teknik Komputer Jaringan</td>
+                <td >TKJ 1</td>
+                <td >2024/2025</td>
                 <td>
-                    <a href="{{ asset('storage/files/sample-file.pdf') }}" download style="background-color: #90DC75; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                    <a href="{{ asset('storage/files/sample-file.pdf') }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
                         <span style="font-size: 0.9rem;">Download</span>
                         <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
                     </a> 
                 </td>
-
+            </tr>
+            <tr class="text-center ">
+                <td >1</td>
+                <td >K001</td>
+                <td >16034</td>
+                <td >Rulli Ardha Ramadhan</td>
+                <td >Teknik Komputer Jaringan</td>
+                <td >TKJ 1</td>
+                <td >2024/2025</td>
+                <td>
+                    <a href="{{ asset('storage/files/sample-file.pdf') }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                        <span style="font-size: 0.9rem;">Download</span>
+                        <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
+                    </a> 
+                </td>
             </tr>
         </tbody>
     </table>

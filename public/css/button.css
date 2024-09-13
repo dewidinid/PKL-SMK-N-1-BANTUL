@@ -1,0 +1,19 @@
+/* CSS untuk tombol kustom */
+.custom-btn {
+     /* Warna latar belakang kuning seperti btn-warning */
+    color: #fff; /* Warna teks putih */
+    border: none; /* Menghapus border default */
+    border-radius: 5px; /* Sudut melengkung pada tombol */
+    height: 38px;
+    width: 80px;
+    font-size: 16px; /* Ukuran font yang lebih kecil */
+    display: flex; /* Menggunakan flexbox untuk align-items */
+    align-items: center; /* Memusatkan item secara vertikal */
+    justify-content: center;
+    cursor: pointer; /* Mengubah kursor menjadi pointer saat hover */
+    transition: background-color 0.3s; /* Efek transisi pada perubahan warna latar belakang */
+    margin: 0 0;
+    padding: 0;
+}
+
+

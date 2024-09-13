@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container mt-5">
+    <div class="container mt-5 table-wrapper">
         <h4 class="text-center">LAPORAN PKL (JURNAL)</h4>
         <br>
 
@@ -17,8 +17,8 @@
             </div>
         </div>
 
-        <table class="table table-bordered">
-            <thead >
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
                 <tr class="text-center" >
                     <th>No</th>
                     <th>Tanggal</th>
@@ -37,7 +37,17 @@
                     <td>1</td>
                     <td>16/03/24</td>
                     <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
+                    <td class="left-align">Rulli Ardha Ramadhan</td>
+                    <td>TKJ</td>
+                    <td>PT. Teknorika Inovasi Nusantara</td>
+                    <td>Membuat Flowchart</td>
+                    <td>Yogyakarta</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>16/03/24</td>
+                    <td>16034</td>
+                    <td class="left-align">Rulli Ardha Ramadhan</td>
                     <td>TKJ</td>
                     <td>PT. Teknorika Inovasi Nusantara</td>
                     <td>Membuat Flowchart</td>

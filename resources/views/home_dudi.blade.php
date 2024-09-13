@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container table-wrapper">
     <!-- Main Content -->
         <div id="home_dudi" class="text-center mb-5" data-aos="fade-up">
             <br>
@@ -38,9 +38,10 @@
                         <br>
                         <h3 style="text-align: center">Laporan/Jurnal PKL Siswa</h3>
                         <br>
-                        <table class="table-mini table-mini-striped table-bordered">
-                            <thead >
-                                <tr class="text-center" >
+                        <br>
+                        <table class="table-mini table-striped custom-mini-table">
+                            <thead class="table-primary text-center">
+                                <tr class="text-center">
                                     <th>No</th>
                                     <th>Tanggal</th>
                                     <th>NIS</th>
@@ -50,7 +51,6 @@
                                     <th>Kegiatan/Progress</th>
                                     <th>Lokasi</th>
                                 </tr>
-                                <br>
                             </thead>
                             <tbody id="data-table">
                                 <!-- Data contoh, akan diisi dengan JavaScript -->
@@ -95,7 +95,6 @@
                             <a href="{{ route ('dudi_laporanjurnal')}}" class="lihat-semua" style="padding-top: 20px;">Lihat Semua</a>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>

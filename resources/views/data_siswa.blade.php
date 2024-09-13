@@ -2,9 +2,8 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
     <h4 class="text-center">DATA SISWA</h4>
-    <br>
     <br>
     <!-- Filter Tahun dan Jurusan -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -28,23 +27,23 @@
                     </label>
                     <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
                 </div>
-                <button class="btn btn-warning">Import</button>
+                <!-- Tombol dengan kelas kustom -->
+                <button class="custom-btn" style="background-color: #F99417; ">Import</button>
             </form>
         </div>
     </div>
 
-    
-        <table class=" table table-bordered">
-            <thead >
-                <tr class="text-center" >
-                    <td>No</td>
-                    <td>NIS</td>
-                    
-                    <td>Nama</td>
-                    <td>Konsentrasi Keahlian</td>
-                    <td>Kelas</td>
-                    <td>Tahun</td>
-                <br>
+
+        <table class=" table-striped custom-table">
+            <thead class="table-primary text-center" >
+                <tr>
+                    <th>No</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Konsentrasi Keahlian</th>
+                    <th>Kelas</th>
+                    <th>Tahun</th>
+                </tr>
             </thead>
             <tbody id="data-table" >
                 <!-- Data contoh, akan diisi dengan JavaScript -->
@@ -54,7 +53,21 @@
                         <div>1. 123456789</div>
                         <div>2. 234567890</div>
                     </td>
+                    <td class="left-align">
+                        <div>1. Rulli Arhan</div>
+                        <div>2. Muhammad Putra</div>
+                    </td>
+                    <td>Teknik Komputer Jaringan</td>
+                    <td>TKJ 1</td>
+                    <td>2024/2025</td>
+                </tr>
+                <tr>
+                    <td>2</td>
                     <td>
+                        <div>1. 123456789</div>
+                        <div>2. 234567890</div>
+                    </td>
+                    <td class="left-align">
                         <div>1. Rulli Arhan</div>
                         <div>2. Muhammad Putra</div>
                     </td>

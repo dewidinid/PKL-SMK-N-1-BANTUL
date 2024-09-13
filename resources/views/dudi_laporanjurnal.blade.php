@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+    <div class="container mt-5 table-wrapper">
+        <h4 class="text-center mb-4">Laporan PKL (Jurnal)</h4>
         <br>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -17,8 +17,8 @@
             </div>
         </div>
 
-        <table class="table table-bordered">
-            <thead >
+        <table class=" table-striped custom-table">
+            <thead class="table-primary text-center" >
                 <tr class="text-center" >
                     <th>No</th>
                     <th>Tanggal</th>
@@ -37,12 +37,13 @@
                     <td>1</td>
                     <td>16/03/24</td>
                     <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
+                    <td class="left-align">Rulli Ardha Ramadhan</td>
                     <td>TKJ</td>
                     <td>PT. Teknorika Inovasi Nusantara</td>
                     <td>Membuat Flowchart</td>
                     <td>Yogyakarta</td>
                 </tr>
+                
             </tbody>
             {{-- <tbody>
                 @foreach ($jurnals as $index => $jurnal)

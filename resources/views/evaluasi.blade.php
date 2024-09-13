@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
     <h4 class="text-center">EVALUASI PKL</h4>
     <br>
     
@@ -21,18 +21,18 @@
         </div>
     </div>
 
-    <table class="table table-bordered">
-        <thead >
+    <table class="table-striped custom-table">
+        <thead class="table-primary text-center">
             <tr class="text-center" >
-                <td>No</td>
-                <td>Kelompok</td>
-                <td>NIS</td>
-                <td id="nama">Nama</td>
-                <td>Konsentrasi Keahlian</td>
-                <td>Kelas</td>
-                <td>Tahun</td>
-                <td>Evaluasi</td>
-            <br>
+                <th>No</th>
+                <th>Kelompok</th>
+                <th>NIS</th>
+                <th >Nama</th>
+                <th>Konsentrasi Keahlian</th>
+                <th>Kelas</th>
+                <th>Tahun</th>
+                <th>Evaluasi</th>
+            </tr>
         </thead>
         <tbody id="data-table" >
             <!-- Data contoh, akan diisi dengan JavaScript -->
@@ -43,7 +43,27 @@
                     <div>17672</div>
                     <div>17875</div>
                 </td>
+                <td class="left-align">
+                    <div>Rulli Arhan</div>
+                    <div>Meisya Renata</div>
+                </td>
+                <td>Teknik Komputer Jaringan</td>
+                <td>TKJ 1</td>
+                <td>2024/2025</td>
                 <td>
+                    <a href="{{ route ('evaluasi_persiswa')}}" class="btn" style="background-color: #e67e55; border-radius: 5px; padding: 5px;">
+                        <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>K001</td>
+                <td>
+                    <div>17672</div>
+                    <div>17875</div>
+                </td>
+                <td class="left-align">
                     <div>Rulli Arhan</div>
                     <div>Meisya Renata</div>
                 </td>

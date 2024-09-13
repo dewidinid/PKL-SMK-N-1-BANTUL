@@ -1,50 +1,79 @@
-/* CSS untuk tabel kecil dengan sudut melengkung */
-.table-mini {
-    font-size: 12px; /* Lebih kecil dari tabel biasa */
-    border-radius: 8px; /* Sudut melengkung pada tabel */
-    overflow: hidden; /* Menyembunyikan bagian luar dari sudut melengkung */
-    width: 100%; /* Lebih kecil agar tabel tidak memakan banyak ruang */
-    max-width: 600px; /* Membatasi lebar maksimum */
+/* CSS untuk tabel mini dengan sudut melengkung */
+.table-mini, .custom-mini-table {
+    border-radius: 10px; /* Sudut melengkung */
+    overflow: hidden;
+    border-collapse: separate;
+    width: 100%;
+    table-layout: auto;
+    font-size: 12px; /* Ukuran font lebih kecil */
 }
 
-.table-mini thead {
-    border-top-left-radius: 8px; /* Sudut melengkung di kiri atas header tabel */
-    border-top-right-radius: 8px; /* Sudut melengkung di kanan atas header tabel */
+/* Wrapper tabel mini */
+.table-mini-wrapper, .custom-mini-table-wrapper {
+    overflow-x: auto;
 }
 
-.table-mini tfoot {
-    border-bottom-left-radius: 8px; /* Sudut melengkung di kiri bawah footer tabel */
-    border-bottom-right-radius: 8px; /* Sudut melengkung di kanan bawah footer tabel */
-}
-
-/* Gaya header tabel kecil */
-.table-mini thead td, .table-mini thead th {
-    border-bottom-width: 2px;
+/* Gaya header tabel mini */
+.table-mini thead th, .custom-mini-table thead th {
     background-color: #0275d8;
     color: white;
-    padding: 6px; /* Mengurangi padding untuk ukuran lebih kecil */
+    text-align: center;
+    padding: 4px 4px; /* Padding lebih kecil */
 }
 
-/* Gaya baris tabel ganjil dan genap */
-.table-mini-striped tbody tr:nth-child(odd) {
-    background-color: #f2f2f2 !important; /* Warna latar belakang untuk baris ganjil */
+/* Sudut melengkung header tabel mini */
+.table-mini thead, .custom-mini-table thead {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
-.table-mini-striped tbody tr:nth-child(even) {
-    background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
+/* Gaya baris ganjil dan genap tabel mini */
+.table-mini-striped tbody tr:nth-child(odd), .custom-mini-table tbody tr:nth-child(odd) {
+    background-color: #f8f8f8 !important;
 }
 
-/* CSS untuk memusatkan teks di header dan sel tabel */
-.table-mini thead th, .table-mini tbody td {
-    text-align: center; /* Memusatkan teks di kolom tabel */
-    padding: 5px; /* Mengurangi padding untuk ukuran lebih kecil */
+.table-mini-striped tbody tr:nth-child(even), .custom-mini-table tbody tr:nth-child(even) {
+    background-color: #e3f2fd !important; /* Warna lebih lembut */
 }
 
-/* CSS untuk footer tabel kecil */
-.table-mini tfoot td {
-    background-color: #0275d8 !important; /* Warna latar belakang untuk tfoot */
+/* Gaya sel tabel mini */
+.table-mini tbody td, .custom-mini-table tbody td {
+    text-align: center;
+    padding: 3px; /* Padding lebih kecil */
+    vertical-align: middle;
+    border: 1px solid #ddd;
+}
+
+/* Gaya untuk teks di kolom 'Nama' yang rata kiri */
+.custom-mini-table .left-align {
+    text-align: left;
+}
+
+/* Gaya umum untuk tabel mini */
+.custom-mini-table td, .custom-mini-table th {
+    text-align: center;
+    font-size: 12px; /* Ukuran font lebih kecil */
+}
+
+/* Gaya footer tabel mini */
+.table-mini tfoot td, .custom-mini-table tfoot td {
+    background-color: #0275d8 !important;
     color: white !important;
-    font-weight: bold; /* Membuat teks pada tfoot lebih tebal */
-    text-align: center; /* Memusatkan teks di dalam sel tfoot */
-    border-top: 1px solid #0275d8; /* Menambahkan garis atas pada tfoot */
+    font-weight: bold;
+    text-align: center;
+    padding: 3px; /* Padding lebih kecil di footer */
+}
+
+/* Sudut melengkung pada footer tabel mini */
+.table-mini tfoot, .custom-mini-table tfoot {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+/* Styling untuk tombol download pada tabel mini */
+.custom-mini-table a.btn {
+    background-color: #007bff;
+    color: white;
+    padding: 2px 6px; /* Ukuran tombol lebih kecil */
+    font-size: 12px; /* Ukuran font lebih kecil */
 }

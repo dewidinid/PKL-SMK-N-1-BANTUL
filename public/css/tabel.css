@@ -1,55 +1,89 @@
 /* CSS untuk tabel dengan sudut melengkung */
-.table {
-    border-radius: 8px; /* Sudut melengkung pada tabel */
+.table, .custom-table {
+    border-radius: 15px; /* Sudut melengkung pada tabel */
     overflow: hidden; /* Menyembunyikan bagian luar dari sudut melengkung */
+    border-collapse: separate; /* Menghindari garis hitam pada border */
+    width: 100%; /* Menyusun tabel untuk menyesuaikan lebar kontainer */
+    table-layout: auto; /* Memungkinkan kolom menyesuaikan lebar berdasarkan konten */
+    
+    
 }
 
-.table thead {
-    border-top-left-radius: 8px; /* Sudut melengkung di kiri atas header tabel */
-    border-top-right-radius: 8px; /* Sudut melengkung di kanan atas header tabel */
-}
-
-.table tfoot  {
-    border-bottom-left-radius: 8px; /* Sudut melengkung di kiri bawah footer tabel */
-}
-
-.table tfoot {
-    border-bottom-right-radius: 8px; /* Sudut melengkung di kanan bawah footer tabel */
+/* Wrapper untuk tabel agar dapat digulir jika diperlukan */
+.table-wrapper, .custom-table-wrapper {
+    overflow-x: auto; /* Menambahkan scroll horizontal jika tabel terlalu lebar */
 }
 
 /* Gaya header tabel */
-.table thead td, .table thead th {
-    border-bottom-width: 2px;
+.table thead th, .custom-table thead th {
     background-color: #0275d8;
+    color: white;
+    text-align: center; /* Memusatkan teks di header */
+    
+    padding: 5px 5px; /* Jarak atas bawah kiri kanan pada isi header */
+}
+
+/* Sudut melengkung pada header tabel */
+.table thead, .custom-table thead {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Gaya baris ganjil dan genap */
+.table-striped tbody tr:nth-child(odd), .custom-table tbody tr:nth-child(odd) {
+    background-color: #f8f8f8 !important; /* Warna ganjil */
+}
+
+.table-striped tbody tr:nth-child(even), .custom-table tbody tr:nth-child(even) {
+    background-color: #C5D7E0 !important; /* Warna genap */
+}
+
+/* Penataan sel tabel */
+.table tbody td, .custom-table tbody td {
+    text-align: center; /* Memusatkan teks di sel */
+    padding: 5px; /* Menambahkan padding */
+    vertical-align: middle; /* Vertikal rata tengah */
+    border: 1px solid #ddd;
+    justify-content: center;
+}
+
+/* Gaya umum tabel dengan rata tengah */
+.custom-table td, .custom-table th {
+    text-align: center;
+    
+}
+
+/* Gaya khusus untuk kolom Nama agar teks rata kiri */
+.custom-table .left-align {
+    text-align: left;
+}
+
+
+/* Styling untuk footer tabel */
+.table tfoot td, .custom-table tfoot td {
+    background-color: #0275d8 !important; /* Warna footer */
+    color: white !important;
+    font-weight: bold; /* Membuat teks lebih tebal */
+    text-align: center; /* Memusatkan teks di footer */
+    padding: 5px;
+}
+
+/* Sudut melengkung pada footer tabel */
+.table tfoot, .custom-table tfoot {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Styling untuk tombol download */
+.custom-table a.btn {
+    background-color: #007bff; /* Warna biru untuk tombol download */
     color: white;
 }
 
-/* Gaya baris tabel ganjil dan genap */
-.table-striped tbody tr:nth-child(odd) {
-    background-color: #f8f8f8 !important; /* Warna latar belakang untuk baris ganjil */
-}
-
-.table-striped tbody tr:nth-child(even) {
-    background-color: #C5D7E0 !important; /* Warna latar belakang untuk baris genap */
-}
-
-/* CSS untuk memusatkan teks di header dan sel tabel kecuali kolom Evaluasi */
-.table thead th, .table tbody td {
-    text-align: center; /* Memusatkan teks di kolom tabel */
-}
-
-/* CSS khusus untuk kolom Evaluasi agar rata kiri */
-.table .left-align {
-    text-align: left; /* Rata kiri untuk kolom Evaluasi */
-}
-
-/* CSS untuk tfoot */
-.table tfoot td {
-    background-color: #0275d8 !important; /* Warna latar belakang untuk tfoot */
-    color: white !important;
-    font-weight: bold; /* Membuat teks pada tfoot lebih tebal */
-    text-align: center; /* Memusatkan teks di dalam sel tfoot */
-    border-top: 1px solid #0275d8; /* Menambahkan garis atas pada tfoot */
+/* Custom checkbox styling */
+.custom-table input[type="checkbox"] {
+    transform: scale(1.2); /* Membesarkan checkbox */
+    cursor: pointer;
 }
 
 

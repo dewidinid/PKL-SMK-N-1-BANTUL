@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container ">
     <div id="home_pembimbing" class="text-center mb-5" data-aos="fade-up">
         <br>
         <h3>DASHBOARD PEMBIMBING</h3>
@@ -66,13 +66,15 @@
         </div>
         <br>
         <br>
-        <div class="box-info">
-            <div class="box-table" style="height: 350px">
+        <div class="box-info ">
+            <div class="box-table " style="height: 350px">
                 <br>
                 <h3 style="text-align: center">Laporan/Jurnal PKL Siswa</h3>
                 <br>
-                <table class="table table-striped table-bordered">
-                    <thead >
+                <br>
+                <br>
+                <table class="table-striped custom-table">
+                    <thead class="table-primary text-center">
                         <tr class="text-center" >
                             <th>No</th>
                             <th>Tanggal</th>
@@ -83,7 +85,6 @@
                             <th>Kegiatan/Progress</th>
                             <th>Lokasi</th>
                         </tr>
-                        <br>
                     </thead>
                     <tbody id="data-table">
                         <!-- Data contoh, akan diisi dengan JavaScript -->

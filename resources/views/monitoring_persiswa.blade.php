@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
     
-    <div class="" style="background-color: #ffffff; border-radius: 10px; padding: 20px;">
+    <div style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <div class="d-flex justify-content-start mb-3">
             <button onclick="window.history.back()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
                 <i class="bi bi-arrow-left"></i> Kembali
@@ -22,7 +22,7 @@
             <p><strong>DUDI :</strong> {{ $student['dudi'] }}</p>
         </div> --}}
 
-        <div class="container mt-4">
+        <div >
             <p><strong>Nama :</strong> Rulli Arhan</p>
             <p><strong>NIS :</strong> 17672</p>
             <p><strong>Jurusan :</strong> Teknik Komputer Jaringan</p>
@@ -30,17 +30,13 @@
             <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
         </div>
 
-        <div class="my-3">
-            <br>
-            <a href="#" class="btn btn-link">Template Monitoring PKL</a>
-        </div>
-
-        <div class="container mt-5">
-            <!-- Batas Lebar Tabel -->
-            <div style="max-width: 50%;">
         
-                <table class="table table-bordered" >
-                    <thead class="table-primary" >
+            <!-- Batas Lebar Tabel -->
+            <div style="max-width: 60%;">
+                <a href="#" class="btn btn-link">Template Monitoring PKL</a>
+                <br>
+                <table class="table-striped custom-table">
+                    <thead class="table-primary text-center">
                         <tr >
                             <th>Bulan</th>
                             <th>Monitoring</th>
@@ -48,59 +44,111 @@
                             <th>Ket</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="data-table" >
                         <tr>
                             <td>Ke-1</td>
-                            <td>
-                                <form method="POST" enctype="multipart/form-data">
+                            <td >
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <label for="file-upload-1" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 10px;color: white; padding: 5px;"> Upload </label>
+                                    <label for="file-upload-1" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
                                     <input id="file-upload-1" type="file" name="file" class="d-none" onchange="this.form.submit()">
                                 </form>
                             </td>
-                            <td><button class="btn btn-warning">Import</button></td>
-                            <td class="text-center">
+                            <td >
+                                <button class="custom-btn " style="background-color: #F99417; text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
                                 <input type="checkbox" name="check[]" value="1">
                             </td>
                         </tr>
                         <tr>
                             <td>Ke-2</td>
-                            <td>
-                                <form method="POST" enctype="multipart/form-data">
+                            <td >
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <label for="file-upload-2" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 10px;color: white; padding: 5px;"> Upload </label>
+                                    <label for="file-upload-2" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
                                     <input id="file-upload-2" type="file" name="file" class="d-none" onchange="this.form.submit()">
                                 </form>
                             </td>
-                            <td><button class="btn btn-warning">Import</button></td>
-                            <td class="text-center">
+                            <td >
+                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
                                 <input type="checkbox" name="check[]" value="1">
                             </td>
                         </tr>
                         <tr>
                             <td>Ke-3</td>
                             <td>
-                                <form method="POST" enctype="multipart/form-data">
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                    <label for="file-upload-3" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 10px;color: white; padding: 5px;"> Upload </label>
+                                    <label for="file-upload-3" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
                                     <input id="file-upload-3" type="file" name="file" class="d-none" onchange="this.form.submit()">
                                 </form>
                             </td>
-                            <td><button class="btn btn-warning">Import</button></td>
-                            <td class="text-center">
+                            <td >
+                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
+                                <input type="checkbox" name="check[]" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ke-4</td>
+                            <td>
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <label for="file-upload-4" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
+                                    <input id="file-upload-4" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                                </form>
+                            </td>
+                            <td >
+                                <button class="custom-btn " style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
+                                <input type="checkbox" name="check[]" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ke-5</td>
+                            <td>
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <label for="file-upload-5" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
+                                    <input id="file-upload-5" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                                </form>
+                            </td>
+                            <td >
+                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
+                                <input type="checkbox" name="check[]" value="1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Ke-6</td>
+                            <td >
+                                <form class="mt-2" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <label for="file-upload-6" class="btn bi bi-file-earmark" style="background-color: #9173c3; height: 38px; border-radius: 5px;color: white; "> Upload </label>
+                                    <input id="file-upload-5" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                                </form>
+                            </td>
+                            <td >
+                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            </td>
+                            <td >
                                 <input type="checkbox" name="check[]" value="1">
                             </td>
                         </tr>
                     </tbody>
                 </table>
-        
             </div> <!-- End of max-width wrapper -->
-        </div>
-        <br>
+
 
         <h4 class="mt-5 text-left">Detail Monitoring</h4><br>
-        <table class="table table-bordered">
-            <thead class="table-primary">
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
                 <tr>
                     <th>Bulan</th>
                     <th>1. Softskill</th>
@@ -126,7 +174,7 @@
                     <td>{{ array_sum(array_column($detailMonitoring, 'nilai_akhir')) }}</td>
                 </tr>
             </tbody> --}}
-            <tbody class="table table-striped">
+            <tbody id="data-table">
                 <tr>
                     <td>Ke-1</td>
                     <td>90</td>
@@ -158,18 +206,12 @@
                     <td>170</td> <!-- Contoh total dari semua nilai -->
                 </tr>
                 <tr>
-                    <td colspan="5">Rata-rata</td>
+                    <td colspan="5">Rata-Rata</td>
                     <td>85</td> <!-- Contoh rata-rata -->
                 </tr>
             </tfoot>
-
-        </table>
-
-        {{-- <div class="total-nilai d-flex justify-content-between">
-            <span>Total Nilai</span>
-            <span>90</span> <!-- Ganti nilai 90 dengan nilai dinamis dari database -->
-        </div> --}}
-
+       </table>
+    <br>
         <div class="mt-4 d-flex justify-content-left">
             <button class="btn btn-primary">Export Nilai PKL</button>
         </div>

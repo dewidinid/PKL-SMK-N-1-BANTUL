@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
         <h4 class="text-center">LAPORAN AKHIR PKL</h4>
         <br>
         
@@ -20,14 +20,14 @@
 
     <br>
 
-    <table class="table table-bordered">
-        <thead>
+    <table class="table-striped custom-table">
+        <thead class="table-primary text-center">
             <tr>
                 <th>No</th>
                 <th>Kelompok</th>
                 <th>NIS</th>
                 <th>Nama</th>
-                <th>Jurusan</th>
+                <th>Kompetensi Keahlian</th>
                 <th>Kelas</th>
                 <th>Tahun</th>
                 <th>Laporan Akhir</th>
@@ -52,25 +52,40 @@
                 </tr>
             @endforeach
         </tbody> --}}
-        <tbody class="table table-striped" id="data-table">
-            <tr class="text-center align-middle">
-                <td class="align-middle">1</td>
-                <td class="align-middle">K001</td>
-                <td class="align-middle">16034</td>
-                <td class="align-middle">Rulli Ardha Ramadhan</td>
-                <td class="align-middle">Teknik Komputer Jaringan</td>
-                <td class="align-middle">TKJ 1</td>
-                <td class="align-middle">2024/2025</td>
+        <tbody id="data-table">
+            <tr >
+                <td >1</td>
+                <td >K001</td>
+                <td >16034</td>
+                <td class="left-align">Rulli Ardha Ramadhan</td>
+                <td >Teknik Komputer Jaringan</td>
+                <td >TKJ 1</td>
+                <td >2024/2025</td>
                 <td>
                     <a href="{{ asset('storage/files/sample-file.pdf') }}" >
-                        <button class="btn btn-warning">
+                        <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
                             Download
                             <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
                         </button>
-                        
                     </a> 
                 </td>
-
+            </tr>
+            <tr >
+                <td >1</td>
+                <td >K001</td>
+                <td >16034</td>
+                <td class="left-align">Rulli Ardha Ramadhan</td>
+                <td >Teknik Komputer Jaringan</td>
+                <td >TKJ 1</td>
+                <td >2024/2025</td>
+                <td>
+                    <a href="{{ asset('storage/files/sample-file.pdf') }}" >
+                        <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                            Download
+                            <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
+                        </button>
+                    </a> 
+                </td>
             </tr>
         </tbody>
     </table>

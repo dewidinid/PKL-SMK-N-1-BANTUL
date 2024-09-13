@@ -3,10 +3,8 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
     <h4 class="text-center">DATA GURU PEMBIMBING</h4>
-
-    <br>
     <br>
   <!-- Filter Tahun dan Jurusan -->
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -30,25 +28,32 @@
                 </label>
                 <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
             </div>
-            <button class="btn btn-warning">Import</button>
+            <button class="custom-btn" style="background-color: #F99417; ">Import</button>
         </form>
     </div>
 </div>
 
-        <table class="table table-bordered">
-            <thead >
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
                 <tr class="text-center" >
                     <th>No</th>
                     <th>NIP/NIK</th>
                     <th>Nama</th>
                     <th>No.Handphone</th>
                     <th>Tahun</th>
-                <br>
+                </tr>
             </thead>
             <tbody id="data-table" >
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>
+                    <td>16034</td>
+                    <td>Rulli Ardha Ramadhan</td>
+                    <td>089189793298</td>
+                    <td>2024/2025</td>
+                </tr>
+                <tr>
+                    <td>2</td>
                     <td>16034</td>
                     <td>Rulli Ardha Ramadhan</td>
                     <td>089189793298</td>

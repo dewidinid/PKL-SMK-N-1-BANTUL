@@ -2,11 +2,8 @@
 
 
 @section('content')
-
-
 <div class="container mt-5">
     <h4 class="text-center">PLOTING SISWA</h4>
-    <br>
     <br>
   <!-- Filter Tahun dan Jurusan -->
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -30,13 +27,13 @@
                 </label>
                 <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
             </div>
-            <button class="btn btn-warning">Import</button>
+            <button class="custom-btn" style="background-color: #F99417; ">Import</button>
         </form>
     </div>
 </div>
 
-        <table class="table table-bordered">
-            <thead >
+        <table class=" table-striped custom-table">
+            <thead class="table-primary text-center" >
                 <tr class="text-center" >
                     <th>No</th>
                     <th>Kelompok</th>
@@ -46,12 +43,22 @@
                     <th>Pembimbing</th>
                     <th>Dudi</th>
                     <th>No Telepon Dudi</th>
-                    <br>
+                </tr>
             </thead>
             <tbody id="data-table">
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>
+                    <td>K001</td>
+                    <td>178291</td>
+                    <td>Rulli Muhammad</td>
+                    <td>TKJ 1</td>
+                    <td>Dariyati, S.Pd.</td>
+                    <td>PT Telkom Indonesia</td>
+                    <td>(0274) 56276737</td>
+                </tr>
+                <tr>
+                    <td>2</td>
                     <td>K001</td>
                     <td>178291</td>
                     <td>Rulli Muhammad</td>

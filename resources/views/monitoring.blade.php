@@ -3,7 +3,7 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div class="container mt-5 table-wrapper">
     <h4 class="text-center">MONITORING</h4>
     <br>
     
@@ -21,29 +21,49 @@
         </div>
     </div>
 
-    <table class="table table-bordered">
-        <thead >
+    <table class="table-striped custom-table">
+        <thead class="table-primary text-center">
             <tr class="text-center" >
-                <td>No</td>
-                <td>Kelompok</td>
-                <td>NIS</td>
-                <td id="nama">Nama</td>
-                <td>Konsentrasi Keahlian</td>
-                <td>Kelas</td>
-                <td>Tahun</td>
-                <td>Monitoring</td>
-            <br>
+                <th>No</th>
+                <th>Kelompok</th>
+                <th>NIS</th>
+                <th id="nama">Nama</th>
+                <th>Konsentrasi Keahlian</th>
+                <th>Kelas</th>
+                <th>Tahun</th>
+                <th>Monitoring</th>
+            </tr>
         </thead>
         <tbody id="data-table" >
             <!-- Data contoh, akan diisi dengan JavaScript -->
             <tr>
                 <td>1</td>
                 <td>K001</td>
-                <td>
+                <td >
                     <div>17672</div>
                     <div>17875</div>
                 </td>
+                <td class="left-align">
+                    <div>Rulli Arhan</div>
+                    <div>Meisya Renata</div>
+                </td>
+                <td>Teknik Komputer Jaringan</td>
+                <td>TKJ 1</td>
+                <td>2024/2025</td>
                 <td>
+                    <a href="{{ route ('monitoring_persiswa')}}" class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
+                        <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>K001</td>
+                <td >
+                    <div>17672</div>
+                    <div>17875</div>
+                </td>
+                <td class="left-align">
                     <div>Rulli Arhan</div>
                     <div>Meisya Renata</div>
                 </td>
