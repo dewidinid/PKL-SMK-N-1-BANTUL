@@ -6,75 +6,62 @@
 <div class="container mt-5 table-wrapper">
     <h4 class="text-center">DATA GURU PEMBIMBING</h4>
     <br>
-  <!-- Filter Tahun dan Jurusan -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div >
-        <select class="form-select d-inline-block w-auto" name="tahun">
-            <option selected>Tahun</option>
-            <!-- Tambahkan opsi tahun -->
-        </select>
-        <select class="form-select d-inline-block w-auto" name="jurusan">
-            <option selected>Jurusan</option>
-            <!-- Tambahkan opsi jurusan -->
-        </select>
-    </div>
+    <!-- Filter Tahun dan Jurusan -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div >
+            <select class="form-select d-inline-block w-auto" name="tahun">
+                <option selected>Tahun</option>
+                <!-- Tambahkan opsi tahun -->
+            </select>
+            <select class="form-select d-inline-block w-auto" name="jurusan">
+                <option selected>Jurusan</option>
+                <!-- Tambahkan opsi jurusan -->
+            </select>
+        </div>
 
-    <div class="d-flex justify-content-end align-items-center mb-3">
-        <form method="POST" enctype="multipart/form-data" class="d-flex">
-            @csrf
-            <div class="me-2">
-                <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
-                    Upload <i class="bi bi-upload ms-2"></i>
-                </label>
-                <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+        <!-- Pesan Sukses -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-            <button class="custom-btn" style="background-color: #F99417; ">Import</button>
-        </form>
-    </div>
-</div>
+        @endif
 
-        <table class="table-striped custom-table">
-            <thead class="table-primary text-center">
-                <tr class="text-center" >
-                    <th>No</th>
-                    <th>NIP/NIK</th>
-                    <th>Nama</th>
-                    <th>No.Handphone</th>
-                    <th>Tahun</th>
-                </tr>
-            </thead>
-            <tbody id="data-table" >
-                <!-- Data contoh, akan diisi dengan JavaScript -->
-                <tr>
-                    <td>1</td>
-                    <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
-                    <td>089189793298</td>
-                    <td>2024/2025</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
-                    <td>089189793298</td>
-                    <td>2024/2025</td>
-                </tr>
-            </tbody>
-            {{-- <tbody>
-                @foreach ($students as $index => $student)
+        <div class="d-flex justify-content-end align-items-center mb-3">
+            <form method="POST" action="{{ route('import.pembimbing') }}" enctype="multipart/form-data" class="d-flex">
+                @csrf
+                <div class="me-2">
+                    <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
+                        Upload <i class="bi bi-upload ms-2"></i>
+                    </label>
+                    <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                </div>
+                <button type="submit" class="custom-btn" style="background-color: #F99417;">Import</button>
+            </form>
+        </div>
+    </div>
+    
+    <table class="table-striped custom-table">
+        <thead class="table-primary text-center">
+            <tr class="text-center">
+                <th>No</th>
+                <th>NIP/NIK</th>
+                <th>Nama</th>
+                {{-- <th>No.Handphone</th> --}}
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            @foreach($pembimbing as $index => $data)
                 <tr>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $student->nis }}</td>
-                    <td>{{ $student->nama }}</td>
-                    <td>{{ $student->jurusan }}</td>
-                    <td>{{ $student->kelas }}</td>
-                    <td>{{ $student->tahun }}</td>
+                    <td>{{ $data->NIP_NIK }}</td>
+                    <td>{{ $data->nama_pembimbing }}</td>
+                    {{-- <td>{{ $data->notelp_pembimbing }}</td> --}}
                 </tr>
-                @endforeach
-            </tbody> --}}
-
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
+    
+</div>
 
     <br>
     <br>

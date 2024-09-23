@@ -100,8 +100,48 @@
 </script>
 
 <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            // Mengambil posisi pengguna
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("Geolocation tidak didukung oleh browser ini.");
+        }
+    }
+
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        // Menampilkan koordinat di input field
+        document.getElementById("lokasi").value = "Latitude: " + latitude + ", Longitude: " + longitude;
+
+        // Menampilkan tautan ke Google Maps
+        var mapsLink = document.getElementById("mapsLink");
+        mapsLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+        mapsLink.style.display = 'inline-block';
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                alert("Pengguna menolak permintaan untuk Geolocation.");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                alert("Informasi lokasi tidak tersedia.");
+                break;
+            case error.TIMEOUT:
+                alert("Permintaan untuk mendapatkan lokasi pengguna telah melebihi batas waktu.");
+                break;
+            case error.UNKNOWN_ERROR:
+                alert("Terjadi kesalahan yang tidak diketahui.");
+                break;
+        }
+    }
+</script>
+
+<script>
     let currentPage = 1;
-    const rowsPerPage = 1; // Jumlah baris per halaman
+    const rowsPerPage = 10; // Jumlah baris per halaman
     const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
     const totalPages = Math.ceil(tableData.length / rowsPerPage);
 
