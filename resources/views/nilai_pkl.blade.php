@@ -39,7 +39,7 @@
                     <th>Ket</th>
                 </tr>
             </thead>
-            {{-- <tbody>
+            <tbody>
                 @foreach($students as $student)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
@@ -57,8 +57,7 @@
                         </td>
                     </tr>
                 @endforeach
-            </tbody> --}}
-            <tbody id="data-table">
+            
                 <tr>
                     <td>1</td>
                     <td>K001</td>
@@ -107,23 +106,34 @@
                         <th>Nilai Akhir</th>
                     </tr>
                 </thead>
-                {{-- <tbody>
-                    @foreach($students as $student)
-                        @foreach($student->grades as $grade)
-                            <tr>
-                                <td>{{ $loop->parent->iteration }}</td>
-                                <td>{{ $student->nis }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $grade->softskill }}</td>
-                                <td>{{ $grade->norma }}</td>
-                                <td>{{ $grade->kompetensi }}</td>
-                                <td>{{ $grade->disiplin }}</td>
-                                <td>{{ $grade->nilai_akhir }}</td>
-                            </tr>
-                        @endforeach
-                    @endforeach
-                </tbody> --}}
                 <tbody  id="data-table">
+                    @foreach ($nilai_pkl as $index => $nilai)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $nilai->kelompok->kode_kelompok }}</td>
+                        <td>{{ $nilai->siswa->NIS }}</td>
+                        <td>{{ $nilai->siswaByNama->nama_siswa }}</td>
+                        <td>{{ $nilai->konsentrasiKeahlian->konsentrasi_keahlian }}</td>
+                        <td>{{ $nilai->siswaByKelas->kelas }}</td>
+                        <td>{{ $nilai->siswaByTahun->tahun }}</td>
+                        <td>
+                            @if($nilai->nilai)
+                                <a href="{{ asset('storage/' . $nilai->nilai) }}" target="_blank">Lihat Nilai</a>
+                            @else
+                                Belum diupload
+                            @endif
+                        </td>
+                        <td>
+                            <form action="{{ route('import.nilai', $nilai->id_nilai) }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="nilai_file" required>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </form>
+                        </td>
+                        <td>{{ $nilai->nilai ? 'Sudah diupload' : 'Belum diupload' }}</td>
+                    </tr>
+                    @endforeach
+                    
                     <tr>
                         <td>1</td>
                         <td>16034</td>

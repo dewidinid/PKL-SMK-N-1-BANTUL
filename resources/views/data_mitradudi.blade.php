@@ -32,6 +32,16 @@
                 </tr>
             </thead>
             <tbody id="data-table">
+                @foreach ($dudi as $index => $data_dudi)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $data_dudi->kode_dudi }}</td>
+                    <td>{{ $data_dudi->nama_dudi }}</td>
+                    <td>{{ $data_dudi->alamat }}</td>
+                    <td>{{ $data_dudi->no_telp }}</td>
+                    <td>{{ $data_dudi->posisi }}</td>
+                </tr>
+                @endforeach
                 <tr>
                     <td>1</td>
                     <td>D001</td>

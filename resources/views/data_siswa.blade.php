@@ -46,6 +46,16 @@
                 </tr>
             </thead>
             <tbody id="data-table" >
+                @foreach ($siswa as $index => $student)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $student->NIS }}</td>
+                        <td>{{ $student->nama_siswa }}</td>
+                        <td>{{ $student->konsentrasiKeahlian->nama_konsentrasi }}</td>
+                        <td>{{ $student->kelas }}</td>
+                        <td>{{ $student->tahun }}</td>
+                    </tr>
+                @endforeach
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>
@@ -76,19 +86,7 @@
                     <td>2024/2025</td>
                 </tr>
             </tbody>
-            {{-- <tbody>
-                @foreach ($students as $index => $student)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $student->nis }}</td>
-                    <td>{{ $student->nama }}</td>
-                    <td>{{ $student->konsentrasi_keahlian }}</td>
-                    <td>{{ $student->kelas }}</td>
-                    <td>{{ $student->tahun }}</td>
-                </tr>
-                @endforeach
-            </tbody> --}}
-
+            
         </table>
 </div>
 

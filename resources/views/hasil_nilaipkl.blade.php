@@ -33,25 +33,26 @@
                 <th>Nilai</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            @foreach($students as $student)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>TKJ</td>
-                    <td>{{ $student->nis }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->jurusan }}</td>
-                    <td>{{ $student->kelas }}</td>
-                    <td>{{ $student->tahun }}</td>
-                    <td>
-                        <span class="badge bg-success">Upload</span>
+        @foreach ($nilaiPkl as $index => $nilai)
+                    <tr class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $nilai->kelompok->kode_kelompok ?? '-' }}</td>
+                        <td>{{ $nilai->NIS }}</td>
+                        <td>{{ $nilai->siswaByNama->nama_siswa ?? '-' }}</td>
+                        <td>{{ $nilai->konsentrasiKeahlian->nama_konsentrasi ?? '-' }}</td>
+                        <td>{{ $nilai->siswaByKelas->kelas ?? '-' }}</td>
+                        <td>{{ $nilai->siswaByTahun->tahun ?? '-' }}</td>
+                        <td>{{ $nilai->nilai }}</td>
+                    </tr>
+                     @endforeach
+                       {{-- <span class="badge bg-success">Upload</span>
                     </td>
                     <td>
                         <button class="btn btn-primary">Import</button>
                     </td>
                 </tr>
-            @endforeach
-        </tbody> --}}
+            @endforeach --}}
+        </tbody> 
         <tbody id="data-table">
             <tr class="text-center ">
                 <td >1</td>

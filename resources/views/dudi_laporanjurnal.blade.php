@@ -32,6 +32,18 @@
                 <br>
             </thead>
             <tbody id="data-table">
+                @foreach ($laporan_jurnal as $index => $jurnal)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $jurnal->created_at->format('d-m-Y') }}</td>
+                    <td>{{ $jurnal->siswa->NIS }}</td>
+                    <td>{{ $jurnal->siswaByNama->nama_siswa }}</td>
+                    <td>{{ $jurnal->siswa->konsentrasi_keahlian }}</td>
+                    <td>{{ $jurnal->dudi->nama_dudi }}</td>
+                    <td>{{ $jurnal->kegiatan }}</td>
+                    <td>{{ $jurnal->lokasi }}</td>
+                </tr>
+                @endforeach
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>

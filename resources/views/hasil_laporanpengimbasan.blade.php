@@ -33,25 +33,22 @@
                 <th style="font-size: 15px">Laporan Pengimbasan</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            @foreach($students as $student)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>TKJ</td>
-                    <td>{{ $student->nis }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->jurusan }}</td>
-                    <td>{{ $student->kelas }}</td>
-                    <td>{{ $student->tahun }}</td>
-                    <td>
-                        <span class="badge bg-success">Upload</span>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary">Import</button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody> --}}
+        @foreach ($laporanPengimbasan as $index => $laporan)
+                    <tr class="text-center">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $laporan->kelompok->kode_kelompok ?? '-' }}</td>
+                        <td>{{ $laporan->NIS }}</td>
+                        <td>{{ $laporan->siswaByNama->nama_siswa ?? '-' }}</td>
+                        <td>{{ $laporan->konsentrasiKeahlian->nama_konsentrasi ?? '-' }}</td>
+                        <td>{{ $laporan->siswaByKelas->kelas ?? '-' }}</td>
+                        <td>{{ $laporan->dudi->nama_dudi ?? '-' }}</td>
+                        <td>
+                            <a href="{{ asset('storage/laporan_pengimbasan/' . $laporan->laporan_pengimbasan) }}" target="_blank" class="btn btn-link">Lihat Laporan</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                        
+        </tbody> 
         <tbody id="data-table">
             <tr >
                 <td >1</td>

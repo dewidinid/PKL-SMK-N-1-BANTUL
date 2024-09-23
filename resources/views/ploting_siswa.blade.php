@@ -46,6 +46,18 @@
                 </tr>
             </thead>
             <tbody id="data-table">
+                @foreach ($ploting as $index => $ploting)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $ploting->kelompok->kode_kelompok }}</td>
+                <td>{{ $ploting->siswa->NIS }}</td>
+                <td>{{ $ploting->siswa->nama_siswa }}</td>
+                <td>{{ $ploting->siswa->kelas }}</td>
+                <td>{{ $ploting->pembimbing->nama_pembimbing }}</td>
+                <td>{{ $ploting->dudi->nama_dudi }}</td>
+                <td>{{ $ploting->dudi->notelp_dudi }}</td>
+            </tr>
+            @endforeach
                 <!-- Data contoh, akan diisi dengan JavaScript -->
                 <tr>
                     <td>1</td>

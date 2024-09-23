@@ -34,7 +34,26 @@
                 <th>Evaluasi</th>
             </tr>
         </thead>
-        <tbody id="data-table" >
+        <tbody id="data-table">
+            @foreach($dataEvaluasi as $index => $evaluasi)
+                <tr class="text-center">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $evaluasi->kelompok->kode_kelompok ?? '-' }}</td>
+                    <td>{{ $evaluasi->NIS }}</td>
+                    <td>{{ $evaluasi->nama }}</td>
+                    <td>{{ $evaluasi->konsentrasiKeahlian->nama_keahlian ?? '-' }}</td>
+                    <td>{{ $evaluasi->kelas }}</td>
+                    <td>{{ $evaluasi->tahun }}</td>
+                    <td>
+                        @if($evaluasi->evaluasi)
+                            <a href="{{ asset('storage/evaluasi/' . $evaluasi->evaluasi) }}" class="btn btn-link">Lihat Evaluasi</a>
+                        @else
+                            <span>Tidak ada evaluasi</span>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
+            
             <!-- Data contoh, akan diisi dengan JavaScript -->
             <tr>
                 <td>1</td>

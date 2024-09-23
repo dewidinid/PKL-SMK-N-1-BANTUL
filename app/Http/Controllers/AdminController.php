@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Siswa;
+use App\Models\Pembimbing;
+use App\Models\Dudi;
+use App\Models\Ploting;
+use App\Models\NilaiPkl;
 
 use Illuminate\Http\Request;
 
@@ -14,35 +19,20 @@ class AdminController extends Controller
     
     public function dataSiswa()
     {
+        $siswa = Siswa::with('konsentrasiKeahlian', 'kelompok', 'dudi')->get();
+
         // Anda dapat mengirimkan data ke view jika diperlukan
-        return view('data_siswa');
+        return view('data_siswa', ['siswa' => $siswa]);
     }
 
-    public function dataMitraDudi()
-    {
-        // Anda dapat mengirimkan data ke view jika diperlukan
-        return view('data_mitradudi');
-    }
 
     public function plotingSiswa()
     {
+        $ploting = Ploting::with('kelompok', 'siswa', 'pembimbing', 'dudi')->get();
         // Anda dapat mengirimkan data ke view jika diperlukan
-        return view('ploting_siswa');
+        return view('ploting_siswa', ['ploting' => $ploting]);
     }
 
-    public function suratPengajuan()
-    {
-        // Mengambil data pengajuan PKL dari database
-        // $pengajuanPkl = PengajuanPkl::all(); // Ambil semua data pengajuan PKL
 
-        // Mengirimkan data ke view
-        return view('suratpengajuanmandiri');
-    }
-
-    public function guruPembimbing()
-    {
-        // Mengirimkan data ke view
-        return view('guru_pembimbing');
-    }
 }
 

@@ -14,13 +14,14 @@
         <h2 class="text-center mt-2">Monitoring</h2>
         <br>
         
-        {{-- <div class="mt-4">
-            <p><strong>Nama :</strong> {{ $student['name'] }}</p>
-            <p><strong>NIS :</strong> {{ $student['nis'] }}</p>
-            <p><strong>Jurusan :</strong> {{ $student['jurusan'] }}</p>
-            <p><strong>Kelas :</strong> {{ $student['kelas'] }}</p>
-            <p><strong>DUDI :</strong> {{ $student['dudi'] }}</p>
-        </div> --}}
+        <div class="mt-4">
+            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
+            <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
+            <p><strong>Jurusan :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
+            <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
+            <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
+        </div>
+
 
         <div >
             <p><strong>Nama :</strong> Rulli Arhan</p>
@@ -30,8 +31,90 @@
             <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
         </div>
 
+        <!-- Batas Lebar Tabel -->
+        <div style="max-width: 60%;">
+            <a href="#" class="btn btn-link">Template Monitoring PKL</a>
+            <br>
+            <table class="table-striped custom-table">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>Bulan</th>
+                        <th>Monitoring</th>
+                        <th>Import</th>
+                        <th>Ket</th>
+                    </tr>
+                </thead>
+                <tbody id="data-table">
+                    @foreach ($monitoring as $index => $data)
+                    <tr>
+                        <td>Ke-{{ $index + 1 }}</td>
+                        <td>
+                            <form class="mt-2" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <label for="file-upload-{{ $index + 1 }}" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white;"> Upload </label>
+                                <input id="file-upload-{{ $index + 1 }}" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td>
+                            <button class="custom-btn" style="background-color: #F99417; text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="check[]" value="{{ $index + 1 }}">
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div> <!-- End of max-width wrapper -->
+
+        <h4 class="mt-5 text-left">Detail Monitoring</h4><br>
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>Bulan</th>
+                    <th>1. Softskill</th>
+                    <th>2. Norma</th>
+                    <th>3. Kompetensi</th>
+                    <th>4. DUDI</th>
+                    <th>Nilai Akhir</th>
+                </tr>
+            </thead>
+            <tbody id="data-table">
+                @foreach ($detailMonitoring as $detail)
+                <tr>
+                    <td>{{ $detail->bulan }}</td>
+                    <td>{{ $detail->softskill }}</td>
+                    <td>{{ $detail->norma }}</td>
+                    <td>{{ $detail->kompetensi }}</td>
+                    <td>{{ $detail->dudi }}</td>
+                    <td>{{ $detail->nilai_akhir }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">Total Nilai</td>
+                    <td>{{ $totalNilai }}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">Rata-Rata</td>
+                    <td>{{ $rataRata }}</td>
+                </tr>
+            </tfoot>
+        </table>
+        <br>
+        <div class="mt-4 d-flex justify-content-left">
+            <button class="btn btn-primary">Export Nilai PKL</button>
+        </div>
+        <br>
+        <br>
+    </div>
+</div>
+
+@endsection
+
         
-            <!-- Batas Lebar Tabel -->
+            {{-- <!-- Batas Lebar Tabel -->
             <div style="max-width: 60%;">
                 <a href="#" class="btn btn-link">Template Monitoring PKL</a>
                 <br>
@@ -221,4 +304,4 @@
 </div>
 
 
-@endsection
+@endsection --}}

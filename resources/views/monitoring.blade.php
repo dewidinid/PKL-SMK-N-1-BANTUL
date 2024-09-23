@@ -35,6 +35,18 @@
             </tr>
         </thead>
         <tbody id="data-table" >
+            @foreach ($monitoring as $index => $data)
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $data->kelompok->kode_kelompok }}</td>
+                <td>{{ $data->siswa->NIS }}</td>
+                <td>{{ $data->siswaByNama->nama_siswa }}</td>
+                <td>{{ $data->konsentrasiKeahlian->nama_konsentrasi }}</td>
+                <td>{{ $data->siswaByKelas->kelas }}</td>
+                <td>{{ $data->siswaByTahun->tahun }}</td>
+                <td><a href="{{ route('monitoring.show', $data->id_monitoring) }}">Lihat Detail</a></td>
+            </tr>
+            @endforeach
             <!-- Data contoh, akan diisi dengan JavaScript -->
             <tr>
                 <td>1</td>
@@ -77,20 +89,6 @@
                 </td>
             </tr>
         </tbody>
-        {{-- <tbody>
-            @foreach ($students as $index => $student)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                 <td>{{ $student->kelompok }}</td>
-                <td>{{ $student->nis }}</td>
-                <td>{{ $student->nama }}</td>
-                <td>{{ $student->konsentrasi_keahlian }}</td>
-                <td>{{ $student->kelas }}</td>
-                <td>{{ $student->tahun }}</td>
-                <td>{{ $student->monitoring}}</td>
-            </tr>
-            @endforeach
-        </tbody> --}}
 
     </table>
 </div>
