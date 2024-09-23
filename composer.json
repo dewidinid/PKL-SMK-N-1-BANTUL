@@ -8,7 +8,11 @@
         "php": "^8.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+<<<<<<< HEAD
         "rap2hpoutre/fast-excel": "5.5"
+=======
+        "rap2hpoutre/fast-excel": "^5.5"
+>>>>>>> 9a3a65c32ef80d98c83cb468c58ac3a185b4a906
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

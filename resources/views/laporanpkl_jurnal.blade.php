@@ -1,54 +1,47 @@
 @extends('layouts.headersiswa')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 table-wrapper">
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+
+            <!-- Form Submission Success Message -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!-- Button to Open the Form -->
         <div class="d-flex justify-content-end mb-3">
-            <button onclick="openForm()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 5px; border-radius: 5px;">
-                <i class="bi bi-plus-lg"></i> Tambah
-            </button>
-        </div>        
-        <table class="table table-bordered">
-            <thead >
-                <tr class="text-center" >
+            <button onclick="openForm()" class="btn btn-primary">Tambah Jurnal</button>
+        </div>
+
+        <!-- Journal Table -->
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
+                <tr class="text-center">
                     <th>No</th>
-                    <th>Tanggal</th>
                     <th>NIS</th>
                     <th>Nama</th>
                     <th>Jurusan</th>
                     <th>Tempat Dudi</th>
-                    <th>Kegiatan/Progress</th>
+                    <th>Kegiatan / Progres</th>
                     <th>Lokasi</th>
                 </tr>
-                <br>
             </thead>
             <tbody id="data-table">
-                <!-- Data contoh, akan diisi dengan JavaScript -->
-                <tr>
-                    <td>1</td>
-                    <td>16/03/24</td>
-                    <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
-                    <td>TKJ</td>
-                    <td>PT. Teknorika Inovasi Nusantara</td>
-                    <td>Membuat Flowchart</td>
-                    <td>Yogyakarta</td>
-                </tr>
-            </tbody>
-            {{-- <tbody>
-                @foreach ($jurnals as $index => $jurnal)
+                {{-- @foreach ($jurnals as $index => $jurnal)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
-                        <td>{{ $jurnal->nis }}</td>
-                        <td>{{ $jurnal->nama }}</td>
+                        <td>{{ $jurnal->NIS }}</td>
+                        <td>{{ $jurnal->nama_siswa }}</td>
                         <td>{{ $jurnal->jurusan }}</td>
-                        <td>{{ $jurnal->tempat_dudi }}</td>
+                        <td>{{ $jurnal->nama_dudi }}</td>
                         <td>{{ $jurnal->kegiatan }}</td>
                         <td>{{ $jurnal->lokasi }}</td>
                     </tr>
-                @endforeach
-            </tbody> --}}
+                @endforeach --}}
+            </tbody>
         </table>
     </div>
 
@@ -68,60 +61,43 @@
     <div class="modal" id="jurnalForm" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" style=" color: white; display: flex; justify-content: center; align-items: center;">
-                    <h5 class="modal-title" style=" color: #000000 ;flex: 1; text-align: center;">Form Jurnal Siswa</h5>
+                <div class="modal-header">
+                    <h5 class="modal-title">Form Jurnal Siswa</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-container">
-                        {{-- <h4 class="text-center mb-4" style="color: #ffffff">Form Pengajuan PKL</h4>
-                        <form action="{{ route('formpengajuan') }}" method="POST" enctype="multipart/form-data"> --}}
-                            @csrf
-                            <div class="mb-3">
-                                <label for="nis" class="form-label">NIS</label>
-                                <input type="text" class="form-control" id="nis" name="nis" placeholder="Masukkan NIS" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 5)" maxlength="5">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
-                                {{-- <input type="text" class="form-control" id="jurusan" name="jurusan" placeholder="Masukkan Nama Lengkap" oninput="this.value = this.value.replace(/[^a-zA-Z'\s]/g, '');"> --}}
-                                <input type="text" class="form-control" id="jurusan" name="jurusan" placeholder="Masukkan Nama Lengkap" oninput="this.value = this.value.replace(/[^a-zA-Z'\s]/g, '').replace(/\b\w/g, char => char.toUpperCase()).replace(/\B\w/g, char => char.toLowerCase());">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="jurusan" class="form-label">Jurusan</label>
-                                <select class="form-control" id="jurusan" name="jurusan">
-                                    <option value="" disabled selected>Pilih Jurusan</option>
-                                    <option value="akl">Akuntansi dan Keuangan Lembaga (AKL)</option>
-                                    <option value="ps">Layanan Perbankan Syariah (PS)</option>
-                                    <option value="mp">Manajemen Perkantoran (MP)</option>
-                                    <option value="br">Bisnis Ritel (BR)</option>
-                                    <option value="bd">Bisnis Digital(BD)</option>
-                                    <option value="tkj">Teknik Komputer dan Jaringan (TKJ)</option>
-                                    <option value="dkv">Desain Komunikasi Visual (DKV)</option>
-                                    <option value="rpl">Rekayasa Perangkat Lunak (RPL)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="no_handphone" class="form-label">Tempat Du/Di</label>
-                                <input type="tel" class="form-control" id="tempat_dudi" name="tempat_dudi" placeholder="Masukkan Tempat Dudi">
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="rencana_tempat_pkl" class="form-label">Kegiatan / Progres</label>
-                                <textarea class="form-control" id="nis" name="nis" rows="1" placeholder="Masukkan Kegiatan / Progres hari ini"></textarea>
-                            </div>
-                            <br>
-                            
-                            <div class="d-flex justify-content-center" style="gap: 190px; ">
-                                <button type="reset" class="btn btn-danger">Reset</button>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                            </div>
-                    </div>
-                    <form method="POST" id="jurnalForm">
-                        {{-- action="{{ route('laporanpkl.store') }}"  --}}
+                    <form action="{{ route('submitJurnal') }}" method="POST">
                         @csrf
+                        {{-- <div class="mb-3">
+                            <label for="nis" class="form-label">NIS</label>
+                            <input type="text" class="form-control" id="nis" name="nis" value="{{ Auth::user()->NIS }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama_siswa" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" value="{{ Auth::user()->nama }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jurusan" class="form-label">Jurusan</label>
+                            <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ Auth::user()->jurusan }}" readonly>
+                        </div> --}}
+                        <div class="mb-3">
+                            <label for="tempat_dudi" class="form-label">Tempat Dudi</label>
+                            <input type="text" class="form-control" id="tempat_dudi" name="tempat_dudi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="kegiatan" class="form-label">Kegiatan / Progres</label>
+                            <textarea class="form-control" id="kegiatan" name="kegiatan" rows="2" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lokasi" class="form-label">Lokasi</label>
+                            <input type="text" class="form-control" id="lokasi" name="lokasi" required readonly>
+                            <button type="button" class="btn btn-primary mt-2" onclick="getLocation()">Ambil Lokasi Saat Ini</button>
+                            <a id="mapsLink" href="#" target="_blank" class="btn btn-success mt-2" style="display: none;">Lihat di Peta</a>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="reset" class="btn btn-danger me-2">Reset</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
                     </form>
                 </div>
             </div>

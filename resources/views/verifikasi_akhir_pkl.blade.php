@@ -3,7 +3,7 @@
 @section('content')
 <br>
 <br>
-<div class="container">
+<div class="container table-wrapper">
 
     <!-- Bagian Pengimbasan / Implementasi -->
     <div class="text-center mb-5">
@@ -13,9 +13,9 @@
         <div class="text-start">
             <a href="#" class="text-primary">Template Pengimbasan</a>
         </div>
-        
-        <table class="table table-bordered mt-3">
-            <thead class="table-primary">
+    
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
                 <tr>
                     <th>No</th>
                     <th>Kelompok</th>
@@ -28,28 +28,28 @@
                     <th>Keterangan</th> <!-- Tambahkan kolom Keterangan -->
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="data-table">
                 <tr>
-                    <td>1</td>
-                    <td>Tkj24/1</td>
-                    <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
-                    <td>TKJ</td>
-                    <td>TKJ 1</td>
-                    <td>PT. Teknoraka Inovasi Nusantara</td>
+                    {{-- <td>{{ $index + 1 }}</td>
+                    <td>{{ $siswa->kelompok }}</td>
+                    <td>{{ $siswa->NIS }}</td>
+                    <td>{{ $siswa->nama_siswa }}</td>
+                    <td>{{ $siswa->jurusan }}</td>
+                    <td>{{ $siswa->kelas }}</td>
+                    <td>{{ $siswa->nama_dudi }}</td> --}}
                     <td>
                         <!-- Form untuk upload file -->
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        {{-- <form action="{{ route('uploadLaporanPengimbasan') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="laporan_pengimbasan" class="form-control mb-2">
                             <button type="submit" class="btn btn-primary">Upload</button>
                         </form>
-                        
+    
                         @if (session('success'))
                         <div class="alert alert-success mt-2">
                             {{ session('success') }}
                         </div>
-                        @endif
+                        @endif --}}
                     </td>
                     <td>
                         <!-- Checkbox untuk Keterangan, akan tercentang jika file sudah diupload -->
@@ -70,9 +70,9 @@
         <div class="text-start">
             <a href="#" class="text-primary">Template Laporan Akhir</a>
         </div>
-
-        <table class="table table-bordered mt-3">
-            <thead class="table-primary">
+    
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
                 <tr>
                     <th>No</th>
                     <th>Kelompok</th>
@@ -85,28 +85,28 @@
                     <th>Keterangan</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="data-table">
                 <tr>
-                    <td>1</td>
-                    <td>Tkj24/1</td>
-                    <td>16034</td>
-                    <td>Rulli Ardha Ramadhan</td>
-                    <td>TKJ</td>
-                    <td>TKJ 1</td>
-                    <td>PT. Teknoraka Inovasi Nusantara</td>
+                    {{-- <td>{{ $index + 1 }}</td>
+                    <td>{{ $siswa->kelompok }}</td>
+                    <td>{{ $siswa->NIS }}</td>
+                    <td>{{ $siswa->nama_siswa }}</td>
+                    <td>{{ $siswa->jurusan }}</td>
+                    <td>{{ $siswa->kelas }}</td>
+                    <td>{{ $siswa->nama_dudi }}</td> --}}
                     <td>
                         <!-- Form untuk upload Laporan Akhir -->
-                        <form action="" method="POST" enctype="multipart/form-data">
+                        {{-- <form action="{{ route('uploadLaporanAkhir') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="file" name="laporan_akhir" class="form-control mb-2">
                             <button type="submit" class="btn btn-primary">Upload</button>
                         </form>
-                        
+    
                         @if (session('success_laporan_akhir'))
                         <div class="alert alert-success mt-2">
                             {{ session('success_laporan_akhir') }}
                         </div>
-                        @endif
+                        @endif --}}
                     </td>
                     <td>
                         <!-- Checkbox untuk Keterangan, akan tercentang jika file sudah diupload -->
@@ -117,21 +117,19 @@
         </table>
     </div>
     
+    
+    
     <br>
     <br>
     <!-- Tombol Nilai PKL -->
     <div class="text-center mb-5">
-        {{-- @php
-            $isLaporanPengimbasanUploaded = !empty(Auth::user()->laporan_pengimbasan);
-            $isLaporanAkhirUploaded = !empty(Auth::user()->laporan_akhir);
-        @endphp --}}
-
-        {{-- @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded)
-            <a href="#" class="btn btn-primary btn-lg">Nilai PKL</a>
-        @else --}}
+        @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded)
+            <a href="{{ route('previewNilaiPkl') }}" class="btn btn-primary btn-lg">Preview Nilai PKL</a>
+        @else
             <button class="btn btn-primary btn-lg" disabled>Nilai PKL</button>
-        {{-- @endif --}}
+        @endif
     </div>
+    
 </div>
 
 @include('layouts.footer')

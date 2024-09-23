@@ -27,23 +27,32 @@ Route::post('/update-profile', [SiswaController::class, 'updateProfile'])->name(
 
 // Route untuk halaman verifikasi akhir PKL
 Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl');
+Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl');
+
+Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('upload_laporan_pengimbasan');
+Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload_laporan_akhir');
 
 Route::get('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan');
 
-Route::get('/formpengajuan', [SiswaController::class, 'buttonFormPengajuan'])->name('formpengajuan');
+Route::get('/formpengajuan', [SiswaController::class, 'FormPengajuan'])->name('formpengajuan');
 
 // Route to display the Siswa form
 Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri');
 Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');
 
-Route::get('/laporanpkl_jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
+Route::get('/laporan-jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
+Route::post('/laporan-jurnal/submit', [SiswaController::class, 'submitJurnal'])->name('submitJurnal');
+
 
 Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
 Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
 Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
 
 Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa');
+
 Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi');
+Route::post('/import-dudi', [AdminController::class, 'importDudi'])->name('import.dudi');
+
 Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa');
 Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
 Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
@@ -51,7 +60,10 @@ Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhi
 Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
 
 Route::get('/surat-pengajuan', [AdminController::class, 'suratPengajuan'])->name('suratPengajuan');
+Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])->name('approvePengajuan');
+
 Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name('guru_pembimbing');
+Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing');
 
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');

@@ -18,6 +18,5 @@ class Pembimbing extends Model
         'NIP_NIK',
         'nama_pembimbing',
         'password',
-        'notelp_pembimbing',
     ];
 }

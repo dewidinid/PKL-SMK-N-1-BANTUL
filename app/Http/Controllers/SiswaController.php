@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LaporanJurnal;
 
 class SiswaController extends Controller
 {
@@ -66,12 +67,6 @@ class SiswaController extends Controller
      return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
  }
 
- // Method untuk menampilkan halaman verifikasi akhir
-public function verifikasiAkhirPKL()
-{
-    return view('verifikasi_akhir_pkl');
-}
-
 
     // Method to display the PKL form
     public function showMandiri()
@@ -85,7 +80,7 @@ public function verifikasiAkhirPKL()
     }
 
 
-    public function buttonFormPengajuan(){
+    public function FormPengajuan(){
         return view('formpengajuan');
     }
 
@@ -120,7 +115,33 @@ public function verifikasiAkhirPKL()
 
     public function laporanJurnal() 
     {
-        return view ('laporanpkl_jurnal');
+        // $jurnals = LaporanJurnal::where('NIS', Auth::user()->NIS)->paginate(10); // Fetch jurnal based on logged-in user's NIS
+        return view('laporanpkl_jurnal'); 
+    }
+
+    // compact('jurnals')
+
+    public function submitJurnal(Request $request)
+    {
+        $validated = $request->validate([
+            'nis' => 'required|string',
+            'nama_siswa' => 'required|string',
+            'jurusan' => 'required|string',
+            'tempat_dudi' => 'required|string',
+            'kegiatan' => 'required|string',
+            'lokasi' => 'required|string',
+        ]);
+
+        LaporanJurnal::create([
+            'NIS' => $request->input('nis'),
+            'nama_siswa' => $request->input('nama_siswa'),
+            'jurusan' => $request->input('jurusan'),
+            'nama_dudi' => $request->input('tempat_dudi'),
+            'kegiatan' => $request->input('kegiatan'),
+            'lokasi' => $request->input('lokasi'),
+        ]);
+
+        return redirect()->route('laporanpkl_jurnal')->with('success', 'Laporan jurnal berhasil disimpan!');
     }
 
     public function nextJurnal(Request $request)
@@ -136,11 +157,31 @@ public function verifikasiAkhirPKL()
         return view('jurnal.nextJurnal', compact('jurnals'));
     }
 
-    public function verifikasiAkhir()
+    public function verifikasiAkhirPKL()
     {
-        $isUploaded = true; // Ganti dengan logika cek apakah file sudah diupload
-        return view('verifikasi_akhir', compact('isUploaded'));
+        $user = Auth::user();
+        $isLaporanPengimbasanUploaded = !empty($user->laporan_pengimbasan);
+        $isLaporanAkhirUploaded = !empty($user->laporan_akhir);
+
+        // Get the PKL nilai file if exists
+        $nilaiPklFile = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
+
+        return view('verifikasi_akhir_pkl', compact('isLaporanPengimbasanUploaded', 'isLaporanAkhirUploaded', 'nilaiPklFile'));
     }
+
+    public function previewNilaiPkl()
+    {
+        $user = Auth::user();
+        $nilaiPklPath = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
+
+        if (!file_exists($nilaiPklPath)) {
+            return redirect()->back()->with('error', 'Nilai PKL file not found');
+        }
+
+        return response()->file($nilaiPklPath, [
+            'Content-Disposition' => 'inline; filename="Nilai_PKL_' . $user->NIS . '.xlsx"'
+        ]);
+    }   
 
     public function uploadLaporanPengimbasan(Request $request)
     {
