@@ -187,6 +187,28 @@
             AOS.init();
         </script>
 
+    <script>
+        function handleFileUpload(index) {
+            // Jika file sudah diupload, aktifkan tombol import
+            const importBtn = document.getElementById(`import-btn-${index}`);
+            importBtn.disabled = false;
+        }
+
+        function handleImport(index) {
+            // Centang checkbox secara otomatis
+            const checkbox = document.getElementById(`checkbox-${index}`);
+            checkbox.checked = true;
+
+            // Disable tombol import setelah di-klik
+            const importBtn = document.getElementById(`import-btn-${index}`);
+            importBtn.disabled = true;
+
+            // Tampilkan file yang diupload di bagian detail monitoring (misalnya alert)
+            alert(`File monitoring ke-${index} telah diimport`);
+        }
+
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {

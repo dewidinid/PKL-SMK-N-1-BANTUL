@@ -23,7 +23,8 @@ class NilaiPkl extends Model
         'konsentrasi_keahlian',                 
         'kelas',                        
         'tahun',                    
-        'nilai'                     
+        'nilai',
+        'file_path'                   
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)

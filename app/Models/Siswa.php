@@ -45,4 +45,10 @@ class Siswa extends Model
     {
         return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi');
     }
+
+    // Relasi dengan Monitoring
+    public function monitoring()
+    {
+        return $this->hasMany(Monitoring::class, 'NIS', 'NIS');
+    }
 }

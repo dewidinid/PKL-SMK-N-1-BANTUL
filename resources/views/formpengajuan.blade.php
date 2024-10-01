@@ -28,8 +28,8 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="jurusan" class="form-label">Jurusan</label>
-                    <input type="text" class="form-control" id="jurusan" name="jurusan">
+                    <label for="konsentrasi_keahlian" class="form-label">konsentrasi_keahlian</label>
+                    <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian">
                 </div>
                 <div class="mb-3">
                     <label for="no_handphone" class="form-label">No Handphone</label>

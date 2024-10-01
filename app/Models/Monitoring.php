@@ -23,7 +23,8 @@ class Monitoring extends Model
         'konsentrasi_keahlian',    
         'nama_dudi',               
         'kelas',                   
-        'tahun'                    
+        'tahun',
+        'nilai'                    
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)

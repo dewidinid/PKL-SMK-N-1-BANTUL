@@ -186,6 +186,19 @@
         <script>
             AOS.init();
         </script>
+    <script>
+        function handleFileUpload() {
+            // Aktifkan tombol import setelah file dipilih
+            document.getElementById('import-btn').disabled = false;
+        }
+
+        function handleImport() {
+            // Centang checkbox setelah tombol import diklik
+            document.getElementById('checkbox').checked = true;
+            // Submit form setelah tombol import diklik
+            document.getElementById('upload-form').submit();
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>

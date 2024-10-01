@@ -15,18 +15,18 @@
     {{-- pengumuman --}}
     <h4 style="text-align: center;">Pengumuman</h4>
     <br>
-    <table class="table table-bordered">
-        <thead >
+    <table class=" table-striped custom-table">
+        <thead class="table-primary text-center" >
             <tr class="text-center" >
-                <td>No</td>
-                <td>Kelompok</td>
-                <td>NIS</td>
-                <td>Nama</td>
-                <td>Konsentrasi Keahlian</td>
-                <td>Kelas</td>
-                <td>Pembimbing</td>
-                <td>Dudi</td>
-                <td>No Handphone Dudi</td>
+                <th>No</th>
+                <th>Kelompok</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Konsentrasi Keahlian</th>
+                <th>Kelas</th>
+                <th>Pembimbing</th>
+                <th>Dudi</th>
+                <th>No Handphone Dudi</th>
             <br>
         </thead>
         <tbody id="data-table" >

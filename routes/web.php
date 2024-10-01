@@ -8,6 +8,7 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DudiController;
 use App\Http\Controllers\PembimbingController;
+use App\Http\Controllers\CetakController;
 
 // Route untuk menampilkan dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -68,22 +69,50 @@ Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])-
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
 Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
+Route::get('/dudi/export-nilai', [DudiController::class, 'exportNilai'])->name('dudi.export.nilai');
 
-Route::get('/hasil_laporanjurnal', [DudiController::class, 'hasilLaporanJurnal'])->name('hasil_laporanjurnal');
+// Route untuk DUDI - Laporan Jurnal
+Route::get('/dudi_laporanjurnal', [DudiController::class, 'dudiLaporanJurnal'])->name('dudi_laporanjurnal');
+
+// Route untuk laporan jurnal per siswa di DUDI
+Route::get('/dudi_laporanjurnal_persiswa', [DudiController::class, 'dudiLaporanJurnalPerSiswa'])->name('dudi_laporanjurnal_persiswa');
+// /{nis}
+
 
 // Home Pembimbing
 Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing');
+// Rute untuk halaman monitoring
 Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring');
+
+// Rute untuk halaman monitoring per siswa dengan parameter NIS
 Route::get('/monitoring_persiswa', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
+// /{nis}
+
+// Rute untuk mengimpor monitoring per siswa
+Route::post('/monitoring_persiswa/{nis}/import', [PembimbingController::class, 'importMonitoring'])->name('monitoring_persiswa.import');
 
 Route::get('/evaluasi', [PembimbingController::class, 'evaluasiPKL'])->name('evaluasi');
 
 Route::get('/evaluasi_persiswa', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa');
-Route::get('/dudi_laporanjurnal', [DudiController::class, 'dudiLaporanJurnal'])->name('dudi_laporanjurnal');
-
-Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing');
+// /{nis}
 
 Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->name('hasil_nilaipkl');
 Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan');
+
 Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal');
+
+// Tambahkan route baru untuk laporan jurnal per siswa
+Route::get('/pembimbing_laporanjurnal_persiswa', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa');
+// /{nis}
+
 Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkhir'])->name('hasil_laporanakhir');
+
+// Route for exporting Excel
+Route::get('/monitoring_persiswa/{nis}/export/excel', [CetakController::class, 'exportMonitoringExcel'])->name('monitoring.export.excel');
+
+// Route for exporting PDF
+Route::get('/monitoring_persiswa/{nis}/export/pdf', [CetakController::class, 'exportMonitoringPDF'])->name('monitoring.export.pdf');
+
+// Rute untuk export evaluasi PKL ke Excel dan PDF
+Route::get('/export_evaluasi_excel/{nis}', [CetakController::class, 'exportEvaluasiExcel'])->name('export_evaluasi_excel');
+Route::get('/export_evaluasi_pdf/{nis}', [CetakController::class, 'exportEvaluasiPDF'])->name('export_evaluasi_pdf');

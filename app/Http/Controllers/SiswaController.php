@@ -14,58 +14,58 @@ class SiswaController extends Controller
         return view('home_siswa');
     }
 
- // Menampilkan halaman profil
- public function showProfile()
- {
-     $user = Auth::user(); // Mendapatkan data pengguna yang sedang login
-     return view('profil_siswa', compact('user'));
- }
+    // Menampilkan halaman profil
+    public function showProfile()
+    {
+        $user = Auth::user(); // Mendapatkan data pengguna yang sedang login
+        return view('profil_siswa', compact('user'));
+    }
 
- // Meng-update foto profil
- public function updateProfilePicture(Request $request)
- {
-     $request->validate([
-         'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-     ]);
+    // Meng-update foto profil
+    public function updateProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-     $user = Auth::user();
-     $file = $request->file('profile_picture');
-     $path = $file->store('profile_pictures', 'public');
+        $user = Auth::user();
+        $file = $request->file('profile_picture');
+        $path = $file->store('profile_pictures', 'public');
 
-     // Update URL foto profil di database
-     $user->profile_picture = Storage::url($path);
-     $user->save();
+        // Update URL foto profil di database
+        $user->profile_picture = Storage::url($path);
+        $user->save();
 
-     return redirect()->route('profil_siswa')->with('success', 'Foto profil berhasil diperbarui!');
- }
+        return redirect()->route('profil_siswa')->with('success', 'Foto profil berhasil diperbarui!');
+    }
 
- // Meng-update data profil lainnya
- public function updateProfile(Request $request)
- {
-     $request->validate([
-         'kelompok' => 'required|string|max:255',
-         'nis' => 'required|string|max:255',
-         'nama' => 'required|string|max:255',
-         'jurusan' => 'required|string|max:255',
-         'tahun' => 'required|string|max:255',
-         'password' => 'nullable|string|min:8',
-     ]);
+    // Meng-update data profil lainnya
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'kelompok' => 'required|string|max:255',
+            'nis' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+            'konsentrasi_keahlian' => 'required|string|max:255',
+            'tahun' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8',
+        ]);
 
-     $user = Auth::user();
-     $user->kelompok = $request->input('kelompok');
-     $user->nis = $request->input('nis');
-     $user->nama = $request->input('nama');
-     $user->jurusan = $request->input('jurusan');
-     $user->tahun = $request->input('tahun');
-     
-     if ($request->filled('password')) {
-         $user->password = bcrypt($request->input('password'));
-     }
+        $user = Auth::user();
+        $user->kelompok = $request->input('kelompok');
+        $user->nis = $request->input('nis');
+        $user->nama = $request->input('nama');
+        $user->konsentrasi_keahlian = $request->input('konsentrasi_keahlian');
+        $user->tahun = $request->input('tahun');
+        
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
 
-     $user->save();
+        $user->save();
 
-     return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
- }
+        return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
+    }
 
 
     // Method to display the PKL form
@@ -90,7 +90,7 @@ class SiswaController extends Controller
         $validated = $request->validate([
             'nis' => 'required|string',
             'name' => 'required|string',
-            'jurusan' => 'required|string',
+            'konsentrasi_keahlian' => 'required|string',
             'no_handphone' => 'required|string',
             'rencana_tempat_pkl' => 'required|string',
             'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
@@ -103,7 +103,7 @@ class SiswaController extends Controller
         PengajuanPkl::create([
             'nis' => $request->input('nis'),
             'name' => $request->input('name'),
-            'jurusan' => $request->input('jurusan'),
+            'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
             'no_handphone' => $request->input('no_handphone'),
             'rencana_tempat_pkl' => $request->input('rencana_tempat_pkl'),
             'proposal_pkl' => $filePath,
@@ -126,7 +126,7 @@ class SiswaController extends Controller
         $validated = $request->validate([
             'nis' => 'required|string',
             'nama_siswa' => 'required|string',
-            'jurusan' => 'required|string',
+            'konsentrasi_keahlian' => 'required|string',
             'tempat_dudi' => 'required|string',
             'kegiatan' => 'required|string',
             'lokasi' => 'required|string',
@@ -135,7 +135,7 @@ class SiswaController extends Controller
         LaporanJurnal::create([
             'NIS' => $request->input('nis'),
             'nama_siswa' => $request->input('nama_siswa'),
-            'jurusan' => $request->input('jurusan'),
+            'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
             'nama_dudi' => $request->input('tempat_dudi'),
             'kegiatan' => $request->input('kegiatan'),
             'lokasi' => $request->input('lokasi'),
@@ -164,24 +164,25 @@ class SiswaController extends Controller
         $isLaporanAkhirUploaded = !empty($user->laporan_akhir);
 
         // Get the PKL nilai file if exists
-        $nilaiPklFile = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
+        // $nilaiPklFile = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
 
-        return view('verifikasi_akhir_pkl', compact('isLaporanPengimbasanUploaded', 'isLaporanAkhirUploaded', 'nilaiPklFile'));
+        return view('verifikasi_akhir_pkl', compact('isLaporanPengimbasanUploaded', 'isLaporanAkhirUploaded'));
+        //, 'nilaiPklFile'
     }
 
-    public function previewNilaiPkl()
-    {
-        $user = Auth::user();
-        $nilaiPklPath = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
+    // public function previewNilaiPkl()
+    // {
+    //     $user = Auth::user();
+    //     // $nilaiPklPath = storage_path('app/public/nilai_pkl/nilai_pkl_' . $user->NIS . '.xlsx');
 
-        if (!file_exists($nilaiPklPath)) {
-            return redirect()->back()->with('error', 'Nilai PKL file not found');
-        }
+    //     if (!file_exists($nilaiPklPath)) {
+    //         return redirect()->back()->with('error', 'Nilai PKL file not found');
+    //     }
 
-        return response()->file($nilaiPklPath, [
-            'Content-Disposition' => 'inline; filename="Nilai_PKL_' . $user->NIS . '.xlsx"'
-        ]);
-    }   
+    //     // return response()->file($nilaiPklPath, [
+    //     //     'Content-Disposition' => 'inline; filename="Nilai_PKL_' . $user->NIS . '.xlsx"'
+    //     // ]);
+    // }   
 
     public function uploadLaporanPengimbasan(Request $request)
     {

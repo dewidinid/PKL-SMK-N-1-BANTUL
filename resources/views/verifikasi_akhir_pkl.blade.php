@@ -21,7 +21,7 @@
                     <th>Kelompok</th>
                     <th>NIS</th>
                     <th>Nama</th>
-                    <th>Jurusan</th>
+                    <th>Konsentrasi Keahlian</th>
                     <th>Kelas</th>
                     <th>Tempat Dudi</th>
                     <th>Laporan Pengimbasan</th>
@@ -34,7 +34,7 @@
                     <td>{{ $siswa->kelompok }}</td>
                     <td>{{ $siswa->NIS }}</td>
                     <td>{{ $siswa->nama_siswa }}</td>
-                    <td>{{ $siswa->jurusan }}</td>
+                    <td>{{ $siswa->konsentrasi_keahlian }}</td>
                     <td>{{ $siswa->kelas }}</td>
                     <td>{{ $siswa->nama_dudi }}</td> --}}
                     <td>
@@ -78,7 +78,7 @@
                     <th>Kelompok</th>
                     <th>NIS</th>
                     <th>Nama</th>
-                    <th>Jurusan</th>
+                    <th>Konsentrasi Keahlian</th>
                     <th>Kelas</th>
                     <th>Tempat Dudi</th>
                     <th>Laporan Akhir</th>
@@ -91,7 +91,7 @@
                     <td>{{ $siswa->kelompok }}</td>
                     <td>{{ $siswa->NIS }}</td>
                     <td>{{ $siswa->nama_siswa }}</td>
-                    <td>{{ $siswa->jurusan }}</td>
+                    <td>{{ $siswa->konsentrasi_keahlian }}</td>
                     <td>{{ $siswa->kelas }}</td>
                     <td>{{ $siswa->nama_dudi }}</td> --}}
                     <td>
@@ -122,15 +122,16 @@
     <br>
     <br>
     <!-- Tombol Nilai PKL -->
+    <!-- Tombol Nilai PKL -->
     <div class="text-center mb-5">
-        @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded)
-            <a href="{{ route('previewNilaiPkl') }}" class="btn btn-primary btn-lg">Preview Nilai PKL</a>
-        @else
-            <button class="btn btn-primary btn-lg" disabled>Nilai PKL</button>
-        @endif
+        {{-- @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded) --}}
+            <button href="" class="btn btn-primary btn-lg" disabled>Nilai PKL</button>
+            {{-- route('previewNilaiPkl', ['nis' => $siswa->nis])  --}}
+            {{-- <button class="btn btn-primary btn-lg" >Nilai PKL</button> --}}
+        {{-- @endif --}}
     </div>
     
 </div>
 
-@include('layouts.footer')
+
 @endsection

@@ -14,19 +14,19 @@
         <h2 class="text-center mt-2">Monitoring</h2>
         <br>
         
-        <div class="mt-4">
+        {{-- <div class="mt-4">
             <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
             <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
-            <p><strong>Jurusan :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
+            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
             <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
             <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
-        </div>
+        </div> --}}
 
 
         <div >
             <p><strong>Nama :</strong> Rulli Arhan</p>
             <p><strong>NIS :</strong> 17672</p>
-            <p><strong>Jurusan :</strong> Teknik Komputer Jaringan</p>
+            <p><strong>Konsentrasi Keahlian :</strong> Teknik Komputer Jaringan</p>
             <p><strong>Kelas :</strong> TKJ 1</p>
             <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
         </div>
@@ -45,66 +45,82 @@
                     </tr>
                 </thead>
                 <tbody id="data-table">
-                    @foreach ($monitoring as $index => $data)
+                    @if(session('success'))
+                        <div class="alert alert-success mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    {{-- @foreach ($index = 1; $index <= 6; $index++) <!-- Looping 6 kali -->
                     <tr>
-                        <td>Ke-{{ $index + 1 }}</td>
+                        <td>Ke-{{ $index }}</td>
                         <td>
-                            <form class="mt-2" method="POST" enctype="multipart/form-data">
+                            <form class="mt-2" method="POST" enctype="multipart/form-data" id="upload-form-{{ $index }}">
                                 @csrf
-                                <label for="file-upload-{{ $index + 1 }}" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white;"> Upload </label>
-                                <input id="file-upload-{{ $index + 1 }}" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                                <label for="file-upload-{{ $index }}" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white;"> Upload </label>
+                                <input id="file-upload-{{ $index }}" type="file" name="file" class="d-none" onchange="handleFileUpload({{ $index }})">
                             </form>
                         </td>
                         <td>
-                            <button class="custom-btn" style="background-color: #F99417; text-decoration: none; display: inline-flex; align-items: center;">Import</button>
+                            <button id="import-btn-{{ $index }}" class="custom-btn" style="background-color: #F99417; text-decoration: none; display: inline-flex; align-items: center;" disabled onclick="handleImport({{ $index }})">Import</button>
                         </td>
                         <td>
-                            <input type="checkbox" name="check[]" value="{{ $index + 1 }}">
+                            <input type="checkbox" id="checkbox-{{ $index }}" name="check[]" value="{{ $index }}" disabled>
                         </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
-        </div> <!-- End of max-width wrapper -->
+        </div>
+         <!-- End of max-width wrapper -->
 
         <h4 class="mt-5 text-left">Detail Monitoring</h4><br>
         <table class="table-striped custom-table">
             <thead class="table-primary text-center">
                 <tr>
                     <th>Bulan</th>
-                    <th>1. Softskill</th>
-                    <th>2. Norma</th>
-                    <th>3. Kompetensi</th>
-                    <th>4. DUDI</th>
-                    <th>Nilai Akhir</th>
+                        {{-- @if(isset($headerNames))
+                            @foreach($headerNames as $headerName)
+                                <th>{{ $headerName }}</th>
+                            @endforeach
+                        @endif --}}
+                    <th>Nilai</th>
                 </tr>
             </thead>
             <tbody id="data-table">
-                @foreach ($detailMonitoring as $detail)
-                <tr>
-                    <td>{{ $detail->bulan }}</td>
-                    <td>{{ $detail->softskill }}</td>
-                    <td>{{ $detail->norma }}</td>
-                    <td>{{ $detail->kompetensi }}</td>
-                    <td>{{ $detail->dudi }}</td>
-                    <td>{{ $detail->nilai_akhir }}</td>
-                </tr>
-                @endforeach
+                {{-- @if(isset($excelData) && $excelData->count() > 0)
+                        @foreach($excelData as $row)
+                            <tr>
+                                <td>{{ $row['Bulan'] ?? '-' }}</td>
+                                @foreach($headerNames as $headerName)
+                                    <td>{{ $row[$headerName] ?? '-' }}</td>
+                                @endforeach
+                                <td>{{ $row['Nilai'] ?? '-' }}</td>
+                            </tr>
+                        @endforeach
+                @endif --}}
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="5">Total Nilai</td>
-                    <td>{{ $totalNilai }}</td>
+                    {{-- <td>{{ $totalNilai }}</td> --}}
                 </tr>
                 <tr>
                     <td colspan="5">Rata-Rata</td>
-                    <td>{{ $rataRata }}</td>
+                    {{-- <td>{{ $rataRata }}</td> --}}
                 </tr>
             </tfoot>
         </table>
         <br>
-        <div class="mt-4 d-flex justify-content-left">
-            <button class="btn btn-primary">Export Nilai PKL</button>
+        <div>
+            <a href="" class="btn btn-success">
+                {{--{{ route('monitoring.export.excel') }} , $siswa->NIS --}}
+                <i class="bi bi-file-earmark-excel"></i> Export Excel
+            </a>
+            <a href="" class="btn btn-danger">
+                {{-- {{ route('monitoring.export.pdf') }} , $siswa->NIS --}}
+                <i class="bi bi-file-earmark-pdf"></i> Export PDF
+            </a>
         </div>
         <br>
         <br>
@@ -114,194 +130,4 @@
 @endsection
 
         
-            {{-- <!-- Batas Lebar Tabel -->
-            <div style="max-width: 60%;">
-                <a href="#" class="btn btn-link">Template Monitoring PKL</a>
-                <br>
-                <table class="table-striped custom-table">
-                    <thead class="table-primary text-center">
-                        <tr >
-                            <th>Bulan</th>
-                            <th>Monitoring</th>
-                            <th>Import</th>
-                            <th>Ket</th>
-                        </tr>
-                    </thead>
-                    <tbody id="data-table" >
-                        <tr>
-                            <td>Ke-1</td>
-                            <td >
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-1" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-1" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn " style="background-color: #F99417; text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ke-2</td>
-                            <td >
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-2" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-2" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ke-3</td>
-                            <td>
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-3" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-3" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ke-4</td>
-                            <td>
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-4" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-4" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn " style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ke-5</td>
-                            <td>
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-5" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-5" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ke-6</td>
-                            <td >
-                                <form class="mt-2" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <label for="file-upload-6" class="btn bi bi-file-earmark" style="background-color: #9173c3; height: 38px; border-radius: 5px;color: white; "> Upload </label>
-                                    <input id="file-upload-5" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                                </form>
-                            </td>
-                            <td >
-                                <button class="custom-btn" style="background-color: #F99417;  text-decoration: none; display: inline-flex; align-items: center;">Import</button>
-                            </td>
-                            <td >
-                                <input type="checkbox" name="check[]" value="1">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> <!-- End of max-width wrapper -->
-
-
-        <h4 class="mt-5 text-left">Detail Monitoring</h4><br>
-        <table class="table-striped custom-table">
-            <thead class="table-primary text-center">
-                <tr>
-                    <th>Bulan</th>
-                    <th>1. Softskill</th>
-                    <th>2. Norma</th>
-                    <th>3. Kompetensi</th>
-                    <th>4. DUDI</th>
-                    <th>Nilai Akhir</th>
-                </tr>
-            </thead>
-            {{-- <tbody>
-                @foreach($detailMonitoring as $detail)
-                    <tr>
-                        <td>{{ $detail['bulan'] }}</td>
-                        <td>{{ $detail['softskill'] }}</td>
-                        <td>{{ $detail['norma'] }}</td>
-                        <td>{{ $detail['kompetensi'] }}</td>
-                        <td>{{ $detail['dudi'] }}</td>
-                        <td>{{ $detail['nilai_akhir'] }}</td>
-                    </tr>
-                @endforeach
-                <tr class="table-primary">
-                    <td colspan="5" class="text-end"><strong>Total Nilai</strong></td>
-                    <td>{{ array_sum(array_column($detailMonitoring, 'nilai_akhir')) }}</td>
-                </tr>
-            </tbody> --}}
-            <tbody id="data-table">
-                <tr>
-                    <td>Ke-1</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                </tr>
-                <tr>
-                    <td>Ke-2</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                </tr>
-                <tr>
-                    <td>Ke-3</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                    <td>90</td>
-                </tr>
-            </tbody>
-            <tfoot >
-                <tr>
-                    <td colspan="5" >Total Nilai</td>
-                    <td>170</td> <!-- Contoh total dari semua nilai -->
-                </tr>
-                <tr>
-                    <td colspan="5">Rata-Rata</td>
-                    <td>85</td> <!-- Contoh rata-rata -->
-                </tr>
-            </tfoot>
-       </table>
-    <br>
-        <div class="mt-4 d-flex justify-content-left">
-            <button class="btn btn-primary">Export Nilai PKL</button>
-        </div>
-        <br>
-        <br>
-    </div>
-</div>
-
-
-@endsection --}}
+           

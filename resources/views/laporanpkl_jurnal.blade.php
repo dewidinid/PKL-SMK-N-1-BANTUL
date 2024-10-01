@@ -21,9 +21,10 @@
             <thead class="table-primary text-center">
                 <tr class="text-center">
                     <th>No</th>
+                    <th>Tanggal</th>
                     <th>NIS</th>
                     <th>Nama</th>
-                    <th>Jurusan</th>
+                    <th>Konsentrasi Keahlian</th>
                     <th>Tempat Dudi</th>
                     <th>Kegiatan / Progres</th>
                     <th>Lokasi</th>
@@ -35,12 +36,22 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $jurnal->NIS }}</td>
                         <td>{{ $jurnal->nama_siswa }}</td>
-                        <td>{{ $jurnal->jurusan }}</td>
+                        <td>{{ $jurnal->konsentrasi_keahlian }}</td>
                         <td>{{ $jurnal->nama_dudi }}</td>
                         <td>{{ $jurnal->kegiatan }}</td>
                         <td>{{ $jurnal->lokasi }}</td>
                     </tr>
                 @endforeach --}}
+                <tr>
+                    <td>1</td>
+                    <td>16/03/24</td>
+                    <td>16034</td>
+                    <td class="left-align">Rulli Ardha Ramadhan</td>
+                    <td>TKJ</td>
+                    <td>PT. Teknorika Inovasi Nusantara</td>
+                    <td>Membuat Flowchart</td>
+                    <td>Yogyakarta</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -77,8 +88,8 @@
                             <input type="text" class="form-control" id="nama_siswa" name="nama_siswa" value="{{ Auth::user()->nama }}" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="jurusan" class="form-label">Jurusan</label>
-                            <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ Auth::user()->jurusan }}" readonly>
+                            <label for="konsentrasi_keahlian" class="form-label">konsentrasi_keahlian</label>
+                            <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" value="{{ Auth::user()->konsentrasi_keahlian }}" readonly>
                         </div> --}}
                         <div class="mb-3">
                             <label for="tempat_dudi" class="form-label">Tempat Dudi</label>

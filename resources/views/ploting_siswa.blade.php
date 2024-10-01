@@ -5,16 +5,16 @@
 <div class="container mt-5">
     <h4 class="text-center">PLOTING SISWA</h4>
     <br>
-  <!-- Filter Tahun dan Jurusan -->
+  <!-- Filter Tahun dan konsentrasi_keahlian -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <div >
         <select class="form-select d-inline-block w-auto" name="tahun">
             <option selected>Tahun</option>
             <!-- Tambahkan opsi tahun -->
         </select>
-        <select class="form-select d-inline-block w-auto" name="jurusan">
-            <option selected>Jurusan</option>
-            <!-- Tambahkan opsi jurusan -->
+        <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+            <option selected>Konsentrasi Keahlian</option>
+            <!-- Tambahkan opsi konsentrasi_keahlian -->
         </select>
     </div>
 
@@ -86,7 +86,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $student->nis }}</td>
                     <td>{{ $student->nama }}</td>
-                    <td>{{ $student->jurusan }}</td>
+                    <td>{{ $student->konsentrasi_keahlian }}</td>
                     <td>{{ $student->kelas }}</td>
                     <td>{{ $student->tahun }}</td>
                 </tr>

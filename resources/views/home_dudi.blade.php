@@ -46,7 +46,7 @@
                                     <th>Tanggal</th>
                                     <th>NIS</th>
                                     <th>Nama</th>
-                                    <th>Jurusan</th>
+                                    <th>Konsentrasi Keahlian</th>
                                     <th>Tempat Dudi</th>
                                     <th>Kegiatan/Progress</th>
                                     <th>Lokasi</th>
@@ -82,7 +82,7 @@
                                         <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
                                         <td>{{ $jurnal->nis }}</td>
                                         <td>{{ $jurnal->nama }}</td>
-                                        <td>{{ $jurnal->jurusan }}</td>
+                                        <td>{{ $jurnal->konsentrasi_keahlian }}</td>
                                         <td>{{ $jurnal->tempat_dudi }}</td>
                                         <td>{{ $jurnal->kegiatan }}</td>
                                         <td>{{ $jurnal->lokasi }}</td> lokasi menggunakan maps location

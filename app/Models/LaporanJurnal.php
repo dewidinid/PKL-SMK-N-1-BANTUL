@@ -19,7 +19,8 @@ class LaporanJurnal extends Model
     protected $fillable = [
         'NIS',          
         'nama_siswa',   
-        'nama_dudi',    
+        'nama_dudi',   
+        'tanggal', 
         'kegiatan',     
         'lokasi'        
     ];

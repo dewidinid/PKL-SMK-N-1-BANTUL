@@ -45,8 +45,8 @@
                     <input type="text" name="nama" class="form-control" placeholder="Nama" value="">
                 </div>
                 <div class="form-group">
-                    <label for="jurusan" class="form-label">Jurusan</label>
-                    <input type="text" name="jurusan" class="form-control" placeholder="Jurusan" value="">
+                    <label for="konsentrasi_keahlian" class="form-label">Konsentrasi Keahlian</label>
+                    <input type="text" name="konsentrasi_keahlian" class="form-control" placeholder="konsentrasi_keahlian" value="">
                 </div>
                 <div class="form-group">
                     <label for="tahun" class="form-label">Tahun</label>

@@ -17,7 +17,7 @@
         {{-- <div class="mt-4">
             <p><strong>Nama :</strong> {{ $student['name'] }}</p>
             <p><strong>NIS :</strong> {{ $student['nis'] }}</p>
-            <p><strong>Jurusan :</strong> {{ $student['jurusan'] }}</p>
+            <p><strong>konsentrasi_keahlian :</strong> {{ $student['konsentrasi_keahlian'] }}</p>
             <p><strong>Kelas :</strong> {{ $student['kelas'] }}</p>
             <p><strong>DUDI :</strong> {{ $student['dudi'] }}</p>
         </div> --}}
@@ -25,7 +25,7 @@
         <div >
             <p><strong>Nama :</strong> Rulli Arhan</p>
             <p><strong>NIS :</strong> 17672</p>
-            <p><strong>Jurusan :</strong> Teknik Komputer Jaringan</p>
+            <p><strong>konsentrasi_keahlian :</strong> Teknik Komputer Jaringan</p>
             <p><strong>Kelas :</strong> TKJ 1</p>
             <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
         </div>
@@ -33,7 +33,6 @@
 
             <!-- Batas Lebar Tabel -->
             <div style="max-width: 70%;">
-        
                 <table class="table-striped custom-table">
                     <thead class="table-primary text-center">
                         <tr>
@@ -46,51 +45,52 @@
                         <tr>
                             <td class="left-align" data-label="Evaluasi">Laporan / Jurnal PKL</td>
                             <td data-label="Persentase">10%</td>
-                            <td data-label="Nilai Akhir">90</td>
+                            {{-- <td data-label="Nilai Akhir">{{ $persentaseJurnal }}</td> --}}
                         </tr>
                         <tr>
                             <td class="left-align" data-label="Evaluasi">Nilai PKL Dudi</td>
                             <td data-label="Persentase">50%</td>
-                            <td data-label="Nilai Akhir">90</td>
+                            {{-- <td data-label="Nilai Akhir">{{ $nilaiAkhirDudi }}</td> --}}
                         </tr>
                         <tr>
                             <td class="left-align" data-label="Evaluasi">Monitoring Pembimbing</td>
                             <td data-label="Persentase">20%</td>
-                            <td data-label="Nilai Akhir">90</td>
+                            {{-- <td data-label="Nilai Akhir">{{ $nilaiMonitoring }}</td> --}}
                         </tr>
                         <tr>
                             <td class="left-align" data-label="Evaluasi">Laporan Pengimbasan</td>
                             <td data-label="Persentase">10%</td>
-                            <td data-label="Nilai Akhir">90</td>
+                            {{-- <td data-label="Nilai Akhir">{{ $nilaiPengimbasan }}</td> --}}
                         </tr>
                         <tr>
                             <td class="left-align" data-label="Evaluasi">Laporan Akhir PKL</td>
                             <td data-label="Persentase">10%</td>
-                            <td data-label="Nilai Akhir">90</td>
+                            {{-- <td data-label="Nilai Akhir">{{ $nilaiAkhirPKL }}</td> --}}
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2">Total Nilai</td>
-                            <td>90</td>
+                            {{-- <td>{{ $totalNilai }}</td> --}}
                         </tr>
                     </tfoot>
                 </table>
                 
-        
             </div> <!-- End of max-width wrapper -->
         
         <br>
 
-
-
-        {{-- <div class="total-nilai d-flex justify-content-between">
-            <span>Total Nilai</span>
-            <span>90</span> <!-- Ganti nilai 90 dengan nilai dinamis dari database -->
-        </div> --}}
-
-        <div class="mt-4 d-flex justify-content-left">
-            <button class="btn btn-primary">Export Evaluasi PKL</button>
+        <div >
+            <a href="" class="btn btn-success">
+                {{-- {{ route('export_evaluasi_excel', ['nis' => $siswa->NIS]) }} --}}
+                <i class="bi bi-file-earmark-excel"></i>Export Excel
+            </a>
+            
+            <a href="" class="btn btn-danger">
+                {{-- {{ route('export_evaluasi_pdf', ['nis' => $siswa->NIS]) }} --}}
+                <i class="bi bi-file-earmark-pdf"></i> Export PDF
+            </a>
+            
         </div>
         <br>
         <br>

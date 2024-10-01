@@ -6,7 +6,7 @@
         <h4 class="text-center">LAPORAN AKHIR PKL</h4>
         <br>
         
-    <!-- Filter Tahun dan Jurusan -->
+    <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div >
             <select class="form-select d-inline-block w-auto" name="bulan">
@@ -40,7 +40,7 @@
                     <td>TKJ</td>
                     <td>{{ $student->nis }}</td>
                     <td>{{ $student->name }}</td>
-                    <td>{{ $student->jurusan }}</td>
+                    <td>{{ $student->konsentrasi_keahlian }}</td>
                     <td>{{ $student->kelas }}</td>
                     <td>{{ $student->tahun }}</td>
                     <td>

@@ -6,7 +6,7 @@
         <h4 class="text-center">LAPORAN PENGIMBASAN</h4>
         <br>
         
-    <!-- Filter Tahun dan Jurusan -->
+    <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div >
             <select class="form-select d-inline-block w-auto" name="bulan">
