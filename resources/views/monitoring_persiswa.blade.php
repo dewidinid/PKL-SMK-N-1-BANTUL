@@ -15,8 +15,8 @@
         <br>
         
         {{-- <div class="mt-4">
-            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
             <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
+            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
             <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
             <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
             <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
@@ -24,8 +24,8 @@
 
 
         <div >
-            <p><strong>Nama :</strong> Rulli Arhan</p>
             <p><strong>NIS :</strong> 17672</p>
+            <p><strong>Nama :</strong> Rulli Arhan</p>
             <p><strong>Konsentrasi Keahlian :</strong> Teknik Komputer Jaringan</p>
             <p><strong>Kelas :</strong> TKJ 1</p>
             <p><strong>DUDI :</strong> PT Telkom Indonesia</p>

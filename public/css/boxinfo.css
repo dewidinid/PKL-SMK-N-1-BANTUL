@@ -235,7 +235,7 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #dcdcdc;
-    height: 260px;
+    height: 320px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative; /* Ensures the link can be positioned */
 } 

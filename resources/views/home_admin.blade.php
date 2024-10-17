@@ -17,7 +17,7 @@
                             </div>
                             <div class="content">
                                 <p>Siswa</p>
-                                <h3>112.000</h3>
+                                <h3>{{ $jumlahSiswa }}</h3>
                             </div>
                         </div>
                     </a>
@@ -29,7 +29,7 @@
                             </div>
                             <div class="content">
                                 <p>Guru Pembimbing</p>
-                                <h3>183.000</h3>
+                                <h3>{{ $jumlahPembimbing }}</h3>
                             </div>
                         </div>
                     </a>
@@ -41,7 +41,7 @@
                             </div>
                             <div class="content">
                                 <p>Mitra Dudi</p>
-                                <h3>80.000</h3>
+                                <h3>{{ $jumlahDudi }}</h3>
                             </div>
                         </div>
                     </a>

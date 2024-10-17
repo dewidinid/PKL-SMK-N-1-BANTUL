@@ -11,7 +11,7 @@
             <br>
             <div class="container-kolom-info">
                 <div class="box-kolom">
-                    <a href="{{ route('nilai_pkl') }}" class="box-kolom-link">
+                    
                         <div class="card-kolom">
                             <div class="icon-kolom" style="background-color: #c9a3f2;">
                                 <i class="bi bi-people-fill"></i>
@@ -21,7 +21,7 @@
                                 <h3>112.000</h3>
                             </div>
                         </div>
-                    </a>
+                    
                     <div class="card-kolom">
                         <div class="icon-kolom" style="background-color: rgb(228, 225, 165);">
                             <i class="bi bi-file-earmark-text"></i>
@@ -45,50 +45,34 @@
                                     <th>No</th>
                                     <th>Tanggal</th>
                                     <th>NIS</th>
-                                    <th>Nama</th>
+                                    <th id="nama">Nama</th>
                                     <th>Konsentrasi Keahlian</th>
-                                    <th>Tempat Dudi</th>
-                                    <th>Kegiatan/Progress</th>
+                                    <th>Kegiatan</th>
                                     <th>Lokasi</th>
                                 </tr>
                             </thead>
-                            <tbody id="data-table">
-                                <!-- Data contoh, akan diisi dengan JavaScript -->
-                                <tr>
-                                    <td>1</td>
-                                    <td>16/03/24</td>
-                                    <td>16034</td>
-                                    <td>Rulli Ardha Ramadhan</td>
-                                    <td>TKJ</td>
-                                    <td>PT. Teknorika Inovasi Nusantara</td>
-                                    <td>Membuat Flowchart</td>
-                                    <td>Yogyakarta</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>16/03/24</td>
-                                    <td>16034</td>
-                                    <td>Rulli Ardha Ramadhan</td>
-                                    <td>TKJ</td>
-                                    <td>PT. Teknorika Inovasi Nusantara</td>
-                                    <td>Membuat Flowchart</td>
-                                    <td>Yogyakarta</td>
-                                </tr>
-                            </tbody>
-                            {{-- <tbody>
-                                @foreach ($jurnals as $index => $jurnal)
+                            <tbody>
+                                @foreach ($laporan_jurnal as $index => $jurnal)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
-                                        <td>{{ $jurnal->nis }}</td>
-                                        <td>{{ $jurnal->nama }}</td>
+                                        <td>{{ $jurnal->siswa->nis }}</td>
+                                        <td>{{ $jurnal->siswa->nama }}</td>
                                         <td>{{ $jurnal->konsentrasi_keahlian }}</td>
-                                        <td>{{ $jurnal->tempat_dudi }}</td>
                                         <td>{{ $jurnal->kegiatan }}</td>
-                                        <td>{{ $jurnal->lokasi }}</td> lokasi menggunakan maps location
+                                        <td>{{ $jurnal->lokasi }}</td>
                                     </tr>
                                 @endforeach
-                            </tbody> --}}
+                                <tr>
+                                    <td>1</td>
+                                    <td>16/03/24</td>
+                                    <td>16034</td>
+                                    <td>Rulli Ardha Ramadhan</td>
+                                    <td>TKJ</td>
+                                    <td>Membuat Flowchart</td>
+                                    <td>Yogyakarta</td>
+                                </tr>
+                            </tbody>                            
                         </table>
                         <br>
                         <div class="content" >

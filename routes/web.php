@@ -15,56 +15,59 @@ Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
+// Proses login
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Halaman home siswa
-Route::get('/home_siswa', [SiswaController::class, 'home'])->name('home_siswa');
+// Halaman home siswa setelah login berhasil
+Route::get('/home-siswa', function () {
+    return view('home_siswa');
+})->name('home_siswa')->middleware('auth:siswa');
 
-// Halaman profil siswa
-Route::get('/profil_siswa', [SiswaController::class, 'showProfile'])->name('profil_siswa');
+Route::get('/profil', [SiswaController::class, 'showProfile'])->name('profil_siswa')->middleware('auth:siswa');
 
-// Route to update profile form data
-Route::post('/update-profile', [SiswaController::class, 'updateProfile'])->name('updateProfile');
+Route::post('/profile/update-picture', [SiswaController::class, 'updateProfilePicture'])->name('update.profile.picture')->middleware('auth:siswa');
+
+Route::post('/profile/update', [SiswaController::class, 'updateProfile'])->name('update.profile')->middleware('auth:siswa');
 
 // Route untuk halaman verifikasi akhir PKL
-Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl');
-Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl');
+Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl')->middleware('auth:siswa');
+Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl')->middleware('auth:siswa');
+Route::post('/upload-laporan', [SiswaController::class, 'uploadLaporan'])->name('upload_laporan')->middleware('auth:siswa');
 
-Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('upload_laporan_pengimbasan');
-Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload_laporan_akhir');
+Route::post('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan')->middleware('auth:siswa');
 
-Route::get('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan');
-
-Route::get('/formpengajuan', [SiswaController::class, 'FormPengajuan'])->name('formpengajuan');
+Route::get('/formpengajuan', [SiswaController::class, 'FormPengajuan'])->name('formpengajuan')->middleware('auth:siswa');
 
 // Route to display the Siswa form
-Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri');
-Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan');
+Route::get('/mandiri', [SiswaController::class, 'showMandiri'])->name('mandiri')->middleware('auth:siswa');
+Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaan')->middleware('auth:siswa');
 
-Route::get('/laporan-jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal');
-Route::post('/laporan-jurnal/submit', [SiswaController::class, 'submitJurnal'])->name('submitJurnal');
-
+Route::get('/laporan-jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal')->middleware('auth:siswa');
+Route::post('/laporan-jurnal/submit', [SiswaController::class, 'submitJurnal'])->name('submitJurnal')->middleware('auth:siswa');
 
 Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
-Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
-Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
 
 Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa');
+Route::get('/filter-siswa', [AdminController::class, 'filterSiswa'])->name('filterSiswa');
+Route::post('/siswa/import', [AdminController::class, 'importSiswa'])->name('siswa.import');
 
 Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi');
 Route::post('/import-dudi', [AdminController::class, 'importDudi'])->name('import.dudi');
+Route::post('/dudi/store', [AdminController::class, 'storeDudi'])->name('store.dudi');
 
 Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa');
-Route::post('/upload-laporan-pengimbasan', [SiswaController::class, 'uploadLaporanPengimbasan'])->name('uploadLaporanPengimbasan');
-Route::post('/upload-laporan-akhir', [SiswaController::class, 'uploadLaporanAkhir'])->name('upload.laporan.akhir');
-
-Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
+Route::post('/admin/import-ploting', [AdminController::class, 'importPloting'])->name('admin.importPloting');
+Route::get('/admin/ploting-siswa', [AdminController::class, 'plotingSiswa'])->name('admin.plotingSiswa');
 
 Route::get('/surat-pengajuan', [AdminController::class, 'suratPengajuan'])->name('suratPengajuan');
 Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])->name('approvePengajuan');
 
 Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name('guru_pembimbing');
 Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing');
+Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing');
+
 
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
@@ -116,3 +119,6 @@ Route::get('/monitoring_persiswa/{nis}/export/pdf', [CetakController::class, 'ex
 // Rute untuk export evaluasi PKL ke Excel dan PDF
 Route::get('/export_evaluasi_excel/{nis}', [CetakController::class, 'exportEvaluasiExcel'])->name('export_evaluasi_excel');
 Route::get('/export_evaluasi_pdf/{nis}', [CetakController::class, 'exportEvaluasiPDF'])->name('export_evaluasi_pdf');
+
+Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel');
+Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf');

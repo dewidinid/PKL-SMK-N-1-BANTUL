@@ -4,18 +4,26 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon; 
 use App\Models\NilaiPkl;
 use App\Models\LaporanJurnal;
 use App\Models\Siswa;
-
 
 class DudiController extends Controller
 {
     
     public function indexDudi()
     {
-        // Anda dapat mengirimkan data ke view jika diperlukan
-        return view('home_dudi');
+        // Ambil tanggal hari ini
+        $today = Carbon::today();
+
+        // Filter laporan jurnal yang diunggah pada hari ini
+        $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
+                        ->with(['kelompok', 'siswa', 'konsentrasiKeahlian', 'siswaByKelas', 'siswaByTahun'])
+                        ->get();
+
+        // Kirimkan data yang difilter ke view 'home_dudi'
+        return view('home_dudi', compact('laporan_jurnal'));
     }
 
     public function nilaiPKL()

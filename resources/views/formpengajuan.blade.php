@@ -3,42 +3,46 @@
 
 @section('content')
 
-    <title>Form Pengajuan PKL</title>
-    <!-- Load Bootstrap CSS -->
+<div class="body-formmandiri">
 
-    <link href="{{ asset('css/formpengajuan.css') }}" rel="stylesheet">
-
+    <div class="d-flex justify-content-start mb-3" style="margin-left: 100px;">
+        <button onclick="window.location.href='{{ route('mandiri') }}'" style="background-color: #ffffff; color: #0275d8; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 50px;">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </button>
+    </div>
     <!-- Form Container -->
     <br>
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        
         <div class="form-container">
-            <h4 class="text-center mb-3" style="color: #ffffff">Form Pengajuan PKL</h4> <br>
+            <h4 class="text-center mb-3" style="color: #ffffff">Form Pengajuan PKL</h4> 
+            <br>
             <form action="{{ route('formpengajuan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="nis" class="form-label">NIS</label>
                     <label for="" style="color: #ffffff">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
-                    <textarea class="form-control" id="nis" name="nis" rows="1" placeholder="Masukkan NIS" oninput="this.value = this.value.replace(/[^0-9,\n]/g, '');"></textarea>
+                    <textarea class="form-control" id="nis" name="nis" rows="3"  placeholder="Masukkan NIS" oninput="this.value = this.value.replace(/[^0-9,\n]/g, '');"></textarea>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nama</label>
+                    <label for="nama_siswa" class="form-label">Nama</label>
                     <label for="" style="color: #ffffff">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
-                    <textarea class="form-control" id="name" name="name" rows="1" placeholder="Masukkan Nama" oninput="this.value = this.value.replace(/[^a-zA-Z,\n\s]/g, '');"></textarea>
+                    <textarea class="form-control" id="nama_siswa" name="nama_siswa" rows="3" placeholder="Masukkan Nama" oninput="this.value = this.value.replace(/[^a-zA-Z,\n\s]/g, '');" required></textarea>
                 </div>
                 
                 <div class="mb-3">
                     <label for="konsentrasi_keahlian" class="form-label">konsentrasi_keahlian</label>
-                    <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian">
+                    <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" placeholder="Masukkan Konsentrasi Keahlian">
                 </div>
                 <div class="mb-3">
-                    <label for="no_handphone" class="form-label">No Handphone</label>
-                    <input type="tel" class="form-control" id="no_handphone" name="no_handphone" placeholder="Masukkan No Handphone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    <label for="no_telp" class="form-label">No Handphone</label>
+                    <input type="" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan No Handphone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="rencana_tempat_pkl" class="form-label">Rencana Tempat PKL</label>
-                    <input type="text" class="form-control" id="rencana_tempat_pkl" name="rencana_tempat_pkl" placeholder="Masukkan Rencana Tempat PKL">
+                    <label for="tempat_pkl" class="form-label">Rencana Tempat PKL</label>
+                    <input type="text" class="form-control" id="tempat_pkl" name="tempat_pkl" placeholder="Masukkan Rencana Tempat PKL">
                 </div>
                 <div class="mb-3">
                     <label for="proposal_pkl" class="form-label">Proposal PKL (Dijadikan satu)</label>
@@ -55,38 +59,13 @@
                     </div>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-submit" style="background-color: #ffffff; color:#000000">Submit</button>
+                <button type="submit" class="btn btn-submit" style="background-color: #ffffff; color:#000000;">Submit</button>
             </form>
+            <br>
+            <br>
         </div>
     </div>
+</div>
 
-
-    <script>
-        function showFileName(input) {
-            var file = input.files[0];
-            var label = document.getElementById("file-label");
-    
-            if (file) {
-                // Replace the label text with the file name
-                label.innerHTML = file.name;
-            } else {
-                // Reset to default text if no file is selected
-                label.innerHTML = '<i class="fa-sharp fa-solid fa-arrow-up-from-bracket fa-fw" style="margin-right: 10px; font-size: 16px;"></i> Add File or Drag & Drop';
-            }
-        }
-    
-        function handleFileDrop(event) {
-            event.preventDefault();
-            var input = document.getElementById('proposal_pkl');
-            var files = event.dataTransfer.files;
-    
-            // Assign the dropped file to the input element
-            if (files.length) {
-                input.files = files;
-                showFileName(input);
-            }
-        }
-    </script>
-
-    @include('layouts.footer')
-    @endsection
+@include('layouts.footer')
+@endsection

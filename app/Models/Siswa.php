@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable; // Ganti ini
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Siswa extends Model
+class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
 {
     use HasFactory;
 
@@ -13,7 +13,11 @@ class Siswa extends Model
 
     protected $primaryKey = 'NIS'; // Primary key tabel
 
+    protected $guarded = [];
+    protected $hidden = ['password'];
+
     public $incrementing = false;  // Karena NIS bukan auto-increment
+    
 
     protected $fillable = [
         'NIS',
@@ -27,6 +31,26 @@ class Siswa extends Model
         'nama_dudi',
         'alamat_dudi',
     ];
+
+    // Menambahkan event model untuk mengatur password default saat siswa baru dibuat
+    protected static function booted()
+    {
+        static::creating(function ($siswa) {
+            // Mengatur password default menjadi pw[NIS]
+            $siswa->password = bcrypt('pw' . $siswa->NIS);
+        });
+    }
+
+    public function ploting()
+    {
+        return $this->hasOne(Ploting::class, 'NIS', 'NIS');
+    }
+
+    // Accessor untuk mendapatkan kode_kelompok dari tabel ploting
+    public function getKodeKelompokAttribute()
+    {
+        return $this->ploting ? $this->ploting->kode_kelompok : null;
+    }
 
     // Relationship to konsentrasi_keahlian
     public function konsentrasiKeahlian()
@@ -51,4 +75,15 @@ class Siswa extends Model
     {
         return $this->hasMany(Monitoring::class, 'NIS', 'NIS');
     }
+
+    public function laporanPengimbasan()
+    {
+        return $this->hasMany(LaporanPengimbasan::class, 'nis', 'NIS'); // Sesuaikan dengan kolom yang tepat
+    }
+
+    public function laporanAkhir()
+    {
+        return $this->hasMany(LaporanAkhir::class, 'nis', 'NIS'); // Sesuaikan dengan kolom yang tepat
+    }
+
 }

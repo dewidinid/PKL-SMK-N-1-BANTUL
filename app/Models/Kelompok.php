@@ -25,8 +25,16 @@ class Kelompok extends Model
 
     // Jika ada relasi dengan tabel lain, tambahkan di sini
     // Contoh relasi (jika ada):
-    // public function siswa()
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'kode_kelompok', 'kode_kelompok');
+    }
+
+    // Tambahkan ini jika ada relasi antara Kelompok dan Ploting
+    // public function ploting()
     // {
-    //     return $this->hasMany(Siswa::class, 'kode_kelompok', 'kode_kelompok');
+    //     return $this->hasMany(Ploting::class, 'kode_kelompok', 'kode_kelompok');
     // }
+
+
 }

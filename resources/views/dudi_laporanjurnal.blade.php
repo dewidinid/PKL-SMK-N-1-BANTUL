@@ -24,7 +24,6 @@
         <thead class="table-primary text-center">
             <tr class="text-center">
                 <th>No</th>
-                <th>Kelompok</th>
                 <th>NIS</th>
                 <th id="nama">Nama</th>
                 <th>Konsentrasi Keahlian</th>
@@ -37,7 +36,6 @@
             @foreach ($laporan_jurnal as $index => $data)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $data->kelompok->kode_kelompok }}</td>
                 <td>{{ $data->siswa->NIS }}</td>
                 <td>{{ $data->siswaByNama->nama_siswa }}</td>
                 <td>{{ $data->konsentrasiKeahlian->nama_konsentrasi }}</td>
@@ -53,7 +51,6 @@
             @endforeach
             <tr>
                 <td>1</td>
-                <td>K001</td>
                 <td >
                     <div>17672</div>
                 </td>

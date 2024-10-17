@@ -5,31 +5,42 @@
 <div class="container mt-5 table-wrapper">
     <h4 class="text-center">DATA SISWA</h4>
     <br>
+
+    <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true">
+        Template Upload Data Siswa
+    </a>
+    <br>
+    <br>
     <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <div >
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-                <!-- Tambahkan opsi tahun -->
-            </select>
-            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                <option selected>konsentrasi_keahlian</option>
-                <!-- Tambahkan opsi konsentrasi_keahlian -->
-            </select>
-        </div>
+        <form action="{{ route('filterSiswa') }}" method="GET">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option value="" selected>Tahun</option>
+                    <option value="2023/2024">2023/2024</option>
+                    <option value="2022/2023">2022/2023</option>
+                    <!-- Tambahkan opsi tahun lainnya -->
+                </select>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option value="" selected>Konsentrasi Keahlian</option>
+                    <option value="Teknik Komputer dan Jaringan (TKJ)">Teknik Komputer dan Jaringan (TKJ)</option>
+                    <option value="Rekayasa Perangkat Lunak (RPL)">Rekayasa Perangkat Lunak (RPL)</option>
+                    <!-- Tambahkan opsi konsentrasi keahlian lainnya -->
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
 
-        <div class="d-flex justify-content-end align-items-center mb-3">
-            <form method="POST" enctype="multipart/form-data" class="d-flex">
+        <div class="d-flex">
+            <form method="POST" action="{{ route('siswa.import') }}" enctype="multipart/form-data" class="d-flex">
                 @csrf
                 <div class="me-2">
-                    <label for="file-upload" class="btn btn-primary d-flex align-items-center" style="background-color: #0275db">
+                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db">
                         Upload <i class="bi bi-upload ms-2"></i>
                     </label>
-                    <input id="file-upload" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                    <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
                 </div>
-                <!-- Tombol dengan kelas kustom -->
-                <button class="custom-btn" style="background-color: #F99417; ">Import</button>
-            </form>
+            </form>                       
         </div>
     </div>
 
@@ -51,40 +62,12 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $student->NIS }}</td>
                         <td>{{ $student->nama_siswa }}</td>
-                        <td>{{ $student->konsentrasiKeahlian->nama_konsentrasi }}</td>
+                        <td>{{ $student->konsentrasi_keahlian }}</td>
                         <td>{{ $student->kelas }}</td>
                         <td>{{ $student->tahun }}</td>
                     </tr>
                 @endforeach
                 <!-- Data contoh, akan diisi dengan JavaScript -->
-                <tr>
-                    <td>1</td>
-                    <td>
-                        <div>1. 123456789</div>
-                        <div>2. 234567890</div>
-                    </td>
-                    <td class="left-align">
-                        <div>1. Rulli Arhan</div>
-                        <div>2. Muhammad Putra</div>
-                    </td>
-                    <td>Teknik Komputer Jaringan</td>
-                    <td>TKJ 1</td>
-                    <td>2024/2025</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>
-                        <div>1. 123456789</div>
-                        <div>2. 234567890</div>
-                    </td>
-                    <td class="left-align">
-                        <div>1. Rulli Arhan</div>
-                        <div>2. Muhammad Putra</div>
-                    </td>
-                    <td>Teknik Komputer Jaringan</td>
-                    <td>TKJ 1</td>
-                    <td>2024/2025</td>
-                </tr>
             </tbody>
             
         </table>

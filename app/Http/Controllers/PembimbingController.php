@@ -17,8 +17,14 @@ class PembimbingController extends Controller
 {
     public function indexPembimbing()
     {
-        // Anda dapat mengirimkan data ke view jika diperlukan
-        return view('home_pembimbing');
+        // Mendapatkan Pembimbing yang sedang login
+        //$pembimbing = Auth::user(); // Mengambil data Pembimbing yang sedang login
+        
+        // Mendapatkan data yang relevan, misalnya, siswa yang dibimbing
+        //$siswaList = Siswa::where('id_pembimbing', $pembimbing->NIP_NIK)->get(); // Contoh query
+
+        return view('home_pembimbing'); // Mengirim data ke view
+        // , compact('pembimbing', 'siswaList')
     }
 
     public function monitoringPKL()

@@ -5,6 +5,16 @@
 <div class="container mt-5 table-wrapper">
     <h4 class="text-center">Surat Pengajuan PKL Mandiri</h4>
     <br>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <select class="form-select d-inline-block w-auto" name="tahun">
+                <option selected>Tahun</option>
+                <!-- Tambahkan opsi tahun -->
+            </select>
+        </div>
+    </div>
+
     <!-- Pesan Sukses -->
     @if (session('success'))
         <div class="alert alert-success">

@@ -41,10 +41,32 @@
     padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
 }
 
-.img-profile {
+/* .img-profile {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+} */
+
+img.rounded-circle {
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;  
+    object-fit: cover;
 }
+
+.modal-content {
+    text-align: left; /* Pastikan teks rata kiri di dalam modal */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+}
+
+.form-control, .form-label {
+    text-align: left; /* Pastikan label dan input form rata kiri */
+}
+
+.modal-body {
+    padding: 1.5rem; /* Pastikan ada padding di dalam modal */
+}
+
 

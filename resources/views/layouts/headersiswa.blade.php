@@ -12,12 +12,16 @@
     <link rel="stylesheet" href="{{ asset('css/tabel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alur-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/body.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/formpengajuan.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMw5T5obSTHj9Q+O8Cd60XxFIYBvPzNURnKl7vZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
-<body>
+<body class="background">
     <header class="header-siswa">
         <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
@@ -59,7 +63,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('profil_siswa') }}">
-                                <img src="" alt="Profil" class="img-profile">
+                                <img src="{{ isset($siswa) && $siswa->profile_picture ? asset('storage/' . $siswa->profile_picture) : asset('image/default-profile.jpg') }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px;">
                             </a>
                         </li>                        
                     </ul>
@@ -71,145 +75,376 @@
 
     @yield('content')
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    @if(session('success'))
+    <script>
+        function showNotification(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
 
-     {{-- @section('scripts')
-<script>
-    $(document).on('click', '.pagination a', function(event) {
-        event.preventDefault();
-        var page = $(this).attr('href').split('page=')[1];
+        @if(session('from') === 'login')
+            showNotification('Login Berhasil!', '{{ session('success') }}!');
+        @elseif(session('from') === 'update_profile')
+            showNotification('Berhasil!', '{{ session('success') }}');
+        @elseif(session('from') === 'update_profile_picture')
+            showNotification('Berhasil!', '{{ session('success') }}');
+        @endif
+    </script>
+    @endif
 
-        fetchJurnals(page);
-    });
+    @if ($errors->any())
+    <script>
+        function showError(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
 
-    function fetchJurnals(page) {
-        $.ajax({
-            url: "/jurnals?page=" + page,
-            success: function(data) {
-                $('#jurnal-table-container').html(data);
+        showError('Kesalahan!', '{{ $errors->first() }}'); // Menampilkan kesalahan pertama
+    </script>
+    @endif
+
+    <script>
+        // Menampilkan pop-up saat proses pengiriman jurnal
+        function showAddingNotification() {
+            Swal.fire({
+                title: 'Menambahkan Data...',
+                text: 'Proses penambahan sedang berlangsung, mohon tunggu!',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+    
+            // Izinkan form untuk dikirim setelah pop-up muncul
+            return true; // Mengizinkan pengiriman form
+        }
+    
+        // SweetAlert untuk menampilkan hasil setelah submit
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    
+    <script>
+        const togglePassword = document.querySelector('#toggle-password');
+        const passwordField = document.querySelector('#password');
+    
+        togglePassword.addEventListener('click', function () {
+            // Toggle the password visibility
+            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            this.querySelector('i').classList.toggle('fa-eye');
+            this.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+    </script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openForm() {
+            var modal = new bootstrap.Modal(document.getElementById('jurnalForm'));
+            modal.show();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Fungsi untuk mengambil data jurnal dengan AJAX
+        function fetchJurnals() {
+            $.ajax({
+                url: '/jurnals',  // Endpoint ke controller yang menyediakan data jurnal
+                method: 'GET',
+                success: function(data) {
+                    $('#jurnal-table-container').html(data);  // Memperbarui konten tabel jurnal
+                }
+            });
+        }
+
+        // Panggil fetchJurnals() ketika halaman pertama kali dimuat
+        $(document).ready(function() {
+            fetchJurnals();  // Panggil sekali saat halaman dimuat
+
+            // Memanggil fetchJurnals() setiap 5 detik
+            setInterval(fetchJurnals, 5000);
+        });
+    </script>
+
+    <script>
+        function showFileName(input) {
+            var file = input.files[0];
+            var label = document.getElementById("file-label");
+
+            if (file) {
+                // Replace the label text with the file name
+                label.innerHTML = file.name;
+            } else {
+                // Reset to default text if no file is selected
+                label.innerHTML = '<i class="fa-sharp fa-solid fa-arrow-up-from-bracket fa-fw" style="margin-right: 10px; font-size: 16px;"></i> Add File or Drag & Drop';
             }
+        }
+
+        function handleFileDrop(event) {
+            event.preventDefault();
+            var input = document.getElementById('proposal_pkl');
+            var files = event.dataTransfer.files;
+
+            // Assign the dropped file to the input element
+            if (files.length) {
+                input.files = files;
+                showFileName(input);
+            }
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            // AJAX untuk mengganti konten utama saat klik sidebar link
+            $('.sidebar .nav-link').click(function(e){
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#main-content').load(url + ' #main-content>*', function(){
+                    history.pushState(null, '', url);
+                });
+
+                // Mengatur kelas aktif
+                $('.sidebar .nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
+                $(this).addClass('active');                      // Tambahkan kelas aktif ke tautan yang diklik
+            });
+
+            // Menangani back/forward browser
+            window.onpopstate = function(event) {
+                var url = location.pathname;
+                $('#main-content').load(url + ' #main-content>*');
+                // Update aktif link
+                $('.sidebar .nav-link').removeClass('active');
+                $('.sidebar .nav-link[href="'+url+'"]').addClass('active');
+            };
         });
-    }
-</script> --}}
+    </script>  
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function openForm() {
-        var modal = new bootstrap.Modal(document.getElementById('jurnalForm'));
-        modal.show();
-    }
-</script>
+    
 
-<script>
-    function getLocation() {
-        if (navigator.geolocation) {
-            // Mengambil posisi pengguna
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            alert("Geolocation tidak didukung oleh browser ini.");
+    {{-- <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                // Mengambil posisi pengguna
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation tidak didukung oleh browser ini.");
+            }
         }
-    }
 
-    function showPosition(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        // Menampilkan koordinat di input field
-        document.getElementById("lokasi").value = "Latitude: " + latitude + ", Longitude: " + longitude;
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
 
-        // Menampilkan tautan ke Google Maps
-        var mapsLink = document.getElementById("mapsLink");
-        mapsLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
-        mapsLink.style.display = 'inline-block';
-    }
+            // Panggil fungsi untuk mendapatkan alamat dari koordinat
+            getAddressFromCoordinates(latitude, longitude);
 
-    function showError(error) {
-        switch(error.code) {
-            case error.PERMISSION_DENIED:
-                alert("Pengguna menolak permintaan untuk Geolocation.");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                alert("Informasi lokasi tidak tersedia.");
-                break;
-            case error.TIMEOUT:
-                alert("Permintaan untuk mendapatkan lokasi pengguna telah melebihi batas waktu.");
-                break;
-            case error.UNKNOWN_ERROR:
-                alert("Terjadi kesalahan yang tidak diketahui.");
-                break;
+            // Menampilkan tautan ke Google Maps
+            var mapsLink = document.getElementById("mapsLink");
+            mapsLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            mapsLink.style.display = 'inline-block';
         }
-    }
-</script>
 
-<script>
-    let currentPage = 1;
-    const rowsPerPage = 10; // Jumlah baris per halaman
-    const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
-    const totalPages = Math.ceil(tableData.length / rowsPerPage);
+        function getAddressFromCoordinates(latitude, longitude) {
+            var geocodingAPI = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_GOOGLE_MAPS_API_KEY`;
 
-    function displayTablePage(page) {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        tableData.forEach((row, index) => {
-            row.style.display = index >= start && index < end ? '' : 'none';
-        });
-    }
-
-    function setupPagination() {
-        const paginationNumbers = document.getElementById('pagination-numbers');
-        paginationNumbers.innerHTML = '';
-
-        for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement('div');
-            pageButton.className = 'pagination-number';
-            pageButton.innerText = i;
-            pageButton.addEventListener('click', () => goToPage(i));
-            paginationNumbers.appendChild(pageButton);
+            // Mengambil data dari API
+            fetch(geocodingAPI)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "OK") {
+                        var address = data.results[0].formatted_address;
+                        // Menampilkan alamat di input field
+                        document.getElementById("lokasi").value = address;
+                    } else {
+                        alert("Alamat tidak dapat ditemukan.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Terjadi kesalahan saat mengambil alamat.");
+                });
         }
-    }
 
-    function goToPage(page) {
-        currentPage = page;
-        displayTablePage(page);
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Pengguna menolak permintaan untuk Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Informasi lokasi tidak tersedia.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Permintaan untuk mendapatkan lokasi pengguna telah melebihi batas waktu.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Terjadi kesalahan yang tidak diketahui.");
+                    break;
+            }
+        }
+    </script> --}}
+
+    <script>
+        function getLocation() {
+            if (navigator.geolocation) {
+                // Mengambil posisi pengguna
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation tidak didukung oleh browser ini.");
+            }
+        }
+
+        function showPosition(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+
+            // Panggil fungsi untuk mendapatkan alamat dari koordinat menggunakan Nominatim
+            getAddressFromCoordinates(latitude, longitude);
+
+            // Menampilkan tautan ke Google Maps atau OpenStreetMap
+            var mapsLink = document.getElementById("mapsLink");
+            mapsLink.href = `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=18/${latitude}/${longitude}`;
+            mapsLink.style.display = 'inline-block';
+        }
+
+        function getAddressFromCoordinates(latitude, longitude) {
+            var nominatimAPI = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+
+            // Mengambil data dari Nominatim API
+            fetch(nominatimAPI)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.address) {
+                        var address = data.display_name;
+                        // Menampilkan alamat di input field
+                        document.getElementById("lokasi").value = address;
+                    } else {
+                        alert("Alamat tidak dapat ditemukan.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("Terjadi kesalahan saat mengambil alamat.");
+                });
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Pengguna menolak permintaan untuk Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Informasi lokasi tidak tersedia.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Permintaan untuk mendapatkan lokasi pengguna telah melebihi batas waktu.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("Terjadi kesalahan yang tidak diketahui.");
+                    break;
+            }
+        }
+    </script>
+
+
+    <script>
+        let currentPage = 1;
+        const rowsPerPage = 10; // Jumlah baris per halaman
+        const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
+        const totalPages = Math.ceil(tableData.length / rowsPerPage);
+
+        function displayTablePage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            tableData.forEach((row, index) => {
+                row.style.display = index >= start && index < end ? '' : 'none';
+            });
+        }
+
+        function setupPagination() {
+            const paginationNumbers = document.getElementById('pagination-numbers');
+            paginationNumbers.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('div');
+                pageButton.className = 'pagination-number';
+                pageButton.innerText = i;
+                pageButton.addEventListener('click', () => goToPage(i));
+                paginationNumbers.appendChild(pageButton);
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            displayTablePage(page);
+            updatePaginationButtons();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        function updatePaginationButtons() {
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+
+            document.querySelectorAll('.pagination-number').forEach((button, index) => {
+                button.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // Inisialisasi tampilan tabel dan pagination
+        displayTablePage(currentPage);
+        setupPagination();
         updatePaginationButtons();
-    }
 
-    function prevPage() {
-        if (currentPage > 1) {
-            goToPage(currentPage - 1);
-        }
-    }
+    </script>
 
-    function nextPage() {
-        if (currentPage < totalPages) {
-            goToPage(currentPage + 1);
-        }
-    }
-
-    function updatePaginationButtons() {
-        document.getElementById('prev-btn').disabled = currentPage === 1;
-        document.getElementById('next-btn').disabled = currentPage === totalPages;
-
-        document.querySelectorAll('.pagination-number').forEach((button, index) => {
-            button.classList.toggle('active', index + 1 === currentPage);
+    <script>
+        document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
+            console.log('Navbar collapse shown');
         });
-    }
 
-    // Inisialisasi tampilan tabel dan pagination
-    displayTablePage(currentPage);
-    setupPagination();
-    updatePaginationButtons();
-
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
-        console.log('Navbar collapse shown');
-    });
-
-    document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
-        console.log('Navbar collapse hidden');
-    });
-</script>
+        document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
+            console.log('Navbar collapse hidden');
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>

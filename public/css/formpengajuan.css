@@ -1,8 +1,6 @@
-body {
-    background-color: #0f4c75;
-    background: linear-gradient(to bottom, #1679AB, #093145);
-    color: white;
-    margin: 0;
+.body-formmandiri {
+    background: linear-gradient(to bottom, #0275d8, #000);
+    background-size: cover;
 }
 
 .navbar {
@@ -81,7 +79,7 @@ body {
      text-align: center; /*Pusatkan teks di dalam tombol */
 }
 
-.btn-submit:hover {
+/* .btn-submit:hover {
     background-color:#3282b8;
-}
+} */
 

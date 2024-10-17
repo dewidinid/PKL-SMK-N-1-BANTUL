@@ -1,9 +1,7 @@
 @extends('layouts.headersiswa')
 
 @section('content')
-<br>
-<br>
-
+<div class="container mt-5">
     <h4 style="text-align: center;">ALUR PKL SMK N 1 BANTUL</h4>
 
     <div class="alur-container">
@@ -14,12 +12,13 @@
     <br>
 
     <div class="center-button-container">
-        <a href="{{ route('formpengajuan')}}" class="btn btn-outline-primary">Form Pengajuan PKL Mandiri</a>
+        <a href="{{ route('formpengajuan')}}" class="btn btn-primary">Form Pengajuan PKL Mandiri</a>
     </div>
     <br>
     <br>
     <br>
     <br>
+</div>
     
 @include('layouts.footer')
 @endsection

@@ -143,8 +143,9 @@
 
         <br>
         <div class="mt-3 text-end">
-            <a href="{{ route('dudi.export.nilai') }}" class="btn btn-success">Export Nilai PKL</a>
-        </div>        
+            <a href="{{ route('export.detail.nilai.excel') }}" class="btn btn-success">Export Excel</a>
+            <a href="{{ route('export.detail.nilai.pdf') }}" class="btn btn-danger">Export PDF</a>
+        </div>           
     </div>
 </div>
 

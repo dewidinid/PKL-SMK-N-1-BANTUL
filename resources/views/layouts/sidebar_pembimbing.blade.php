@@ -2,7 +2,7 @@
     <a href="{{ route('home_pembimbing') }}" class="nav-link {{ request()->routeIs('home_pembimbing') ? 'active' : '' }}">
         <i class="bi bi-house me-4 ms-2"></i> DASHBOARD
     </a>
-    <a href="{{ route ('monitoring') }}" class="nav-link {{ request()->routeIs('monitoring') ? 'active' : '' }}">
+    {{-- <a href="{{ route ('monitoring') }}" class="nav-link {{ request()->routeIs('monitoring') ? 'active' : '' }}">
         <i class="bi bi-display me-4 ms-2"></i> MONITORING PKL
     </a>
     <a href="{{ route ('evaluasi') }}" class="nav-link {{ request()->routeIs('evaluasi') ? 'active' : '' }}">
@@ -19,5 +19,5 @@
     </a>
     <a href="{{ route ('hasil_laporanpengimbasan') }}" class="nav-link {{ request()->routeIs('hasil_laporanpengimbasan') ? 'active' : '' }}">
         <i class="bi bi-journal-text me-4 ms-2"></i> LAPORAN PENGIMBASAN
-    </a>
+    </a> --}}
 </div>

@@ -29,10 +29,10 @@ class Ploting extends Model
     public $timestamps = false;
 
     // Relasi ke model Kelompok
-    public function kelompok()
-    {
-        return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
-    }
+    // public function kelompok()
+    // {
+    //     return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
+    // }
 
     // Relasi ke model Pembimbing
     public function pembimbing()

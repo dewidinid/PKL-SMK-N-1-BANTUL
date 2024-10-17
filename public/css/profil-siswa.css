@@ -2,22 +2,26 @@
     background: linear-gradient(to bottom, #0275d8, #000);
     background-size: cover;
     text-align: center;
+    padding: 100px 0; /*Menambahkan padding atas dan bawah */
 }
 
 .profile-container img {
-    padding-top: 150px;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
+    
+    width: 150px; /* Ukuran gambar profil */
+    height: 150px; /* Ukuran gambar profil */
+    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+    object-fit: cover; /* Menjaga rasio aspek gambar */
+    margin-bottom: 20px; /* Spasi di bawah gambar */
+    border: 2px solid #ccc; /* Tambahkan border jika diinginkan */
 }
 
 .form-control {
     margin-bottom: 15px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 400px; /* Lebar maksimal input */
+    margin-left: auto; /* Mengatur margin otomatis untuk pemusatan */
+    margin-right: auto; /* Mengatur margin otomatis untuk pemusatan */
+    flex: 1; /* Mengisi sisa ruang */
+    position: relative;
 }
 
 .btn-logout {
@@ -25,20 +29,48 @@
     color: #fff; /* Warna teks tombol */
     border-radius: 50%; /* Membuat tombol berbentuk bulat */
     padding: 10px 15px; /* Memberikan padding pada tombol */
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 30px; /* Spasi di atas tombol */
+    margin-bottom: 30px; /* Spasi di bawah tombol */
     border: none; /* Menghilangkan border */
     display: flex; /* Menggunakan flexbox untuk pengaturan konten di dalam tombol */
     align-items: center; /* Mengatur ikon dan teks agar berada di tengah secara vertikal */
 }
 
 .form-group {
-    text-align: left;
-    text-decoration: white;
-    color: white;
-    max-width: 400px;
-    margin: 0 auto 15px auto;
-   
+    text-align: left; /* Menyelaraskan teks ke kiri */
+    color: white; /* Warna teks */
+    max-width: 400px; /* Lebar maksimal untuk grup form */
+    margin: 0 auto 15px auto; /* Margin otomatis untuk pemusatan dan spasi bawah */
+}
+
+/* Styling foto profil */
+.profile-picture {
+    width: 150px; /* Ukuran gambar profil yang konsisten */
+    height: 150px; /* Ukuran gambar profil yang konsisten */
+    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+    object-fit: cover; /* Menjaga rasio aspek gambar */
+    border: 2px solid #ccc; /* Tambahkan border jika diinginkan */
+    margin-bottom: 20px; /* Spasi di bawah gambar */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    width: 100%; /* Pastikan input group memiliki lebar penuh */
+}
+
+.input-group-text {
+    background: transparent; /* Pastikan latar belakang transparan */
+    border: none; /* Menghilangkan border untuk tampilan yang lebih bersih */
+    cursor: pointer; /* Menampilkan pointer saat hover */
+    display: flex;
+    align-items: center; /* Tengah secara vertikal */
+    padding: 0 10px; /* Padding horizontal */
+}
+
+.input-group-text i {
+    color: #000; /* Pastikan warna ikon terlihat */
+    font-size: 1.2em; /* Sesuaikan ukuran ikon sesuai kebutuhan */
 }
 
 

@@ -25,6 +25,7 @@ class Dudi extends Model
     protected $fillable = [
         'kode_dudi',
         'nama_dudi',
+        'bidang_usaha',
         'password',
         'alamat_dudi',
         'notelp_dudi',

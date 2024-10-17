@@ -3,7 +3,7 @@
 @section('content')
 <br>
 <br>
-<div class="container mt-5">
+<div class="container mt-5" id="jurnal-table-container">
     <h4 style="text-align: center;">ALUR PKL SMK N 1 BANTUL</h4>
 
     <div class="alur-container">
@@ -15,54 +15,39 @@
     {{-- pengumuman --}}
     <h4 style="text-align: center;">Pengumuman</h4>
     <br>
-    <table class=" table-striped custom-table">
-        <thead class="table-primary text-center" >
-            <tr class="text-center" >
-                <th>No</th>
-                <th>Kelompok</th>
-                <th>NIS</th>
-                <th>Nama</th>
-                <th>Konsentrasi Keahlian</th>
-                <th>Kelas</th>
-                <th>Pembimbing</th>
-                <th>Dudi</th>
-                <th>No Handphone Dudi</th>
-            <br>
-        </thead>
-        <tbody id="data-table" >
-            <!-- Data contoh, akan diisi dengan JavaScript -->
-            <tr>
-                <td>1</td>
-                <td>K001</td>
-                <td>
-                    <div>1. 17678</div>
-                    <div>2. 17635</div>
-                </td>
-                <td>
-                    <div>1. Rulli Arhan</div>
-                    <div>2. Muhammad Putra</div>
-                </td>
-                <td>Teknik Komputer Jaringan</td>
-                <td>TKJ 1</td>
-                <td>Dariyati, S.Pd.</td>
-                <td>PT Telkom Indonesia Tbk</td>
-                <td>(0274) 64762874</td>
-            </tr>
-        </tbody>
-        {{-- <tbody>
-            @foreach ($students as $index => $student)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $student->nis }}</td>
-                <td>{{ $student->nama }}</td>
-                <td>{{ $student->konsentrasi_keahlian }}</td>
-                <td>{{ $student->kelas }}</td>
-                <td>{{ $student->tahun }}</td>
-            </tr>
-            @endforeach
-        </tbody> --}}
+    <div style="max-height: 400px; overflow-y: auto;"> <!-- Wadah scrollable -->
+        <table class="table-striped custom-table">
+            <thead class="table-primary text-center">
+                <tr class="text-center">
+                    <th>No</th>
+                    <th>Kelompok</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Konsentrasi Keahlian</th>
+                    <th>Kelas</th>
+                    <th>Pembimbing</th>
+                    <th>Dudi</th>
+                    <th>Alamat Dudi</th>
+                </tr>
+            </thead>
+            <tbody >
+                @foreach ($plotingData as $index => $ploting)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $ploting->kode_kelompok }}</td>
+                    <td>{{ $ploting->siswa->NIS }}</td>
+                    <td>{{ $ploting->siswa->nama_siswa }}</td>
+                    <td>{{ $ploting->siswa->konsentrasi_keahlian }}</td>
+                    <td>{{ $ploting->siswa->kelas }}</td>
+                    <td>{{ $ploting->nama_pembimbing }}</td>
+                    <td>{{ $ploting->dudi->nama_dudi }}</td>
+                    <td>{{ $ploting->dudi->alamat_dudi }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 
-    </table>
 
 </div>
 <br>

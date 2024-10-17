@@ -17,16 +17,19 @@ class LaporanJurnal extends Model
 
     // Kolom yang dapat diisi secara massal
     protected $fillable = [
-        'NIS',          
-        'nama_siswa',   
-        'nama_dudi',   
         'tanggal', 
+        'NIS',          
+        'nama_siswa',
+        'konsentrasi_keahlian',
+        'kelompok',
+        'kelas',   
+        'nama_dudi',   
         'kegiatan',     
         'lokasi'        
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
-    public $timestamps = false;
+    // public $timestamps = false;
 
     // Relasi ke model Siswa (untuk NIS)
     public function siswa()

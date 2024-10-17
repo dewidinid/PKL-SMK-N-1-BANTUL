@@ -2,7 +2,7 @@
     <a href="{{ route('home_admin') }}" class="nav-link {{ request()->routeIs('home_admin') ? 'active' : '' }}">
         <i class="bi bi-house me-4 ms-2"></i> DASHBOARD
     </a>
-    <a href="{{ route('data_siswa') }}" class="nav-link {{ request()->routeIs('data_siswa') ? 'active' : '' }}">
+    {{-- <a href="{{ route('data_siswa') }}" class="nav-link {{ request()->routeIs('data_siswa') ? 'active' : '' }}">
         <i class="bi bi-people-fill me-4 ms-2"></i> DATA SISWA
     </a>
     <a href="{{ route('guru_pembimbing') }}" class="nav-link {{ request()->routeIs('guru_pembimbing') ? 'active' : '' }}">
@@ -16,5 +16,5 @@
     </a>
     <a href="{{ route('suratPengajuan') }}" class="nav-link {{ request()->routeIs('suratPengajuan') ? 'active' : '' }}">
         <i class="bi bi-envelope me-4 ms-2"></i> SURAT PENGAJUAN PKL MANDIRI
-    </a>
+    </a> --}}
 </div>

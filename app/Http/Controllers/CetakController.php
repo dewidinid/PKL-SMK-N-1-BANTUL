@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
 use App\Models\Monitoring;
 use App\Models\Evaluasi;
+use App\Models\NilaiPkl;
 
 class CetakController extends Controller
 {
@@ -108,4 +109,47 @@ class CetakController extends Controller
         // Return file PDF untuk diunduh
         return $pdf->download($fileName);
     }
+
+    public function exportDetailNilaiExcel()
+    {
+        // Fetch all detail nilai data
+        $detailNilai = NilaiPkl::with('siswa')->get();
+
+        // Prepare the data for Excel export
+        $data = $detailNilai->map(function ($item) {
+            return [
+                'NIS' => $item->siswa->NIS,
+                'Nama' => $item->siswa->nama_siswa,
+                'Total Nilai' => $item->total_nilai,
+                // Add other fields as needed
+            ];
+        });
+
+        // Define the file name
+        $fileName = 'Detail_Nilai_' . date('Y-m-d') . '.xlsx';
+
+        // Export to Excel
+        return (new FastExcel($data))->download($fileName);
+    }
+
+    public function exportDetailNilaiPDF()
+    {
+        // Fetch all detail nilai data
+        $detailNilai = NilaiPkl::with('siswa')->get();
+
+        // Prepare data for PDF view
+        $data = [
+            'detailNilai' => $detailNilai,
+        ];
+
+        // Generate PDF from the view
+        $pdf = Pdf::loadView('export_detail_nilai_pdf', $data);
+
+        // Define the file name
+        $fileName = 'Detail_Nilai_' . date('Y-m-d') . '.pdf';
+
+        // Return the PDF download
+        return $pdf->download($fileName);
+    }
+
 }
