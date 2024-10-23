@@ -6,22 +6,6 @@
     <h4 class="text-center">Surat Pengajuan PKL Mandiri</h4>
     <br>
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-                <!-- Tambahkan opsi tahun -->
-            </select>
-        </div>
-    </div>
-
-    <!-- Pesan Sukses -->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <form method="POST" action="{{ route('approvePengajuan') }}">
         @csrf
         <table class="table-striped custom-table">
@@ -42,16 +26,21 @@
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>
-                        <div>1. {{ $item->nis }}</div>
+                        @foreach($item->siswa as $siswa)
+                            <div>{{ $siswa->NIS }}</div>
+                        @endforeach
                     </td>
-                    <td class="left-align">
-                        <div>1. {{ $item->nama_siswa }}</div>
+                    <td>
+                        @foreach($item->siswa as $siswa)
+                            <div>{{ $siswa->nama_siswa }}</div>
+                        @endforeach
                     </td>
-                    <td>{{ $item->no_telp }}</td>
+                    <td>{{ $item->no_telp }}</td> <!-- No telp ketua -->
                     <td>{{ $item->tempat_pkl }}</td>
                     <td>{{ $item->notelp_dudi }}</td>
                     <td class="text-center">
-                        <a href="{{ asset('storage/proposals/' . $item->proposal_pkl) }}" target="_blank" class="btn btn-primary">Download</a>
+                        <a href="{{ Storage::url('proposals/' . $item->proposal_pkl) }}" target="_blank" class="btn btn-primary">Download</a>
+                    </td>
                     </td>
                     <td class="text-center">
                         <input type="checkbox" name="check[]" value="{{ $item->id_pengajuan }}" {{ $item->status_acc ? 'checked disabled' : '' }}>
@@ -60,21 +49,20 @@
                 @endforeach
             </tbody>
         </table>
+        <br>
         <button type="submit" class="btn btn-success mt-3">Approve Selected</button>
     </form>
-    
-
-    <br>
-    <br>
-
-    <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
-        <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>
-        <div id="pagination-numbers" style="display: flex; gap: 10px; margin: 0 20px;">
-            <!-- Angka halaman akan diisi dengan JavaScript -->
-        </div>
-        <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
-    </div>
-  
 </div>
-    
+
+<br>
+<br>
+
+<div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
+    <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>
+    <div id="pagination-numbers" style="display: flex; gap: 10px; margin: 0 20px;">
+        <!-- Angka halaman akan diisi dengan JavaScript -->
+    </div>
+    <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
+</div>
+
 @endsection

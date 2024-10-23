@@ -33,11 +33,10 @@ Route::post('/profile/update', [SiswaController::class, 'updateProfile'])->name(
 
 // Route untuk halaman verifikasi akhir PKL
 Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl')->middleware('auth:siswa');
-Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl')->middleware('auth:siswa');
 Route::post('/upload-laporan', [SiswaController::class, 'uploadLaporan'])->name('upload_laporan')->middleware('auth:siswa');
+// Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl')->middleware('auth:siswa');
 
 Route::post('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan')->middleware('auth:siswa');
-
 Route::get('/formpengajuan', [SiswaController::class, 'FormPengajuan'])->name('formpengajuan')->middleware('auth:siswa');
 
 // Route to display the Siswa form
@@ -47,15 +46,17 @@ Route::get('/pemetaan', [SiswaController::class, 'showPemetaan'])->name('pemetaa
 Route::get('/laporan-jurnal', [SiswaController::class, 'laporanJurnal'])->name('laporanpkl_jurnal')->middleware('auth:siswa');
 Route::post('/laporan-jurnal/submit', [SiswaController::class, 'submitJurnal'])->name('submitJurnal')->middleware('auth:siswa');
 
-Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin');
+Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin')->middleware('auth:admin');
 
 Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa');
 Route::get('/filter-siswa', [AdminController::class, 'filterSiswa'])->name('filterSiswa');
 Route::post('/siswa/import', [AdminController::class, 'importSiswa'])->name('siswa.import');
+Route::put('/siswa/update', [AdminController::class, 'updateSiswa'])->name('siswa.update');
 
 Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi');
 Route::post('/import-dudi', [AdminController::class, 'importDudi'])->name('import.dudi');
 Route::post('/dudi/store', [AdminController::class, 'storeDudi'])->name('store.dudi');
+Route::put('/dudi/update/{kode_dudi}', [AdminController::class, 'updateDudi'])->name('update.dudi');
 
 Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa');
 Route::post('/admin/import-ploting', [AdminController::class, 'importPloting'])->name('admin.importPloting');
@@ -67,10 +68,10 @@ Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])-
 Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name('guru_pembimbing');
 Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing');
 Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing');
-
+Route::put('/pembimbing/{NIP_NIK}/update', [AdminController::class, 'updatePembimbing'])->name('update.pembimbing');
 
 // Home Dudi
-Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
+Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi')->middleware('auth:dudi');
 Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
 Route::get('/dudi/export-nilai', [DudiController::class, 'exportNilai'])->name('dudi.export.nilai');
 
@@ -83,7 +84,7 @@ Route::get('/dudi_laporanjurnal_persiswa', [DudiController::class, 'dudiLaporanJ
 
 
 // Home Pembimbing
-Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing');
+Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing')->middleware('auth:pembimbing');
 // Rute untuk halaman monitoring
 Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring');
 

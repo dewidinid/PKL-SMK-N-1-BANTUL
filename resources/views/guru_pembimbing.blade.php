@@ -58,23 +58,24 @@
                 <th>Jenis Kelamin</th>
                 <th>No Telp</th>
                 <th>Alamat</th>
-                {{-- <th>Tahun</th> --}}
+                <th>Aksi</th> <!-- Tambahkan kolom aksi -->
             </tr>
         </thead>
         <tbody id="data-table">
-            @foreach ($pembimbing as $index => $pembimbing)
+            @foreach ($pembimbing as $index => $data)
                 <tr class="text-center">
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $pembimbing->NIP_NIK }}</td>
-                    <td>{{ $pembimbing->nama_pembimbing }}</td>
-                    <td>{{ $pembimbing->jabatan }}</td>
-                    <td>{{ $pembimbing->jenis_kelamin }}</td>
-                    <td>{{ $pembimbing->no_telp }}</td>
-                    <td>{{ $pembimbing->alamat }}</td>
-                    {{-- <td>{{ $pembimbing->tahun }}</td>                             --}}
+                    <td>{{ $data->NIP_NIK }}</td>
+                    <td>{{ $data->nama_pembimbing }}</td>
+                    <td>{{ $data->jabatan }}</td>
+                    <td>{{ $data->jenis_kelamin }}</td>
+                    <td>{{ $data->no_telp }}</td>
+                    <td>{{ $data->alamat }}</td>
+                    <td>
+                        <!-- Button untuk memunculkan modal edit -->
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editPembimbingModal{{ $data->NIP_NIK }}">Edit</button>
+                    </td>
                 </tr>
-               
-
             @endforeach
         </tbody>
     </table>
@@ -140,5 +141,50 @@
     </div>
 </div>
 
+@foreach($pembimbing as $data)
+    <div class="modal fade" id="editPembimbingModal{{ $data->NIP_NIK }}" tabindex="-1" aria-labelledby="editPembimbingModalLabel{{ $data->NIP_NIK }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('update.pembimbing', $data->NIP_NIK) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editPembimbingModalLabel{{ $data->NIP_NIK }}">Edit Data Pembimbing</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="nama_pembimbing" class="form-label">Nama Pembimbing</label>
+                            <input type="text" class="form-control" id="nama_pembimbing" name="nama_pembimbing" value="{{ $data->nama_pembimbing }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select" id="jenis_kelamin" name="jenis_kelamin" required>
+                                <option value="Laki-laki" {{ $data->jenis_kelamin == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="Perempuan" {{ $data->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jabatan" class="form-label">Jabatan</label>
+                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $data->jabatan }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_telp" class="form-label">No Telp</label>
+                            <input type="text" class="form-control" id="no_telp" name="no_telp" value="{{ $data->no_telp }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $data->alamat }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endforeach
 
 @endsection

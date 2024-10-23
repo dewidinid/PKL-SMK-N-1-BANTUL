@@ -3,14 +3,6 @@
 @section('content')
 
 <div class="container">
-    <!-- Menambahkan selamat datang dan daftar siswa di sini -->
-    {{-- <h1>Selamat datang, {{ $pembimbing->nama_pembimbing }}</h1>
-    <h2>Daftar Siswa yang Anda Bimbing</h2>
-    <ul>
-        @foreach($siswaList as $siswa)
-            <li>{{ $siswa->nama }}</li>
-        @endforeach
-    </ul> --}}
     
     <div id="home_pembimbing" class="text-center mb-5" data-aos="fade-up">
         <br>

@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container mt-5">
+
+    <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
+        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </button>
+    </div>
+    <br>
     <h4 style="text-align: center;">ALUR PKL SMK N 1 BANTUL</h4>
 
     <div class="alur-container">

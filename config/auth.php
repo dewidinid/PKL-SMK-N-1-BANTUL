@@ -45,6 +45,21 @@ return [
             'driver' => 'session',
             'provider' => 'siswas',
         ],
+
+        'dudi' => [
+            'driver' => 'session',
+            'provider' => 'dudi',
+        ],
+
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins', // Gunakan provider admins untuk guard admin
+        ],
+
+        'pembimbing' => [
+            'driver' => 'session',
+            'provider' => 'pembimbings', // Gunakan provider pembimbings
+        ],
     ],
 
     /*
@@ -72,6 +87,21 @@ return [
         'siswas' => [
             'driver' => 'eloquent',
             'model' => App\Models\Siswa::class,
+        ],
+
+        'dudi' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Dudi::class,
+        ],
+
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+
+        'pembimbings' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pembimbing::class,
         ],
     ],
 

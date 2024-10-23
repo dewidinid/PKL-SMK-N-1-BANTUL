@@ -54,5 +54,5 @@
     <p>Silakan login untuk mengakses halaman ini.</p>
 @endauth
 
-@include('layouts.footer')
+
 @endsection

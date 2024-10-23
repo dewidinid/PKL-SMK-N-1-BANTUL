@@ -17,7 +17,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body class="background">
     <header class="header-admin">
@@ -56,11 +56,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mr-3">
+                            <p style="font-weight: bold">
+                                {{ session('kode_admin') }} <!-- Menampilkan kode admin -->
+                            </p>
+                        </li>
                         <li class="nav-item">
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-                            <a class="logout-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="logout-link" href="#" onclick="confirmLogout(event);">
                                 Logout
                             </a>
                         </li>                        
@@ -98,6 +103,32 @@
     @include('layouts.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            title: 'Login Berhasil!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+    @if ($errors->any())
+    <script>
+        function showError(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        showError('Kesalahan!', '{{ $errors->first() }}'); // Menampilkan kesalahan pertama
+    </script>
+    @endif
+
     <script>
         function handleFileUpload(input) {
             if (input.files.length > 0) {
@@ -171,6 +202,28 @@
         @endif
     </script>
 
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault(); // Mencegah aksi default
+
+            // Tampilkan SweetAlert
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan keluar dari akun ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi logout
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        }
+    </script>
     
     <script>
         let currentPage = 1;

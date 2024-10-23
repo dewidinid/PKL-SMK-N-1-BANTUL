@@ -45,32 +45,35 @@
     </div>
 
 
-        <table class=" table-striped custom-table">
-            <thead class="table-primary text-center" >
+    <table class=" table-striped custom-table">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>No</th>
+                <th>NIS</th>
+                <th>Nama</th>
+                <th>Konsentrasi Keahlian</th>
+                <th>Kelas</th>
+                <th>Tahun</th>
+                <th>Aksi</th> <!-- Kolom baru untuk aksi -->
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            @foreach ($siswa as $index => $student)
                 <tr>
-                    <th>No</th>
-                    <th>NIS</th>
-                    <th>Nama</th>
-                    <th>Konsentrasi Keahlian</th>
-                    <th>Kelas</th>
-                    <th>Tahun</th>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $student->NIS }}</td>
+                    <td>{{ $student->nama_siswa }}</td>
+                    <td>{{ $student->konsentrasi_keahlian }}</td>
+                    <td>{{ $student->kelas }}</td>
+                    <td>{{ $student->tahun }}</td>
+                    <td>
+                        <!-- Tombol Edit -->
+                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSiswaModal" onclick="populateEditForm({{ $student }})">Edit</button>
+                    </td>
                 </tr>
-            </thead>
-            <tbody id="data-table" >
-                @foreach ($siswa as $index => $student)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $student->NIS }}</td>
-                        <td>{{ $student->nama_siswa }}</td>
-                        <td>{{ $student->konsentrasi_keahlian }}</td>
-                        <td>{{ $student->kelas }}</td>
-                        <td>{{ $student->tahun }}</td>
-                    </tr>
-                @endforeach
-                <!-- Data contoh, akan diisi dengan JavaScript -->
-            </tbody>
-            
-        </table>
+            @endforeach
+        </tbody>
+    </table>    
 </div>
 
     <br>
@@ -84,6 +87,56 @@
         </div>
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
+
+    <!-- Modal Edit Siswa -->
+<div class="modal fade" id="editSiswaModal" tabindex="-1" aria-labelledby="editSiswaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editSiswaModalLabel">Edit Data Siswa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('siswa.update') }}" method="POST">
+                    @csrf
+                    @method('PUT') <!-- Menggunakan PUT untuk update -->
+                    <input type="hidden" name="NIS" id="editNIS">
+                    <div class="mb-3">
+                        <label for="editNama" class="form-label">Nama</label>
+                        <input type="text" class="form-control" id="editNama" name="nama_siswa">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editKonsentrasiKeahlian" class="form-label">Konsentrasi Keahlian</label>
+                        <input type="text" class="form-control" id="editKonsentrasiKeahlian" name="konsentrasi_keahlian">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editKelas" class="form-label">Kelas</label>
+                        <input type="text" class="form-control" id="editKelas" name="kelas">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTahun" class="form-label">Tahun</label>
+                        <input type="text" class="form-control" id="editTahun" name="tahun">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Function untuk mengisi form edit dengan data siswa yang dipilih
+    function populateEditForm(student) {
+        document.getElementById('editNIS').value = student.NIS;
+        document.getElementById('editNama').value = student.nama_siswa;
+        document.getElementById('editKonsentrasiKeahlian').value = student.konsentrasi_keahlian;
+        document.getElementById('editKelas').value = student.kelas;
+        document.getElementById('editTahun').value = student.tahun;
+    }
+</script>
 
 
 @endsection

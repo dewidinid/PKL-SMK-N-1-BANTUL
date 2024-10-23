@@ -69,4 +69,43 @@ img.rounded-circle {
     padding: 1.5rem; /* Pastikan ada padding di dalam modal */
 }
 
+/* Untuk menyembunyikan checkbox asli */
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Tampilan custom checkbox */
+.custom-checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 4px;
+    position: relative;
+}
+
+/* Tampilan saat checkbox diceklis */
+input[type="checkbox"]:checked + .custom-checkbox {
+    background-color: #28a745; /* Hijau */
+}
+
+/* Menampilkan tanda centang saat diceklis */
+.custom-checkbox::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+    display: block;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
 

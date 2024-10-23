@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Model
+class Admin extends Authenticatable
 {
     use HasFactory;
 
@@ -20,7 +20,7 @@ class Admin extends Model
     protected $fillable = [
         'kode_admin',
         'password',
-        'surat_pengajuan',
+        // 'surat_pengajuan',
     ];
 
     // Hidden untuk password saat serialisasi
@@ -29,7 +29,7 @@ class Admin extends Model
     ];
 
     // Casting surat_pengajuan ke boolean
-    protected $casts = [
-        'surat_pengajuan' => 'boolean',
-    ];
+    // protected $casts = [
+    //     'surat_pengajuan' => 'boolean',
+    // ];
 }

@@ -170,9 +170,9 @@ class SiswaController extends Controller
 
     public function submitForm(Request $request)
     {
-         // Ambil data siswa yang sedang login
-         $siswa = Auth::user();
-
+        // Ambil data siswa yang sedang login
+        $siswa = Auth::user();
+    
         // Validasi input form
         $validated = $request->validate([
             'nis' => 'required|string|max:255', // Pisahkan NIS dengan koma
@@ -180,36 +180,38 @@ class SiswaController extends Controller
             'konsentrasi_keahlian' => 'required|string',
             'no_telp' => 'required|string',
             'tempat_pkl' => 'required|string',
-            'proposal_pkl' => 'required|file|mimes:pdf,doc,docx',
+            'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048', // Tambahkan batas ukuran file (mis. 2MB)
         ]);
-
-        // Menyimpan file proposal
-        $filePath = $request->file('proposal_pkl')->store('proposals');
-
+    
+        // Simpan file proposal dengan nama asli
+        $originalFileName = $request->file('proposal_pkl')->getClientOriginalName(); // Dapatkan nama asli
+        $filePath = $request->file('proposal_pkl')->storeAs('public/proposals', $originalFileName); // Simpan dengan nama asli
+    
         // Simpan data pengajuan ke tabel 'pengajuan'
         $pengajuan = Pengajuan::create([
             'nama_siswa' => $request->input('nama_siswa'),
             'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
             'no_telp' => $request->input('no_telp'),
             'tempat_pkl' => $request->input('tempat_pkl'),
-            'proposal_pkl' => $filePath,
+            'proposal_pkl' => $originalFileName, // Simpan nama file asli di database
         ]);
-
+    
         // Pisahkan NIS berdasarkan koma dan simpan ke tabel pivot 'pengajuan_siswa'
-        $nisList = explode(',', $request->input('nis'));
-
+        $nisList = explode(',', $request->input('nis')); // Pecah NIS menjadi array berdasarkan koma
+    
         foreach ($nisList as $nis) {
             DB::table('pengajuan_siswa')->insert([
                 'id_pengajuan' => $pengajuan->id_pengajuan, // Mengambil ID dari pengajuan yang baru dibuat
-                'nis' => trim($nis), // NIS dipisahkan koma dan disimpan
+                'nis' => trim($nis), // Hapus spasi di sekitar NIS
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
-
+    
         // Redirect dengan pesan berhasil
         return redirect()->route('formpengajuan')->with('success', 'Pengajuan PKL berhasil dikirim!');
     }
+    
 
 
     public function laporanJurnal() 
@@ -268,11 +270,19 @@ class SiswaController extends Controller
         // Mengambil data siswa yang sedang login
         $siswa = Auth::user();
 
-        // Cek apakah laporan pengimbasan sudah diupload
-        $isLaporanPengimbasanUploaded = !empty($siswa->laporan_pengimbasan);
-        
-        // Cek apakah laporan akhir sudah diupload
-        $isLaporanAkhirUploaded = !empty($siswa->laporan_akhir);
+        if (!$siswa) {
+            return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
+        }    
+
+       // Cek apakah laporan pengimbasan sudah diupload (ambil dari tabel laporan_pengimbasan)
+        $isLaporanPengimbasanUploaded = DB::table('laporan_pengimbasan')
+            ->where('NIS', $siswa->NIS)
+            ->exists();
+
+        // Cek apakah laporan akhir sudah diupload (ambil dari tabel laporan_akhir)
+        $isLaporanAkhirUploaded = DB::table('laporan_akhir')
+            ->where('NIS', $siswa->NIS)
+            ->exists();
         
         // Path file nilai PKL berdasarkan NIS siswa
         $nilaiPklFilePath = 'public/nilai_pkl/nilai_pkl_' . $siswa->NIS . '.xlsx';
@@ -293,34 +303,73 @@ class SiswaController extends Controller
     // Fungsi untuk upload laporan pengimbasan dan laporan akhir
     public function uploadLaporan(Request $request)
     {
-        // Mengambil data siswa yang sedang login
         $siswa = Auth::user();
 
         // Validasi file laporan pengimbasan dan laporan akhir
         $request->validate([
-            'laporan_pengimbasan' => 'required|file|mimes:pdf,doc,docx|max:2048',
-            'laporan_akhir' => 'required|file|mimes:pdf,doc,docx|max:2048',
+            'laporan_pengimbasan' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+            'laporan_akhir' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        // Simpan laporan pengimbasan
-        if ($request->hasFile('laporan_pengimbasan')) {
-            $pengimbasanPath = $request->file('laporan_pengimbasan')->storeAs(
-                'public/laporan_pengimbasan',
-                'laporan_pengimbasan_' . $siswa->NIS . '.' . $request->file('laporan_pengimbasan')->getClientOriginalExtension()
-            );
-        }
+        try {
+            // Pesan sukses yang berbeda untuk tiap laporan
+            $messages = [];
 
-        // Simpan laporan akhir
-        if ($request->hasFile('laporan_akhir')) {
-            $akhirPath = $request->file('laporan_akhir')->storeAs(
-                'public/laporan_akhir',
-                'laporan_akhir_' . $siswa->NIS . '.' . $request->file('laporan_akhir')->getClientOriginalExtension()
-            );
-        }
+            // Simpan laporan pengimbasan jika diupload
+            if ($request->hasFile('laporan_pengimbasan')) {
+                $pengimbasanPath = $request->file('laporan_pengimbasan')->storeAs(
+                    'public/laporan_pengimbasan',
+                    'laporan_pengimbasan_' . $siswa->NIS . '.' . $request->file('laporan_pengimbasan')->getClientOriginalExtension()
+                );
 
-        // Berikan pesan sukses setelah upload berhasil
-        return redirect()->back()->with('success', 'Laporan berhasil diunggah.');
+                // Update atau insert data ke tabel laporan_pengimbasan
+                DB::table('laporan_pengimbasan')->updateOrInsert(
+                    ['NIS' => $siswa->NIS], 
+                    [
+                        'laporan_pengimbasan' => $pengimbasanPath,
+                        // 'kode_kelompok' => $siswa->kode_kelompok,
+                        // 'kode_dudi' => $siswa->kode_dudi,
+                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+                        'nama' => $siswa->nama_siswa,
+                        'kelas' => $siswa->kelas,
+                        'nama_dudi' => $siswa->nama_dudi,
+                    ]
+                );
+
+                $messages[] = 'Laporan pengimbasan berhasil diunggah!';
+            }
+
+            // Simpan laporan akhir jika diupload
+            if ($request->hasFile('laporan_akhir')) {
+                $akhirPath = $request->file('laporan_akhir')->storeAs(
+                    'public/laporan_akhir',
+                    'laporan_akhir_' . $siswa->NIS . '.' . $request->file('laporan_akhir')->getClientOriginalExtension()
+                );
+
+                // Update atau insert data ke tabel laporan_akhir
+                DB::table('laporan_akhir')->updateOrInsert(
+                    ['NIS' => $siswa->NIS], 
+                    [
+                        'laporan_akhir' => $akhirPath,
+                        // 'kode_kelompok' => $siswa->kode_kelompok,
+                        // 'kode_dudi' => $siswa->kode_dudi,
+                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+                        'nama' => $siswa->nama_siswa,
+                        'kelas' => $siswa->kelas,
+                        'nama_dudi' => $siswa->nama_dudi,
+                    ]
+                );
+
+                $messages[] = 'Laporan akhir berhasil diunggah!';
+            }
+
+            // Gabungkan pesan sukses dan kirim ke view
+            return redirect()->back()->with('success', implode(' ', $messages));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mengunggah laporan: ' . $e->getMessage());
+        }
     }
+
 
    
    // Fungsi untuk menampilkan file nilai PKL

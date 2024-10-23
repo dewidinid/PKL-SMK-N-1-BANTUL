@@ -148,6 +148,29 @@
             });
         @endif
     </script>
+
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault(); // Mencegah aksi default
+
+            // Tampilkan SweetAlert
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan keluar dari akun ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi logout
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        }
+    </script>
     
     <script>
         const togglePassword = document.querySelector('#toggle-password');
