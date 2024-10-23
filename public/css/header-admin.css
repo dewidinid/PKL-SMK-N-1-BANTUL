@@ -46,14 +46,12 @@
 }
 
 .logout-link {
-    color: white; /* Warna teks default */
-    padding: 10px 15px; /* Padding untuk ruang di sekitar teks */
+    background-color: #dc3545;
+    color: white !important; /* Warna teks default */
+    padding: 7px 7px; /* Padding untuk ruang di sekitar teks */
     text-decoration: none; /* Menghilangkan garis bawah */
     border-radius: 5px; /* Memberikan radius sudut */
     transition: background-color 0.3s, color 0.3s; /* Efek transisi untuk halus */
 }
 
-.logout-link:hover {
-    background-color: #dc3545; /* Warna latar belakang saat hover */
-    color: white !important; /* Warna teks saat hover */
-}
+

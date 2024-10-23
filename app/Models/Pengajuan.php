@@ -31,7 +31,7 @@ class Pengajuan extends Model
     // Relasi dengan model siswa
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'nis', 'NIS');
+        return $this->belongsToMany(Siswa::class, 'pengajuan_siswa', 'id_pengajuan', 'nis');
     }
 
     // Relasi dengan model dudi

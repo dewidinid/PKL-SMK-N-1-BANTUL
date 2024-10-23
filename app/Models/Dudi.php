@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Dudi extends Model
+class Dudi extends Authenticatable
 {
     use HasFactory;
 
@@ -34,4 +34,9 @@ class Dudi extends Model
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
     public $timestamps = false;
+
+    // Jika password Anda terenkripsi, pastikan Anda menyimpan password yang sudah di-hash.
+    protected $hidden = [
+        'password',
+    ];
 }

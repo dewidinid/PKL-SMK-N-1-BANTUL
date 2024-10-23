@@ -2,7 +2,8 @@
 
 @section('content')
 
-<div class="container">
+@auth
+    <div class="container">
         <!-- Main Content -->
             <div id="home_admin" class="text-center mb-5" data-aos="fade-up">
                 <br>
@@ -69,7 +70,9 @@
                     </div>
                 </div>
             </div>
-</div>
-
+    </div>
+@else
+    <p>Silakan login untuk mengakses halaman ini.</p>
+@endauth
 
 @endsection

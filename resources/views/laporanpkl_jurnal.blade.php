@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container mt-5 table-wrapper" id="jurnal-table-container">
+        <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
+            <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+                <i class="bi bi-arrow-left"></i> Kembali
+            </button>
+        </div>
+        <br>
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
 
         <!-- Button to Open the Form -->

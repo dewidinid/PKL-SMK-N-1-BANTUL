@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon; 
@@ -12,25 +13,35 @@ use App\Models\Siswa;
 class DudiController extends Controller
 {
     
-    public function indexDudi()
+    public function indexDudi(Request $request)
     {
+
+        if (!Auth::guard('dudi')->check()) {
+            return redirect()->route('login')->withErrors('Anda tidak memiliki akses ke halaman ini.');
+        }
+    
+        // Ambil data Dudi yang sedang login
+        $dudi = Auth::guard('dudi')->user();
+
+        $request->session()->put('nama_dudi', $dudi->nama_dudi);
+
         // Ambil tanggal hari ini
         $today = Carbon::today();
 
         // Filter laporan jurnal yang diunggah pada hari ini
         $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
-                        ->with(['kelompok', 'siswa', 'konsentrasiKeahlian', 'siswaByKelas', 'siswaByTahun'])
+                        ->with(['siswa'])
                         ->get();
 
         // Kirimkan data yang difilter ke view 'home_dudi'
-        return view('home_dudi', compact('laporan_jurnal'));
+        return view('home_dudi', compact('laporan_jurnal', 'dudi'));
     }
 
     public function nilaiPKL()
     {
         
         // Ambil semua data nilai PKL beserta relasinya
-        $nilai_pkl = NilaiPkl::with('kelompok', 'siswa', 'siswaByNama', 'konsentrasiKeahlian', 'siswaByKelas', 'siswaByTahun')->get();
+        $nilai_pkl = NilaiPkl::with( 'siswa', 'siswaByNama', 'konsentrasiKeahlian', 'siswaByKelas', 'siswaByTahun')->get();
 
         // Kirimkan data ke view
         return view('nilai_pkl', ['nilai_pkl' => $nilai_pkl]);
@@ -93,25 +104,23 @@ class DudiController extends Controller
     public function dudiLaporanJurnal()
     {
         // Ambil semua data laporan jurnal beserta relasinya
-        $laporan_jurnal = LaporanJurnal::with(['kelompok', 'siswa', 'konsentrasiKeahlian', 'siswaByKelas', 'siswaByTahun'])->get();
+        $laporan_jurnal = LaporanJurnal::with([ 'siswa'])->get();
 
         // Kirimkan data ke view
         return view('dudi_laporanjurnal', compact('laporan_jurnal'));
     }
 
     // Tambahkan metode baru untuk laporan jurnal per siswa
-    public function dudiLaporanJurnalPerSiswa()
-    //$nis
+    public function dudiLaporanJurnalPerSiswa($nis)
     {
         // Ambil data siswa berdasarkan NIS
-        // $siswa = Siswa::where('NIS', $nis)->firstOrFail();
+            $siswa = Siswa::where('NIS', $nis)->firstOrFail();
 
         // Ambil laporan jurnal siswa berdasarkan NIS
-        // $jurnals = LaporanJurnal::where('NIS', $nis)->get();
+           $jurnals = LaporanJurnal::where('NIS', $nis)->get();
 
         // Kirimkan data siswa dan jurnal ke view
-        return view('dudi_laporanjurnal_persiswa');
-        //, compact('siswa', 'jurnals')
+        return view('dudi_laporanjurnal_persiswa', compact('siswa', 'jurnals'));
     }
  
 

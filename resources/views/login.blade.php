@@ -38,14 +38,6 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="siswa" role="tabpanel" aria-labelledby="siswa-tab">
                     <h3 class="register-heading">Login sebagai Siswa</h3>
-
-                     <!-- Tampilkan pesan error jika ada -->
-                    {{-- @if($errors->has('login'))
-                        <div class="alert alert-danger">
-                            {{ $errors->first('login') }}
-                        </div>
-                    @endif --}}
-
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <input type="hidden" name="role" value="siswa">

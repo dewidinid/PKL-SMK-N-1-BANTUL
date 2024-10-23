@@ -7,7 +7,7 @@
         @csrf
     </form>
 
-    <a href="#" class="btn btn-danger btn-logout position-absolute top-250 end-0 m-3" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    <a href="#" class="btn btn-danger btn-logout position-absolute top-250 end-0 m-3" onclick="confirmLogout(event);">
         <i class="bi bi-box-arrow-right"></i>
         <span>Logout</span>
     </a>

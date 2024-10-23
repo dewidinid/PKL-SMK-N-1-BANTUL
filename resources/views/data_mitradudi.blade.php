@@ -44,6 +44,7 @@
                 <th>Bidang Usaha</th>
                 <th>No Telp</th>
                 <th>Alamat</th>
+                <th>Aksi</th>
             </tr>
         </thead>
         <tbody id="data-table">
@@ -55,6 +56,12 @@
                     <td>{{ $data->bidang_usaha }}</td>
                     <td>{{ $data->notelp_dudi }}</td>
                     <td>{{ $data->alamat_dudi }}</td>
+                    <td>
+                        <!-- Tombol Edit untuk membuka modal edit -->
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editDudiModal{{ $data->kode_dudi }}">
+                            Edit
+                        </button>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -114,5 +121,49 @@
         </div>
     </div>
 </div>
+
+@foreach($dudi as $data)
+    <div class="modal fade" id="editDudiModal{{ $data->kode_dudi }}" tabindex="-1" aria-labelledby="editDudiModalLabel{{ $data->kode_dudi }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('update.dudi', $data->kode_dudi) }}" >
+                    @csrf
+                    @method('PUT')
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editDudiModalLabel{{ $data->kode_dudi }}">Edit Data Dudi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="kode_dudi" class="form-label">Kode Dudi</label>
+                            <input type="text" class="form-control" id="kode_dudi" name="kode_dudi" value="{{ $data->kode_dudi }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nama_dudi" class="form-label">Nama Dudi</label>
+                            <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $data->nama_dudi }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="bidang_usaha" class="form-label">Bidang Usaha</label>
+                            <input type="text" class="form-control" id="bidang_usaha" name="bidang_usaha" value="{{ $data->bidang_usaha }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="notelp_dudi" class="form-label">No Telp</label>
+                            <input type="text" class="form-control" id="notelp_dudi" name="notelp_dudi" value="{{ $data->notelp_dudi }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat_dudi" class="form-label">Alamat Dudi</label>
+                            <input type="text" class="form-control" id="alamat_dudi" name="alamat_dudi" value="{{ $data->alamat_dudi }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endforeach
 
 @endsection

@@ -38,35 +38,16 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $data->siswa->NIS }}</td>
                 <td>{{ $data->siswaByNama->nama_siswa }}</td>
-                <td>{{ $data->konsentrasiKeahlian->nama_konsentrasi }}</td>
-                <td>{{ $data->siswaByKelas->kelas }}</td>
-                <td>{{ $data->siswaByTahun->tahun }}</td>
+                <td>{{ $data->konsentrasi_konsentrasi }}</td>
+                <td>{{ $data->kelas }}</td>
+                <td>{{ $data->tahun }}</td>
                 <td>
-                    <a href="{{ route('dudi_laporanjurnal_persiswa') }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
-                        {{-- , $data->siswa->NIS --}}
+                    <a href="{{ route('dudi_laporanjurnal_persiswa'), $data->siswa->NIS }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
                         <i class="bi bi-journal-text" style="font-size: 16px; color: white;"></i>
                     </a>
                 </td>
             </tr>
             @endforeach
-            <tr>
-                <td>1</td>
-                <td >
-                    <div>17672</div>
-                </td>
-                <td class="left-align">
-                    <div>Rulli Arhan</div>
-                </td>
-                <td>Teknik Komputer Jaringan</td>
-                <td>TKJ 1</td>
-                <td>2024/2025</td>
-                <td>
-                    <a href="{{ route('dudi_laporanjurnal_persiswa') }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
-                        {{-- , ['nis' => $data->siswa->NIS] --}}
-                        <i class="bi bi-journal-text" style="font-size: 16px; color: white;"></i>
-                    </a>                    
-                </td>
-            </tr>
         </tbody>
     </table>
 
