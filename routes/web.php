@@ -10,6 +10,10 @@ use App\Http\Controllers\DudiController;
 use App\Http\Controllers\PembimbingController;
 use App\Http\Controllers\CetakController;
 
+// Route::get('/phpinfo', function () {
+//     return phpinfo();
+// });
+
 // Route untuk menampilkan dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -68,7 +72,6 @@ Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name
 Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing');
 Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing');
 
-
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi');
 Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
@@ -87,9 +90,11 @@ Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])
 // Rute untuk halaman monitoring
 Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring');
 
+// Route filter monitoring
+Route::get('/monitoring', [PembimbingController::class, 'filterMonitoring'])->name('filterMonitoring');
+
 // Rute untuk halaman monitoring per siswa dengan parameter NIS
-Route::get('/monitoring_persiswa', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
-// /{nis}
+Route::get('/monitoring_persiswa/{nis}', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
 
 // Rute untuk mengimpor monitoring per siswa
 Route::post('/monitoring_persiswa/{nis}/import', [PembimbingController::class, 'importMonitoring'])->name('monitoring_persiswa.import');
@@ -122,3 +127,7 @@ Route::get('/export_evaluasi_pdf/{nis}', [CetakController::class, 'exportEvaluas
 
 Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel');
 Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf');
+
+Route::get('/admin/insert-to-monitoring', [AdminController::class, 'insertToMonitoring'])->name('admin.insertToMonitoring');
+
+Route::post('/monitoring/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload');

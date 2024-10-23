@@ -79,6 +79,28 @@ class AdminController extends Controller
         return redirect()->back()->with('error', 'Data sudah ditemukan (upload tidak bertambah).');
     }
 
+    public function insertToMonitoring()
+    {
+        // Ambil semua data dari tabel Ploting
+        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+
+        foreach ($plotingData as $ploting) {
+            Monitoring::create([
+                'NIS' => $ploting->siswa->NIS,
+                'kode_kelompok' => $ploting->kode_kelompok,
+                'kode_dudi' => $ploting->dudi->kode_dudi,
+                'nama_siswa' => $ploting->siswa->nama_siswa,
+                'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
+                'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
+                'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
+                'nama_dudi' => $ploting->dudi->nama_dudi,
+                'kelas' => $ploting->siswa->kelas,
+                'tahun' => $ploting->siswa->tahun,
+            ]);
+        }
+
+        return redirect()->route('monitoring')->with('success', 'Data berhasil dimasukkan ke Monitoring.');
+    }
 
 
     public function filterSiswa(Request $request)
@@ -206,22 +228,33 @@ class AdminController extends Controller
         // Ambil data kelompok unik dari tabel ploting
         $kelompok = Ploting::select('kode_kelompok')->distinct()->pluck('kode_kelompok'); // Mengambil kode_kelompok unik dari ploting
 
+        $konsentrasi_keahlian = Siswa::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian'); // Ambil konsentrasi keahlian unik
+
         // Ambil data ploting sesuai filter jika ada
         $query = Ploting::with('siswa', 'pembimbing', 'dudi');
 
+        //Filter tahun
         if ($request->filled('tahun') && $request->tahun != 'Tahun') {
             $query->whereHas('siswa', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
 
+        //Filter Kelompok
         if ($request->filled('kelompok') && $request->kelompok != 'Kelompok') {
             $query->where('kode_kelompok', $request->kelompok); // Perbaiki untuk menggunakan kode_kelompok
-        }                     
+        }  
+        
+        // Filter berdasarkan konsentrasi keahlian jika ada
+        if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+            $query->whereHas('siswa', function ($q) use ($request) {
+                $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+            });
+        }
 
         $ploting = $query->get();
 
-        return view('ploting_siswa', compact('ploting', 'kelompok', 'tahun'));
+        return view('ploting_siswa', compact('ploting', 'kelompok', 'tahun', 'konsentrasi_keahlian'));
     }
 
     public function importPloting(Request $request)

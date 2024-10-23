@@ -70,10 +70,18 @@ class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
         return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi');
     }
 
-    // Relasi dengan Monitoring
-    public function monitoring()
+    // // Relasi dengan Monitoring
+    // public function monitoring()
+    // {
+    //     return $this->hasMany(Monitoring::class, 'NIS', 'NIS');
+    // }
+
+    public function monitoringPKL()
     {
-        return $this->hasMany(Monitoring::class, 'NIS', 'NIS');
+        // Ambil data monitoring dengan relasi ke siswa
+        $monitoring = Monitoring::with('siswa')->get();
+
+        return view('monitoring', ['monitoring' => $monitoring]);
     }
 
     public function laporanPengimbasan()

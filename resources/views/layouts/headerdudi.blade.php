@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/boxinfo.css') }}">
     <link rel="stylesheet" href="{{ asset('css/button.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-pagination.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -120,6 +121,8 @@
     </script>
 
     <script>
+
+        // Script pagination
         let currentPage = 1;
         const rowsPerPage = 10; // Jumlah baris per halaman
         const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
@@ -132,11 +135,11 @@
                 row.style.display = index >= start && index < end ? '' : 'none';
             });
         }
-    
+
         function setupPagination() {
             const paginationNumbers = document.getElementById('pagination-numbers');
             paginationNumbers.innerHTML = '';
-    
+
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('div');
                 pageButton.className = 'pagination-number';
@@ -145,47 +148,45 @@
                 paginationNumbers.appendChild(pageButton);
             }
         }
-    
+
         function goToPage(page) {
             currentPage = page;
             displayTablePage(page);
             updatePaginationButtons();
         }
-    
+
         function prevPage() {
             if (currentPage > 1) {
                 goToPage(currentPage - 1);
             }
         }
-    
+
         function nextPage() {
             if (currentPage < totalPages) {
                 goToPage(currentPage + 1);
             }
         }
-    
+
         function updatePaginationButtons() {
             document.getElementById('prev-btn').disabled = currentPage === 1;
             document.getElementById('next-btn').disabled = currentPage === totalPages;
-    
+
             document.querySelectorAll('.pagination-number').forEach((button, index) => {
                 button.classList.toggle('active', index + 1 === currentPage);
             });
         }
-    
+
         // Inisialisasi tampilan tabel dan pagination
         displayTablePage(currentPage);
         setupPagination();
         updatePaginationButtons();
     </script>
-    
-    
-        
-    
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
         <script>
             AOS.init();
         </script>
+        
     <script>
         function handleFileUpload() {
             // Aktifkan tombol import setelah file dipilih

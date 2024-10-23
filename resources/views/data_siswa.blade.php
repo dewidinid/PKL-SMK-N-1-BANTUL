@@ -44,7 +44,6 @@
         </div>
     </div>
 
-
         <table class=" table-striped custom-table">
             <thead class="table-primary text-center" >
                 <tr>
@@ -67,7 +66,6 @@
                         <td>{{ $student->tahun }}</td>
                     </tr>
                 @endforeach
-                <!-- Data contoh, akan diisi dengan JavaScript -->
             </tbody>
             
         </table>

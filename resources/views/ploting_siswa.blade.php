@@ -27,6 +27,12 @@
                 @foreach($kelompok as $k)
                     <option value="{{ $k }}">{{ $k }}</option> <!-- Ambil 'kode_kelompok' -->
                 @endforeach
+            </select>
+            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian"> <!-- Tambahkan dropdown untuk konsentrasi keahlian -->
+                <option selected>Konsentrasi Keahlian</option>
+                @foreach($konsentrasi_keahlian as $kk)
+                    <option value="{{ $kk }}">{{ $kk }}</option>
+                @endforeach
             </select>            
             <button type="submit" class="btn btn-primary">Filter</button>
         </div>

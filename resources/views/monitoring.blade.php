@@ -7,18 +7,30 @@
     <h4 class="text-center">MONITORING</h4>
     <br>
     
-  <!-- Filter Tahun dan konsentrasi_keahlian -->
+  <!-- Form Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <div >
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-                <!-- Tambahkan opsi tahun -->
-            </select>
-            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                <option selected>Konsentrasi Keahlian</option>
-                <!-- Tambahkan opsi konsentrasi_keahlian -->
-            </select>
-        </div>
+        <div>
+            <form action="{{ route('filterMonitoring') }}" method="GET">
+                @csrf
+                <!-- Dropdown untuk filter tahun -->
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
+                    @foreach($tahun as $t)
+                        <option value="{{ $t }}">{{ $t }}</option>
+                    @endforeach
+                </select>
+        
+                <!-- Dropdown untuk filter konsentrasi keahlian -->
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
+                    @foreach($konsentrasi_keahlian as $kk)
+                        <option value="{{ $kk }}">{{ $kk }}</option>
+                    @endforeach
+                </select>
+        
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+        </div>    
     </div>
 
     <table class="table-striped custom-table">
@@ -34,47 +46,29 @@
                 <th>Monitoring</th>
             </tr>
         </thead>
-        <tbody id="data-table" >
+
+        <tbody id="data-table">
             @foreach ($monitoring as $index => $data)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $data->kelompok->kode_kelompok }}</td>
+                <td>{{ $data->kode_kelompok }}</td>
                 <td>{{ $data->siswa->NIS }}</td>
-                <td>{{ $data->siswaByNama->nama_siswa }}</td>
-                <td>{{ $data->konsentrasiKeahlian->nama_konsentrasi }}</td>
-                <td>{{ $data->siswaByKelas->kelas }}</td>
-                <td>{{ $data->siswaByTahun->tahun }}</td>
+                <td>{{ $data->nama_siswa }}</td>
+                <td>{{ $data->konsentrasi_keahlian }}</td>
+                <td>{{ $data->kelas }}</td>
+                {{-- <td>{{ $data->nama_dudi }}</td> --}}
+                {{-- <td>{{ $data->nama_pembimbing }}</td> --}}
+                <td>{{ $data->tahun }}</td>
+
                 <td>
-                    <a href="{{ route('monitoring_persiswa')}}" class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
-                        {{-- , ['nis' => $data->siswa->NIS] --}}
+                    <a href="{{ route('monitoring_persiswa', ['nis' => $data->NIS]) }}" class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
                         <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
                     </a>                    
                 </td>
             </tr>
             @endforeach
-            <!-- Data contoh, akan diisi dengan JavaScript -->
-            <tr>
-                <td>1</td>
-                <td>K001</td>
-                <td >
-                    <div>17672</div>
-                    <div>17875</div>
-                </td>
-                <td class="left-align">
-                    <div>Rulli Arhan</div>
-                    <div>Meisya Renata</div>
-                </td>
-                <td>Teknik Komputer Jaringan</td>
-                <td>TKJ 1</td>
-                <td>2024/2025</td>
-                <td>
-                    <a href="{{ route('monitoring_persiswa') }}" class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
-                        {{-- , ['nis' => $data->siswa->NIS] --}}
-                        <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
-                    </a>                    
-                </td>
-            </tr>
         </tbody>
+        
     </table>
 
     <br>

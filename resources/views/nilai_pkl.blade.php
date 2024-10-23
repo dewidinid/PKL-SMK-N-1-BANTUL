@@ -38,7 +38,7 @@
                     <th>Ket</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="">
                 {{-- @foreach($students as $student) --}}
                     <tr>
                         {{-- <td>{{ $index + 1 }}</td>

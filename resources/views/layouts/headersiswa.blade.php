@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/button.css') }}">
     <link rel="stylesheet" href="{{ asset('css/body.css') }}">
     <link rel="stylesheet" href="{{ asset('css/formpengajuan.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style-pagination.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMw5T5obSTHj9Q+O8Cd60XxFIYBvPzNURnKl7vZ" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -374,13 +375,13 @@
         }
     </script>
 
-
     <script>
+        //Script Pagination
         let currentPage = 1;
         const rowsPerPage = 10; // Jumlah baris per halaman
         const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
         const totalPages = Math.ceil(tableData.length / rowsPerPage);
-
+        
         function displayTablePage(page) {
             const start = (page - 1) * rowsPerPage;
             const end = start + rowsPerPage;
@@ -433,8 +434,8 @@
         displayTablePage(currentPage);
         setupPagination();
         updatePaginationButtons();
-
     </script>
+
 
     <script>
         document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
