@@ -42,11 +42,6 @@ class NilaiPkl extends Model
         return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
     }
 
-    // Relasi ke model Siswa (untuk nama)
-    public function siswaByNama()
-    {
-        return $this->belongsTo(Siswa::class, 'nama', 'nama_siswa');
-    }
 
     // Relasi ke model Siswa (untuk konsentrasi_keahlian)
     public function konsentrasiKeahlian()
@@ -54,15 +49,4 @@ class NilaiPkl extends Model
         return $this->belongsTo(Siswa::class, 'konsentrasi_keahlian', 'kode_konsentrasi');
     }
 
-    // Relasi ke model Siswa (untuk kelas)
-    public function siswaByKelas()
-    {
-        return $this->belongsTo(Siswa::class, 'kelas', 'kelas');
-    }
-
-    // Relasi ke model Siswa (untuk tahun)
-    public function siswaByTahun()
-    {
-        return $this->belongsTo(Siswa::class, 'tahun', 'tahun');
-    }
 }

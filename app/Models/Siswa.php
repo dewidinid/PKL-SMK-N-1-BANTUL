@@ -91,5 +91,9 @@ class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
         return $this->belongsToMany(Pengajuan::class, 'pengajuan_siswa', 'nis', 'id_pengajuan');
     }
 
+public function laporanJurnal()
+{
+    return $this->hasMany(LaporanJurnal::class, 'NIS', 'NIS');
+}
 
 }

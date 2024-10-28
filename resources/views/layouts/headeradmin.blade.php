@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tabel.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tabel-mini.css') }}">
     <link rel="stylesheet" href="{{ asset('css/body.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/boxinfo.css') }}">

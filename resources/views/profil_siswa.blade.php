@@ -52,20 +52,34 @@
                     <input type="text" name="tahun" class="form-control" placeholder="Tahun" value="{{ $siswa->tahun }}"readonly>
                 </div>
                 <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="current_password" class="form-label">Password Lama</label>
                     <div class="input-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password (optional)" >
-                        <span class="input-group-text" id="toggle-password">
-                            <i class="fas fa-eye"></i>
+                        <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Masukkan password lama" required>
+                        <span class="input-group-text" id="toggle-current-password" style="background-color: #fff; border: none;">
+                            <i class="far fa-eye" style="color: lightgrey"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="form-label">Password Baru</label>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password baru (optional)">
+                        <span class="input-group-text" id="toggle-password" style="background-color: #fff; border: none;">
+                            <i class="far fa-eye" style="color: lightgrey;"></i>
                         </span>
                     </div>
                     <small class="form-text" style="color: white">Masukkan password baru jika ingin mengubahnya.</small>
-                </div>                                          
+                </div>                                                   
                 <br>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
         </div>
     </div>
+
+
+
+    
 
 
 @include('layouts.footer')

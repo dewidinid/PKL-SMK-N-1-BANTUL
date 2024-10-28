@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
@@ -112,34 +113,64 @@ class CetakController extends Controller
 
     public function exportDetailNilaiExcel()
     {
-        // Fetch all detail nilai data
+        // Ambil semua data nilai PKL dengan relasi siswa
         $detailNilai = NilaiPkl::with('siswa')->get();
 
-        // Prepare the data for Excel export
+        // Ambil informasi Dudi yang sedang login dan tahun angkatan
+        $dudi = Auth::guard('dudi')->user();
+        $namaDudi = $dudi->nama_dudi;
+        $tahunAngkatan = $detailNilai->first()->siswa->tahun ?? 'N/A';
+
+        // Siapkan data untuk export Excel
         $data = $detailNilai->map(function ($item) {
             return [
+                'No' => $item->siswa->NIS,
                 'NIS' => $item->siswa->NIS,
                 'Nama' => $item->siswa->nama_siswa,
-                'Total Nilai' => $item->total_nilai,
-                // Add other fields as needed
+                'Kelas' => $item->siswa->kelas,
+                'Konsentrasi Keahlian' => $item->siswa->konsentrasi_keahlian,
+                'TP1 (Soft Skills)' => $item->tp1_soft_skills,
+                'TP2 (Norma & POS)' => $item->tp2_norma_pos,
+                'TP3 (Kompetensi Teknis)' => $item->tp3_kompetensi_teknis,
+                'TP4 (Wawasan Wirausaha)' => $item->tp4_wawasan_wirausaha,
+                'Total Nilai' => $item->nilai,
             ];
-        });
+        })->toArray();
 
-        // Define the file name
+        // Siapkan header untuk file Excel
+        $header = [
+            ['Laporan Nilai PKL Siswa SMK Bantul'],
+            ['Nama Dudi: ' . $namaDudi],
+            ['Tahun Angkatan: ' . $tahunAngkatan],
+            [],
+            ['No', 'NIS', 'Nama', 'Kelas', 'Konsentrasi Keahlian', 'TP1 (Soft Skills)', 'TP2 (Norma & POS)', 'TP3 (Kompetensi Teknis)', 'TP4 (Wawasan Wirausaha)', 'Total Nilai']
+        ];
+
+        // Gabungkan header dan data
+        $dataForExport = array_merge($header, $data);
+
+        // Nama file untuk export
         $fileName = 'Detail_Nilai_' . date('Y-m-d') . '.xlsx';
 
         // Export to Excel
-        return (new FastExcel($data))->download($fileName);
+        return (new FastExcel($dataForExport))->download($fileName);
     }
 
     public function exportDetailNilaiPDF()
     {
-        // Fetch all detail nilai data
+        // Fetch data
         $detailNilai = NilaiPkl::with('siswa')->get();
+
+        // Ambil informasi Dudi yang sedang login dan tahun angkatan
+        $dudi = Auth::guard('dudi')->user();
+        $namaDudi = $dudi->nama_dudi;
+        $tahunAngkatan = $detailNilai->first()->siswa->tahun ?? 'N/A';
 
         // Prepare data for PDF view
         $data = [
             'detailNilai' => $detailNilai,
+            'namaDudi' => $namaDudi,
+            'tahunAngkatan' => $tahunAngkatan,
         ];
 
         // Generate PDF from the view
@@ -151,5 +182,6 @@ class CetakController extends Controller
         // Return the PDF download
         return $pdf->download($fileName);
     }
+
 
 }

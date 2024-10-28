@@ -3,12 +3,13 @@
 @section('content')
 
 <div class="container mt-5 table-wrapper">
-    <h4 class="text-center">LAPORAN/JURNAL PKL</h4>
+    <h4 class="text-center">DAFTAR SISWA PKL</h4>
+
     <br>
-    
-    <!-- Filter Tahun dan Konsentrasi Keahlian -->
+    <br>
+    <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <form action="{{ route('dudi_laporanjurnal') }}" method="GET">
+        <form action="" method="GET">
             <div>
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option value="" selected>Tahun</option>
@@ -16,30 +17,22 @@
                         <option value="{{ $year }}" {{ $year == $tahun ? 'selected' : '' }}>{{ $year }}</option>
                     @endforeach
                 </select>
-
-                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                    <option value="" selected>Konsentrasi Keahlian</option>
-                    @foreach($availableKonsentrasi as $konsentrasi)
-                        <option value="{{ $konsentrasi }}" {{ $konsentrasi == $konsentrasiKeahlian ? 'selected' : '' }}>
-                            {{ $konsentrasi }}
-                        </option>
-                    @endforeach
-                </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </div>
         </form>
     </div>
 
-    <table class="table-striped custom-table">
+
+    <table class=" table-striped custom-table">
         <thead class="table-primary text-center">
-            <tr class="text-center">
+            <tr>
                 <th>No</th>
                 <th>NIS</th>
-                <th id="nama">Nama</th>
+                <th>Nama</th>
                 <th>Konsentrasi Keahlian</th>
                 <th>Kelas</th>
+                <th>Pembimbing</th>
                 <th>Tahun</th>
-                <th>Laporan PKL</th>
             </tr>
         </thead>
         <tbody id="data-table">
@@ -50,16 +43,13 @@
                 <td>{{ $data->siswa->nama_siswa }}</td>
                 <td class="text-center">{{ $data->siswa->konsentrasi_keahlian }}</td>
                 <td class="text-center">{{ $data->kelas }}</td>
+                <td class="text-center">{{ $data->pembimbing->nama_pembimbing }}</td>
                 <td class="text-center">{{ $data->siswa->tahun }}</td>
-                <td>
-                    <a href="{{ route('dudi_laporanjurnal_persiswa', ['nis' => $data->siswa->NIS]) }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
-                        <i class="bi bi-journal-text" style="font-size: 16px; color: white;"></i>
-                    </a>
-                </td>
             </tr>
             @endforeach
-        </tbody>        
-    </table>
+        </tbody>
+    </table>    
+</div>
 
     <br>
     <br>
@@ -72,8 +62,5 @@
         </div>
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
-
-</div>
-
 
 @endsection

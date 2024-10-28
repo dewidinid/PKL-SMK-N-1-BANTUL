@@ -75,7 +75,8 @@
                 <div class="modal-body">
                     <form action="{{ route('submitJurnal') }}" method="POST" onsubmit="return showAddingNotification()">
                         @csrf
-                        <!-- Menggunakan grid Bootstrap agar lebih rapi dan rata kiri -->
+                        <!-- Menjaga struktur dan penggunaan kelas Bootstrap yang sama -->
+                        <input type="hidden" name="NIS" id="nis" value="{{ $siswa->NIS }}">
                         <div class="mb-3">
                             <label for="nis" class="form-label">NIS</label>
                             <input type="text" class="form-control" id="nis" name="nis" value="{{ $siswa->NIS }}" readonly>
@@ -96,7 +97,6 @@
                             <label for="kelas" class="form-label">Kelas</label>
                             <input type="text" class="form-control" id="kelas" name="kelas" value="{{ $siswa->kelas }}" readonly>
                         </div>
-                        <!-- Input lainnya seperti tempat dudi, kegiatan, dll. -->
                         <div class="mb-3">
                             <label for="nama_dudi" class="form-label">Tempat Dudi</label>
                             <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $siswa->nama_dudi }}" readonly>
@@ -111,8 +111,7 @@
                             <button type="button" class="btn btn-primary mt-2" onclick="getLocation()">Ambil Lokasi Saat Ini</button>
                             <a id="mapsLink" href="#" target="_blank" class="btn btn-success mt-2" style="display: none;">Lihat di Peta</a>
                         </div>
-                        <!-- D-flex justify-content-end untuk menempatkan tombol di kanan bawah modal -->
-                        <div class="d-flex justify-content-end">
+                        <div class="modal-footer">
                             <button type="reset" class="btn btn-danger me-2">Reset</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
@@ -121,10 +120,16 @@
             </div>
         </div>
     </div>
+    <style>
+        .form-label{
+            color: black !important;
+        }
+
+    </style>    
+
     <br>
     <br>
     <br>
     <br>
 
-@include('layouts.footer')
 @endsection

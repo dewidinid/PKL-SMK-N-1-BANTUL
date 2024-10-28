@@ -55,18 +55,8 @@ img.rounded-circle {
     object-fit: cover;
 }
 
-.modal-content {
-    text-align: left; /* Pastikan teks rata kiri di dalam modal */
-    margin: 0; /* Reset margin */
-    padding: 0; /* Reset padding */
-}
-
-.form-control, .form-label {
-    text-align: left; /* Pastikan label dan input form rata kiri */
-}
-
-.modal-body {
-    padding: 1.5rem; /* Pastikan ada padding di dalam modal */
+.form-label {
+    color: #fff !important; /* Ubah warna label menjadi hitam atau warna lain yang kontras */
 }
 
 /* Untuk menyembunyikan checkbox asli */
@@ -107,5 +97,52 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
     border: solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+
+/* Wrapper for dropdown */
+.dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* Custom dropdown styling */
+.dropdown-custom {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Add padding for the dropdown and space for the arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ffffff; /* White background */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    color: #666; /* Text color */
+    cursor: pointer;
+    outline: none;
+    position: relative;
+}
+
+/* Add the dropdown arrow */
+.dropdown-custom:after {
+    content: '\25BC'; /* Unicode character for arrow */
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #666; /* Arrow color */
+    pointer-events: none; /* Prevent arrow from intercepting clicks */
+}
+
+/* When dropdown is focused */
+.dropdown-custom:focus {
+    border-color: #007bff; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Box shadow on focus */
+}
+
+/* Dropdown list styling */
+.dropdown-custom option {
+    padding: 10px; /* Padding for dropdown items */
 }
 

@@ -6,7 +6,7 @@
 
     <div class="" style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <div class="d-flex justify-content-start mb-3">
-            <button onclick="window.history.back()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
+            <button onclick="window.location.href='{{ route('dudi_laporanjurnal') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
                 <i class="bi bi-arrow-left"></i> Kembali
             </button>
         </div>
@@ -14,35 +14,50 @@
         <h2 class="text-center">Laporan/Jurnal Per Siswa</h2>
         <br>
         
-        {{-- <div class="mt-4">
-            <p><strong>Nama :</strong> {{ $student['name'] }}</p>
-            <p><strong>NIS :</strong> {{ $student['nis'] }}</p>
-            <p><strong>konsentrasi_keahlian :</strong> {{ $student['konsentrasi_keahlian'] }}</p>
-            <p><strong>Kelas :</strong> {{ $student['kelas'] }}</p>
-            <p><strong>DUDI :</strong> {{ $student['dudi'] }}</p>
-        </div> --}}
-
-        <div >
-            <p><strong>Nama :</strong> Rulli Arhan</p>
-            <p><strong>NIS :</strong> 17672</p>
-            <p><strong>Konsentrasi Keahlian :</strong> Teknik Komputer Jaringan</p>
-            <p><strong>Kelas :</strong> TKJ 1</p>
-            <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
+        <div class="mt-4">
+            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
+            <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
+            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
+            <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
+            <p><strong>DUDI :</strong> {{ $siswa->ploting->nama_dudi }}</p>
         </div>
+        
+
         <br>
 
             <!-- Batas Lebar Tabel -->
             <div style="">
         
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div >
-                        <select class="form-select d-inline-block w-auto" name="bulan">
-                            <option selected>Bulan</option>
-                        </select>
-                        <select class="form-select d-inline-block w-auto" name="tahun">
-                            <option selected>Tahun</option>
-                        </select>
-                    </div>
+                    <form action="{{ route('dudi_laporanjurnal_persiswa', $siswa->NIS) }}" method="GET">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div>
+                                <!-- Dropdown filter Bulan -->
+                                <select class="form-select d-inline-block w-auto" name="bulan">
+                                    <option value="">Pilih Bulan</option>
+                                    @for ($i = 1; $i <= 12; $i++)
+                                        <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                                            {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                                        </option>
+                                    @endfor
+                                </select>
+                    
+                                <!-- Dropdown filter Tahun -->
+                                <select class="form-select d-inline-block w-auto" name="tahun">
+                                    <option value="" disabled selected>Pilih Tahun</option>
+                                    @foreach ($availableYears as $year)
+                                        <option value="{{ $year }}" {{ $tahun == $year ? 'selected' : '' }}>
+                                            {{ $year }}
+                                        </option>
+                                    @endforeach
+                                </select>                                
+                    
+                                <!-- Tombol Submit -->
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                    
                 </div>
         
                 <table class="table-striped custom-table">
@@ -55,31 +70,20 @@
                         </tr>
                         <br>
                     </thead>
-                    <tbody id="data-table">
-                        <!-- Data contoh, akan diisi dengan JavaScript -->
-                        <tr>
-                            <td>1</td>
-                            <td>16/03/24</td>
-                            <td>Membuat Flowchart</td>
-                            <td>Yogyakarta</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>16/03/24</td>
-                            <td>Membuat Flowchart</td>
-                            <td>Yogyakarta</td>
-                        </tr>
-                    </tbody>
-                    {{-- <tbody>
-                        @foreach ($jurnals as $index => $jurnal)
+                    <tbody>
+                        @forelse ($jurnals as $index => $jurnal)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
                                 <td>{{ $jurnal->kegiatan }}</td>
-                                <td>{{ $jurnal->lokasi }}</td> lokasi menggunakan maps location
+                                <td>{{ $jurnal->lokasi }}</td> 
                             </tr>
-                        @endforeach
-                    </tbody> --}}
+                         @empty
+                            <tr>
+                                <td colspan="4">Tidak ada data jurnal untuk bulan dan tahun yang dipilih.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>       
             </div> <!-- End of max-width wrapper -->
         

@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Siswa;
+use App\Models\Dudi;
 use App\Models\LaporanJurnal;
 use App\Models\Ploting;
 use App\Models\Pengajuan;
 use App\Models\LaporanPengimbasan; 
 use App\Models\LaporanAkhir;
+
 
 class SiswaController extends Controller
 {
@@ -97,46 +100,54 @@ class SiswaController extends Controller
 
     // Meng-update data profil lainnya
     public function updateProfile(Request $request)
-    {
-        $request->validate([
-            'kelompok' => 'required|string|max:255',
-            'nis' => 'required|string|max:255',
-            'nama' => 'required|string|max:255',
-            'konsentrasi_keahlian' => 'required|string|max:255',
-            'tahun' => 'required|string|max:255',
-            'password' => 'nullable|string|min:6',
-        ]);
+{
+    // Validasi input termasuk password lama dan baru
+    $request->validate([
+        'kelompok' => 'required|string|max:255',
+        'nis' => 'required|string|max:255',
+        'nama' => 'required|string|max:255',
+        'konsentrasi_keahlian' => 'required|string|max:255',
+        'tahun' => 'required|string|max:255',
+        'current_password' => 'required|string|min:6', // Validasi password lama
+        'password' => 'nullable|string|min:6', // Password baru opsional
+    ]);
 
-        // Mendapatkan data siswa yang sedang login
-        $siswa = Auth::user(); // Pastikan ini mengembalikan objek Siswa yang valid
+    // Mendapatkan data siswa yang sedang login
+    $siswa = Auth::user(); // Pastikan ini mengembalikan objek Siswa yang valid
 
-        // Jika siswa tidak ditemukan
-        if (!$siswa) {
-            return redirect()->back()->withErrors(['message' => 'Siswa tidak ditemukan']);
-        }
-
-        // Memperbarui informasi profil lainnya
-        $siswa->kode_kelompok = $request->input('kelompok');
-        $siswa->NIS = $request->input('nis');
-        $siswa->nama_siswa = $request->input('nama');
-        $siswa->konsentrasi_keahlian = $request->input('konsentrasi_keahlian');
-        $siswa->tahun = $request->input('tahun');
-
-        // Hanya update password jika ada input
-        if ($request->filled('password')) {
-            // Memperbarui password
-            $siswa->password = bcrypt($request->input('password'));
-        }
-
-        // Simpan perubahan
-        $siswa->save();
-
-        // Set flash message
-        $request->session()->flash('success', 'Data berhasil diperbarui!');
-        $request->session()->flash('from', 'update_profile'); // Tandai dari update profil
-
-        return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
+    // Jika siswa tidak ditemukan
+    if (!$siswa) {
+        return redirect()->back()->withErrors(['message' => 'Siswa tidak ditemukan']);
     }
+
+    // Validasi password lama
+    if (!Hash::check($request->input('current_password'), $siswa->password)) {
+        return redirect()->back()->withErrors(['current_password' => 'Password lama yang Anda masukkan salah.']);
+    }
+
+    // Memperbarui informasi profil lainnya
+    $siswa->kode_kelompok = $request->input('kelompok');
+    $siswa->NIS = $request->input('nis');
+    $siswa->nama_siswa = $request->input('nama');
+    $siswa->konsentrasi_keahlian = $request->input('konsentrasi_keahlian');
+    $siswa->tahun = $request->input('tahun');
+
+    // Hanya update password jika password baru diisi
+    if ($request->filled('password')) {
+        // Memperbarui password dengan password baru
+        $siswa->password = bcrypt($request->input('password'));
+    }
+
+    // Simpan perubahan
+    $siswa->save();
+
+    // Set flash message
+    $request->session()->flash('success', 'Data berhasil diperbarui!');
+    $request->session()->flash('from', 'update_profile'); // Tandai dari update profil
+
+    return redirect()->route('profil_siswa')->with('success', 'Profil berhasil diperbarui!');
+}
+
 
 
     // Method to display the PKL form
@@ -155,62 +166,86 @@ class SiswaController extends Controller
     }
 
 
-    public function FormPengajuan(){
-        // Ambil data siswa yang sedang login
-        $siswa = Auth::user();
+    public function FormPengajuan()
+{
+    // Ambil data siswa yang sedang login
+    $siswa = Auth::user();
 
-        // Jika siswa tidak ditemukan (belum login)
-        if (!$siswa) {
-            return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
-        }
-
-        return view('formpengajuan', compact('siswa'));
+    // Jika siswa tidak ditemukan (belum login)
+    if (!$siswa) {
+        return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
     }
 
+    // Ambil data Dudi dari tabel dudi
+    $dudiList = Dudi::all(); // Dapatkan semua data Dudi
 
-    public function submitForm(Request $request)
-    {
-        // Ambil data siswa yang sedang login
-        $siswa = Auth::user();
-    
-        // Validasi input form
-        $validated = $request->validate([
-            'nis' => 'required|string|max:255', // Pisahkan NIS dengan koma
-            'nama_siswa' => 'required|string',
-            'konsentrasi_keahlian' => 'required|string',
-            'no_telp' => 'required|string',
-            'tempat_pkl' => 'required|string',
-            'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048', // Tambahkan batas ukuran file (mis. 2MB)
-        ]);
-    
-        // Simpan file proposal dengan nama asli
-        $originalFileName = $request->file('proposal_pkl')->getClientOriginalName(); // Dapatkan nama asli
-        $filePath = $request->file('proposal_pkl')->storeAs('public/proposals', $originalFileName); // Simpan dengan nama asli
-    
-        // Simpan data pengajuan ke tabel 'pengajuan'
+    // Kirimkan data siswa dan dudiList ke view
+    return view('formpengajuan', compact('siswa', 'dudiList'));
+}
+
+
+public function submitForm(Request $request)
+{
+    // Validasi input form
+    $validated = $request->validate([
+        'nis' => 'required|string|max:255',
+        'nama_siswa' => 'required|string',
+        'konsentrasi_keahlian' => 'required|string',
+        'no_telp' => 'required|string',
+        'tempat_pkl' => 'required|string',
+        'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
+        'notelp_dudi' => 'nullable|string',
+    ]);
+
+    try {
+        DB::beginTransaction(); // Mulai transaksi database
+
+        // Simpan file proposal
+        $originalFileName = $request->file('proposal_pkl')->getClientOriginalName();
+        $filePath = $request->file('proposal_pkl')->storeAs('public/proposals', $originalFileName);
+
+        // Simpan data pengajuan
         $pengajuan = Pengajuan::create([
             'nama_siswa' => $request->input('nama_siswa'),
             'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
             'no_telp' => $request->input('no_telp'),
             'tempat_pkl' => $request->input('tempat_pkl'),
-            'proposal_pkl' => $originalFileName, // Simpan nama file asli di database
+            'notelp_dudi' => $request->input('notelp_dudi'),
+            'proposal_pkl' => $originalFileName,
+            'created_by' => Auth::user()->NIS,
         ]);
-    
-        // Pisahkan NIS berdasarkan koma dan simpan ke tabel pivot 'pengajuan_siswa'
-        $nisList = explode(',', $request->input('nis')); // Pecah NIS menjadi array berdasarkan koma
-    
+
+        // Pisahkan NIS dan bersihkan spasi
+        $nisList = array_filter(array_map('trim', explode(',', $request->input('nis'))));
+
+        // Validasi setiap NIS
         foreach ($nisList as $nis) {
+            // Periksa apakah NIS ada di tabel siswa
+            $siswa = DB::table('siswa')->where('NIS', $nis)->first();
+            
+            if (!$siswa) {
+                throw new \Exception("NIS $nis tidak ditemukan dalam database.");
+            }
+
+            // Insert ke tabel pengajuan_siswa
             DB::table('pengajuan_siswa')->insert([
-                'id_pengajuan' => $pengajuan->id_pengajuan, // Mengambil ID dari pengajuan yang baru dibuat
-                'nis' => trim($nis), // Hapus spasi di sekitar NIS
+                'id_pengajuan' => $pengajuan->id_pengajuan,
+                'nis' => $nis,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
         }
-    
-        // Redirect dengan pesan berhasil
+
+        DB::commit(); // Commit transaksi jika semua berhasil
         return redirect()->route('formpengajuan')->with('success', 'Pengajuan PKL berhasil dikirim!');
+
+    } catch (\Exception $e) {
+        DB::rollBack(); // Rollback jika terjadi error
+        return redirect()->back()
+            ->withInput()
+            ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
+}
     
 
 

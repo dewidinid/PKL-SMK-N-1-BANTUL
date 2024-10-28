@@ -51,4 +51,9 @@ class Ploting extends Model
     {
         return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
     }
+
+    public function nilaiPkl()
+    {
+        return $this->hasOne(NilaiPkl::class, 'NIS', 'NIS');
+    }
 }

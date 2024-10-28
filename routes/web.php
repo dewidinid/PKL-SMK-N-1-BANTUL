@@ -48,39 +48,41 @@ Route::post('/laporan-jurnal/submit', [SiswaController::class, 'submitJurnal'])-
 
 Route::get('/home_admin', [AdminController::class, 'indexAdmin'])->name('home_admin')->middleware('auth:admin');
 
-Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa');
-Route::get('/filter-siswa', [AdminController::class, 'filterSiswa'])->name('filterSiswa');
-Route::post('/siswa/import', [AdminController::class, 'importSiswa'])->name('siswa.import');
-Route::put('/siswa/update', [AdminController::class, 'updateSiswa'])->name('siswa.update');
+Route::get('/data_siswa', [AdminController::class, 'dataSiswa'])->name('data_siswa')->middleware('auth:admin');
+Route::get('/filter-siswa', [AdminController::class, 'filterSiswa'])->name('filterSiswa')->middleware('auth:admin');
+Route::post('/siswa/import', [AdminController::class, 'importSiswa'])->name('siswa.import')->middleware('auth:admin');
+Route::put('/siswa/update', [AdminController::class, 'updateSiswa'])->name('siswa.update')->middleware('auth:admin');
 
-Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi');
-Route::post('/import-dudi', [AdminController::class, 'importDudi'])->name('import.dudi');
-Route::post('/dudi/store', [AdminController::class, 'storeDudi'])->name('store.dudi');
-Route::put('/dudi/update/{kode_dudi}', [AdminController::class, 'updateDudi'])->name('update.dudi');
+Route::get('/data_mitradudi', [AdminController::class, 'dataMitraDudi'])->name('data_mitradudi')->middleware('auth:admin');
+Route::post('/import-dudi', [AdminController::class, 'importDudi'])->name('import.dudi')->middleware('auth:admin');
+Route::post('/dudi/store', [AdminController::class, 'storeDudi'])->name('store.dudi')->middleware('auth:admin');
+Route::put('/dudi/update/{kode_dudi}', [AdminController::class, 'updateDudi'])->name('update.dudi')->middleware('auth:admin');
 
-Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa');
-Route::post('/admin/import-ploting', [AdminController::class, 'importPloting'])->name('admin.importPloting');
-Route::get('/admin/ploting-siswa', [AdminController::class, 'plotingSiswa'])->name('admin.plotingSiswa');
+Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('ploting_siswa')->middleware('auth:admin');
+Route::post('/admin/import-ploting', [AdminController::class, 'importPloting'])->name('admin.importPloting')->middleware('auth:admin');
+Route::get('/admin/ploting-siswa', [AdminController::class, 'plotingSiswa'])->name('admin.plotingSiswa')->middleware('auth:admin');
 
-Route::get('/surat-pengajuan', [AdminController::class, 'suratPengajuan'])->name('suratPengajuan');
-Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])->name('approvePengajuan');
+Route::get('/surat-pengajuan', [AdminController::class, 'suratPengajuan'])->name('suratPengajuan')->middleware('auth:admin');
+Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])->name('approvePengajuan')->middleware('auth:admin');
 
-Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name('guru_pembimbing');
-Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing');
-Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing');
-Route::put('/pembimbing/{NIP_NIK}/update', [AdminController::class, 'updatePembimbing'])->name('update.pembimbing');
+Route::get('/guru_pembimbing', [AdminController::class, 'guruPembimbing'])->name('guru_pembimbing')->middleware('auth:admin');
+Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])->name('import.pembimbing')->middleware('auth:admin');
+Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing')->middleware('auth:admin');
+Route::put('/pembimbing/{NIP_NIK}/update', [AdminController::class, 'updatePembimbing'])->name('update.pembimbing')->middleware('auth:admin');
 
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi')->middleware('auth:dudi');
-Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl');
-Route::get('/dudi/export-nilai', [DudiController::class, 'exportNilai'])->name('dudi.export.nilai');
+Route::get('/daftar_siswa_pkl', [DudiController::class, 'daftarSiswaPKL'])->name('daftar_siswa_pkl')->middleware('auth:dudi');
+Route::get('/nilai_pkl', [DudiController::class, 'nilaiPKL'])->name('nilai_pkl')->middleware('auth:dudi');
+Route::post('/import_excel/{nis}', [DudiController::class, 'uploadNilaiPKL'])->name('import_excel')->middleware('auth:dudi');
+Route::get('/nilai-pkl/show/{fileName}', [DudiController::class, 'showNilaiPKLFile'])->name('nilai.pkl.show')->middleware('auth:dudi');
+
 
 // Route untuk DUDI - Laporan Jurnal
-Route::get('/dudi_laporanjurnal', [DudiController::class, 'dudiLaporanJurnal'])->name('dudi_laporanjurnal');
+Route::get('/dudi_laporanjurnal', [DudiController::class, 'dudiLaporanJurnal'])->name('dudi_laporanjurnal')->middleware('auth:dudi');
 
 // Route untuk laporan jurnal per siswa di DUDI
-Route::get('/dudi_laporanjurnal_persiswa', [DudiController::class, 'dudiLaporanJurnalPerSiswa'])->name('dudi_laporanjurnal_persiswa');
-// /{nis}
+Route::get('/dudi_laporanjurnal_persiswa/{nis}', [DudiController::class, 'dudiLaporanJurnalPerSiswa'])->name('dudi_laporanjurnal_persiswa')->middleware('auth:dudi');
 
 
 // Home Pembimbing

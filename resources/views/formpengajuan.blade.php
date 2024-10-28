@@ -36,14 +36,33 @@
                     <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" placeholder="Masukkan Konsentrasi Keahlian">
                 </div>
                 <div class="mb-3">
-                    <label for="no_telp" class="form-label">No Handphone</label>
+                    <label for="no_telp" class="form-label">No Telp Ketua</label>
                     <input type="" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan No Handphone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
-                
                 <div class="mb-3">
                     <label for="tempat_pkl" class="form-label">Rencana Tempat PKL</label>
-                    <input type="text" class="form-control" id="tempat_pkl" name="tempat_pkl" placeholder="Masukkan Rencana Tempat PKL">
+                    <p style="color: #ffffff; font-size: 12px;">*Pastikan kamu sudah ajukan data dudi ke admin</p>
+                    <div class="dropdown-wrapper">
+                        <select class="form-control dropdown-custom" id="tempat_pkl" name="tempat_pkl" onchange="updateNoTelpDudi()">
+                            <option value="" disabled selected>Pilih Rencana Tempat PKL</option>
+                            @foreach($dudiList as $dudi)
+                                {{-- Tambahkan debugging untuk melihat nilai --}}
+                                {{-- {{ dd($dudi) }} --}}
+                                <option value="{{ $dudi->nama_dudi }}" 
+                                        data-telp="{{ $dudi->notelp_dudi }}"
+                                        {{-- Tambahkan debugging inline --}}
+                                        {{-- data-debug="{{ var_export($dudi->toArray(), true) }}" --}}
+                                >
+                                    {{ $dudi->nama_dudi }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
+                <div class="mb-3">
+                    <label for="no_telp_dudi" class="form-label">No Telp Dudi</label>
+                    <input type="text" class="form-control" id="no_telp_dudi" name="no_telp_dudi" readonly>
+                </div>                                                                   
                 <div class="mb-3">
                     <label for="proposal_pkl" class="form-label">Proposal PKL (Dijadikan satu)</label>
                     <div class="custom-file-upload" 
@@ -66,6 +85,7 @@
         </div>
     </div>
 </div>
+
 
 @include('layouts.footer')
 @endsection

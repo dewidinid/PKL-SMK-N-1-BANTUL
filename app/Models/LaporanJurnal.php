@@ -37,12 +37,6 @@ class LaporanJurnal extends Model
         return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
     }
 
-    // Relasi ke model Siswa (untuk nama_siswa)
-    public function siswaByNama()
-    {
-        return $this->belongsTo(Siswa::class, 'nama_siswa', 'nama_siswa');
-    }
-
     // Relasi ke model Dudi
     public function dudi()
     {

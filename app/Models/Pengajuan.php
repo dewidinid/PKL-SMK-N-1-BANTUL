@@ -22,7 +22,10 @@ class Pengajuan extends Model
         'no_telp',      // Nomor telepon ketua
         'tempat_pkl',
         'notelp_dudi',  // Foreign key ke tabel dudi
-        'proposal_pkl'  // File proposal PKL
+        'proposal_pkl',  // File proposal PKL
+        'status_acc',
+        'created_by',
+        'approved_by'
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
@@ -34,9 +37,12 @@ class Pengajuan extends Model
         return $this->belongsToMany(Siswa::class, 'pengajuan_siswa', 'id_pengajuan', 'nis');
     }
 
+
     // Relasi dengan model dudi
     public function dudi()
     {
         return $this->belongsTo(Dudi::class, 'notelp_dudi', 'notelp_dudi');
     }
+
+    
 }

@@ -13,38 +13,38 @@
     <br>
 
   <!-- Filter Tahun dan konsentrasi_keahlian -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <form method="GET" action="{{ route('admin.plotingSiswa') }}">
-        <div>
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-                @foreach($tahun as $t)
-                    <option value="{{ $t }}">{{ $t }}</option>
-                @endforeach
-            </select>
-            <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
-                <option selected>Kelompok</option>
-                @foreach($kelompok as $k)
-                    <option value="{{ $k }}">{{ $k }}</option> <!-- Ambil 'kode_kelompok' -->
-                @endforeach
-            </select>            
-            <button type="submit" class="btn btn-primary">Filter</button>
-        </div>
-    </form>
-
-    <div class="d-flex">
-        <form action="{{ route('admin.importPloting') }}" method="POST" enctype="multipart/form-data" class="d-flex">
-            @csrf
-            <div class="me-2">
-                <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db">
-                    Upload <i class="bi bi-upload ms-2"></i>
-                </label>
-                <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <form method="GET" action="{{ route('admin.plotingSiswa') }}">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
+                    @foreach($tahun as $t)
+                        <option value="{{ $t }}">{{ $t }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
+                    <option selected>Kelompok</option>
+                    @foreach($kelompok as $k)
+                        <option value="{{ $k }}">{{ $k }}</option> <!-- Ambil 'kode_kelompok' -->
+                    @endforeach
+                </select>            
+                <button type="submit" class="btn btn-primary">Filter</button>
             </div>
-            {{-- <button class="btn custom-btn" style="background-color: #F99417; ">Import</button> --}}
         </form>
+
+        <div class="d-flex">
+            <form action="{{ route('admin.importPloting') }}" method="POST" enctype="multipart/form-data" class="d-flex">
+                @csrf
+                <div class="me-2">
+                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db">
+                        Upload <i class="bi bi-upload ms-2"></i>
+                    </label>
+                    <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
+                </div>
+                {{-- <button class="btn custom-btn" style="background-color: #F99417; ">Import</button> --}}
+            </form>
+        </div>
     </div>
-</div>
 
         <table class=" table-striped custom-table">
             <thead class="table-primary text-center" >
@@ -60,24 +60,24 @@
                 </tr>
             </thead>
             <tbody id="data-table">
-                @foreach ($ploting as $index => $ploting)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $ploting->kode_kelompok }}</td>
-                <td>{{ $ploting->siswa->NIS }}</td>
-                <td>{{ $ploting->siswa->nama_siswa }}</td>
-                <td>{{ $ploting->siswa->kelas }}</td>
-                <td>{{ $ploting->nama_pembimbing }}</td>
-                <td>{{ $ploting->dudi->nama_dudi }}</td>
-                <td>{{ $ploting->dudi->alamat_dudi }}</td>
-            </tr>
-            @endforeach
-                <!-- Data contoh, akan diisi dengan JavaScript -->
-            
+                <tbody id="data-table">
+                    @foreach ($ploting as $index => $ploting)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $ploting->kode_kelompok }}</td>
+                        <td>{{ optional($ploting->siswa)->NIS }}</td>
+                        <td>{{ optional($ploting->siswa)->nama_siswa }}</td>
+                        <td>{{ optional($ploting->siswa)->kelas }}</td>
+                        <td>{{ optional($ploting->pembimbing)->nama_pembimbing }}</td>
+                        <td>{{ $ploting->nama_dudi }}</td>
+                        <td>{{ $ploting->alamat_dudi }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>                
             </tbody>
 
         </table>
-    </div>
+</div>
 
     <br>
     <br>

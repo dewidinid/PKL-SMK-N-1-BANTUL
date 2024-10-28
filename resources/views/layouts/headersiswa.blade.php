@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/formpengajuan.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMw5T5obSTHj9Q+O8Cd60XxFIYBvPzNURnKl7vZ" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -173,19 +174,33 @@
     </script>
     
     <script>
-        const togglePassword = document.querySelector('#toggle-password');
-        const passwordField = document.querySelector('#password');
+        // Toggle visibility for current (old) password field
+        document.getElementById('toggle-current-password').addEventListener('click', function () {
+            var input = document.getElementById('current_password');
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
     
-        togglePassword.addEventListener('click', function () {
-            // Toggle the password visibility
-            const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordField.setAttribute('type', type);
-            
-            // Toggle the eye icon
-            this.querySelector('i').classList.toggle('fa-eye');
-            this.querySelector('i').classList.toggle('fa-eye-slash');
+        // Toggle visibility for new password field
+        document.getElementById('toggle-password').addEventListener('click', function () {
+            var input = document.getElementById('password');
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+            }
         });
     </script>
+
+    
+    
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -271,7 +286,20 @@
         });
     </script>  
 
-    
+    <!-- Kemudian ubah script menjadi: -->
+    <script>
+    $(document).ready(function() {
+        $('#tempat_pkl').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var noTelp = selectedOption.data('telp');
+            
+            console.log('Selected DUDI:', selectedOption.text());
+            console.log('Phone Number:', noTelp);
+            
+            $('#no_telp_dudi').val(noTelp || '');
+        });
+    });
+    </script>
 
     {{-- <script>
         function getLocation() {

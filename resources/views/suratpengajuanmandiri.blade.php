@@ -8,7 +8,7 @@
 
     <form method="POST" action="{{ route('approvePengajuan') }}">
         @csrf
-        <table class="table-striped custom-table">
+        <table class="table-mini table-striped custom-mini-table">
             <thead class="table-primary text-center">
                 <tr>
                     <th>No</th>
@@ -18,11 +18,13 @@
                     <th>Rencana Tempat PKL</th>
                     <th>No Telp Du/Di</th>
                     <th>Proposal PKL</th>
+                    <th>Pembimbing</th>
+                    <th>Kode Kelompok</th>
                     <th>ACC</th>
                 </tr>
             </thead>
             <tbody id="data-table">
-                @foreach($pengajuan as $index => $item)
+                @foreach($pengajuans as $index => $item)
                 <tr>
                     <td>{{ $index + 1 }}</td>
                     <td>
@@ -39,9 +41,22 @@
                     <td>{{ $item->tempat_pkl }}</td>
                     <td>{{ $item->notelp_dudi }}</td>
                     <td class="text-center">
-                        <a href="{{ Storage::url('proposals/' . $item->proposal_pkl) }}" target="_blank" class="btn btn-primary">Download</a>
+                        <a href="{{ Storage::url('proposals/' . $item->proposal_pkl) }}" target="_blank" >Lihat File</a>
                     </td>
+                    <td>
+                        <!-- Dropdown untuk memilih Pembimbing -->
+                        <select name="pembimbing_{{ $item->id_pengajuan }}" class="form-control">
+                            <option value="" selected disabled>Pilih Pembimbing</option>
+                            @foreach($pembimbings as $pembimbing)
+                                <option value="{{ $pembimbing->NIP_NIK }}">
+                                    {{ $pembimbing->nama_pembimbing }} 
+                                </option>
+                            @endforeach
+                        </select>                        
                     </td>
+                    <td>
+                        <input style="text-align: center;" type="text" name="kode_kelompok_{{ $item->id_pengajuan }}" value="{{ $item->kode_kelompok }}" readonly>
+                    </td>                    
                     <td class="text-center">
                         <input type="checkbox" name="check[]" value="{{ $item->id_pengajuan }}" {{ $item->status_acc ? 'checked disabled' : '' }}>
                     </td>
@@ -52,6 +67,7 @@
         <br>
         <button type="submit" class="btn btn-success mt-3">Approve Selected</button>
     </form>
+    
 </div>
 
 <br>

@@ -12,24 +12,23 @@
                 <br>
                 <div class="container-kolom-info">
                     <div class="box-kolom">
-                        
+                        <a href="{{ route ('daftar_siswa_pkl')}}" class="box-link">
                             <div class="card-kolom">
                                 <div class="icon-kolom" style="background-color: #c9a3f2;">
                                     <i class="bi bi-people-fill"></i>
                                 </div>
                                 <div class="content-kolom">
                                     <p>Siswa</p>
-                                    <h3>112.000</h3>
+                                    <h3>{{ $jumlahSiswa }}</h3> 
                                 </div>
                             </div>
-                        
+                        </a>
                         <div class="card-kolom">
                             <div class="icon-kolom" style="background-color: rgb(228, 225, 165);">
                                 <i class="bi bi-file-earmark-text"></i>
                             </div>
                             <div class="content-kolom">
                                 <h5>Nilai PKL Siswa</h5>
-                                {{-- <h3 href="{{ route ('nilai_pkl')}}">Lihat Semua</h3> --}}
                                 <a href="{{ route ('nilai_pkl')}}" class="lihat-semua-kolom">Lihat Semua</a>
                             </div>
                         </div>
@@ -53,18 +52,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($laporan_jurnal as $index => $jurnal)
+                                    @if ($laporan_jurnal->isEmpty())
                                         <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
-                                            <td>{{ $jurnal->siswa->nis }}</td>
-                                            <td>{{ $jurnal->siswa->nama }}</td>
-                                            <td>{{ $jurnal->konsentrasi_keahlian }}</td>
-                                            <td>{{ $jurnal->kegiatan }}</td>
-                                            <td>{{ $jurnal->lokasi }}</td>
+                                            <td colspan="7" class="text-center">Tidak ada data jurnal untuk hari ini.</td>
                                         </tr>
-                                    @endforeach
-                                </tbody>                            
+                                    @else
+                                        @foreach ($laporan_jurnal as $index => $jurnal)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
+                                                <td>{{ $jurnal->siswa->NIS }}</td>
+                                                <td>{{ $jurnal->siswa->nama_siswa }}</td>
+                                                <td>{{ $jurnal->konsentrasi_keahlian }}</td>
+                                                <td>{{ $jurnal->kegiatan }}</td>
+                                                <td>{{ $jurnal->lokasi }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>                                                          
                             </table>
                             <br>
                             <div class="content" >

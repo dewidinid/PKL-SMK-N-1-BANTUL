@@ -18,6 +18,13 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        .select option[disabled] {
+            color: gray;
+        }
+
+    </style>
 </head>
 <body class="background">
     <header class="header-admin">
@@ -101,7 +108,7 @@
     <!-- Footer -->
     @include('layouts.footer')
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if(session('success'))
     <script>
         Swal.fire({
@@ -127,6 +134,42 @@
         showError('Kesalahan!', '{{ $errors->first() }}'); // Menampilkan kesalahan pertama
     </script>
     @endif
+
+    <script>
+        function handleFileUpload(input) {
+            if (input.files.length > 0) {
+                Swal.fire({
+                    title: 'Mengunggah File...',
+                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                input.form.submit(); // Submit form setelah file dipilih
+            }
+        }
+    
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+      
 
     <script>
         function confirmLogout(event) {
