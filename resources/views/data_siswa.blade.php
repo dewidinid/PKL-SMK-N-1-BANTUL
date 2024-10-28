@@ -44,6 +44,8 @@
         </div>
     </div>
 
+        <table class=" table-striped custom-table">
+            <thead class="table-primary text-center" >
 
     <table class=" table-striped custom-table">
         <thead class="table-primary text-center">
@@ -71,6 +73,21 @@
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSiswaModal" onclick="populateEditForm({{ $student }})">Edit</button>
                     </td>
                 </tr>
+            </thead>
+            <tbody id="data-table" >
+                @foreach ($siswa as $index => $student)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ $student->NIS }}</td>
+                        <td>{{ $student->nama_siswa }}</td>
+                        <td>{{ $student->konsentrasi_keahlian }}</td>
+                        <td>{{ $student->kelas }}</td>
+                        <td>{{ $student->tahun }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+            
+        </table>
             @endforeach
         </tbody>
     </table>    

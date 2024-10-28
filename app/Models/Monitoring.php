@@ -21,10 +21,19 @@ class Monitoring extends Model
         'kode_kelompok',           
         'nama_siswa',              
         'konsentrasi_keahlian',    
+        'NIP_NIK',                 
+        'nama_pembimbing',
+        'kode_dudi',
         'nama_dudi',               
         'kelas',                   
         'tahun',
-        'nilai'                    
+        'nilai',
+        'nilai_tp1', 
+        'nilai_tp2', 
+        'nilai_tp3', 
+        'nilai_tp4', 
+        'total_nilai', 
+        'rata_rata'                    
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
@@ -35,6 +44,7 @@ class Monitoring extends Model
     {
         return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
     }
+
 
     // Relasi ke model Kelompok
     public function kelompok()

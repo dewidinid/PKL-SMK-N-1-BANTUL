@@ -78,6 +78,29 @@ class AdminController extends Controller
             : redirect()->back()->with('success', 'Data siswa berhasil diimport.');
     }
 
+    public function insertToMonitoring()
+    {
+        // Ambil semua data dari tabel Ploting
+        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+
+        foreach ($plotingData as $ploting) {
+            Monitoring::create([
+                'NIS' => $ploting->siswa->NIS,
+                'kode_kelompok' => $ploting->kode_kelompok,
+                'kode_dudi' => $ploting->dudi->kode_dudi,
+                'nama_siswa' => $ploting->siswa->nama_siswa,
+                'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
+                'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
+                'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
+                'nama_dudi' => $ploting->dudi->nama_dudi,
+                'kelas' => $ploting->siswa->kelas,
+                'tahun' => $ploting->siswa->tahun,
+            ]);
+        }
+
+        return redirect()->route('monitoring')->with('success', 'Data berhasil dimasukkan ke Monitoring.');
+    }
+    
     public function updateSiswa(Request $request)
     {
         $request->validate([
@@ -208,7 +231,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Data Dudi berhasil ditambahkan.');
     }
 
-    public function updateDudi(Request $request, $kode_dudi)
+        public function updateDudi(Request $request, $kode_dudi)
     {
         $request->validate([
             'kode_dudi' => 'required|string',

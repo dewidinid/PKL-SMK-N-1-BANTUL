@@ -13,24 +13,24 @@
     <br>
 
   <!-- Filter Tahun dan konsentrasi_keahlian -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <form method="GET" action="{{ route('admin.plotingSiswa') }}">
-            <div>
-                <select class="form-select d-inline-block w-auto" name="tahun">
-                    <option selected>Tahun</option>
-                    @foreach($tahun as $t)
-                        <option value="{{ $t }}">{{ $t }}</option>
-                    @endforeach
-                </select>
-                <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
-                    <option selected>Kelompok</option>
-                    @foreach($kelompok as $k)
-                        <option value="{{ $k }}">{{ $k }}</option> <!-- Ambil 'kode_kelompok' -->
-                    @endforeach
-                </select>            
-                <button type="submit" class="btn btn-primary">Filter</button>
-            </div>
-        </form>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <form method="GET" action="{{ route('admin.plotingSiswa') }}">
+        <div>
+            <select class="form-select d-inline-block w-auto" name="tahun">
+                <option selected>Tahun</option>
+                @foreach($tahun as $t)
+                    <option value="{{ $t }}">{{ $t }}</option>
+                @endforeach
+            </select>
+            <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
+                <option selected>Kelompok</option>
+                @foreach($kelompok as $k)
+                    <option value="{{ $k }}">{{ $k }}</option> <!-- Ambil 'kode_kelompok' -->
+                @endforeach
+            </select>            
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </form>
 
         <div class="d-flex">
             <form action="{{ route('admin.importPloting') }}" method="POST" enctype="multipart/form-data" class="d-flex">

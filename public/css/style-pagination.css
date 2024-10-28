@@ -1,0 +1,12 @@
+.pagination-number {
+    margin: 0 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.pagination-number.active {
+    background-color: #0d6efd; /* Warna biru tua untuk halaman aktif */
+    color: white; /* Warna teks putih untuk halaman aktif */
+}

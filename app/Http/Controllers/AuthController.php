@@ -182,8 +182,6 @@ class AuthController extends Controller
         return back();
     }
 
-
-
     /**
      * Logout the user.
      *
