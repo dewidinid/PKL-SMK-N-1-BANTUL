@@ -22,6 +22,12 @@
                     <option value="{{ $t }}">{{ $t }}</option>
                 @endforeach
             </select>
+            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian"> <!-- Tambahkan dropdown untuk konsentrasi keahlian -->
+                <option selected>Konsentrasi Keahlian</option>
+                @foreach($konsentrasi_keahlian as $kk)
+                    <option value="{{ $kk }}">{{ $kk }}</option>
+                @endforeach
+            </select>   
             <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
                 <option selected>Kelompok</option>
                 @foreach($kelompok as $k)
