@@ -4,21 +4,28 @@
 
 <div class="container mt-5 table-wrapper">
         <h4 class="text-center">LAPORAN AKHIR PKL</h4>
-        <br>
+        <br><br>
         
     <!-- Filter Tahun dan konsentrasi_keahlian -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div >
-            <select class="form-select d-inline-block w-auto" name="bulan">
-                <option selected>Bulan</option>
-            </select>
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-            </select>
+    <form method="GET" action="{{ route('hasil_laporanakhir') }}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
+                    @foreach($konsentrasiOptions as $konsentrasi)
+                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
+                    @foreach($tahunOptions as $tahun)
+                        <option value="{{ $tahun }}">{{ $tahun }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
         </div>
-    </div>
-
-    <br>
+    </form>
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
@@ -31,68 +38,51 @@
                 <th>Kelas</th>
                 <th>Tahun</th>
                 <th>Laporan Akhir</th>
+                <th>Approve</th>
+                <th>Ket</th>
             </tr>
         </thead>
-        {{-- <tbody>
-            @foreach($students as $student)
+        <tbody id="data-table">
+            @foreach($laporanAkhir as $index => $laporan)
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>TKJ</td>
-                    <td>{{ $student->nis }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->konsentrasi_keahlian }}</td>
-                    <td>{{ $student->kelas }}</td>
-                    <td>{{ $student->tahun }}</td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $laporan->kode_kelompok }}</td>
+                    <td>{{ $laporan->NIS }}</td>
+                    <td class="left-align">{{ $laporan->nama_siswa }}</td>
+                    <td>{{ $laporan->siswa->konsentrasi_keahlian }}</td>
+                    <td>{{ $laporan->kelas }}</td>
+                    <td>{{ $laporan->siswa->tahun }}</td>
                     <td>
-                        <span class="badge bg-success">Upload</span>
+                        <a href="{{ asset('storage/files/' . $laporan->laporan_akhir) }}">
+                            <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                                Download
+                                <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
+                            </button>
+                        </a>
                     </td>
+
                     <td>
-                        <button class="btn btn-primary">Import</button>
+                        @if($laporan->approved)
+                            <span class="badge bg-success">Approved</span>
+                        @else
+                            <form action="{{ route('approve_laporanakhir') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="NIS" value="{{ $laporan->NIS }}">
+                                <button type="submit" class="btn btn-primary" onclick="handleApprove(this); return false;">Approve</button>
+                            </form>
+                        @endif
                     </td>
+                    
+                    <td>
+                        <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled>
+                    </td>
+
                 </tr>
             @endforeach
-        </tbody> --}}
-        <tbody id="data-table">
-            <tr >
-                <td >1</td>
-                <td >K001</td>
-                <td >16034</td>
-                <td class="left-align">Rulli Ardha Ramadhan</td>
-                <td >Teknik Komputer Jaringan</td>
-                <td >TKJ 1</td>
-                <td >2024/2025</td>
-                <td>
-                    <a href="{{ asset('storage/files/sample-file.pdf') }}" >
-                        <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                            Download
-                            <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
-                        </button>
-                    </a> 
-                </td>
-            </tr>
-            <tr >
-                <td >1</td>
-                <td >K001</td>
-                <td >16034</td>
-                <td class="left-align">Rulli Ardha Ramadhan</td>
-                <td >Teknik Komputer Jaringan</td>
-                <td >TKJ 1</td>
-                <td >2024/2025</td>
-                <td>
-                    <a href="{{ asset('storage/files/sample-file.pdf') }}" >
-                        <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                            Download
-                            <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
-                        </button>
-                    </a> 
-                </td>
-            </tr>
         </tbody>
     </table>
 
-    <br>
-    <br>
-    <br>
+    <br><br>
 
     <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
         <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>

@@ -226,6 +226,15 @@
             });
         }
     </script>
+
+    <script>
+        function updateNoTelpDudi() {
+            const selectedDudi = document.getElementById('nama_dudi');
+            const telp = selectedDudi.options[selectedDudi.selectedIndex].getAttribute('data-telp');
+            document.getElementById('no_telp_dudi').value = telp;
+        }
+
+    </script>
     
     <script>
         //Script Pagination Number

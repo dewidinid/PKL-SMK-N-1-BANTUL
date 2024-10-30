@@ -20,10 +20,11 @@ class LaporanAkhir extends Model
         'kode_kelompok',            
         'NIS',                      
         'konsentrasi_keahlian',     
-        'nama',                     
+        'nama_siswa',                     
         'kelas',                    
         'nama_dudi',               
-        'laporan_akhir'            
+        'laporan_akhir',
+        'approved'            
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)

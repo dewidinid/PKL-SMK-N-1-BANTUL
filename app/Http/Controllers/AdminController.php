@@ -20,27 +20,18 @@ class AdminController extends Controller
 {
     public function indexAdmin()
     {
-        $currentAdmin = Auth::user()->kode_admin;
+        // Hitung jumlah data
+        $jumlahSiswa = Siswa::count();
+        $jumlahPembimbing = Pembimbing::count();
+        $jumlahDudi = Dudi::count();
 
-        // Hitung jumlah data sesuai admin yang login
-        $jumlahSiswa = Siswa::where('created_by', $currentAdmin)->count();
-        $jumlahPembimbing = Pembimbing::where('created_by', $currentAdmin)->count();
-        $jumlahDudi = Dudi::where('created_by', $currentAdmin)->count();
-
-        // Kirim jumlah siswa ke view
         return view('home_admin', compact('jumlahSiswa', 'jumlahPembimbing', 'jumlahDudi'));
     }
     
     public function dataSiswa()
     {
-        $currentAdmin = Auth::user()->kode_admin;
-
-        // Ambil data siswa sesuai dengan created_by admin yang login
-        $siswa = Siswa::with('kelompok', 'dudi')
-                      ->where('created_by', $currentAdmin)
-                      ->get();
-        //dd($siswa);
-        // Anda dapat mengirimkan data ke view jika diperlukan
+        // Ambil semua siswa dengan relasi dan urutkan berdasarkan nama_siswa
+        $siswa = Siswa::with('kelompok', 'dudi')->orderBy('nama_siswa', 'asc')->get();
         return view('data_siswa', ['siswa' => $siswa]);
     }
 
@@ -53,9 +44,8 @@ class AdminController extends Controller
         $file = $request->file('file');
         $imported = false;
         $duplicate = false;
-        $createdBy = Auth::user()->kode_admin; 
 
-        (new FastExcel)->import($file, function ($line) use (&$imported, &$duplicate, $createdBy) {
+        (new FastExcel)->import($file, function ($line) use (&$imported, &$duplicate) {
             $existingSiswa = Siswa::where('NIS', $line['NIS'])->first();
 
             if ($existingSiswa) {
@@ -66,8 +56,7 @@ class AdminController extends Controller
                     'nama_siswa' => $line['Nama'],
                     'konsentrasi_keahlian' => $line['Konsentrasi Keahlian'],
                     'kelas' => $line['Kelas'],
-                    'tahun' => $line['Tahun'],
-                    'created_by' => $createdBy
+                    'tahun' => $line['Tahun']
                 ]);
                 $imported = true;
             }
@@ -78,29 +67,6 @@ class AdminController extends Controller
             : redirect()->back()->with('success', 'Data siswa berhasil diimport.');
     }
 
-    public function insertToMonitoring()
-    {
-        // Ambil semua data dari tabel Ploting
-        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
-
-        foreach ($plotingData as $ploting) {
-            Monitoring::create([
-                'NIS' => $ploting->siswa->NIS,
-                'kode_kelompok' => $ploting->kode_kelompok,
-                'kode_dudi' => $ploting->dudi->kode_dudi,
-                'nama_siswa' => $ploting->siswa->nama_siswa,
-                'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
-                'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
-                'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
-                'nama_dudi' => $ploting->dudi->nama_dudi,
-                'kelas' => $ploting->siswa->kelas,
-                'tahun' => $ploting->siswa->tahun,
-            ]);
-        }
-
-        return redirect()->route('monitoring')->with('success', 'Data berhasil dimasukkan ke Monitoring.');
-    }
-    
     public function updateSiswa(Request $request)
     {
         $request->validate([
@@ -118,8 +84,7 @@ class AdminController extends Controller
                 'nama_siswa' => $request->input('nama_siswa'),
                 'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
                 'kelas' => $request->input('kelas'),
-                'tahun' => $request->input('tahun'),
-                'created_by' => Auth::user()->kode_admin
+                'tahun' => $request->input('tahun')
             ]);
 
             return redirect()->back()->with('success', 'Data siswa berhasil diupdate.');
@@ -135,21 +100,21 @@ class AdminController extends Controller
         $tahun = $request->input('tahun');
         $konsentrasiKeahlian = $request->input('konsentrasi_keahlian');
 
-        // Membangun query untuk mengambil data siswa
-        $query = Siswa::query();
+        // Membangun query untuk mengambil data siswa dengan urutan nama_siswa
+        $query = Siswa::query()->orderBy('nama_siswa', 'asc');
 
         // Menambahkan filter tahun jika dipilih
-        if ($tahun && $tahun != 'Tahun') {
+        if ($tahun) {
             $query->where('tahun', $tahun);
         }
 
         // Menambahkan filter konsentrasi keahlian jika dipilih
-        if ($konsentrasiKeahlian && $konsentrasiKeahlian != 'Konsentrasi Keahlian') {
+        if ($konsentrasiKeahlian) {
             $query->where('konsentrasi_keahlian', $konsentrasiKeahlian);
         }
 
-        // Menjalankan query dan mengambil data
-        $siswa = $query->with('konsentrasiKeahlian', 'kelompok', 'dudi')->get();
+        // Menjalankan query dan mengambil data siswa
+        $siswa = $query->with('kelompok', 'dudi')->get();
 
         // Mengembalikan view dengan data siswa yang telah difilter
         return view('data_siswa', ['siswa' => $siswa]);
@@ -158,12 +123,7 @@ class AdminController extends Controller
 
     public function dataMitraDudi()
     {
-        $currentAdmin = Auth::user()->kode_admin;
-
-        // Ambil data Dudi yang sesuai dengan admin yang login
-        $dudi = Dudi::where('created_by', $currentAdmin)->get();
-
-        // Mengirimkan data ke view
+        $dudi = Dudi::all();
         return view('data_mitradudi', compact('dudi'));
     }
 
@@ -176,9 +136,8 @@ class AdminController extends Controller
         $file = $request->file('file');
         $importedData = [];
         $duplicates = [];
-        $createdBy = Auth::user()->kode_admin;
 
-        (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicates, $createdBy) {
+        (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicates) {
             $dudi = Dudi::where('kode_dudi', $line['Kode Dudi'])->first();
 
             if (!$dudi) {
@@ -188,8 +147,7 @@ class AdminController extends Controller
                     'bidang_usaha' => $line['Bidang Usaha'],
                     'notelp_dudi' => $line['No Telp'],
                     'alamat_dudi' => $line['Alamat Dudi'],
-                    'password' => bcrypt('password-default'),
-                    'created_by' => $createdBy
+                    'password' => bcrypt('password-default')
                 ]);
             } else {
                 $duplicates[] = $line['Kode Dudi'];
@@ -224,14 +182,13 @@ class AdminController extends Controller
             'bidang_usaha' => $request->bidang_usaha,
             'notelp_dudi' => $request->notelp_dudi,
             'alamat_dudi' => $request->alamat_dudi,
-            'password' => bcrypt('password-default'),
-            'created_by' => Auth::user()->kode_admin
+            'password' => bcrypt('password-default')
         ]);
 
         return redirect()->back()->with('success', 'Data Dudi berhasil ditambahkan.');
     }
 
-        public function updateDudi(Request $request, $kode_dudi)
+    public function updateDudi(Request $request, $kode_dudi)
     {
         $request->validate([
             'kode_dudi' => 'required|string',
@@ -247,8 +204,7 @@ class AdminController extends Controller
             'nama_dudi' => $request->nama_dudi,
             'bidang_usaha' => $request->bidang_usaha,
             'notelp_dudi' => $request->notelp_dudi,
-            'alamat_dudi' => $request->alamat_dudi,
-            'created_by' => Auth::user()->kode_admin
+            'alamat_dudi' => $request->alamat_dudi
         ]);
 
         return redirect()->route('data_mitradudi')->with('success', 'Data Dudi berhasil diperbarui.');
@@ -256,11 +212,7 @@ class AdminController extends Controller
 
     public function guruPembimbing()
     {
-        $currentAdmin = Auth::user()->kode_admin;
-
-        // Mengirimkan data guru pembimbing ke view
-        $pembimbing = Pembimbing::where('created_by', $currentAdmin)->get();
-
+        $pembimbing = Pembimbing::all();
         return view('guru_pembimbing', compact('pembimbing'));
     }
 
@@ -273,9 +225,8 @@ class AdminController extends Controller
         $file = $request->file('file');
         $imported = false;
         $duplicate = false;
-        $createdBy = Auth::user()->kode_admin;
 
-        (new FastExcel)->import($file, function ($line) use (&$imported, &$duplicate, $createdBy) {
+        (new FastExcel)->import($file, function ($line) use (&$imported, &$duplicate) {
             $existingPembimbing = Pembimbing::where('NIP_NIK', $line['NIP_NIK'])->first();
 
             if ($existingPembimbing) {
@@ -288,8 +239,7 @@ class AdminController extends Controller
                     'jenis_kelamin' => $line['Jenis Kelamin'],
                     'notelp_pembimbing' => $line['No Telp'],
                     'alamat' => $line['Alamat'],
-                    'password' => bcrypt('password-default'),
-                    'created_by' => $createdBy
+                    'password' => bcrypt('password-default')
                 ]);
                 $imported = true;
             }
@@ -326,7 +276,6 @@ class AdminController extends Controller
             'alamat' => $request->alamat,
             'no_telp' => $request->no_telp,
             'password' => bcrypt('password-default'),
-            'created_by' => Auth::user()->kode_admin
         ]);
 
         return redirect()->back()->with('success', 'Data pembimbing berhasil ditambahkan.');
@@ -351,7 +300,6 @@ class AdminController extends Controller
                 'jabatan' => $request->input('jabatan'),
                 'no_telp' => $request->input('no_telp'),
                 'alamat' => $request->input('alamat'),
-                'created_by' => Auth::user()->kode_admin
             ]);
 
             return redirect()->back()->with('success', 'Data pembimbing berhasil diperbarui.');
@@ -363,19 +311,10 @@ class AdminController extends Controller
 
     public function plotingSiswa(Request $request)
     {
-         $currentAdmin = Auth::user()->kode_admin;
+        $tahun = Siswa::select('tahun')->distinct()->pluck('tahun');
+        $kelompok = Ploting::select('kode_kelompok')->distinct()->pluck('kode_kelompok');
 
-        // Ambil data tahun dan kode kelompok untuk filter
-        $tahun = Siswa::select('tahun')
-                      ->where('created_by', $currentAdmin)
-                      ->distinct()->pluck('tahun'); 
-
-        $kelompok = Ploting::select('kode_kelompok')
-                           ->where('created_by', $currentAdmin)
-                           ->distinct()->pluck('kode_kelompok'); 
-
-       // Ambil data ploting sesuai filter jika ada
-       $query = Ploting::with('siswa', 'pembimbing', 'dudi')->where('created_by', $currentAdmin);
+        $query = Ploting::with('siswa', 'pembimbing', 'dudi');
 
         if ($request->filled('tahun') && $request->tahun != 'Tahun') {
             $query->whereHas('siswa', function ($q) use ($request) {
@@ -384,7 +323,7 @@ class AdminController extends Controller
         }
 
         if ($request->filled('kelompok') && $request->kelompok != 'Kelompok') {
-            $query->where('kode_kelompok', $request->kelompok); // Perbaiki untuk menggunakan kode_kelompok
+            $query->where('kode_kelompok', $request->kelompok);
         }
 
         $ploting = $query->get();
@@ -401,9 +340,8 @@ class AdminController extends Controller
         $file = $request->file('file');
         $importedData = [];
         $duplicateData = [];
-        $createdBy = Auth::user()->kode_admin;
 
-        (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicateData, $createdBy) {
+        (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicateData) {
             $ploting = Ploting::where('NIS', $line['NIS'])->first();
 
             if (!$ploting) {
@@ -414,8 +352,7 @@ class AdminController extends Controller
                     'kelas' => $line['Kelas'],
                     'nama_pembimbing' => $line['Pembimbing'],
                     'nama_dudi' => $line['Dudi'],
-                    'alamat_dudi' => $line['Alamat Dudi'],
-                    'created_by' => $createdBy
+                    'alamat_dudi' => $line['Alamat Dudi']
                 ]);
             } else {
                 $duplicateData[] = $line['NIS'];
@@ -428,34 +365,19 @@ class AdminController extends Controller
     }
 
     // Method untuk menampilkan halaman surat pengajuan
-        public function suratPengajuan()
+    public function suratPengajuan()
     {
-        $currentAdmin = Auth::user()->kode_admin;
-        $admintiKeahlian = ['Teknik Komputer dan Jaringan (TKJ)', 'Rekayasa Perangkat Lunak (RPL)', 'Desain Komunikasi Visual (DKV)'];
-    
-        if ($currentAdmin === 'ADMINTI') {
-            $pengajuans = Pengajuan::with(['siswa', 'dudi'])
-                ->whereHas('siswa', function ($query) use ($admintiKeahlian) {
-                    $query->whereIn('konsentrasi_keahlian', $admintiKeahlian);
-                })
-                ->where('status_acc', 0) // Tambahkan kondisi ini
-                ->get();
-        } else {
-            $pengajuans = Pengajuan::with(['siswa', 'dudi'])
-                ->whereHas('siswa', function ($query) use ($admintiKeahlian) {
-                    $query->whereNotIn('konsentrasi_keahlian', $admintiKeahlian);
-                })
-                ->where('status_acc', 0) // Tambahkan kondisi ini
-                ->get();
-        }
-    
-        $pembimbings = Pembimbing::where('created_by', $currentAdmin)->get();
+        $pengajuans = Pengajuan::with(['siswa', 'dudi'])
+            ->where('status_acc', 0)
+            ->get();
+
+        $pembimbings = Pembimbing::all();
         $dudi = Dudi::all();
-    
+
         foreach ($pengajuans as $pengajuan) {
             $pengajuan->kode_kelompok = $this->generateKodeKelompok($pengajuan->siswa->first()->konsentrasi_keahlian);
         }
-    
+
         return view('suratpengajuanmandiri', compact('pengajuans', 'pembimbings', 'dudi'));
     }
     
@@ -465,93 +387,75 @@ class AdminController extends Controller
     public function approvePengajuan(Request $request)
     {
         $selectedIds = $request->input('check', []);
-        $currentAdmin = Auth::user()->kode_admin;
-    
-        // Validasi
+
         if (empty($selectedIds)) {
             return redirect()->back()->with('error', 'Pilih setidaknya satu pengajuan untuk disetujui.');
         }
-    
+
         foreach ($selectedIds as $id) {
-            $pembimbingNIP = $request->input("pembimbing_{$id}");
-            if (empty($pembimbingNIP)) {
-                return redirect()->back()->with('error', 'Pembimbing harus dipilih untuk setiap pengajuan.');
-            }
-        }
-    
-        // Proses persetujuan
-        foreach ($selectedIds as $id) {
-            $pengajuan = Pengajuan::with('siswa')->find($id);
-    
-            if ($pengajuan && $pengajuan->siswa->isNotEmpty()) {
+            $pengajuan = Pengajuan::with('siswa', 'dudi')->find($id);
+        
+            if ($pengajuan && $pengajuan->siswa) {
                 $pembimbingNIP = $request->input("pembimbing_{$id}");
                 $kodeKelompok = $request->input("kode_kelompok_{$id}");
-    
-                // Buat ploting untuk setiap siswa dalam pengajuan
+        
+                // Dapatkan nama pembimbing berdasarkan NIP yang dipilih
+                $pembimbing = Pembimbing::where('NIP_NIK', $pembimbingNIP)->first();
+        
                 foreach ($pengajuan->siswa as $siswa) {
                     Ploting::create([
                         'kode_kelompok' => $kodeKelompok,
-                        'nama_pembimbing' => $pembimbingNIP,
+                        'NIP_NIK' => $pembimbingNIP, // Simpan NIP pembimbing
+                        'nama_pembimbing' => $pembimbing->nama_pembimbing,
                         'NIS' => $siswa->NIS,
                         'nama_siswa' => $siswa->nama_siswa,
                         'kelas' => $siswa->kelas,
-                        'nama_dudi' => $pengajuan->tempat_pkl,
-                        'alamat_dudi' => $pengajuan->alamat_dudi ?? 'Alamat belum tersedia',
-                        'created_by' => $currentAdmin
+                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian, 
+                        'kode_dudi' => $pengajuan->dudi->kode_dudi ?? null,
+                        'nama_dudi' => $pengajuan->dudi->nama_dudi ?? 'DUDI tidak tersedia',
+                        'alamat_dudi' => $pengajuan->dudi->alamat_dudi ?? 'Alamat DUDI tidak tersedia',
+                        'notelp_dudi' => $pengajuan->dudi->notelp_dudi ?? null,
+                    ]);
+        
+                    $pengajuan->update([
+                        'status_acc' => 1
                     ]);
                 }
-    
-                // Update status pengajuan
-                $pengajuan->update([
-                    'status_acc' => 1,
-                    'approved_by' => $currentAdmin
-                ]);
             }
         }
-    
+        
+
         return redirect()->route('suratPengajuan')->with('success', 'Pengajuan PKL berhasil disetujui dan ditambahkan ke Ploting.');
     }
 
 
     private function getSingkatan($konsentrasi_keahlian)
-{
-    // Buat array map untuk konsentrasi keahlian dan singkatannya
-    $map = [
-        'Teknik Komputer dan Jaringan (TKJ)' => 'TKJ',
-        'Rekayasa Perangkat Lunak (RPL)' => 'RPL',
-        'Desain Komunikasi Visual (DKV)' => 'DKV'
-    ];
+    {
+        // Buat array map untuk konsentrasi keahlian dan singkatannya
+        $map = [
+            'Teknik Komputer dan Jaringan (TKJ)' => 'TKJ',
+            'Rekayasa Perangkat Lunak (RPL)' => 'RPL',
+            'Desain Komunikasi Visual (DKV)' => 'DKV'
+        ];
 
-    // Kembalikan singkatan yang sesuai atau konsentrasi keahlian asli jika tidak ada
-    return $map[$konsentrasi_keahlian] ?? strtoupper($konsentrasi_keahlian);
-}
-
-
-private function generateKodeKelompok($konsentrasi_keahlian)
-{
-    // Ambil singkatan konsentrasi keahlian
-    $singkatan = $this->getSingkatan($konsentrasi_keahlian);
-    $currentAdmin = Auth::user()->kode_admin; // Dapatkan admin yang sedang login
-
-    // Ambil kode kelompok terakhir untuk admin yang sedang login
-    $lastGroup = DB::table('ploting')
-        ->where('kode_kelompok', 'LIKE', $singkatan . '%')
-        ->where('created_by', $currentAdmin) // Filter berdasarkan admin yang login
-        ->orderBy('kode_kelompok', 'desc')
-        ->first();
-
-    // Tentukan index baru
-    if ($lastGroup) {
-        // Ambil angka terakhir dari kode kelompok
-        $lastIndex = (int) filter_var($lastGroup->kode_kelompok, FILTER_SANITIZE_NUMBER_INT);
-        $newIndex = $lastIndex + 1;
-    } else {
-        $newIndex = 1;
+        // Kembalikan singkatan yang sesuai atau konsentrasi keahlian asli jika tidak ada
+        return $map[$konsentrasi_keahlian] ?? strtoupper($konsentrasi_keahlian);
     }
 
-    // Buat kode kelompok baru dengan format singkatan dan angka
-    return $singkatan . $newIndex;
-}
+
+    private function generateKodeKelompok($konsentrasi_keahlian)
+    {
+        $singkatan = $this->getSingkatan($konsentrasi_keahlian);
+
+        $lastGroup = DB::table('ploting')
+            ->where('kode_kelompok', 'LIKE', $singkatan . '%')
+            ->orderBy('kode_kelompok', 'desc')
+            ->first();
+
+        $newIndex = $lastGroup ? ((int) filter_var($lastGroup->kode_kelompok, FILTER_SANITIZE_NUMBER_INT)) + 1 : 1;
+
+        return $singkatan . $newIndex;
+    }
 
 // public function approveSelected(Request $request)
 // {
@@ -583,7 +487,7 @@ private function generateKodeKelompok($konsentrasi_keahlian)
 //                     'kode_kelompok' => $pengajuan->kode_kelompok,
 //                     'nama_pembimbing' => $pembimbingNIP,
 //                     'NIS' => $siswa->NIS,
-//                     'nama_dudi' => $pengajuan->tempat_pkl,
+//                     'nama_dudi' => $pengajuan->nama_dudi,
 //                     'alamat_dudi' => $siswa->alamat_dudi ?? 'Alamat belum tersedia',
 //                     'created_by' => $currentAdmin
 //                 ]);

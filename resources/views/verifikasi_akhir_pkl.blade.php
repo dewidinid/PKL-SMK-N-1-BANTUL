@@ -31,6 +31,7 @@
                     <th>Kelas</th>
                     <th>Tempat Dudi</th>
                     <th>Laporan Pengimbasan</th>
+                    <th>Lihat File</th>
                     <th>Keterangan</th> <!-- Tambahkan kolom Keterangan -->
                 </tr>
             </thead>
@@ -48,6 +49,13 @@
                                 <input type="file" name="laporan_pengimbasan" class="form-control mb-2" accept=".pdf,.doc,.docx">
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
+                        </td>
+                        <td>
+                            @if ($isLaporanPengimbasanUploaded)
+                                <a href="{{ Storage::url('public/laporan_pengimbasan/laporan_pengimbasan_' . $siswa->NIS . '.pdf') }}" target="_blank" >Lihat File</a>
+                            @else
+                                <span class="text-muted">Belum Upload</span>
+                            @endif
                         </td>
                         <td>
                             <input type="checkbox" {{ $isLaporanPengimbasanUploaded ? 'checked' : '' }}>
@@ -80,6 +88,7 @@
                     <th>Kelas</th>
                     <th>Tempat Dudi</th>
                     <th>Laporan Akhir</th>
+                    <th>Lihat File</th>
                     <th>Keterangan</th>
                 </tr>
             </thead>
@@ -100,6 +109,13 @@
                             </form>
                         </td>
                         <td>
+                            @if ($isLaporanAkhirUploaded)
+                                <a href="{{ Storage::url('public/laporan_akhir/laporan_akhir_' . $siswa->NIS . '.pdf') }}" target="_blank" >Lihat File</a>
+                            @else
+                                <span class="text-muted">Belum Upload</span>
+                            @endif
+                        </td>
+                        <td>
                             <input type="checkbox" {{ $isLaporanAkhirUploaded ? 'checked' : '' }}>
                             <span class="custom-checkbox"></span>
                         </td>
@@ -112,11 +128,13 @@
     <br>
     <!-- Tombol Nilai PKL -->
     <div class="text-center mb-5">
-        @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded && $isNilaiPklAvailable)
-            <a href="{{ asset($nilaiPklFilePath) }}" target="_blank" class="btn btn-primary btn-lg">Nilai PKL</a>
+        @if ($isLaporanPengimbasanUploaded && $isLaporanAkhirUploaded)
+            <a href="{{ route('lihatNilaiPkl') }}" class="btn btn-primary btn-lg">Lihat Nilai PKL</a>
         @else
             <button class="btn btn-secondary btn-lg" disabled>Nilai PKL</button>
         @endif
-    </div>  
+    </div>
+      
 </div>
+
 @endsection

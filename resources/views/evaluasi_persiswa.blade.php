@@ -13,22 +13,15 @@
 
         <h2 class="text-center">Evaluasi Per Siswa</h2>
         <br>
-        
-        {{-- <div class="mt-4">
+
+        <div>
             <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
             <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
-            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
+            <p><strong>Konsentrasi Keahlian :</strong> {{  $siswa->konsentrasi_keahlian }}</p>
             <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
             <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
-        </div> --}}
-
-        <div >
-            <p><strong>NIS :</strong> 17672</p>
-            <p><strong>Nama :</strong> Rulli Arhan</p>
-            <p><strong>konsentrasi_keahlian :</strong> Teknik Komputer Jaringan</p>
-            <p><strong>Kelas :</strong> TKJ 1</p>
-            <p><strong>DUDI :</strong> PT Telkom Indonesia</p>
         </div>
+
         <br>
 
             <!-- Batas Lebar Tabel -->
@@ -38,47 +31,48 @@
                         <tr>
                             <th>Evaluasi</th>
                             <th>Persentase</th>
-                            <th>Nilai Akhir</th>
+                            <th>Nilai</th>
                         </tr>
                     </thead>
-                    <tbody id="data-table">
+                    <tbody>
                         <tr>
-                            <td class="left-align" data-label="Evaluasi">Laporan / Jurnal PKL</td>
-                            <td data-label="Persentase">10%</td>
-                            {{-- <td data-label="Nilai Akhir">{{ $persentaseJurnal }}</td> --}}
+                            <td>Laporan / Jurnal PKL</td>
+                            <td>10%</td>
+                            <td>{{ $persentaseJurnal }}</td>
                         </tr>
                         <tr>
-                            <td class="left-align" data-label="Evaluasi">Nilai PKL Dudi</td>
-                            <td data-label="Persentase">50%</td>
-                            {{-- <td data-label="Nilai Akhir">{{ $nilaiAkhirDudi }}</td> --}}
+                            <td>Nilai PKL Dudi</td>
+                            <td>50%</td>
+                            <td>{{ $nilaiAkhirDudi }}</td>
                         </tr>
                         <tr>
-                            <td class="left-align" data-label="Evaluasi">Monitoring Pembimbing</td>
-                            <td data-label="Persentase">20%</td>
-                            {{-- <td data-label="Nilai Akhir">{{ $nilaiMonitoring }}</td> --}}
+                            <td>Monitoring Pembimbing</td>
+                            <td>20%</td>
+                            <td>{{ $nilaiMonitoring }}</td>
                         </tr>
                         <tr>
-                            <td class="left-align" data-label="Evaluasi">Laporan Pengimbasan</td>
-                            <td data-label="Persentase">10%</td>
-                            {{-- <td data-label="Nilai Akhir">{{ $nilaiPengimbasan }}</td> --}}
+                            <td>Laporan Pengimbasan</td>
+                            <td>10%</td>
+                            <td>{{ $nilaiPengimbasan }}</td>
                         </tr>
                         <tr>
-                            <td class="left-align" data-label="Evaluasi">Laporan Akhir PKL</td>
-                            <td data-label="Persentase">10%</td>
-                            {{-- <td data-label="Nilai Akhir">{{ $nilaiAkhirPKL }}</td> --}}
+                            <td>Laporan Akhir PKL</td>
+                            <td>10%</td>
+                            <td>{{ $nilaiAkhirPKL === 10 ? 100 : 0 }}</td>
+                            {{-- <td>{{ $nilaiAkhirPKL }}</td> --}}
                         </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2">Total Nilai</td>
-                            {{-- <td>{{ $totalNilai }}</td> --}}
+                            <td colspan="2">Nilai Akhir</td>
+                            <td>{{ $totalNilai }}</td>
                         </tr>
                     </tfoot>
                 </table>
                 
-            </div> <!-- End of max-width wrapper -->
+            </div> 
         
-        <br>
+        <br><br>
 
         <div >
             <a href="" class="btn btn-success">
@@ -92,7 +86,6 @@
             </a>
             
         </div>
-        <br>
         <br>
     </div>
 </div>

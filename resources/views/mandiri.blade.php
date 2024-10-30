@@ -27,5 +27,5 @@
     <br>
 </div>
     
-@include('layouts.footer')
+
 @endsection

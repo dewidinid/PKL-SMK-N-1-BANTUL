@@ -28,8 +28,7 @@ class Dudi extends Authenticatable
         'bidang_usaha',
         'password',
         'alamat_dudi',
-        'notelp_dudi',
-        'posisi_pkl'
+        'notelp_dudi'
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
@@ -39,4 +38,25 @@ class Dudi extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function pengajuans()
+{
+    return $this->hasMany(Pengajuan::class, 'nama_dudi', 'nama_dudi');
+}
+
+// public function ploting()
+// {
+//     return $this->hasMany(Ploting::class, 'nama_dudi', 'nama_dudi');
+// }
+
+public function ploting()
+{
+    return $this->hasMany(Ploting::class, 'kode_dudi', 'kode_dudi');
+}
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
+    }
+
 }

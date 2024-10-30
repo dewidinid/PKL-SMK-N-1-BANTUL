@@ -77,6 +77,10 @@
 
     @yield('content')
 
+   
+
+    @include('layouts.footer')
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     @if(session('success'))
     <script>
@@ -175,30 +179,64 @@
     </script>
     
     <script>
-        // Toggle visibility for current (old) password field
-        document.getElementById('toggle-current-password').addEventListener('click', function () {
-            var input = document.getElementById('current_password');
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+    document.getElementById('toggle-current-password').addEventListener('click', function () {
+        var input = document.getElementById('current_password');
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+
+    document.getElementById('toggle-password').addEventListener('click', function () {
+        var input = document.getElementById('password');
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+
+    document.getElementById('toggle-confirmation-password').addEventListener('click', function () {
+        var input = document.getElementById('password_confirmation');
+        if (input.type === 'password') {
+            input.type = 'text';
+            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = 'password';
+            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    });
+
+    document.getElementById('current_password').addEventListener('input', function() {
+        const currentPassword = this.value;
+        // Melakukan permintaan AJAX untuk memvalidasi password lama
+        // Misalnya menggunakan fetch API
+        fetch('/validate-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ current_password: currentPassword })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.valid) {
+                // Aktifkan field password baru dan konfirmasi
+                document.getElementById('password').disabled = false;
+                document.getElementById('password_confirmation').disabled = false;
             } else {
-                input.type = 'password';
-                this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+                // Notifikasi password salah
+                alert('Password lama yang Anda masukkan salah.');
             }
         });
-    
-        // Toggle visibility for new password field
-        document.getElementById('toggle-password').addEventListener('click', function () {
-            var input = document.getElementById('password');
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
-            } else {
-                input.type = 'password';
-                this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
-            }
-        });
-    </script>
+    });
+</script>
 
     
     
@@ -290,7 +328,7 @@
     <!-- Kemudian ubah script menjadi: -->
     <script>
     $(document).ready(function() {
-        $('#tempat_pkl').on('change', function() {
+        $('#nama_dudi').on('change', function() {
             var selectedOption = $(this).find('option:selected');
             var noTelp = selectedOption.data('telp');
             

@@ -18,13 +18,19 @@ class Evaluasi extends Model
     // Kolom yang dapat diisi secara massal
     protected $fillable = [
         'kode_kelompok',            // Foreign key ke tabel kelompok
+        'kode_dudi',
         'NIS',                      // Foreign key ke tabel siswa
         'nama',                     // Foreign key ke tabel siswa
         'konsentrasi_keahlian',     // Foreign key ke tabel siswa
         'kelas',                    // Foreign key ke tabel siswa
         'tahun',                    // Foreign key ke tabel siswa
         'nama_dudi',                // Foreign key ke tabel dudi
-        'evaluasi'                  // Berisi file yang diupload
+        'nilai_laporan_jurnalpkl',                  // Berisi file yang diupload
+        'nilai_pkldudi',
+        'nilai_akhir_monitoring',
+        'nilai_pengimbasan',
+        'nilai_lap_akhir',
+        'nilai_akhir'
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)

@@ -219,6 +219,23 @@
         }
     </script>
 
+<script>
+    function approveAction(form) {
+        Swal.fire({
+            title: 'Proses Approved...',
+            text: 'Proses approved sedang berlangsung, mohon tunggu sebentar!',
+            icon: 'info',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        // Submit form setelah pop-up loading ditampilkan
+        form.submit();
+    }
+</script>
+
     <script>
 
         // Script pagination

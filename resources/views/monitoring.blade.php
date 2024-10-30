@@ -1,11 +1,10 @@
 @extends('layouts.headerpembimbing')
 
-
 @section('content')
 
 <div class="container mt-5 table-wrapper">
     <h4 class="text-center">MONITORING</h4>
-    <br>
+    <br><br>
     
   <!-- Form Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -53,25 +52,25 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $data->kode_kelompok }}</td>
                 <td>{{ $data->siswa->NIS }}</td>
-                <td>{{ $data->nama_siswa }}</td>
+                <td class="left-align">{{ $data->nama_siswa }}</td>
                 <td>{{ $data->konsentrasi_keahlian }}</td>
                 <td>{{ $data->kelas }}</td>
                 {{-- <td>{{ $data->nama_dudi }}</td> --}}
                 {{-- <td>{{ $data->nama_pembimbing }}</td> --}}
                 <td>{{ $data->tahun }}</td>
 
-                <td>
+                <td> 
                     <a href="{{ route('monitoring_persiswa', ['nis' => $data->NIS]) }}" class="btn" style="background-color: #9173c3; border-radius: 5px; padding: 5px;">
                         <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
                     </a>                    
                 </td>
+                
             </tr>
             @endforeach
         </tbody>
         
     </table>
 
-    <br>
     <br>
     <br>
 

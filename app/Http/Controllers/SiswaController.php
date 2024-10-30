@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
 use App\Models\Dudi;
 use App\Models\LaporanJurnal;
@@ -109,7 +110,7 @@ class SiswaController extends Controller
         'konsentrasi_keahlian' => 'required|string|max:255',
         'tahun' => 'required|string|max:255',
         'current_password' => 'required|string|min:6', // Validasi password lama
-        'password' => 'nullable|string|min:6', // Password baru opsional
+        'password' => 'nullable|string|min:6|confirmed', // Password baru opsional dan harus sama dengan konfirmasi
     ]);
 
     // Mendapatkan data siswa yang sedang login
@@ -179,8 +180,11 @@ class SiswaController extends Controller
     // Ambil data Dudi dari tabel dudi
     $dudiList = Dudi::all(); // Dapatkan semua data Dudi
 
-    // Kirimkan data siswa dan dudiList ke view
-    return view('formpengajuan', compact('siswa', 'dudiList'));
+    // Ambil daftar konsentrasi keahlian unik dari tabel siswa
+    $konsentrasiKeahlianList = Siswa::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
+
+    // Kirimkan data siswa, dudiList, dan konsentrasiKeahlianList ke view
+    return view('formpengajuan', compact('siswa', 'dudiList', 'konsentrasiKeahlianList'));
 }
 
 
@@ -192,7 +196,7 @@ public function submitForm(Request $request)
         'nama_siswa' => 'required|string',
         'konsentrasi_keahlian' => 'required|string',
         'no_telp' => 'required|string',
-        'tempat_pkl' => 'required|string',
+        'nama_dudi' => 'required|string',
         'proposal_pkl' => 'required|file|mimes:pdf,doc,docx|max:2048',
         'notelp_dudi' => 'nullable|string',
     ]);
@@ -209,7 +213,7 @@ public function submitForm(Request $request)
             'nama_siswa' => $request->input('nama_siswa'),
             'konsentrasi_keahlian' => $request->input('konsentrasi_keahlian'),
             'no_telp' => $request->input('no_telp'),
-            'tempat_pkl' => $request->input('tempat_pkl'),
+            'nama_dudi' => $request->input('nama_dudi'),
             'notelp_dudi' => $request->input('notelp_dudi'),
             'proposal_pkl' => $originalFileName,
             'created_by' => Auth::user()->NIS,
@@ -406,26 +410,33 @@ public function submitForm(Request $request)
     }
 
 
-   
-   // Fungsi untuk menampilkan file nilai PKL
-//    public function previewNilaiPkl()
-//    {
-//        // Mengambil data siswa yang sedang login
-//        $siswa = Auth::user(); // Menggunakan variabel $siswa
+    public function lihatNilaiPkl()
+    {
+        $siswa = Auth::user(); // Mendapatkan data siswa yang sedang login
 
-//        // Path file nilai PKL berdasarkan NIS siswa
-//        $nilaiPklPath = storage_path('app/public/nilai_pkl/nilai_pkl_' . $siswa->NIS . '.xlsx');
+        // Ambil data evaluasi dari tabel 'nilai_pkl' sesuai NIS siswa
+        $nilaiPkl = DB::table('nilai_pkl')
+                    ->where('NIS', $siswa->NIS)
+                    ->first();
 
-//        // Cek apakah file ada
-//        if (!file_exists($nilaiPklPath)) {
-//            return redirect()->back()->with('error', 'File nilai PKL tidak ditemukan.');
-//        }
+        // Tetapkan nilai default jika data evaluasi belum ada
+        if (!$nilaiPkl) {
+            $nilaiPkl = (object) [
+                'persentase_jurnal' => 0,
+                'nilai_akhir_dudi' => 0,
+                'monitoring_pembimbing' => 0,
+                'nilai_pengimbasan' => 0,
+                'nilai_akhir_pkl' => 0
+            ];
+        }
 
-//        // Menampilkan file nilai PKL dalam tab baru
-//        return response()->file($nilaiPklPath, [
-//            'Content-Disposition' => 'inline; filename="Nilai_PKL_' . $siswa->NIS . '.xlsx"'
-//        ]);
-//    }
+        // Hitung Total Nilai
+        $totalNilai = $nilaiPkl->persentase_jurnal + $nilaiPkl->nilai_akhir_dudi + $nilaiPkl->monitoring_pembimbing + $nilaiPkl->nilai_pengimbasan + $nilaiPkl->nilai_akhir_pkl;
+
+        return view('lihatNilaiPkl', ['nilaiPkl' => $nilaiPkl, 'totalNilai' => $totalNilai]);
+    }
+
+    
 
 
 }

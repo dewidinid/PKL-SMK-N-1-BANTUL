@@ -2,8 +2,7 @@
 
 @section('content')
 
-<div class="container mt-5 table-wrapper">
-    
+<div class="container mt-5 table-wrapper"> 
     <div style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <div class="d-flex justify-content-start mb-3">
             <button onclick="window.history.back()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
@@ -24,8 +23,12 @@
 
         <!-- Batas Lebar Tabel Monitoring -->
         <div style="max-width: 60%;">
-            <a href="https://docs.google.com/spreadsheets/d/1ixFmfIjuGmFTpitBjiFNhmhUmnBDza9Z/edit?usp=sharing&ouid=103935379902975604390&rtpof=true&sd=true">Template Monitoring PKL</a> <br>
-            <br>
+            <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
+            class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+             Template Upload Data Siswa </a>
+            <br><br>
+            
+            <!-- Bagian untuk tabel Monitoring -->
             <table class="table-striped custom-table">
                 <thead class="table-primary text-center">
                     <tr>
@@ -34,65 +37,35 @@
                         <th>Ket</th>
                     </tr>
                 </thead>
-
                 <tbody id="data-table">
-                    @foreach ($monitoring as $index => $data)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>
-                            <form class="mt-2" method="POST" action="{{ route('monitoring.upload', ['nis' => $siswa->NIS]) }}" enctype="multipart/form-data" id="upload-form">
-                                @csrf
-                                <label for="file" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white;"> Upload </label>
-                                <input id="file" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
-                            </form>
-                        </td>
-                        <td>
-                            <input type="checkbox" id="checkbox" name="check[]" value="{{ $index + 1 }}" {{ $data->nilai_tp1 ? 'checked' : '' }} disabled>
-                        </td>                    
-                    </tr>
-                    @endforeach
-                </tbody>
-
-                <tbody id="data-table">
-                    @if(session('success'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    <tr>
-                        <td>Ke-2</td>
-                        <td>
-                            <form class="mt-2" method="POST" action="{{ route('monitoring.upload', ['nis' => $siswa->NIS]) }}" enctype="multipart/form-data" id="upload-form">
-                                @csrf
-                                <label for="file" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px;color: white;"> Upload </label>
-                                <input id="file" type="file" name="file" class="d-none" onchange="this.form.submit()">
-                            </form>
-                        </td>
-                        <td>
-                            <input type="checkbox" id="checkbox" name="check[]" value="1" disabled>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Ke-2</td>
-                        <td style="display: flex; justify-content: center; align-items: center;">
-                            <form method="POST" action="{{ route('monitoring.upload', ['nis' => $siswa->NIS]) }}" enctype="multipart/form-data" id="upload-form" style=" align-items: center;">
-                                @csrf
-                                <label for="file" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px; color: white;  align-items: center;" >
-                                    Upload
-                                </label>
-                                <input id="file" type="file" name="file" style="display: none;" onchange="this.form.submit()">
-                            </form>
-                        </td>
-                        <td>
-                            <input type="checkbox" id="checkbox" name="check[]" value="1" disabled>
-                        </td>
-                    </tr>
-
+                    @for ($i = 0; $i < 6; $i++)
+                        <tr>
+                            <td>{{ $i + 1 }}</td>
+                            <td>
+                                @if(isset($monitoringPerSiswa[$i]))
+                                    <!-- Jika data sudah ada, tampilkan -->
+                                    <form class="mt-2" method="POST" action="{{ route('monitoring.upload', ['nis' => $nis]) }}" enctype="multipart/form-data" id="upload-form">
+                                        @csrf
+                                        <label for="file{{ $i }}" class="btn bi bi-file-earmark" style="background-color: #60d8aa; border-radius: 5px; color: white;"> Uploaded </label>
+                                        <input id="file{{ $i }}" type="file" name="file" class="d-none" disabled>
+                                    </form>
+                                @else
+                                    <!-- Jika belum ada, tampilkan form upload -->
+                                    <form class="mt-2" method="POST" action="{{ route('monitoring.upload', ['nis' => $nis]) }}" enctype="multipart/form-data" id="upload-form">
+                                        @csrf
+                                        <label for="file{{ $i }}" class="btn bi bi-file-earmark" style="background-color: #9173c3; border-radius: 5px; color: white;"> Upload </label>
+                                        <input id="file{{ $i }}" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
+                                    </form>
+                                @endif
+                            </td>
+                            <td>
+                                <input type="checkbox" id="checkbox{{ $i }}" name="check[]" value="{{ $i + 1 }}" {{ isset($monitoringPerSiswa[$i]) ? 'checked' : '' }} disabled>
+                            </td>                    
+                        </tr>
+                    @endfor
                 </tbody>
             </table>
         </div>
-         <!-- End of max-width wrapper -->
 
         <h4 class="mt-5 text-left">Detail Monitoring</h4><br>
         <table class="table-striped custom-table">
@@ -107,81 +80,28 @@
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $total_tp1 = 0;
-                    $total_tp2 = 0;
-                    $total_tp3 = 0;
-                    $total_tp4 = 0;
-                    $total_nilai_akhir = 0;
-                @endphp
-
-                @foreach ($monitoring as $data)
+                 @foreach ($monitoringPerSiswa as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td> <!-- Menampilkan urutan bulan -->
                     <td>{{ $data->nilai_tp1 }}</td>
                     <td>{{ $data->nilai_tp2 }}</td>
                     <td>{{ $data->nilai_tp3 }}</td>
                     <td>{{ $data->nilai_tp4 }}</td>
-                    <td>{{ $data->nilai_akhir }}</td>
+                    <td>{{ $data->nilai_monitoring }}</td>
+                    {{-- <td>{{ $data->nilai_akhir }}</td> <!-- Ini akan tampil setelah 6x upload --> --}}
                 </tr>
-
-                @php
-                    // Hitung total untuk setiap TP
-                    $total_tp1 += $data->nilai_tp1;
-                    $total_tp2 += $data->nilai_tp2;
-                    $total_tp3 += $data->nilai_tp3;
-                    $total_tp4 += $data->nilai_tp4;
-                    $total_nilai_akhir += $data->nilai_akhir;
-                @endphp
-                @endforeach
-
-                <!-- Hitung rata-rata dari setiap TP -->
-                @php
-                    $rata_tp1 = $total_tp1 / $monitoring->count();
-                    $rata_tp2 = $total_tp2 / $monitoring->count();
-                    $rata_tp3 = $total_tp3 / $monitoring->count();
-                    $rata_tp4 = $total_tp4 / $monitoring->count();
-                    $rata_nilai_akhir = $total_nilai_akhir / $monitoring->count();
-
-                    // Hitung nilai akhir
-                    $nilai_akhir = $total_nilai_akhir / 6; // Total nilai akhir dibagi jumlah upload (6)
-                @endphp
-
-            </tbody>
+                @endforeach 
+             </tbody>
             <tfoot>
                 <tr>
-                    <td>Total</td>
-                    <td>{{ $total_tp1 }}</td>
-                    <td>{{ $total_tp2 }}</td>
-                    <td>{{ $total_tp3 }}</td>
-                    <td>{{ $total_tp4 }}</td>
-                    <td>{{ $total_nilai_akhir }}</td>
-                </tr>
-                <tr>
-                    <td>Rata-Rata</td>
-                    <td>{{ $rata_tp1 }}</td>
-                    <td>{{ $rata_tp2 }}</td>
-                    <td>{{ $rata_tp3 }}</td>
-                    <td>{{ $rata_tp4 }}</td>
-                    <td>{{ $rata_nilai_akhir }}</td>
-                </tr>
-                
-                <tr>
-                    <td colspan="5" style="text-align: center;">Nilai Akhir</td>
-                    <td>{{ $nilai_akhir }}</td>
-                </tr>
-
-                {{-- <tr>
-                    <td colspan="5">Total Nilai</td>
-                    {{-- <td>{{ $totalNilai }}</td> --}}
-                {{-- </tr>
-                <tr> --}}
-                    {{-- <td colspan="5">Rata-Rata</td> --}}
-                    {{-- <td>{{ $rataRata }}</td> --}}
-                {{-- </tr> --}} 
+                    <td colspan="5">Nilai Akhir Monitoring</td>
+                    {{-- <td>{{ $nilai_akhir_monitpring }}</td> --}}
+                    <td>.</td>
+                </tr> 
             </tfoot>
         </table>
-        <br>
+
+        <br> <br>
         <div>
             <a href="" class="btn btn-success">
                 {{--{{ route('monitoring.export.excel') }} , $siswa->NIS --}}
@@ -193,11 +113,8 @@
             </a>
         </div>
         <br>
-        <br>
+
     </div>
 </div>
 
 @endsection
-
-        
-           

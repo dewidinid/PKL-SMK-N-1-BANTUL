@@ -51,26 +51,36 @@
                     <label for="tahun" class="form-label">Tahun</label>
                     <input type="text" name="tahun" class="form-control" placeholder="Tahun" value="{{ $siswa->tahun }}"readonly>
                 </div>
-                <div class="form-group">
-                    <label for="current_password" class="form-label">Password Lama</label>
-                    <div class="input-group">
-                        <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Masukkan password lama" required>
-                        <span class="input-group-text" id="toggle-current-password" style="background-color: #fff; border: none;">
-                            <i class="far fa-eye" style="color: lightgrey"></i>
-                        </span>
+                <div class="container " style="background-color: #fff; padding: 10px; max-width: 40%; border-radius: 10px;">
+                    <div class="form-group">
+                        <label for="current_password" class="form-label" style="color: black !important">Password Lama</label>
+                        <div class="input-group">
+                            <input type="password" id="current_password" name="current_password" class="form-control" placeholder="Masukkan password lama" required>
+                            <span class="input-group-text" id="toggle-current-password" style="background-color: #fff;  border-color: lightgrey;">
+                                <i class="far fa-eye" style="color: lightgrey;"></i>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password" class="form-label">Password Baru</label>
-                    <div class="input-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password baru (optional)">
-                        <span class="input-group-text" id="toggle-password" style="background-color: #fff; border: none;">
-                            <i class="far fa-eye" style="color: lightgrey;"></i>
-                        </span>
+                    <div class="form-group">
+                        <label for="password" class="form-label" style="color: black !important">Password Baru</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password baru (optional)" disabled>
+                            <span class="input-group-text" id="toggle-password" style="background-color: #fff; border-color: lightgrey; ">
+                                <i class="far fa-eye" style="color: lightgrey;"></i>
+                            </span>
+                        </div>
+                        <small class="form-text" style="color: black ">*Masukkan password baru jika ingin mengubahnya.</small>
                     </div>
-                    <small class="form-text" style="color: white">Masukkan password baru jika ingin mengubahnya.</small>
-                </div>                                                   
+                    <div class="form-group">
+                        <label for="password_confirmation" class="form-label" style="color: black !important">Konfirmasi Password Baru</label>
+                        <div class="input-group">
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Konfirmasi password baru" disabled>
+                            <span class="input-group-text" id="toggle-confirmation-password" style="background-color: #fff; border-color: lightgrey;">
+                                <i class="far fa-eye" style="color: lightgrey;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>                                              
                 <br>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
@@ -78,9 +88,4 @@
     </div>
 
 
-
-    
-
-
-@include('layouts.footer')
 @endsection

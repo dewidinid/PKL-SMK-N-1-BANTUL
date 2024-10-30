@@ -5,21 +5,34 @@
 <div class="container mt-5 table-wrapper">
         <h4 class="text-center">NILAI PKL SISWA</h4>
         <br>
+        <br>
         
     <!-- Filter Tahun dan konsentrasi_keahlian -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <div >
-            <select class="form-select d-inline-block w-auto" name="bulan">
-                <option selected>Bulan</option>
-            </select>
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-            </select>
+    <form action="{{ route('hasil_nilaipkl') }}" method="GET">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <!-- Dropdown Tahun -->
+                <select class="form-select d-inline-block w-auto" name="tahun" onchange="this.form.submit()">
+                    <option selected>Tahun</option>
+                    @foreach ($tahun as $thn)
+                        <option value="{{ $thn }}" {{ request('tahun') == $thn ? 'selected' : '' }}>{{ $thn }}</option>
+                    @endforeach
+                </select>
+
+                <!-- Dropdown Konsentrasi Keahlian -->
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" onchange="this.form.submit()">
+                    <option selected>Konsentrasi Keahlian</option>
+                    @foreach ($konsentrasi_keahlian as $keahlian)
+                        <option value="{{ $keahlian }}" {{ request('konsentrasi_keahlian') == $keahlian ? 'selected' : '' }}>{{ $keahlian }}</option>
+                    @endforeach
+                </select>
+
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
         </div>
-    </div>
+    </form>
 
-    <br>
-
+    
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
             <tr>
@@ -30,52 +43,37 @@
                 <th>Konsentrasi keahlian</th>
                 <th>Kelas</th>
                 <th>Tahun</th>
-                <th>Nilai</th>
+                <th>Nama Dudi</th>
+                <th>Nilai Dudi</th>
                 <th>Download</th>
             </tr>
         </thead>
         
         <tbody id="data-table">
-            @foreach ($nilaiPkl as $index => $nilai)
-                    <tr class="text-center">
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $nilai->kelompok->kode_kelompok ?? '-' }}</td>
-                        <td>{{ $nilai->NIS }}</td>
-                        <td>{{ $nilai->siswaByNama->nama_siswa ?? '-' }}</td>
-                        <td>{{ $nilai->konsentrasiKeahlian->nama_konsentrasi ?? '-' }}</td>
-                        <td>{{ $nilai->siswaByKelas->kelas ?? '-' }}</td>
-                        <td>{{ $nilai->siswaByTahun->tahun ?? '-' }}</td>
-                        <td>{{ $nilai->TotalNilai }}</td> <!-- Menampilkan total nilai -->
-                        <td>
-                            <a href="{{ Storage::url($nilai->file_path) }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                                <span style="font-size: 0.9rem;">Nilai</span>
-                                <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
-                            </a> 
-                        </td>
-                    </tr>
+            @foreach ($hasil_nilaipkl as $index => $nilai)
+                <tr class="text-center">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $nilai->kode_kelompok }}</td>
+                    <td>{{ $nilai->NIS }}</td>
+                    <td class="left-align">{{ $nilai->nama_siswa }}</td> <!-- Ambil nama siswa dari relasi -->
+                    <td>{{ $nilai->siswa->konsentrasi_keahlian }}</td>
+                    <td>{{ $nilai->siswa->kelas }}</td> <!-- Ambil kelas siswa dari relasi -->
+                    <td>{{ $nilai->siswa->tahun }}</td>
+                    <td>{{ $nilai->nama_dudi }}</td>
+                    <td>{{ $nilai->nilai ?? 'N/A' }}</td> <!-- Menampilkan nilai dari dudi -->
+                    <td>
+                        <a href="{{ Storage::url($nilai->file_path) }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                            <span style="font-size: 0.9rem;">Nilai</span>
+                            <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
+                        </a> 
+                    </td>
+                </tr>
             @endforeach
-            <tr class="text-center ">
-                <td >1</td>
-                <td >K001</td>
-                <td >16034</td>
-                <td >Rulli Ardha Ramadhan</td>
-                <td >Teknik Komputer Jaringan</td>
-                <td >TKJ 1</td>
-                <td >2024/2025</td>
-                <td></td>
-                <td>
-                    <a href="{{ asset('storage/files/sample-file.pdf') }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                        <span style="font-size: 0.9rem;">Nilai</span>
-                        <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
-                    </a> 
-                </td>
-            </tr>
+
         </tbody>
     </table>
 
-    <br>
-    <br>
-    <br>
+    <br><br>
 
     <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
         <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>
@@ -85,8 +83,6 @@
         <button class="pagination-btn" onclick="nextPage()" id="next-btn">Selanjutnya</button>
     </div>
 
-
 </div>
-
 
 @endsection

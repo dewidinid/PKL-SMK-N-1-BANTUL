@@ -146,3 +146,5 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
     padding: 10px; /* Padding for dropdown items */
 }
 
+
+

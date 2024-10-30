@@ -4,21 +4,29 @@
 
 <div class="container mt-5 table-wrapper">
     <h4 class="text-center">LAPORAN/JURNAL PKL</h4>
-    <br>
+    <br><br>
     
     <!-- Filter Tahun dan Konsentrasi Keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <select class="form-select d-inline-block w-auto" name="tahun">
-                <option selected>Tahun</option>
-                <!-- Tambahkan opsi tahun -->
-            </select>
-            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                <option selected>Konsentrasi Keahlian</option>
-                <!-- Tambahkan opsi konsentrasi keahlian -->
-            </select>
-        </div>
+        <form method="GET" action="{{ route('pembimbing_laporanjurnal') }}">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
+                    @foreach ($tahunOptions as $tahun)
+                        <option value="{{ $tahun }}">{{ $tahun }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
+                    @foreach ($konsentrasiOptions as $konsentrasi)
+                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
     </div>
+    
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
@@ -37,45 +45,24 @@
             @foreach ($laporan_jurnal as $index => $data)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $data->kelompok->kode_kelompok }}</td>
-                <td>{{ $data->siswa->NIS }}</td>
-                <td>{{ $data->siswaByNama->nama_siswa }}</td>
-                <td>{{ $data->konsentrasiKeahlian->nama_konsentrasi }}</td>
-                <td>{{ $data->siswaByKelas->kelas }}</td>
-                <td>{{ $data->siswaByTahun->tahun }}</td>
+                <td>{{ $data->kode_kelompok }}</td>
+                <td>{{ $data->NIS }}</td>
+                <td class="left-align">{{ $data->nama_siswa }}</td>
+                <td>{{ $data->siswa->konsentrasi_keahlian }}</td>
+                <td>{{ $data->kelas }}</td>
+                <td>{{ $data->siswa->tahun }}</td>
                 <td>
-                    <a href="{{ route('pembimbing_laporanjurnal_persiswa') }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
-                        {{-- , $data->siswa->NIS --}}
-                        <i class="bi bi-journal-text" style="font-size: 16px; color: white;"></i>
+                    <a href="{{ route('pembimbing_laporanjurnal_persiswa', $data->NIS) }}" class="btn" style="background-color: #db9898;">
+                        <i class="bi bi-journal-text" style="color: white;"></i>
                     </a>
                 </td>
+                                
             </tr>
             @endforeach
-            <tr>
-                <td>1</td>
-                <td>K001</td>
-                <td >
-                    <div>17672</div>
-                </td>
-                <td class="left-align">
-                    <div>Rulli Arhan</div>
-                </td>
-                <td>Teknik Komputer Jaringan</td>
-                <td>TKJ 1</td>
-                <td>2024/2025</td>
-                <td>
-                    <a href="{{ route('pembimbing_laporanjurnal_persiswa') }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">
-                        {{-- , ['nis' => $data->siswa->NIS] --}}
-                        <i class="bi bi-journal-text" style="font-size: 16px; color: white;"></i>
-                    </a>                    
-                </td>
-            </tr>
         </tbody>
     </table>
 
-    <br>
-    <br>
-    <br>
+    <br><br>
 
     <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
         <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>

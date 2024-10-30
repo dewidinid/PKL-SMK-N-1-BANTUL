@@ -8,9 +8,9 @@
 
 
     <div>
-        <a href="https://docs.google.com/spreadsheets/d/1bfAglmp234hEOIc-OrjsE5CP5cjLexaY/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true">
-            Template Upload Data Pembimbing
-        </a>
+        <a href="https://docs.google.com/spreadsheets/d/1bfAglmp234hEOIc-OrjsE5CP5cjLexaY/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
+        class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+         Template Upload Data Pembimbing </a>
     </div>
     <br>
 

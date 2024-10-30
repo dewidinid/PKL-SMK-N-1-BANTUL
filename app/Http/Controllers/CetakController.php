@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
@@ -181,6 +182,44 @@ class CetakController extends Controller
 
         // Return the PDF download
         return $pdf->download($fileName);
+    }
+
+
+    public function exportNilaiPklPdf()
+    {
+        // Ambil data siswa dari sesi yang sedang login
+        $siswa = Auth::guard('siswa')->user();
+
+        // Periksa apakah data siswa tersedia
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
+        }
+
+        // Ambil data evaluasi dari tabel 'nilai_pkl' berdasarkan NIS
+        $nilaiPkl = DB::table('nilai_pkl')->where('NIS', $siswa->NIS)->first();
+
+        if (!$nilaiPkl) {
+            $nilaiPkl = (object) [
+                'persentase_jurnal' => 0,
+                'nilai_akhir_dudi' => 0,
+                'monitoring_pembimbing' => 0,
+                'nilai_pengimbasan' => 0,
+                'nilai_akhir_pkl' => 0
+            ];
+        }
+
+        // Periksa jika data evaluasi ada, dan hitung total nilai
+        $totalNilai = $nilaiPkl
+        ? $nilaiPkl->persentase_jurnal + $nilaiPkl->nilai_akhir_dudi +
+        $nilaiPkl->monitoring_pembimbing + $nilaiPkl->nilai_pengimbasan +
+        $nilaiPkl->nilai_akhir_pkl
+        : 0;
+
+        // Load view dengan data siswa dan nilai PKL
+        $pdf = Pdf::loadView('export_nilai_pkl_pdf', compact('siswa', 'nilaiPkl', 'totalNilai'));
+
+        // Return PDF untuk diunduh
+        return $pdf->download('nilai_pkl_' . $siswa->NIS . '.pdf');
     }
 
 

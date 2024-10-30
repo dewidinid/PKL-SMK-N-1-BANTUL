@@ -17,13 +17,15 @@ class LaporanPengimbasan extends Model
 
     // Kolom yang dapat diisi secara massal
     protected $fillable = [
-        'kode_kelompok',            
+        'kode_kelompok',  
+        'kode_dudi',          
         'NIS',                      
         'konsentrasi_keahlian',     
         'nama',                     
         'kelas',                    
         'nama_dudi',                
-        'laporan_pengimbasan'       
+        'laporan_pengimbasan',
+        'approved_lap_pengimbasan'       
     ];
 
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)

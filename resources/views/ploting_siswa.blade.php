@@ -22,12 +22,12 @@
                     <option value="{{ $t }}">{{ $t }}</option>
                 @endforeach
             </select>
-            <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian"> <!-- Tambahkan dropdown untuk konsentrasi keahlian -->
+            {{-- <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian"> <!-- Tambahkan dropdown untuk konsentrasi keahlian -->
                 <option selected>Konsentrasi Keahlian</option>
                 @foreach($konsentrasi_keahlian as $kk)
                     <option value="{{ $kk }}">{{ $kk }}</option>
                 @endforeach
-            </select>   
+            </select>    --}}
             <select class="form-select d-inline-block w-auto" name="kelompok"> <!-- Pastikan 'name' sama dengan di controller -->
                 <option selected>Kelompok</option>
                 @foreach($kelompok as $k)
@@ -74,9 +74,9 @@
                         <td>{{ optional($ploting->siswa)->NIS }}</td>
                         <td>{{ optional($ploting->siswa)->nama_siswa }}</td>
                         <td>{{ optional($ploting->siswa)->kelas }}</td>
-                        <td>{{ optional($ploting->pembimbing)->nama_pembimbing }}</td>
-                        <td>{{ $ploting->nama_dudi }}</td>
-                        <td>{{ $ploting->alamat_dudi }}</td>
+                        <td>{{ optional($ploting->pembimbing)->nama_pembimbing ?? 'Pembimbing tidak tersedia' }}</td>
+                        <td>{{ $ploting->nama_dudi ?? 'DUDI tidak tersedia' }}</td>
+                        <td>{{ $ploting->dudi->alamat_dudi ?? 'Alamat DUDI tidak tersedia' }}</td>
                     </tr>
                     @endforeach
                 </tbody>                

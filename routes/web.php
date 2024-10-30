@@ -38,7 +38,7 @@ Route::post('/profile/update', [SiswaController::class, 'updateProfile'])->name(
 // Route untuk halaman verifikasi akhir PKL
 Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl')->middleware('auth:siswa');
 Route::post('/upload-laporan', [SiswaController::class, 'uploadLaporan'])->name('upload_laporan')->middleware('auth:siswa');
-// Route::get('/preview-nilai-pkl', [SiswaController::class, 'previewNilaiPkl'])->name('previewNilaiPkl')->middleware('auth:siswa');
+Route::get('/lihatNilaiPkl', [SiswaController::class, 'lihatNilaiPkl'])->name('lihatNilaiPkl')->middleware('auth:siswa');
 
 Route::post('/formpengajuan', [SiswaController::class, 'submitForm'])->name('formpengajuan')->middleware('auth:siswa');
 Route::get('/formpengajuan', [SiswaController::class, 'FormPengajuan'])->name('formpengajuan')->middleware('auth:siswa');
@@ -94,28 +94,26 @@ Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])
 // Rute untuk halaman monitoring
 Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring');
 
-// Route filter monitoring
-Route::get('/monitoring', [PembimbingController::class, 'filterMonitoring'])->name('filterMonitoring');
+Route::get('/filter-monitoring', [PembimbingController::class, 'filterMonitoring'])->name('filterMonitoring');
+//Route::post('/monitoring/upload/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload');
+Route::get('/monitoring/siswa/{nis}', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
 
-// Rute untuk halaman monitoring per siswa dengan parameter NIS
-Route::get('/monitoring_persiswa/{nis}', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
-
-// Rute untuk mengimpor monitoring per siswa
-Route::post('/monitoring_persiswa/{nis}/import', [PembimbingController::class, 'importMonitoring'])->name('monitoring_persiswa.import');
 
 Route::get('/evaluasi', [PembimbingController::class, 'evaluasiPKL'])->name('evaluasi');
+Route::get('/evaluasi_persiswa/{nis}', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa');
+Route::get('/filter-evaluasipem', [PembimbingController::class, 'evaluasiPKL'])->name('filterEvalPem');
 
-Route::get('/evaluasi_persiswa', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa');
-// /{nis}
 
 Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->name('hasil_nilaipkl');
+
 Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan');
 
 Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal');
+Route::get('/pembimbing_laporanjurnal_persiswa/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa');
 
-// Tambahkan route baru untuk laporan jurnal per siswa
-Route::get('/pembimbing_laporanjurnal_persiswa', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa');
-// /{nis}
+Route::post('/approve_laporanakhir', [PembimbingController::class, 'approveLaporanAkhir'])->name('approve_laporanakhir');
+
+Route::post('/approve_laporanpengimbasan', [PembimbingController::class, 'approveLaporanPengimbasan'])->name('approve_laporanpengimbasan');
 
 Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkhir'])->name('hasil_laporanakhir');
 
@@ -131,6 +129,9 @@ Route::get('/export_evaluasi_pdf/{nis}', [CetakController::class, 'exportEvaluas
 
 Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel');
 Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf');
+
+Route::get('/nilai-pkl/export-pdf', [CetakController::class, 'exportNilaiPklPdf'])->name('exportNilaiPklPdf')->middleware('auth:siswa');
+
 
 Route::get('/admin/insert-to-monitoring', [AdminController::class, 'insertToMonitoring'])->name('admin.insertToMonitoring');
 

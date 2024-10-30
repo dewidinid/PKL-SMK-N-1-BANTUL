@@ -38,8 +38,8 @@
                         @endforeach
                     </td>
                     <td>{{ $item->no_telp }}</td> <!-- No telp ketua -->
-                    <td>{{ $item->tempat_pkl }}</td>
-                    <td>{{ $item->notelp_dudi }}</td>
+                    <td>{{ $item->nama_dudi }}</td>
+                    <td>{{ $item->dudi->notelp_dudi ?? 'Data tidak tersedia' }}</td>
                     <td class="text-center">
                         <a href="{{ Storage::url('proposals/' . $item->proposal_pkl) }}" target="_blank" >Lihat File</a>
                     </td>

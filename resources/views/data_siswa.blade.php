@@ -6,8 +6,9 @@
     <h4 class="text-center">DATA SISWA</h4>
     <br>
 
-    <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true">
-        Template Upload Data Siswa
+    <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
+    class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+     Template Upload Data Siswa
     </a>
     <br>
     <br>
@@ -17,19 +18,27 @@
             <div>
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option value="" selected>Tahun</option>
-                    <option value="2023/2024">2023/2024</option>
-                    <option value="2022/2023">2022/2023</option>
-                    <!-- Tambahkan opsi tahun lainnya -->
+                    <!-- Dynamically populate year options based on available data -->
+                    @foreach ($siswa->pluck('tahun')->unique() as $year)
+                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                            {{ $year }}
+                        </option>
+                    @endforeach
                 </select>
+        
                 <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
                     <option value="" selected>Konsentrasi Keahlian</option>
-                    <option value="Teknik Komputer dan Jaringan (TKJ)">Teknik Komputer dan Jaringan (TKJ)</option>
-                    <option value="Rekayasa Perangkat Lunak (RPL)">Rekayasa Perangkat Lunak (RPL)</option>
-                    <!-- Tambahkan opsi konsentrasi keahlian lainnya -->
+                    <!-- Dynamically populate concentration options based on available data -->
+                    @foreach ($siswa->pluck('konsentrasi_keahlian')->unique() as $keahlian)
+                        <option value="{{ $keahlian }}" {{ request('konsentrasi_keahlian') == $keahlian ? 'selected' : '' }}>
+                            {{ $keahlian }}
+                        </option>
+                    @endforeach
                 </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </div>
         </form>
+        
 
         <div class="d-flex">
             <form method="POST" action="{{ route('siswa.import') }}" enctype="multipart/form-data" class="d-flex">
@@ -44,8 +53,6 @@
         </div>
     </div>
 
-        <table class=" table-striped custom-table">
-            <thead class="table-primary text-center" >
 
     <table class=" table-striped custom-table">
         <thead class="table-primary text-center">
@@ -73,21 +80,6 @@
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editSiswaModal" onclick="populateEditForm({{ $student }})">Edit</button>
                     </td>
                 </tr>
-            </thead>
-            <tbody id="data-table" >
-                @foreach ($siswa as $index => $student)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $student->NIS }}</td>
-                        <td>{{ $student->nama_siswa }}</td>
-                        <td>{{ $student->konsentrasi_keahlian }}</td>
-                        <td>{{ $student->kelas }}</td>
-                        <td>{{ $student->tahun }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            
-        </table>
             @endforeach
         </tbody>
     </table>    

@@ -144,43 +144,6 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function handleFileUpload(input) {
-            if (input.files.length > 0) {
-                Swal.fire({
-                    title: 'Mengunggah File...',
-                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
-                    icon: 'info',
-                    allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
-                });
-                // Setelah file di-submit, submit form secara otomatis
-                input.form.submit();
-            }
-        }
-    
-        // Notifikasi setelah upload selesai
-        @if (session('success'))
-            Swal.fire({
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        @endif
-    
-        @if (session('error'))
-            Swal.fire({
-                title: 'Gagal!',
-                text: '{{ session('error') }}',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        @endif
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if(session('success'))
     <script>
@@ -321,27 +284,6 @@
             AOS.init();
         </script>
 
-    {{-- <script>
-        function handleFileUpload(index) {
-            // Jika file sudah diupload, aktifkan tombol import
-            const importBtn = document.getElementById(`import-btn-${index}`);
-            importBtn.disabled = false;
-        }
-
-        function handleImport(index) {
-            // Centang checkbox secara otomatis
-            const checkbox = document.getElementById(`checkbox-${index}`);
-            checkbox.checked = true;
-
-            // Disable tombol import setelah di-klik
-            const importBtn = document.getElementById(`import-btn-${index}`);
-            importBtn.disabled = true;
-
-            // Tampilkan file yang diupload di bagian detail monitoring (misalnya alert)
-            alert(`File monitoring ke-${index} telah diimport`);
-        }
-
-    </script> --}}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -379,7 +321,286 @@
                 $('.sidebar .nav-link[href="'+url+'"]').addClass('active');
             };
         });
-    </script>  
+    </script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function handleFileUpload(input) {
+            if (input.files.length > 0) {
+                Swal.fire({
+                    title: 'Mengunggah File...',
+                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                // Setelah file di-submit, submit form secara otomatis
+                input.form.submit();
+            }
+        }
+    
+        // Notifikasi setelah upload selesai
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script> --}}
+    
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function handleFileUpload(input) {
+            if (input.files.length > 0) {
+                Swal.fire({
+                    title: 'Mengunggah File...',
+                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                // Setelah file di-submit, submit form secara otomatis
+                input.form.submit();
+            }
+        }
+    
+        // Notifikasi setelah upload selesai
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if(session('success'))
+    <script>
+        Swal.fire({
+            title: 'Login Berhasil!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
+    @if ($errors->any())
+    <script>
+        function showError(title, text) {
+            Swal.fire({
+                title: title,
+                text: text,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+
+        showError('Kesalahan!', '{{ $errors->first() }}'); // Menampilkan kesalahan pertama
+    </script>
+    @endif
+
+    <script>
+        // Function to handle file upload
+        function handleFileUpload() {
+            const fileUploadInput = document.getElementById('file-upload');
+            const importBtn = document.getElementById('import-btn');
+    
+            // Check if a file has been selected
+            if (fileUploadInput.files.length > 0) {
+                importBtn.disabled = false; // Enable the import button
+            }
+        }
+    
+        // Function to handle import button click
+        function handleImport() {
+            const checkbox = document.getElementById('checkbox');
+    
+            // Check the checkbox
+            checkbox.checked = true;
+    
+            // Optionally, submit the form for the file upload here
+            document.getElementById('upload-form').submit();
+        }
+    </script> --}}
+
+    {{-- <script>
+        //Script Pagination
+        function confirmLogout(event) {
+            event.preventDefault(); // Mencegah aksi default
+
+            // Tampilkan SweetAlert
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda akan keluar dari akun ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Jika pengguna mengonfirmasi logout
+                    document.getElementById('logout-form').submit();
+                }
+            });
+        }
+    </script> --}}
+
+    {{-- <script>
+        let currentPage = 1;
+        const rowsPerPage = 10; // Jumlah baris per halaman
+        const tableData = document.querySelectorAll("#data-table tr"); // Mengambil semua baris dalam tabel
+        const totalPages = Math.ceil(tableData.length / rowsPerPage);
+        
+        function displayTablePage(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            tableData.forEach((row, index) => {
+                row.style.display = index >= start && index < end ? '' : 'none';
+            });
+        }
+
+        function setupPagination() {
+            const paginationNumbers = document.getElementById('pagination-numbers');
+            paginationNumbers.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('div');
+                pageButton.className = 'pagination-number';
+                pageButton.innerText = i;
+                pageButton.addEventListener('click', () => goToPage(i));
+                paginationNumbers.appendChild(pageButton);
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            displayTablePage(page);
+            updatePaginationButtons();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                goToPage(currentPage - 1);
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                goToPage(currentPage + 1);
+            }
+        }
+
+        function updatePaginationButtons() {
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+
+            document.querySelectorAll('.pagination-number').forEach((button, index) => {
+                button.classList.toggle('active', index + 1 === currentPage);
+            });
+        }
+
+        // Inisialisasi tampilan tabel dan pagination
+        displayTablePage(currentPage);
+        setupPagination();
+        updatePaginationButtons();
+    </script> --}}
+
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+        <script>
+            AOS.init();
+        </script> --}}
+
+    {{-- <script>
+        function handleFileUpload(index) {
+            // Jika file sudah diupload, aktifkan tombol import
+            const importBtn = document.getElementById(`import-btn-${index}`);
+            importBtn.disabled = false;
+        }
+
+        function handleImport(index) {
+            // Centang checkbox secara otomatis
+            const checkbox = document.getElementById(`checkbox-${index}`);
+            checkbox.checked = true;
+
+            // Disable tombol import setelah di-klik
+            const importBtn = document.getElementById(`import-btn-${index}`);
+            importBtn.disabled = true;
+
+            // Tampilkan file yang diupload di bagian detail monitoring (misalnya alert)
+            alert(`File monitoring ke-${index} telah diimport`);
+        }
+
+    </script> --}}
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
+            console.log('Navbar collapse shown');
+        });
+
+        document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
+            console.log('Navbar collapse hidden');
+        });
+    </script> --}}
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // AJAX untuk mengganti konten utama saat klik sidebar link
+            $('.sidebar .nav-link').click(function(e){
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#main-content').load(url + ' #main-content>*', function(){
+                    history.pushState(null, '', url);
+                });
+    
+                // Mengatur kelas aktif
+                $('.sidebar .nav-link').removeClass('active');  // Hilangkan kelas aktif dari semua tautan
+                $(this).addClass('active');                      // Tambahkan kelas aktif ke tautan yang diklik
+            });
+    
+            // Menangani back/forward browser
+            window.onpopstate = function(event) {
+                var url = location.pathname;
+                $('#main-content').load(url + ' #main-content>*');
+                // Update aktif link
+                $('.sidebar .nav-link').removeClass('active');
+                $('.sidebar .nav-link[href="'+url+'"]').addClass('active');
+            };
+        });
+    </script>   --}}
     
 </body>
 </html>

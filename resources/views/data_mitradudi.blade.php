@@ -6,9 +6,9 @@
     <h4 class="text-center">DATA MITRA DUDI</h4>
     <br>
 
-    <a href="https://docs.google.com/spreadsheets/d/1lAYwZCsuNsmq9Vx7Mek3kWA3i7d5ukdW/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true">
-        Template Upload Data Dudi
-    </a>
+    <a href="https://docs.google.com/spreadsheets/d/1lAYwZCsuNsmq9Vx7Mek3kWA3i7d5ukdW/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true"
+    class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+     Template Upload Data Dudi </a>
     <br>
     <br>
 

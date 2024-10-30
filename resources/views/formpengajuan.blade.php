@@ -32,18 +32,24 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="konsentrasi_keahlian" class="form-label">konsentrasi_keahlian</label>
-                    <input type="text" class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" placeholder="Masukkan Konsentrasi Keahlian">
+                    <label for="konsentrasi_keahlian" class="form-label">Konsentrasi Keahlian</label>
+                    <select class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" required>
+                        <option value="" disabled selected>Pilih Konsentrasi Keahlian</option>
+                        @foreach($konsentrasiKeahlianList as $konsentrasi)
+                            <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                        @endforeach
+                    </select>
                 </div>
+                
                 <div class="mb-3">
                     <label for="no_telp" class="form-label">No Telp Ketua</label>
                     <input type="" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan No Handphone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="mb-3">
-                    <label for="tempat_pkl" class="form-label">Rencana Tempat PKL</label>
+                    <label for="nama_dudi" class="form-label">Rencana Tempat PKL</label>
                     <p style="color: #ffffff; font-size: 12px;">*Pastikan kamu sudah ajukan data dudi ke admin</p>
                     <div class="dropdown-wrapper">
-                        <select class="form-control dropdown-custom" id="tempat_pkl" name="tempat_pkl" onchange="updateNoTelpDudi()">
+                        <select class="form-control dropdown-custom" id="nama_dudi" name="nama_dudi" onchange="updateNoTelpDudi()">
                             <option value="" disabled selected>Pilih Rencana Tempat PKL</option>
                             @foreach($dudiList as $dudi)
                                 {{-- Tambahkan debugging untuk melihat nilai --}}
@@ -87,5 +93,4 @@
 </div>
 
 
-@include('layouts.footer')
 @endsection

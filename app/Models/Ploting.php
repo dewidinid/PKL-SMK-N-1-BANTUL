@@ -18,6 +18,8 @@ class Ploting extends Model
     // Kolom yang dapat diisi secara massal
     protected $fillable = [
         'kode_kelompok',   // Foreign key ke tabel kelompok
+        'NIP_NIK',
+        'kode_dudi',
         'nama_pembimbing', // Foreign key ke tabel pembimbing
         'nama_dudi',       // Foreign key ke tabel dudi
         'NIS',             // Foreign key ke tabel siswa
@@ -40,11 +42,17 @@ class Ploting extends Model
         return $this->belongsTo(Pembimbing::class, 'nama_pembimbing', 'nama_pembimbing');
     }
 
-    // Relasi ke model Dudi
+    //Relasi ke model Dudi
     public function dudi()
     {
         return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
     }
+
+//     public function dudi()
+// {
+//     return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi');
+// }
+
 
     // Relasi ke model Siswa
     public function siswa()
@@ -55,5 +63,10 @@ class Ploting extends Model
     public function nilaiPkl()
     {
         return $this->hasOne(NilaiPkl::class, 'NIS', 'NIS');
+    }
+
+    public function pengajuans()
+    {
+        return $this->hasMany(Pengajuan::class, 'nama_dudi', 'nama_dudi');
     }
 }

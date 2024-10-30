@@ -20,7 +20,7 @@ class Pengajuan extends Model
         'nis',          // Foreign key ke tabel siswa
         'nama_siswa',
         'no_telp',      // Nomor telepon ketua
-        'tempat_pkl',
+        'nama_dudi',
         'notelp_dudi',  // Foreign key ke tabel dudi
         'proposal_pkl',  // File proposal PKL
         'status_acc',
@@ -37,12 +37,22 @@ class Pengajuan extends Model
         return $this->belongsToMany(Siswa::class, 'pengajuan_siswa', 'id_pengajuan', 'nis');
     }
 
-
-    // Relasi dengan model dudi
     public function dudi()
     {
-        return $this->belongsTo(Dudi::class, 'notelp_dudi', 'notelp_dudi');
+        return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
     }
+
+//     public function dudi()
+// {
+//     return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi'); // Menggunakan 'kode_dudi' sebagai foreign key
+// }
+
+    
+    public function ploting()
+    {
+        return $this->hasMany(Ploting::class, 'nama_dudi', 'nama_dudi');
+    }
+    
 
     
 }

@@ -32,8 +32,13 @@
             color: #333;
             margin-bottom: 5px;
         }
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
+        /* Gaya baris ganjil dan genap */
+        .table-striped tbody tr:nth-child(odd), .custom-table tbody tr:nth-child(odd) {
+            background-color: #f8f8f8 !important; /* Warna ganjil */
+        }
+
+        .table-striped tbody tr:nth-child(even), .custom-table tbody tr:nth-child(even) {
+            background-color: #C5D7E0 !important; /* Warna genap */
         }
         .signature-table {
             width: 100%;
@@ -77,7 +82,7 @@
     <br>
     <br>
     <div class="table-container">
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>No</th>
