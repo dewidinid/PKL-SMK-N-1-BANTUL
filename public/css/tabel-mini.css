@@ -15,7 +15,7 @@
 
 /* Gaya header tabel mini */
 .table-mini thead th, .custom-mini-table thead th {
-    background-color: #0275d8;
+    background-color: #439AC7;
     color: white;
     text-align: center;
     padding: 4px 4px; /* Padding lebih kecil */
@@ -33,7 +33,7 @@
 }
 
 .table-mini-striped tbody tr:nth-child(even), .custom-mini-table tbody tr:nth-child(even) {
-    background-color: #e3f2fd !important; /* Warna lebih lembut */
+    background-color: #C5D7E0 !important; /* Warna lebih lembut */
 }
 
 /* Gaya sel tabel mini */
@@ -57,7 +57,7 @@
 
 /* Gaya footer tabel mini */
 .table-mini tfoot td, .custom-mini-table tfoot td {
-    background-color: #0275d8 !important;
+    background-color: #439AC7 !important;
     color: white !important;
     font-weight: bold;
     text-align: center;

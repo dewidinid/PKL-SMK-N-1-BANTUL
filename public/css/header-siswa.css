@@ -1,5 +1,5 @@
 .header-siswa {
-    background-color: #0275d8;
+    background-color: #439AC7;
     color: #fff !important;
     padding: 0 0;
     
@@ -145,6 +145,87 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 .dropdown-custom option {
     padding: 10px; /* Padding for dropdown items */
 }
+
+/* Saat navbar dalam mode offcanvas (untuk ukuran kecil), atur warna teks menjadi hitam */
+@media (max-width: 991.98px) {
+    .offcanvas .nav-link {
+        color: black !important;
+    }
+
+    /* Ubah warna teks dan beri background saat di-hover */
+    .offcanvas .nav-link:hover {
+        color: white !important;
+        background-color: #439AC7 !important; 
+        border-radius: 5px; /* Contoh styling tambahan */
+    }
+
+     /* Styling khusus untuk tombol "Masuk" */
+     .nav-link.btn-masuk {
+        /* background-color: #007bff !important;  */
+        border-color: #439AC7 !important;
+        color: black !important;
+        padding: 5px 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-align: center;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    /* Hover untuk tombol "Masuk" */
+    .nav-link.btn-masuk:hover {
+        background-color: #439AC7 !important; /* Warna lebih gelap saat di-hover */
+    }
+}
+
+/* Responsif untuk header dan navbar */
+@media (max-width: 767.98px) {
+    /* Padding dan ukuran font pada header */
+    .header .contact-info {
+        padding: 0 15px;
+    }
+    .header .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand img {
+        height: 30px; /* Mengurangi ukuran logo pada mobile */
+    }
+}
+
+/* Responsif untuk gambar landing page */
+@media (max-width: 767.98px) {
+    .img-fluid {
+        height: auto !important;
+    }
+
+    .img-full {
+        width: 100%;
+        height: auto;
+    }
+        
+}
+
+/* Responsif untuk card di dashboard */
+@media (max-width: 767.98px) {
+    .card-body {
+        padding: 10px !important;
+        font-size: 14px; /* Mengurangi ukuran font di card */
+    }
+    .card .bi {
+        width: 30px; /* Mengurangi ukuran ikon */
+        height: 30px;
+    }
+}
+
+
+/* Responsif untuk sistem PKL buttons */
+@media (max-width: 767.98px) {
+    .sistem-card {
+        font-size: 12px; /* Mengurangi ukuran font di tombol */
+        padding: 8px;
+    }
+}
+
 
 
 

@@ -1,5 +1,6 @@
 .body-formmandiri {
-    background: linear-gradient(to bottom, #0275d8, #000);
+    background: linear-gradient(to bottom, #439AC7, #adbfc7);
+    /* background-color: #f6f6f6; */
     background-size: cover;
 }
 
@@ -12,12 +13,13 @@
 }
 
 .form-container {
-    /* background-color: #1b262c; */
+    background: rgba(255, 255, 255, 0.374); /* Semi-transparent white */
     padding: 30px;
     border-radius: 10px;
-    /* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
     width: 50%;
-    max-width: 500px;
+    max-width: 80%;
+    margin-bottom: 8%;
 }
 
 .form-control {
@@ -32,7 +34,7 @@
 }
 
 .form-label {
-    color: #ffffff;
+    color: #fff !important;
 }
 
 .custom-file-upload {

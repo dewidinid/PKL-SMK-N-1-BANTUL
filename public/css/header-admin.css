@@ -1,5 +1,5 @@
 .header-admin {
-    background-color: #0275d8;
+    background-color: #439AC7;
     color: #ffffff !important;
     padding: 0 0;
 }
@@ -53,5 +53,4 @@
     border-radius: 5px; /* Memberikan radius sudut */
     transition: background-color 0.3s, color 0.3s; /* Efek transisi untuk halus */
 }
-
 

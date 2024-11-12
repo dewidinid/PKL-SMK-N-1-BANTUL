@@ -6,8 +6,10 @@
     <div style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <h4 class="text-center">NILAI PKL SISWA</h4> 
         <br>
+        <br>
 
-        <a class="col text-start mt-3" href="{{ asset('path/to/Template_nilai_pkl.xlsx') }}" class="btn btn-link">
+        <a href="https://docs.google.com/spreadsheets/d/1CEIz_99Nyc6WwM9ARAjSmWFL0Bjb0wCR/edit?usp=sharing&ouid=103935379902975604390&rtpof=true&sd=true " 
+            class="custom-btn" style="background-color: #F4A261; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
             Template Nilai PKL
         </a>
         <br>
@@ -31,6 +33,12 @@
                             </option>
                         @endforeach
                     </select>
+                    <select name="kode_kelompok" class="form-select d-inline-block w-auto">
+                        <option value="">Pilih Kelompok</option>
+                        @foreach($availableKelompok as $kelompok)
+                            <option value="{{ $kelompok }}" {{ request('kode_kelompok') == $kelompok ? 'selected' : '' }}>{{ $kelompok }}</option>
+                        @endforeach
+                    </select>
                     <button type="submit" class="btn btn-primary">Filter</button>
                 </div>
             </form>  
@@ -44,6 +52,7 @@
                     <th>Nama</th>
                     <th>Konsentrasi Keahlian</th>
                     <th>Kelas</th>
+                    <th>Kelompok</th>
                     <th>Tahun</th>
                     <th>Upload</th>
                     <th>File</th>
@@ -58,6 +67,7 @@
                         <td>{{ $data->siswa->nama_siswa }}</td>
                         <td>{{ $data->siswa->konsentrasi_keahlian }}</td>
                         <td>{{ $data->kelas }}</td>
+                        <td>{{ $data->kode_kelompok }}</td>
                         <td>{{ $data->siswa->tahun }}</td>
                         <td style="text-align: center; vertical-align: middle;">
                             <form id="upload-form-{{ $data->siswa->NIS }}" action="{{ route('import_excel', $data->siswa->NIS) }}" method="POST" enctype="multipart/form-data">
@@ -71,14 +81,15 @@
                         <td>
                             @if($data->nilaiPkl && $data->nilaiPkl->file_path)
                             <a href="{{ route('nilai.pkl.show', ['fileName' => $data->nilaiPkl->file_path]) }}" target="_blank">
-                                Lihat File
+                                Lihat/Download
                             </a>
                         @else
                             Belum ada file
                         @endif                        
                         </td>                                                                                                                                       
                         <td style="text-align: center; vertical-align: middle;">
-                            <input type="checkbox" {{ $data->nilaiPkl && $data->nilaiPkl->is_imported ? 'checked' : '' }} disabled>
+                            <input type="checkbox"{{ $data->nilaiPkl && $data->nilaiPkl->is_imported ? 'checked' : '' }} disabled>
+                            <span class="custom-checkbox"></span>
                         </td>
                     </tr>
                 @endforeach
@@ -97,6 +108,7 @@
                         <th>No</th>
                         <th>NIS</th>
                         <th>Nama</th>
+                        <th>Kelompok</th>
                         <th>TP1 (Soft Skills)</th>
                         <th>TP2 (Norma & POS)</th>
                         <th>TP3 (Kompetensi Teknis)</th>
@@ -110,11 +122,12 @@
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $row['NIS'] }}</td>
                         <td>{{ $row['Nama'] }}</td>
+                        <td>{{ $row['Kelompok'] }}</td>
                         <td>{{ $row['tp1_soft_skills'] }}</td>
                         <td>{{ $row['tp2_norma_pos'] }}</td>
                         <td>{{ $row['tp3_kompetensi_teknis'] }}</td>
                         <td>{{ $row['tp4_wawasan_wirausaha'] }}</td>
-                        <td>{{ $row['Total Nilai'] }}</td>
+                        <td>{{ number_format($row['Total Nilai'], 2) }}</td>
                     </tr>
                     @endforeach
                 </tbody>

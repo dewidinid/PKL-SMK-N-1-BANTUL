@@ -30,11 +30,6 @@ class Ploting extends Model
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
     public $timestamps = false;
 
-    // Relasi ke model Kelompok
-    // public function kelompok()
-    // {
-    //     return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
-    // }
 
     // Relasi ke model Pembimbing
     public function pembimbing()
@@ -47,11 +42,6 @@ class Ploting extends Model
     {
         return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
     }
-
-//     public function dudi()
-// {
-//     return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi');
-// }
 
 
     // Relasi ke model Siswa

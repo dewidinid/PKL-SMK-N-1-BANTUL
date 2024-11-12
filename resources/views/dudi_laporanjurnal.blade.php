@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-5 table-wrapper">
-    <h4 class="text-center">LAPORAN/JURNAL PKL</h4>
+    <h4 class="text-center">LAPORAN JURNAL PKL</h4>
     <br>
     
     <!-- Filter Tahun dan Konsentrasi Keahlian -->
@@ -25,6 +25,12 @@
                         </option>
                     @endforeach
                 </select>
+                <select name="kode_kelompok" class="form-select d-inline-block w-auto">
+                    <option value="">Pilih Kelompok</option>
+                    @foreach($availableKelompok as $kelompok)
+                        <option value="{{ $kelompok }}" {{ request('kode_kelompok') == $kelompok ? 'selected' : '' }}>{{ $kelompok }}</option>
+                    @endforeach
+                </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
             </div>
         </form>
@@ -38,6 +44,7 @@
                 <th id="nama">Nama</th>
                 <th>Konsentrasi Keahlian</th>
                 <th>Kelas</th>
+                <th>Kelompok</th>
                 <th>Tahun</th>
                 <th>Laporan PKL</th>
             </tr>
@@ -50,6 +57,7 @@
                 <td>{{ $data->siswa->nama_siswa }}</td>
                 <td class="text-center">{{ $data->siswa->konsentrasi_keahlian }}</td>
                 <td class="text-center">{{ $data->kelas }}</td>
+                <td>{{ $data->kode_kelompok }}</td>
                 <td class="text-center">{{ $data->siswa->tahun }}</td>
                 <td>
                     <a href="{{ route('dudi_laporanjurnal_persiswa', ['nis' => $data->siswa->NIS]) }}" class="btn" style="background-color: #db9898; border-radius: 5px; padding: 5px;">

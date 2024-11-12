@@ -43,5 +43,11 @@ class LaporanJurnal extends Model
         return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
     }
 
+    public function ploting()
+    {
+        return $this->belongsTo(Ploting::class, 'NIS', 'NIS');
+    }
+
+
     
 }

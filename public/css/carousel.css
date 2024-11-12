@@ -1,9 +1,0 @@
-.carousel,
-.carousel-item,
-.carousel-item img {
-     height: 80vh; /* Mengatur tinggi carousel agar sesuai dengan tinggi viewport */
-    width: 98,5vw;  /* Mengatur lebar carousel agar sesuai dengan lebar viewport */
-}
-.carousel-item img {
-    object-fit: cover; /* Mengatur gambar agar tetap proporsional saat mengisi ruang */
-}

@@ -1,68 +1,75 @@
-@extends('layouts.headerpembimbing')
+@extends('layouts.headeradmin')
 
 @section('content')
 
 <div class="container mt-5 table-wrapper">
-    <h4 class="text-center">LAPORAN JURNAL PKL</h4>
+    <h4 class="text-center">Report Siswa</h4>
     <br><br>
     
-    <!-- Filter Tahun dan Konsentrasi Keahlian -->
+  <!-- Form Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <form method="GET" action="{{ route('pembimbing_laporanjurnal') }}">
-            <div>
+        <div>
+            <form action="{{ route('report_siswa') }}" method="GET">
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option selected>Tahun</option>
-                    @foreach ($tahunOptions as $tahun)
-                        <option value="{{ $tahun }}">{{ $tahun }}</option>
+                    @foreach($tahun as $t)
+                        <option value="{{ $t }}">{{ $t }}</option>
                     @endforeach
                 </select>
                 <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
                     <option selected>Konsentrasi Keahlian</option>
-                    @foreach ($konsentrasiOptions as $konsentrasi)
-                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                    @foreach($konsentrasiKeahlian as $kk)
+                        <option value="{{ $kk }}">{{ $kk }}</option>
                     @endforeach
                 </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
-            </div>
-        </form>
+            </form>
+        </div>    
     </div>
-    
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
-            <tr class="text-center">
+            <tr class="text-center" >
                 <th>No</th>
-                <th>Kelompok</th>
                 <th>NIS</th>
                 <th id="nama">Nama</th>
                 <th>Konsentrasi Keahlian</th>
                 <th>Kelas</th>
+                <th>Kelompok</th>
                 <th>Tahun</th>
-                <th>Laporan PKL</th>
+                <th>Dudi</th>
+                <th>Pemimbing</th>
+                <th>Report</th>
             </tr>
         </thead>
+
         <tbody id="data-table">
-            @foreach ($laporan_jurnal as $index => $data)
+            @foreach ($dataSiswa as $index => $data)
             <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $data->kode_kelompok }}</td>
-                <td>{{ $data->NIS }}</td>
-                <td class="left-align">{{ $data->nama_siswa }}</td>
+                <td>{{ $data->siswa->NIS }}</td>
+                <td>{{ $data->siswa->nama_siswa }}</td>
                 <td>{{ $data->siswa->konsentrasi_keahlian }}</td>
-                <td>{{ $data->kelas }}</td>
+                <td>{{ $data->siswa->kelas }}</td>
+                <td>{{ $data->kode_kelompok }}</td>
                 <td>{{ $data->siswa->tahun }}</td>
-                <td>
-                    <a href="{{ route('pembimbing_laporanjurnal_persiswa', $data->NIS) }}" class="btn" style="background-color: #db9898;">
-                        <i class="bi bi-journal-text" style="color: white;"></i>
-                    </a>
+                <td>{{ $data->nama_dudi }}</td>
+                <td>{{ $data->nama_pembimbing }}</td>
+
+                <td> 
+                    <a href="{{ route('report_siswa_persiswa', $data->siswa->NIS) }}" class="btn" style="background-color: #e4a0da; border-radius: 5px; padding: 5px;">
+                        <i class="bi bi-file-earmark" style="font-size: 16px; color: white;"></i>
+                    </a>                    
                 </td>
-                                
+                
             </tr>
             @endforeach
         </tbody>
+        
     </table>
 
-    <br><br>
+    <br>
+    <br>
 
     <div class="pagination-container" style="display: flex; justify-content: center; align-items: center;">
         <button class="pagination-btn" onclick="prevPage()" id="prev-btn" disabled>Sebelumnya</button>
@@ -73,5 +80,5 @@
     </div>
 
 </div>
-    
+
 @endsection

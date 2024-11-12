@@ -8,7 +8,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
 use App\Models\Monitoring;
-use App\Models\monitoringPerSiswa;
+use App\Models\MonitoringPerSiswa;
 use App\Models\Evaluasi;
 use App\Models\NilaiPKL;
 use App\Models\LaporanPengimbasan;
@@ -30,60 +30,60 @@ class PembimbingController extends Controller
         return view('home_pembimbing', compact('siswaList'));
     }
 
-public function monitoringPKL()
-{
-    // Cek apakah pembimbing sudah login
-    if (!auth('pembimbing')->check()) {
-        return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+    public function monitoringPKL()
+    {
+        // Cek apakah pembimbing sudah login
+        if (!auth('pembimbing')->check()) {
+            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+        }
+
+        // Ambil nip_nik pembimbing yang sedang login
+        $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+        // Ambil data dari tabel ploting berdasarkan nip_nik pembimbing yang login
+        $plotingData = Ploting::with('siswa')
+            ->where('NIP_NIK', $nipNik) // Filter data berdasarkan nip_nik pembimbing yang login
+            ->get();
+
+        // Looping data ploting untuk disimpan ke dalam tabel monitoring
+        foreach ($plotingData as $ploting) {
+            Monitoring::updateOrCreate(
+                ['NIS' => $ploting->siswa->NIS],
+                [
+                    'NIS' => $ploting->siswa->NIS,
+                    'kode_kelompok' => $ploting->kode_kelompok,
+                    'nama_siswa' => $ploting->siswa->nama_siswa,
+                    'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
+                    'kelas' => $ploting->siswa->kelas,
+                    'kode_dudi' => $ploting->kode_dudi,
+                    'nama_dudi' => $ploting->nama_dudi,
+                    'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
+                    'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
+                    'tahun' => $ploting->siswa->tahun,
+                ]
+            );
+        }
+
+        // Ambil data monitoring berdasarkan pembimbing yang login
+        $monitoring = Monitoring::with('siswa')
+            ->where('NIP_NIK', $nipNik) // Filter monitoring berdasarkan nip_nik
+            ->get();
+
+        // Ambil data tahun unik dari monitoring
+        $tahun = Monitoring::select('tahun')->distinct()->pluck('tahun');
+
+        // Ambil data konsentrasi keahlian unik dari monitoring
+        $konsentrasi_keahlian = Monitoring::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
+
+        // Kirim data monitoring, tahun, dan konsentrasi ke view monitoring
+        return view('monitoring', [
+            'monitoring' => $monitoring,
+            'tahun' => $tahun,
+            'konsentrasi_keahlian' => $konsentrasi_keahlian
+        ]);
     }
 
-    // Ambil nip_nik pembimbing yang sedang login
-    $nipNik = auth('pembimbing')->user()->NIP_NIK;
-
-    // Ambil data dari tabel ploting berdasarkan nip_nik pembimbing yang login
-    $plotingData = Ploting::with('siswa')
-        ->where('NIP_NIK', $nipNik) // Filter data berdasarkan nip_nik pembimbing yang login
-        ->get();
-
-    // Looping data ploting untuk disimpan ke dalam tabel monitoring
-    foreach ($plotingData as $ploting) {
-        Monitoring::updateOrCreate(
-            ['NIS' => $ploting->siswa->NIS],
-            [
-                'NIS' => $ploting->siswa->NIS,
-                'kode_kelompok' => $ploting->kode_kelompok,
-                'nama_siswa' => $ploting->siswa->nama_siswa,
-                'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
-                'kelas' => $ploting->siswa->kelas,
-                'kode_dudi' => $ploting->kode_dudi,
-                'nama_dudi' => $ploting->nama_dudi,
-                'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
-                'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
-                'tahun' => $ploting->siswa->tahun,
-            ]
-        );
-    }
-
-    // Ambil data monitoring berdasarkan pembimbing yang login
-    $monitoring = Monitoring::with('siswa')
-        ->where('NIP_NIK', $nipNik) // Filter monitoring berdasarkan nip_nik
-        ->get();
-
-    // Ambil data tahun unik dari monitoring
-    $tahun = Monitoring::select('tahun')->distinct()->pluck('tahun');
-
-    // Ambil data konsentrasi keahlian unik dari monitoring
-    $konsentrasi_keahlian = Monitoring::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
-
-    // Kirim data monitoring, tahun, dan konsentrasi ke view monitoring
-    return view('monitoring', [
-        'monitoring' => $monitoring,
-        'tahun' => $tahun,
-        'konsentrasi_keahlian' => $konsentrasi_keahlian
-    ]);
-}
-
-public function filterMonitoring(Request $request)
+    public function filterMonitoring(Request $request)
     {
         // Ambil data tahun unik dari monitoring
         $tahun = Monitoring::select('tahun')->distinct()->pluck('tahun');
@@ -148,7 +148,7 @@ public function filterMonitoring(Request $request)
         $nilai_tp2 = $worksheet->getCell('F30')->getCalculatedValue();
         $nilai_tp3 = $worksheet->getCell('F39')->getCalculatedValue();
         $nilai_tp4 = $worksheet->getCell('F49')->getCalculatedValue();
-        $nilai = $worksheet->getCell('F51')->getCalculatedValue();
+        $nilai_monitoring = $worksheet->getCell('F51')->getCalculatedValue();
 
         // Simpan data ke dalam database monitoring_per_siswa
         $data = [
@@ -157,7 +157,7 @@ public function filterMonitoring(Request $request)
             'nilai_tp2' => $nilai_tp2,
             'nilai_tp3' => $nilai_tp3,
             'nilai_tp4' => $nilai_tp4,
-            'nilai' => $nilai,
+            'nilai_monitoring' => $nilai_monitoring,
         ];
 
         MonitoringPerSiswa::create($data);
@@ -216,77 +216,109 @@ public function filterMonitoring(Request $request)
         // Return ke view evaluasi dengan data evaluasi dan opsi filter
         return view('evaluasi', compact('dataEvaluasi', 'tahunOptions', 'keahlianOptions'));
     }
-
+ 
     public function evaluasiPerSiswa($nis)
     {
-        // dd($nis);
         // Ambil data siswa dan ploting berdasarkan NIS
         $siswa = Siswa::with('ploting')->where('NIS', $nis)->firstOrFail();
 
-        // Ambil data dari siswa dan ploting
-        //  $dataSiswa = $siswa->ploting; // Mengakses data di Ploting
-        //  $namaSiswa = $siswa->nama; // Contoh mengakses data di Siswa
-
-        // Hitung persentase masing-masing komponen evaluasi
+        // Hitung komponen evaluasi
         $jurnal = LaporanJurnal::where('NIS', $nis)->count();
-        $jurnalTotal = 6 * 20; 
-        $persentaseJurnal = ($jurnal / $jurnalTotal) * 10;
+        $jurnalTotal = 6 * 20;
+        $nilaiJurnal = ($jurnal >= $jurnalTotal) ? 100 : ($jurnal / $jurnalTotal) * 100;
+        $persentaseJurnal = ($nilaiJurnal * 10) / 100;
+        $nilaiJurnalFull = min(($jurnal / $jurnalTotal) * 100, 100);
 
-        $nilaiPklDudi = NilaiPkl::where('NIS', $nis)->first()->nilai ?? 0;
-        $nilaiAkhirDudi = ($nilaiPklDudi * 50) / 100;
+        $nilaiPklDudi = NilaiPkl::where('NIS', $nis)->first();
+        $nilaiAkhirDudi = $nilaiPklDudi ? ($nilaiPklDudi->nilai * 50) / 100 : 0;
+        $nilaiDudiFull = $nilaiPklDudi ? $nilaiPklDudi->nilai : 0;
 
-        $monitoring = Monitoring::where('NIS', $nis)->first();
-        $nilaiMonitoring = ($monitoring->nilai_total * 20) / 100;
+        // Mengambil data monitoring per siswa
+        $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
+        $jumlahUploadMonitoring = $monitoringPerSiswa->count();
+
+        // Nilai akhir monitoring (rata-rata nilai monitoring jika ada)
+        $nilaiAkhirMonitoring = $monitoringPerSiswa->avg('nilai_monitoring');
+
+        // Menghitung nilai Monitoring berdasarkan rata-rata nilai akhir
+        $nilaiMonitoring = $nilaiAkhirMonitoring ? ($nilaiAkhirMonitoring * 20) / 100 : 0;
+        $nilaiMonitoringFull = min(($jumlahUploadMonitoring / 6) * 100, 100);
+
+        // Tentukan status warna untuk monitoring
+        if ($jumlahUploadMonitoring >= 6) {
+            $statusMonitoringColor = 'text-success'; // Hijau jika sudah 6 kali upload
+        } elseif ($jumlahUploadMonitoring > 0 && $jumlahUploadMonitoring < 6) {
+            $statusMonitoringColor = 'text-warning'; // Kuning jika belum mencapai 6 kali upload
+        } else {
+            $statusMonitoringColor = 'text-danger'; // Merah jika belum ada upload
+        }
 
         $pengimbasanUploaded = LaporanPengimbasan::where('NIS', $nis)->exists();
         $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
+        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
 
         $laporanAkhirUploaded = LaporanAkhir::where('NIS', $nis)->exists();
         $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
+        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
 
         $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;
 
-        return view('evaluasi_persiswa', compact('siswa', 'persentaseJurnal', 'nilaiAkhirDudi', 'nilaiMonitoring', 'nilaiPengimbasan', 'nilaiAkhirPKL', 'totalNilai'));
-    }    
+        // Cek jika data evaluasi untuk NIS sudah ada, update jika ada, jika tidak, buat baru
+        $evaluasi = Evaluasi::updateOrCreate(
+            ['NIS' => $nis],
+            [
+                'kode_kelompok' => $siswa->ploting->kode_kelompok,
+                'kode_dudi' => $siswa->ploting->kode_dudi,
+                'nama' => $siswa->nama_siswa,
+                'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+                'kelas' => $siswa->kelas,
+                'tahun' => $siswa->tahun,
+                'nama_dudi' => $siswa->ploting->nama_dudi,
+                'persentase_jurnal' => $nilaiJurnalFull,
+                'nilai_akhir_dudi' => $nilaiDudiFull,
+                'monitoring_pembimbing' => $nilaiMonitoringFull,
+                'nilai_pengimbasan' => $nilaiPengimbasanFull,
+                'nilai_akhir_pkl' => $nilaiAkhirPKLFull,
+                'nilai_akhir' => $totalNilai,
+            ]
+        );
+
+        return view('evaluasi_persiswa', compact('siswa', 'nilaiJurnalFull', 'nilaiDudiFull', 'nilaiMonitoringFull', 'nilaiPengimbasanFull',
+        'nilaiAkhirPKLFull' ,  'statusMonitoringColor','nilaiJurnal', 'persentaseJurnal', 'nilaiPklDudi', 'nilaiAkhirDudi', 'nilaiMonitoring', 'nilaiPengimbasan', 'nilaiAkhirPKL', 'totalNilai'));
+    }   
 
     public function hasilNilaiPKL(Request $request)
     {
-        // Cek apakah pembimbing sudah login
         if (!auth('pembimbing')->check()) {
             return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
         }
 
-        // Ambil nip_nik pembimbing yang sedang login
         $nipNik = auth('pembimbing')->user()->NIP_NIK;
-
-        // Ambil data tahun dan konsentrasi keahlian untuk dropdown
         $tahunOptions = Siswa::distinct()->pluck('tahun');
         $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
-        
-        // Ambil data ploting dan siswa berdasarkan nip_nik pembimbing yang login
-        $query = Ploting::with(['siswa' => function ($query) {
-            // Hanya pilih kolom yang diperlukan dari tabel siswa
-            $query->select('NIS', 'nama_siswa', 'konsentrasi_keahlian', 'kelas', 'tahun');
-        }])->where('NIP_NIK', $nipNik);
 
-        // Filter berdasarkan tahun jika dipilih
+        // Query Ploting dengan relasi siswa dan nilai PKL
+        $query = Ploting::with([
+            'siswa' => function ($query) {
+                $query->select('NIS', 'nama_siswa', 'konsentrasi_keahlian', 'kelas', 'tahun');
+            },
+            'nilaiPkl' // Tambahkan relasi ini untuk mengambil nilai PKL terkait
+        ])->where('NIP_NIK', $nipNik);
+
         if ($request->filled('tahun') && $request->tahun !== 'Tahun') {
             $query->whereHas('siswa', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
 
-        // Filter berdasarkan konsentrasi keahlian jika dipilih
         if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== 'Konsentrasi Keahlian') {
             $query->whereHas('siswa', function ($q) use ($request) {
                 $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
             });
         }
 
-        // Eksekusi query untuk mendapatkan hasil filter
         $hasil_nilaipkl = $query->get();
-        
-        // Kirim data hasil_nilaipkl, tahun, dan konsentrasi_keahlian ke view
+
         return view('hasil_nilaipkl', [
             'hasil_nilaipkl' => $hasil_nilaipkl,
             'tahun' => $tahunOptions,
@@ -294,7 +326,7 @@ public function filterMonitoring(Request $request)
         ]);
     }
 
- public function pembimbingLaporanJurnal(Request $request)
+    public function pembimbingLaporanJurnal(Request $request)
     {
         // Cek apakah pengguna sudah login
         if (!auth('pembimbing')->check()) {
@@ -334,9 +366,9 @@ public function filterMonitoring(Request $request)
         return view('pembimbing_laporanjurnal', compact('laporan_jurnal', 'tahunOptions', 'konsentrasiOptions'));
     }
 
-    public function pembimbingLaporanJurnalPerSiswa($nis)
+
+    public function pembimbingLaporanJurnalPerSiswa(Request $request, $nis)
     {
-        // Ambil NIP/NIK pembimbing yang sedang login
         $nipNik = auth('pembimbing')->user()->NIP_NIK;
 
         // Cari siswa berdasarkan NIS hanya jika mereka dibimbing oleh pembimbing ini
@@ -344,26 +376,150 @@ public function filterMonitoring(Request $request)
             $query->where('NIP_NIK', $nipNik);
         }])->where('NIS', $nis)->firstOrFail();
 
-        // Ambil data jurnal siswa
-        $jurnals = LaporanJurnal::where('NIS', $nis)->get();
+        // Ambil data bulan dan tahun dari jurnal siswa untuk filter dropdown
+        $bulanOptions = LaporanJurnal::where('NIS', $nis)
+            ->distinct()
+            ->selectRaw('MONTH(tanggal) as bulan')
+            ->pluck('bulan');
 
-        // Pastikan Anda mengirimkan variabel yang benar ke view
-        return view('pembimbing_laporanjurnal_persiswa', compact('siswa', 'jurnals'));
+        $tahunOptions = LaporanJurnal::where('NIS', $nis)
+            ->distinct()
+            ->selectRaw('YEAR(tanggal) as tahun')
+            ->pluck('tahun');
+
+        // Ubah angka bulan menjadi nama bulan
+        $namaBulan = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        // Ambil data jurnal siswa dengan filter bulan dan tahun jika tersedia
+        $query = LaporanJurnal::where('NIS', $nis);
+
+        if ($request->has('bulan') && $request->bulan !== 'Bulan') {
+            $query->whereMonth('tanggal', $request->bulan);
+        }
+
+        if ($request->has('tahun') && $request->tahun !== 'Tahun') {
+            $query->whereYear('tanggal', $request->tahun);
+        }
+
+        $jurnals = $query->get();
+
+        return view('pembimbing_laporanjurnal_persiswa', compact('siswa', 'jurnals', 'bulanOptions', 'tahunOptions', 'namaBulan'));
     }
-
-
 
     public function sinkronisasiLaporanPengimbasan()
     {
         $plotingData = Ploting::with('siswa')->get();
-    
+
         foreach ($plotingData as $ploting) {
             $siswa = $ploting->siswa;
-    
+
             if ($siswa) {
-                $existingLaporan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
-    
-                if (!$existingLaporan) {
+                // Cari data di laporan_pengimbasan berdasarkan NIS siswa
+                $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
+
+                if ($laporanPengimbasan) {
+                    // Jika sudah ada, perbarui data sesuai dengan data terbaru dari tabel ploting
+                    $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
+                    $laporanPengimbasan->nis = $siswa->NIS;
+                    $laporanPengimbasan->nama = $siswa->nama_siswa;
+                    $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
+                    $laporanPengimbasan->kelas = $siswa->kelas;
+                    $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
+                    $laporanPengimbasan->nama_dudi = $ploting->nama_dudi;
+
+                    if (empty($laporanPengimbasan->laporan_pengimbasan)) {
+                        $laporanPengimbasan->laporan_pengimbasan = null; 
+                    }
+
+                    $laporanPengimbasan->save(); // Simpan perubahan
+                } else {
+                    // Jika belum ada, buat entri baru di laporan_pengimbasan
+                    LaporanPengimbasan::create([
+                        'kode_kelompok' => $ploting->kode_kelompok,
+                        'NIS' => $siswa->NIS,
+                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+                        'nama' => $ploting->nama_siswa,
+                        'kelas' => $siswa->kelas,
+                        'kode_dudi' => $ploting->kode_dudi,
+                        'nama_dudi' => $ploting->nama_dudi,
+                        'laporan_pengimbasan' => '',
+                        'approved' => false
+                    ]);
+                }
+            }
+        }
+    }
+
+    public function hasilLaporanPengimbasan(Request $request)
+    {
+        // Panggil fungsi sinkronisasi agar data selalu diperbarui
+        $this->sinkronisasiLaporanPengimbasan();
+
+        if (!auth('pembimbing')->check()) {
+            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+        }
+
+        // Dapatkan NIP/NIK dari pembimbing yang sedang login
+        $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+        // Ambil opsi untuk dropdown filter
+        $tahunOptions = Siswa::distinct()->pluck('tahun');
+        $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+
+        // Filter laporan_pengimbasan berdasarkan NIP_NIK pembimbing yang login
+        $laporanPengimbasan = LaporanPengimbasan::with('siswa')
+            ->whereHas('siswa.ploting', function ($query) use ($nipNik) {
+                $query->where('NIP_NIK', $nipNik);
+            });
+
+        // Terapkan filter tambahan jika ada
+        if ($request->has('tahun') && $request->tahun !== '') {
+            $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
+                $q->where('tahun', $request->tahun);
+            });
+        }
+        if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== '') {
+            $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
+                $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+            });
+        }
+
+        $laporanPengimbasan = $laporanPengimbasan->get();
+
+        return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions'));
+    }
+
+    public function updateLaporanPengimbasan()
+    {
+        // Ambil semua data dari tabel ploting beserta relasi siswa
+        $plotingData = Ploting::with('siswa')->get();
+
+        foreach ($plotingData as $ploting) {
+            $siswa = $ploting->siswa;
+
+            if ($siswa) {
+                // Cari entri yang sesuai di laporan_pengimbasan berdasarkan NIS siswa
+                $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
+
+                if ($laporanPengimbasan) {
+                    // Perbarui data jika sudah ada, dan set default jika kolom laporan_pengimbasan kosong
+                    $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
+                    $laporanPengimbasan->nama_siswa = $siswa->nama_siswa;
+                    $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
+                    $laporanPengimbasan->kelas = $siswa->kelas;
+                    $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
+
+                    if (empty($laporanPengimbasan->laporan_pengimbasan)) {
+                        $laporanPengimbasan->laporan_pengimbasan = null; 
+                    }
+
+                    $laporanPengimbasan->save(); // Simpan perubahan
+                } else {
+                    // Jika data NIS belum ada di laporan_pengimbasan, buat entri baru
                     LaporanPengimbasan::create([
                         'kode_kelompok' => $ploting->kode_kelompok,
                         'NIS' => $siswa->NIS,
@@ -377,115 +533,39 @@ public function filterMonitoring(Request $request)
                 }
             }
         }
+
+        return redirect()->route('hasil_laporanpengimbasan')->with('success', 'Data laporan pengimbasan berhasil diperbarui.');
     }
 
-    public function hasilLaporanPengimbasan(Request $request)
-{
-    if (!auth('pembimbing')->check()) {
-        return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
-    }
+    public function approveLaporanPengimbasan(Request $request)
+    {
+        // Validasi input NIS
+        $request->validate([
+            'NIS' => 'required|exists:siswa,NIS',
+        ]);
 
-    $nipNik = auth('pembimbing')->user()->NIP_NIK;
+        // Cari laporan pengimbasan berdasarkan NIS
+        $laporanPengimbasan = LaporanPengimbasan::where('NIS', $request->NIS)->first();
 
-    $tahunOptions = Siswa::distinct()->pluck('tahun');
-    $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+        if ($laporanPengimbasan) {
+            // Ubah status approved menjadi 1 tanpa menambah entri baru
+            $laporanPengimbasan->approved = 1;
+            $laporanPengimbasan->save();
 
-    // Filter laporan_pengimbasan berdasarkan NIP_NIK pembimbing yang login
-    $laporanPengimbasan = LaporanPengimbasan::with('siswa')
-        ->whereHas('siswa.ploting', function ($query) use ($nipNik) {
-            $query->where('NIP_NIK', $nipNik);
-        });
+            // Perbarui tabel evaluasi
+            $evaluasi = Evaluasi::firstOrCreate(
+                ['NIS' => $request->NIS], 
+                [
+                    'nilai_lap_pengimbasan' => 100, 
+                    // Tambahkan kolom lain jika dibutuhkan
+                ]
+            );
 
-    if ($request->has('tahun') && $request->tahun !== '') {
-        $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
-            $q->where('tahun', $request->tahun);
-        });
-    }
-    if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== '') {
-        $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
-            $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
-        });
-    }
-
-    $laporanPengimbasan = $laporanPengimbasan->get();
-
-    return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions'));
-}
-
-public function updateLaporanPengimbasan()
-{
-    // Ambil semua data dari tabel ploting beserta relasi siswa
-    $plotingData = Ploting::with('siswa')->get();
-
-    foreach ($plotingData as $ploting) {
-        $siswa = $ploting->siswa;
-
-        if ($siswa) {
-            // Cari entri yang sesuai di laporan_pengimbasan berdasarkan NIS siswa
-            $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
-
-            if ($laporanPengimbasan) {
-                // Perbarui data jika sudah ada, dan set default jika kolom laporan_pengimbasan kosong
-                $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
-                $laporanPengimbasan->nama_siswa = $siswa->nama_siswa;
-                $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
-                $laporanPengimbasan->kelas = $siswa->kelas;
-                $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
-
-                // Jika kolom laporan_pengimbasan kosong, isi dengan nilai default
-                if (empty($laporanPengimbasan->laporan_pengimbasan)) {
-                    $laporanPengimbasan->laporan_pengimbasan = 'Belum diunggah';
-                }
-
-                $laporanPengimbasan->save(); // Simpan perubahan
-            } else {
-                // Jika data NIS belum ada di laporan_pengimbasan, buat entri baru
-                LaporanPengimbasan::create([
-                    'kode_kelompok' => $ploting->kode_kelompok,
-                    'NIS' => $siswa->NIS,
-                    'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
-                    'nama_siswa' => $siswa->nama_siswa,
-                    'kelas' => $siswa->kelas,
-                    'kode_dudi' => $ploting->kode_dudi,
-                    'laporan_pengimbasan' => 'Belum diunggah',
-                    'approved' => false
-                ]);
-            }
+            return redirect()->route('hasil_laporanpengimbasan')->with('success', 'Laporan pengimbasan berhasil di-approve.');
         }
+
+        return redirect()->route('hasil_laporanpengimbasan')->withErrors('Laporan pengimbasan tidak ditemukan untuk NIS ini.');
     }
-
-    return redirect()->route('hasil_laporanpengimbasan')->with('success', 'Data laporan pengimbasan berhasil diperbarui.');
-}
-
-public function approveLaporanPengimbasan(Request $request)
-{
-    // Validate input NIS
-    $request->validate([
-        'NIS' => 'required|exists:siswa,NIS',
-    ]);
-
-    // Find report by NIS
-    $laporanPengimbasan = LaporanPengimbasan::where('NIS', $request->NIS)->first();
-
-    if ($laporanPengimbasan) {
-        // Update approved field to 1 (approved)
-        $laporanPengimbasan->approved = 1;
-        $laporanPengimbasan->save();
-
-        // Update evaluation table
-        $evaluasi = Evaluasi::firstOrCreate(
-            ['NIS' => $request->NIS], 
-            [
-                'nilai_lap_pengimbasan' => 100, 
-                // Update other evaluation columns as needed
-            ]
-        );
-
-        return redirect()->route('hasil_laporanpengimbasan')->with('success', 'Laporan pengimbasan berhasil di-approve.');
-    }
-
-    return redirect()->route('hasil_laporanpengimbasan')->withErrors('Laporan pengimbasan tidak ditemukan untuk NIS ini.');
-}
 
 
     public function hasilLaporanAkhir(Request $request)
@@ -599,7 +679,7 @@ public function approveLaporanPengimbasan(Request $request)
                         'nama' => $siswa->nama_siswa,
                         'kelas' => $siswa->kelas,
                         'nama_dudi' => $ploting->kode_dudi,
-                        'laporan_akhir' => '', // atau 'Belum diunggah'
+                        'laporan_akhir' => '', 
                         'approved' => false
                     ]);
                 }

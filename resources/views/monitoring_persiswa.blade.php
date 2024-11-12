@@ -5,28 +5,58 @@
 <div class="container mt-5 table-wrapper"> 
     <div style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <div class="d-flex justify-content-start mb-3">
-            <button onclick="window.history.back()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
+            <button onclick="window.location.href='{{ route('monitoring') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
                 <i class="bi bi-arrow-left"></i> Kembali
             </button>
         </div>
         
         <h2 class="text-center mt-2">Monitoring Per Siswa</h2>
         <br>
+        <br>
+        
+        <table class="student-info">
+            <tr>
+                <td><strong>NIS</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->NIS }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nama</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->nama_siswa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Konsentrasi Keahlian</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->konsentrasi_keahlian }}</td>
+            </tr>
+            <tr>
+                <td><strong>Kelas</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->kelas }}</td>
+            </tr>
+            <tr>
+                <td><strong>Kelompok</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->kode_kelompok }}</td>
+            </tr>
+            <tr>
+                <td><strong>Dudi</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->nama_dudi }}</td>
+            </tr>
+        </table>
 
-        <div>
-            <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
-            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
-            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
-            <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
-            <p><strong>Nama DUDI :</strong> {{ $siswa->nama_dudi }}</p> <br>
-        </div>
+        <br>
 
-        <!-- Batas Lebar Tabel Monitoring -->
+
         <div style="max-width: 60%;">
-            <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
+            <a href="https://docs.google.com/spreadsheets/d/1ixFmfIjuGmFTpitBjiFNhmhUmnBDza9Z/edit?usp=sharing&ouid=103935379902975604390&rtpof=true&sd=true" 
             class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
-             Template Upload Data Siswa </a>
-            <br><br>
+                Template Monitoring Siswa 
+            </a>
+            <br>
+            <br>
             
             <!-- Bagian untuk tabel Monitoring -->
             <table class="table-striped custom-table">
@@ -72,17 +102,18 @@
             <thead class="table-primary text-center">
                 <tr>
                     <th>Bulan</th>
-                    <th>Nilai TP 1</th>
-                    <th>Nilai TP 2</th>
-                    <th>Nilai TP 3</th>
-                    <th>Nilai TP 4</th>
+                    <th>TP1 (Soft Skills)</th>
+                    <th>TP2 (Norma & POS)</th>
+                    <th>TP3 (Kompetensi Teknis)</th>
+                    <th>TP4 (Wawasan Wirausaha)</th>
                     <th>Nilai</th>
                 </tr>
             </thead>
+
             <tbody>
                  @foreach ($monitoringPerSiswa as $data)
                 <tr>
-                    <td>{{ $loop->iteration }}</td> <!-- Menampilkan urutan bulan -->
+                    <td>{{ $loop->iteration }}</td> 
                     <td>{{ $data->nilai_tp1 }}</td>
                     <td>{{ $data->nilai_tp2 }}</td>
                     <td>{{ $data->nilai_tp3 }}</td>
@@ -94,21 +125,30 @@
              </tbody>
             <tfoot>
                 <tr>
+                    {{-- <td colspan="5">Nilai Akhir Monitoring</td>
+                    <td>{{ $monitoringPerSiswa->first()->nilai_akhir_monitoring ?? 'N/A' }}</td> --}}
                     <td colspan="5">Nilai Akhir Monitoring</td>
-                    {{-- <td>{{ $nilai_akhir_monitpring }}</td> --}}
-                    <td>.</td>
+                    <td>
+                        @php
+                            // Hitung jumlah nilai_monitoring saat ini
+                            $totalNilaiMonitoring = $monitoringPerSiswa->sum('nilai_monitoring');
+                            // Hitung rata-rata nilai monitoring saat ini
+                            $jumlahUpload = $monitoringPerSiswa->count();
+                            $nilaiAkhirMonitoring = $jumlahUpload > 0 ? $totalNilaiMonitoring / $jumlahUpload : 0;
+                        @endphp
+                        {{ number_format($nilaiAkhirMonitoring, 2) }}
+                    </td>
                 </tr> 
             </tfoot>
         </table>
 
         <br> <br>
+
         <div>
-            <a href="" class="btn btn-success">
-                {{--{{ route('monitoring.export.excel') }} , $siswa->NIS --}}
+            <a href="{{ route('monitoring.export.excel', ['nis' => $siswa->NIS]) }}" class="btn btn-success">
                 <i class="bi bi-file-earmark-excel"></i> Export Excel
             </a>
-            <a href="" class="btn btn-danger">
-                {{-- {{ route('monitoring.export.pdf') }} , $siswa->NIS --}}
+            <a href="{{ route('monitoring.export.pdf', ['nis' => $siswa->NIS]) }}" class="btn btn-danger">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF
             </a>
         </div>

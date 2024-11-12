@@ -76,14 +76,19 @@
     <!-- Informasi Siswa -->
     <table class="student-info">
         <tr>
-            <td><strong>Nama Siswa</strong></td>
+            <td><strong>NIS</strong></td>
+            <td><strong>:</strong></td>
+            <td>{{ $siswa->NIS }}</td>
+        </tr>
+        <tr>
+            <td><strong>Nama</strong></td>
             <td><strong>:</strong></td>
             <td>{{ $siswa->nama_siswa }}</td>
         </tr>
         <tr>
-            <td><strong>NIS</strong></td>
+            <td><strong>Konsentrasi Keahlian</strong></td>
             <td><strong>:</strong></td>
-            <td>{{ $siswa->NIS }}</td>
+            <td>{{ $siswa->konsentrasi_keahlian }}</td>
         </tr>
         <tr>
             <td><strong>Kelas</strong></td>
@@ -91,9 +96,9 @@
             <td>{{ $siswa->kelas }}</td>
         </tr>
         <tr>
-            <td><strong>Konsentrasi Keahlian</strong></td>
+            <td><strong>Kelompok</strong></td>
             <td><strong>:</strong></td>
-            <td>{{ $siswa->konsentrasi_keahlian }}</td>
+            <td>{{ $siswa->kode_kelompok }}</td>
         </tr>
         <tr>
             <td><strong>Tahun Ajaran</strong></td>

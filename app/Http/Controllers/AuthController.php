@@ -33,40 +33,46 @@ class AuthController extends Controller
         $request->validate([
             'username1' => 'required|string',  // NIS siswa
             'password2' => 'required|string',
-            'role' => 'required|string|in:siswa,pembimbing,admin,dudi',  // Hanya validasi role 'siswa'
+            'role' => 'required|string|in:siswa,pembimbing,admin,dudi',  
         ]);
 
-        // Validasi login siswa
         if ($request->role === 'siswa') {
             $siswa = Siswa::where('NIS', $request->username1)->first();
-
+    
             if (!$siswa) {
-                // Jika NIS tidak ditemukan
                 $request->session()->flash('error', 'NIS tidak ditemukan.');
                 return back();
             }
-
+    
             // Membuat password default dengan format pw[NIS]
             $defaultPassword = 'pw' . $siswa->NIS;
-
+    
             // Cek apakah password sesuai
             try {
-                if ($request->password2 === $defaultPassword || Hash::check($request->password2, $siswa->password)) {
-                    Auth::guard('siswa')->login($siswa); // Pastikan menggunakan guard siswa
-
-                    // Regenerate session untuk mencegah session fixation attacks
+                // Jika siswa masih menggunakan password default
+                if ($siswa->is_default_password && $request->password2 === $defaultPassword) {
+                    Auth::guard('siswa')->login($siswa);
                     $request->session()->regenerate();
-
+    
                     // Menyimpan pesan flash untuk SweetAlert
-                    $request->session()->flash('success', 'Selamat datang, ' . $siswa->nama_siswa . '!');
-                    return redirect()->route('home_siswa'); // Arahkan ke halaman home siswa setelah login berhasil
-                } else {
-                    // Jika password salah
-                    $request->session()->flash('error', 'Password yang dimasukkan salah.');
-                    return back();
+                    $request->session()->flash('success', 'Selamat datang, ' . $siswa->nama_siswa . '. Segera ganti password Anda di profil siswa!');
+                    return redirect()->route('home_siswa');
                 }
+    
+                // Jika siswa sudah mengubah password, gunakan hash check
+                if (Hash::check($request->password2, $siswa->password)) {
+                    Auth::guard('siswa')->login($siswa);
+                    $request->session()->regenerate();
+    
+                    // Menyimpan pesan flash untuk SweetAlert
+                    $request->session()->flash('success', 'Selamat datang kembali, ' . $siswa->nama_siswa . '!');
+                    return redirect()->route('home_siswa');
+                }
+    
+                // Jika password salah
+                $request->session()->flash('error', 'Password yang dimasukkan salah.');
+                return back();
             } catch (\Exception $e) {
-                // Jika ada kesalahan saat memeriksa password
                 $request->session()->flash('error', 'Terjadi kesalahan saat memeriksa password.');
                 return back();
             }

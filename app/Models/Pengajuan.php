@@ -42,11 +42,6 @@ class Pengajuan extends Model
         return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
     }
 
-//     public function dudi()
-// {
-//     return $this->belongsTo(Dudi::class, 'kode_dudi', 'kode_dudi'); // Menggunakan 'kode_dudi' sebagai foreign key
-// }
-
     
     public function ploting()
     {

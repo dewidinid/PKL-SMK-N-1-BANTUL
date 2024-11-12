@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/header-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/card-sistem-pkl.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tabel.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tabel-mini.css') }}">
     <link rel="stylesheet" href="{{ asset('css/body.css') }}">

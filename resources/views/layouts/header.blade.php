@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/button.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -42,52 +42,53 @@
             </div>            
         </div>
   
-        <nav class="navbar navbar-expand-lg ">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ route('dashboard') }}">
                     <img src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
                     <strong>PKL SMK N 1 BANTUL</strong>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Beranda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tentang-pkl">Tentang PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#sistem-pkl">Sistem PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tim-pkl">Tim PKL</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Masuk</a>
-                        </li>
-                    </ul>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/">Beranda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tentang-pkl">Tentang PKL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#sistem-pkl">Sistem PKL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tim-pkl">Tim PKL</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-masuk" href="{{ route('login') }}" 
+                                   style="border: 2px solid white; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold;">
+                                   Masuk
+                                </a>
+                            </li>                        
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
-              
     </header>
+
 
     @yield('content')
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
-            console.log('Navbar collapse shown');
-        });
 
-        document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
-            console.log('Navbar collapse hidden');
-        });
-    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>

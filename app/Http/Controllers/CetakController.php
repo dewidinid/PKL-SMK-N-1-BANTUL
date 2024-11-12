@@ -11,86 +11,120 @@ use App\Models\Siswa;
 use App\Models\Monitoring;
 use App\Models\Evaluasi;
 use App\Models\NilaiPkl;
+use App\Models\LaporanJurnal;
+use App\Models\LaporanAkhir;
+use App\Models\LaporanPengimbasan;
+use App\Models\MonitoringPerSiswa;
+
 
 class CetakController extends Controller
 {
-    public function exportMonitoringExcel($nis)
+    public function exportMonitoringPerSiswaExcel($nis)
     {
-        // Fetch the student and monitoring data
+        // Ambil data siswa dan monitoring per siswa berdasarkan NIS
         $siswa = Siswa::where('NIS', $nis)->firstOrFail();
-        $monitoring = Monitoring::where('NIS', $nis)->get();
-        
-        // Calculate total and average scores
-        $totalNilai = $monitoring->sum('nilai');
-        $rataRata = $monitoring->avg('nilai');
+        $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
 
-        // Prepare the data for Excel export
-        $data = $monitoring->map(function ($item) {
-            return [
-                'Bulan' => $item->bulan,
-                'Monitoring' => $item->monitoring,
-                'Nilai' => $item->nilai,
-            ];
-        });
+        // Hitung nilai akhir monitoring sebagai rata-rata dari nilai_monitoring
+        $totalNilaiMonitoring = $monitoringPerSiswa->sum('nilai_monitoring');
+        $jumlahBulan = $monitoringPerSiswa->count();
+        $nilaiAkhirMonitoring = $jumlahBulan > 0 ? $totalNilaiMonitoring / $jumlahBulan : 0;
 
-        // Define the file name
-        $fileName = 'Monitoring_' . $siswa->nama_siswa . '_' . $nis . '.xlsx';
-
-        // Export to Excel
-        return (new FastExcel($data))->download($fileName);
-    }
-
-    public function exportMonitoringPDF($nis)
-    {
-        // Fetch the student and monitoring data
-        $siswa = Siswa::where('NIS', $nis)->firstOrFail();
-        $monitoring = Monitoring::where('NIS', $nis)->get();
-
-        // Calculate total and average scores
-        $totalNilai = $monitoring->sum('nilai');
-        $rataRata = $monitoring->avg('nilai');
-
-        // Prepare data for PDF view
-        $data = [
-            'siswa' => $siswa,
-            'monitoring' => $monitoring,
-            'totalNilai' => $totalNilai,
-            'rataRata' => $rataRata,
+        // Siapkan data untuk header Excel
+        $header = [
+            ['Laporan Monitoring Per Siswa SMK Bantul'],
+            ['NIS: ' . $siswa->NIS],
+            ['Nama: ' . $siswa->nama_siswa],
+            ['Kelas: ' . $siswa->kelas],
+            ['Konsentrasi Keahlian: ' . $siswa->konsentrasi_keahlian],
+            ['Nama Dudi: ' . $siswa->nama_dudi],
+            ['Nilai Akhir Monitoring: ' . number_format($nilaiAkhirMonitoring, 2)],
+            [],
+            ['Bulan', 'TP1 (Soft Skills)', 'TP2 (Norma & POS)', 'TP3 (Kompetensi Teknis)', 'TP4 (Wawasan Wirausaha)', 'Nilai']
         ];
 
-        // Generate PDF from the view
+        // Siapkan data monitoring untuk diisi dalam file Excel
+        $data = $monitoringPerSiswa->map(function ($item, $index) {
+            return [
+                'Bulan' => $index + 1,
+                'TP1 (Soft Skills)' => $item->nilai_tp1,
+                'TP2 (Norma & POS)' => $item->nilai_tp2,
+                'TP3 (Kompetensi Teknis)' => $item->nilai_tp3,
+                'TP4 (Wawasan Wirausaha)' => $item->nilai_tp4,
+                'Nilai' => $item->nilai_monitoring,
+            ];
+        })->toArray();
+
+        // Gabungkan header dan data untuk export
+        $dataForExport = array_merge($header, $data);
+
+        // Nama file Excel
+        $fileName = 'Monitoring_Per_Siswa_' . $siswa->nama_siswa . '_' . $nis . '.xlsx';
+
+        // Export ke Excel
+        return (new FastExcel($dataForExport))->download($fileName);
+    }
+
+    public function exportMonitoringPerSiswaPDF($nis)
+    {
+        // Ambil data siswa dan monitoring per siswa berdasarkan NIS
+        $siswa = Siswa::where('NIS', $nis)->firstOrFail();
+        $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
+
+        // Siapkan data untuk view PDF
+        $data = [
+            'siswa' => $siswa,
+            'monitoringPerSiswa' => $monitoringPerSiswa,
+        ];
+
+        // Generate PDF dari view yang sesuai
         $pdf = Pdf::loadView('export_monitoring_pdf', $data);
 
-        // Define the file name
-        $fileName = 'Monitoring_' . $siswa->nama_siswa . '_' . $nis . '.pdf';
+        // Nama file PDF
+        $fileName = 'Monitoring_Per_Siswa_' . $siswa->nama_siswa . '_' . $nis . '.pdf';
 
-        // Return the PDF download
+        // Export ke PDF
         return $pdf->download($fileName);
     }
 
-    public function exportEvaluasiExcel($nis)
+    public function exportEvaluasiPersiswaExcel($nis)
     {
         // Ambil data siswa dan evaluasi terkait berdasarkan NIS
         $siswa = Siswa::where('NIS', $nis)->firstOrFail();
         $evaluasi = Evaluasi::where('NIS', $nis)->get();
-        
-        // Siapkan data untuk diekspor ke Excel
+
+        // Siapkan data untuk header Excel
+        $header = [
+            ['Laporan Evaluasi PKL Siswa SMK Bantul'],
+            ['NIS: ' . $siswa->NIS],
+            ['Nama: ' . $siswa->nama_siswa],
+            ['Kelas: ' . $siswa->kelas],
+            ['Konsentrasi Keahlian: ' . $siswa->konsentrasi_keahlian],
+            ['Nama Dudi: ' . $siswa->nama_dudi],
+            [],
+            ['Evaluasi', 'Persentase', 'Nilai Akhir']
+        ];
+
+        // Siapkan data evaluasi untuk diisi dalam file Excel
         $data = $evaluasi->map(function ($item) {
             return [
                 'Evaluasi' => $item->evaluasi,
                 'Persentase' => $item->persentase . '%',
                 'Nilai Akhir' => $item->nilai_akhir,
             ];
-        });
+        })->toArray();
 
-        // Tentukan nama file
+        // Gabungkan header dan data untuk export
+        $dataForExport = array_merge($header, $data);
+
+        // Nama file Excel
         $fileName = 'Evaluasi_PKL_' . $siswa->nama_siswa . '_' . $nis . '.xlsx';
 
-        // Ekspor data ke file Excel
-        return (new FastExcel($data))->download($fileName);
+        // Export ke Excel
+        return (new FastExcel($dataForExport))->download($fileName);
     }
 
-    public function exportEvaluasiPDF($nis)
+    public function exportEvaluasiPersiswaPDF($nis)
     {
         // Ambil data siswa dan evaluasi terkait berdasarkan NIS
         $siswa = Siswa::where('NIS', $nis)->firstOrFail();
@@ -195,25 +229,48 @@ class CetakController extends Controller
             return redirect()->back()->with('error', 'Data siswa tidak ditemukan.');
         }
 
-        // Ambil data evaluasi dari tabel 'nilai_pkl' berdasarkan NIS
-        $nilaiPkl = DB::table('nilai_pkl')->where('NIS', $siswa->NIS)->first();
+        $nis = $siswa->NIS;
 
-        if (!$nilaiPkl) {
-            $nilaiPkl = (object) [
-                'persentase_jurnal' => 0,
-                'nilai_akhir_dudi' => 0,
-                'monitoring_pembimbing' => 0,
-                'nilai_pengimbasan' => 0,
-                'nilai_akhir_pkl' => 0
-            ];
-        }
+        // Ambil data yang sama seperti di SiswaController
+        $jurnal = LaporanJurnal::where('NIS', $nis)->count();
+        $jurnalTotal = 6 * 20;
+        $persentaseJurnal = ($jurnal / $jurnalTotal) * 10;
+        $nilaiJurnalFull = min(($jurnal / $jurnalTotal) * 100, 100);
 
-        // Periksa jika data evaluasi ada, dan hitung total nilai
-        $totalNilai = $nilaiPkl
-        ? $nilaiPkl->persentase_jurnal + $nilaiPkl->nilai_akhir_dudi +
-        $nilaiPkl->monitoring_pembimbing + $nilaiPkl->nilai_pengimbasan +
-        $nilaiPkl->nilai_akhir_pkl
-        : 0;
+        $nilaiPklDudi = NilaiPkl::where('NIS', $nis)->first();
+        $nilaiAkhirDudi = $nilaiPklDudi ? ($nilaiPklDudi->nilai * 50) / 100 : 0;
+        $nilaiDudiFull = $nilaiPklDudi ? $nilaiPklDudi->nilai : 0;
+
+        // Mengambil data monitoring per siswa
+        $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
+        $jumlahUploadMonitoring = $monitoringPerSiswa->count();
+
+         // Nilai akhir monitoring (rata-rata nilai monitoring jika ada)
+        $nilaiAkhirMonitoring = $monitoringPerSiswa->avg('nilai_monitoring');
+
+        // Menghitung nilai Monitoring berdasarkan rata-rata nilai akhir
+        $nilaiMonitoring = $nilaiAkhirMonitoring ? ($nilaiAkhirMonitoring * 20) / 100 : 0;
+        $nilaiMonitoringFull = min(($jumlahUploadMonitoring / 6) * 100, 100);
+
+        $pengimbasanUploaded = LaporanPengimbasan::where('NIS', $nis)->exists();
+        $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
+        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+
+        $laporanAkhirUploaded = LaporanAkhir::where('NIS', $nis)->exists();
+        $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
+        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
+
+        // Hitung total nilai
+        $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;
+
+        // Siapkan data untuk PDF
+        $nilaiPkl = (object) [
+            'persentase_jurnal' => $nilaiJurnalFull,
+            'nilai_akhir_dudi' => $nilaiDudiFull,
+            'monitoring_pembimbing' => $nilaiMonitoringFull,
+            'nilai_pengimbasan' => $nilaiPengimbasanFull,
+            'nilai_akhir_pkl' => $nilaiAkhirPKLFull
+        ];
 
         // Load view dengan data siswa dan nilai PKL
         $pdf = Pdf::loadView('export_nilai_pkl_pdf', compact('siswa', 'nilaiPkl', 'totalNilai'));
@@ -221,6 +278,7 @@ class CetakController extends Controller
         // Return PDF untuk diunduh
         return $pdf->download('nilai_pkl_' . $siswa->NIS . '.pdf');
     }
+
 
 
 }

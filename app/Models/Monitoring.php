@@ -38,12 +38,6 @@ class Monitoring extends Model
         return $this->belongsTo(Siswa::class, 'NIS', 'NIS');
     }
 
-    // Relasi ke model Kelompok
-    public function kelompok()
-    {
-        return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
-    }
-
     // Relasi ke model Siswa (untuk nama_siswa)
     public function siswaByNama()
     {
@@ -59,7 +53,7 @@ class Monitoring extends Model
     // Relasi ke model Dudi
     public function dudi()
     {
-        return $this->belongsTo(Dudi::class, 'nama_dudi', 'nama_dudi');
+        return $this->belongsTo(Ploting::class, 'nama_dudi', 'nama_dudi');
     }
 
     // Relasi ke model Siswa (untuk kelas)
@@ -72,5 +66,10 @@ class Monitoring extends Model
     public function siswaByTahun()
     {
         return $this->belongsTo(Siswa::class, 'tahun', 'tahun');
+    }
+
+    public function ploting()
+    {
+        return $this->belongTo(Ploting::class, 'kode_kelompok', 'kode_kelompok');
     }
 }

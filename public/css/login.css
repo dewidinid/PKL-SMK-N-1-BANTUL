@@ -1,19 +1,20 @@
 body {
   /* background: -webkit-linear-gradient(to bottom, #000c40, #f0f2f0); */
   /* background: linear-gradient(to bottom, #000C40, #f0f2f0); */
-  background: linear-gradient(to bottom, #0275d8, #000);
+  background: linear-gradient(to bottom, #439AC7, #7391a0);
   background-size: cover;
 }
 
 .register {
-  margin-top: 2%;
-  padding: 3%;
+  margin-top: 1%;
+  padding: 1%;
 }
 
 .register-left {
   text-align: center;
   color: #fff;
-  margin-top: 4%;
+  margin-top: 3%;
+  margin-left: 3%;
 }
 
 .register-left input {
@@ -23,7 +24,7 @@ body {
   width: 60%;
   background: #f8f9fa;
   font-weight: bold;
-  color: #383d41;
+  color: #66727b;
   margin-top: 30%;
   margin-bottom: 3%;
   cursor: pointer;
@@ -31,8 +32,19 @@ body {
 
 .register-right {
   background: #f8f9fa;
-  border-top-left-radius: 10% 50%;
+  border-top-left-radius: 0 0;
   border-bottom-left-radius: 10% 50%;
+  margin-left: -4%;
+  height: 400px;
+  
+}
+
+.frosted-glass {
+  background: rgba(255, 255, 255, 0.308); /* Semi-transparent white */
+  backdrop-filter: blur(10px); /* Adjust blur intensity */
+  border-radius: 15px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+  padding: 2%;
 }
 
 .register-left img {
@@ -89,8 +101,8 @@ body {
 
 .register .nav-tabs {
   margin-top: 3%;
-  border: none;
-  background: #0062cc;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 1.5rem;
   width: 28%;
   float: right;
@@ -100,7 +112,7 @@ body {
   padding: 1%;
   height: 34px;
   font-weight: 600;
-  color: #fff;
+  color: white;
   border-top-right-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
 }
@@ -111,8 +123,9 @@ body {
 
 .register .nav-tabs .nav-link.active {
   width: 120px;
-  color: #0062cc;
-  border: 2px solid #0062cc;
+  color: #439AC7;
+  border: 3px solid #ffffff;
+  /* background-color: #2e6986; */
   border-top-left-radius: 1.5rem;
   border-bottom-left-radius: 1.5rem;
 }
@@ -121,7 +134,7 @@ body {
   text-align: center;
   margin-top: 8%;
   margin-bottom: -15%;
-  color: #495057;
+  color: white;
 }
 
 .form-control {

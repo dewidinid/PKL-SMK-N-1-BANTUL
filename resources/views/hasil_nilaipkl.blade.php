@@ -48,29 +48,36 @@
                 <th>Download</th>
             </tr>
         </thead>
-        
-        <tbody id="data-table">
-            @foreach ($hasil_nilaipkl as $index => $nilai)
-                <tr class="text-center">
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $nilai->kode_kelompok }}</td>
-                    <td>{{ $nilai->NIS }}</td>
-                    <td class="left-align">{{ $nilai->nama_siswa }}</td> <!-- Ambil nama siswa dari relasi -->
-                    <td>{{ $nilai->siswa->konsentrasi_keahlian }}</td>
-                    <td>{{ $nilai->siswa->kelas }}</td> <!-- Ambil kelas siswa dari relasi -->
-                    <td>{{ $nilai->siswa->tahun }}</td>
-                    <td>{{ $nilai->nama_dudi }}</td>
-                    <td>{{ $nilai->nilai ?? 'N/A' }}</td> <!-- Menampilkan nilai dari dudi -->
-                    <td>
-                        <a href="{{ Storage::url($nilai->file_path) }}" download style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                            <span style="font-size: 0.9rem;">Nilai</span>
-                            <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
-                        </a> 
-                    </td>
-                </tr>
-            @endforeach
 
-        </tbody>
+        <!-- home_pembimbing.blade.php -->
+
+    <tbody id="data-table">
+        @foreach ($hasil_nilaipkl as $index => $nilai)
+            <tr class="text-center">
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $nilai->kode_kelompok }}</td>
+                <td>{{ $nilai->NIS }}</td>
+                <td class="left-align">{{ $nilai->siswa->nama_siswa }}</td>
+                <td>{{ $nilai->siswa->konsentrasi_keahlian }}</td>
+                <td>{{ $nilai->siswa->kelas }}</td>
+                <td>{{ $nilai->siswa->tahun }}</td>
+                <td>{{ $nilai->nama_dudi }}</td>
+                <td>{{ optional($nilai->nilaiPkl)->nilai !== null ? number_format(optional($nilai->nilaiPkl)->nilai, 2) : 'N/A' }}</td>
+                <td>
+                    @if($nilai->nilaiPkl && $nilai->nilaiPkl->file_path)
+                        <a href="{{ Storage::url('public/nilai_pkl/' . $nilai->nilaiPkl->file_path) }}" download
+                        style="background-color: #90DC75; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                            <span style="font-size: 0.9rem;">Unduh Nilai</span>
+                            <i class="bi bi-file-earmark" style="font-size: 1rem; margin-left: 5px;"></i>
+                        </a>
+                    @else
+                        Belum diunggah
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+
     </table>
 
     <br><br>

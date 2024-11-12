@@ -4,7 +4,7 @@
 <div class="container mt-5">
 
     <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
-        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
             <i class="bi bi-arrow-left"></i> Kembali
         </button>
     </div>
@@ -18,8 +18,12 @@
     <br>
     <br>
 
-    <div class="center-button-container">
+    <div class="center-button-container d-flex justify-content-center gap-2">
         <a href="{{ route('formpengajuan')}}" class="btn btn-primary">Form Pengajuan PKL Mandiri</a>
+        <a href="https://docs.google.com/document/d/1dyCs8nkdjgoMrTGEmwm4WEJAWZxVwaJjPfnUOy7kA1Q/edit?usp=sharing" 
+            class="btn btn-warning" style="background-color: #F4A261; border-radius: 5px; color: white;">
+            Template Proposal
+        </a>
     </div>
     <br>
     <br>

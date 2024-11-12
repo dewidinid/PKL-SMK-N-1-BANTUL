@@ -28,8 +28,5 @@ class Admin extends Authenticatable
         'password',
     ];
 
-    // Casting surat_pengajuan ke boolean
-    // protected $casts = [
-    //     'surat_pengajuan' => 'boolean',
-    // ];
+
 }

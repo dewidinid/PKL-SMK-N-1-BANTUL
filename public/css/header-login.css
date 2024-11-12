@@ -1,9 +1,10 @@
 .header-login {
-    background-color: #0275d8;
+    /* background-color: #0275d8; */
     color: #fff !important;
     padding: 0 0;
 }
 .header-login .contact-info {
+    background-color: #00000014;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,16 +15,17 @@
     margin-left: 10px;
 }
 .header-login .navbar {
-    background-color: white;
-    color: black;
+    /* background-color: white; */
+    background-color: transparent;
+    color: white;
     padding: 10px 70px;
 }
 .header-login .navbar a {
-    color: black;
+    color: white;
     margin-right: 10px;
     text-decoration: none;
     font-weight: bold;
 }
 .header-login .navbar a:hover {
-    color: #0275d8;
+    color: white;
 }

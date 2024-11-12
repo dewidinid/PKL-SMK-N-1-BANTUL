@@ -9,12 +9,18 @@
     <br>
     <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <form action="" method="GET">
+        <form method="GET" action="{{ route('daftar_siswa_pkl') }}">
             <div>
-                <select class="form-select d-inline-block w-auto" name="tahun">
-                    <option value="" selected>Tahun</option>
+                <select name="tahun" class="form-select d-inline-block w-auto">
+                    <option value="">Pilih Tahun</option>
                     @foreach($availableYears as $year)
-                        <option value="{{ $year }}" {{ $year == $tahun ? 'selected' : '' }}>{{ $year }}</option>
+                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    @endforeach
+                </select>
+                <select name="kode_kelompok" class="form-select d-inline-block w-auto">
+                    <option value="">Pilih Kelompok</option>
+                    @foreach($availableKelompok as $kelompok)
+                        <option value="{{ $kelompok }}" {{ request('kode_kelompok') == $kelompok ? 'selected' : '' }}>{{ $kelompok }}</option>
                     @endforeach
                 </select>
                 <button type="submit" class="btn btn-primary">Filter</button>
@@ -31,6 +37,7 @@
                 <th>Nama</th>
                 <th>Konsentrasi Keahlian</th>
                 <th>Kelas</th>
+                <th>Kelompok</th>
                 <th>Pembimbing</th>
                 <th>Tahun</th>
             </tr>
@@ -43,6 +50,7 @@
                 <td>{{ $data->siswa->nama_siswa }}</td>
                 <td class="text-center">{{ $data->siswa->konsentrasi_keahlian }}</td>
                 <td class="text-center">{{ $data->kelas }}</td>
+                <td class="text-center">{{ $data->kode_kelompok }}</td>
                 <td class="text-center">{{ $data->pembimbing->nama_pembimbing }}</td>
                 <td class="text-center">{{ $data->siswa->tahun }}</td>
             </tr>

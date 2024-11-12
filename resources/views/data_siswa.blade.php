@@ -7,7 +7,7 @@
     <br>
 
     <a href="https://docs.google.com/spreadsheets/d/1f9_PpRN0Y_1BsYxjG7oTH0g0SiRBsbXc/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
-    class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+    class="custom-btn" style="background-color: #F4A261; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
      Template Upload Data Siswa
     </a>
     <br>
@@ -44,7 +44,7 @@
             <form method="POST" action="{{ route('siswa.import') }}" enctype="multipart/form-data" class="d-flex">
                 @csrf
                 <div class="me-2">
-                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db">
+                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" >
                         Upload <i class="bi bi-upload ms-2"></i>
                     </label>
                     <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">

@@ -9,7 +9,7 @@
 
     <div>
         <a href="https://docs.google.com/spreadsheets/d/1bfAglmp234hEOIc-OrjsE5CP5cjLexaY/edit?usp=drive_link&ouid=102059787068159879684&rtpof=true&sd=true" 
-        class="custom-btn" style="background-color: #87A2FF; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+        class="custom-btn" style="background-color: #F4A261; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
          Template Upload Data Pembimbing </a>
     </div>
     <br>
@@ -28,7 +28,7 @@
         </div> --}}
         
         <div>
-            <button type="button" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db" data-bs-toggle="modal" data-bs-target="#addPembimbingModal">
+            <button type="button" class="btn btn-primary d-flex align-items-center custom-btn"  data-bs-toggle="modal" data-bs-target="#addPembimbingModal">
                 Tambah Pembimbing <i class="bi bi-plus" style="font-size: 19px;"></i>
             </button>
         </div>        
@@ -38,7 +38,7 @@
             <form method="POST" action="{{ route('import.pembimbing') }}" enctype="multipart/form-data" class="d-flex">
                 @csrf
                 <div class="me-2">
-                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" style="background-color: #0275db">
+                    <label for="file-upload" class="btn btn-primary d-flex align-items-center custom-btn" >
                         Upload <i class="bi bi-upload ms-2"></i>
                     </label>
                     <input id="file-upload" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">

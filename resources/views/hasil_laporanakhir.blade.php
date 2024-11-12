@@ -10,18 +10,19 @@
     <form method="GET" action="{{ route('hasil_laporanakhir') }}">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                    <option selected>Konsentrasi Keahlian</option>
-                    @foreach($konsentrasiOptions as $konsentrasi)
-                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
-                    @endforeach
-                </select>
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option selected>Tahun</option>
                     @foreach($tahunOptions as $tahun)
                         <option value="{{ $tahun }}">{{ $tahun }}</option>
                     @endforeach
                 </select>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
+                    @foreach($konsentrasiOptions as $konsentrasi)
+                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                    @endforeach
+                </select>
+
                 <button type="submit" class="btn btn-primary">Filter</button>
             </div>
         </div>
@@ -52,14 +53,19 @@
                     <td>{{ $laporan->siswa->konsentrasi_keahlian }}</td>
                     <td>{{ $laporan->kelas }}</td>
                     <td>{{ $laporan->siswa->tahun }}</td>
+
+
                     <td>
-                        <a href="{{ asset('storage/files/' . $laporan->laporan_akhir) }}">
-                            <button class="btn" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                                Download
-                                <i class="bi bi-download" style="font-size: 1rem; margin-left: 5px;"></i>
-                            </button>
-                        </a>
+                        @if(!empty($laporan->laporan_akhir))
+                            <a href="{{ asset('storage/laporan_akhir/' . $laporan->laporan_akhir) }}"
+                               style="background-color: rgb(206, 202, 127);; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                                <span style="font-size: 0.9rem;">Lihat Laporan</span>
+                            </a>
+                        @else
+                            belum diunggah
+                        @endif
                     </td>
+                    
 
                     <td>
                         @if($laporan->approved)
@@ -74,7 +80,8 @@
                     </td>
                     
                     <td>
-                        <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled>
+                        <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled 
+                               style="cursor: not-allowed; accent-color: #007bff; background-color: #0069d9; border-color: #0056b3;">
                     </td>
 
                 </tr>

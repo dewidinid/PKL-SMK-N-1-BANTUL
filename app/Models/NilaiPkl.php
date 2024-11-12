@@ -30,11 +30,6 @@ class NilaiPkl extends Model
     // Atur jika tidak menggunakan kolom timestamp (created_at, updated_at)
     public $timestamps = false;
 
-    // Relasi ke model Kelompok
-    public function kelompok()
-    {
-        return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
-    }
 
     // Relasi ke model Siswa (untuk NIS)
     public function siswa()

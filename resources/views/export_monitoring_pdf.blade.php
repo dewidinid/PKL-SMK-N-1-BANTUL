@@ -1,5 +1,3 @@
-<!-- resources/views/export_monitoring_pdf.blade.php -->
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,15 +7,37 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
         }
-        .container {
-            padding: 30px;
-        }
         .header {
             text-align: center;
             margin-bottom: 20px;
         }
-        .details p {
-            margin: 5px 0;
+        .details-table {
+            width: 100%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .details-table td {
+            padding: 5px 10px;
+            font-size: 12px;
+            vertical-align: top;
+        }
+        .details-table .label {
+            width: 30%;
+            font-weight: bold;
+            text-align: left;
+            white-space: nowrap;
+        }
+        .details-table .colon {
+            width: 5%;
+            text-align: left;
+        }
+        .details-table .value {
+            width: 65%;
+            text-align: left;
+        }
+        .table-container {
+            max-width: 100%;
+            overflow-x: auto;
         }
         table {
             width: 100%;
@@ -25,66 +45,92 @@
             margin-top: 15px;
         }
         th, td {
-            border: 1px solid #333;
+            border: 1px solid white;
             padding: 8px;
             text-align: center;
+            color: #333;
         }
         th {
             background-color: #0275d8;
             color: white;
         }
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: #f8f8f8 !important;
+        }
+        .table-striped tbody tr:nth-child(even) {
+            background-color: #C5D7E0 !important;
+        }
         .footer {
+            text-align: right;
             margin-top: 20px;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h2>Monitoring Per Siswa</h2>
-        </div>
 
-        <div class="details">
-            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
-            <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
-            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
-            <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
-            <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
-        </div>
+    <h2 class="header">Laporan Monitoring Per Siswa</h2> <br>
+    
+    <!-- Tabel Detail Siswa -->
+    <table class="details-table">
+        <tr>
+            <td class="label">Nama</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $siswa->nama_siswa }}</td>
+        </tr>
+        <tr>
+            <td class="label">NIS</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $siswa->NIS }}</td>
+        </tr>
+        <tr>
+            <td class="label">Konsentrasi Keahlian</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $siswa->konsentrasi_keahlian }}</td>
+        </tr>
+        <tr>
+            <td class="label">Kelas</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $siswa->kelas }}</td>
+        </tr>
+        <tr>
+            <td class="label">DUDI</td>
+            <td class="colon">:</td>
+            <td class="value">{{ $siswa->nama_dudi }}</td>
+        </tr>
+    </table>
 
-        <h4>Detail Monitoring</h4>
-        <table>
+    <div class="table-container">
+        <h3 style="text-align: center;">Detail Monitoring</h3>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Bulan</th>
-                    <th>Monitoring</th>
-                    <th>Nilai Akhir</th>
+                    <th>TP1 (Soft Skills)</th>
+                    <th>TP2 (Norma & POS)</th>
+                    <th>TP3 (Kompetensi Teknis)</th>
+                    <th>TP4 (Wawasan Wirausaha)</th>
+                    <th>Nilai</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($monitoring as $item)
+                @foreach ($monitoringPerSiswa as $index => $data)
                 <tr>
-                    <td>{{ $item->bulan }}</td>
-                    <td>{{ $item->monitoring }}</td>
-                    <td>{{ $item->nilai_akhir }}</td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $data->nilai_tp1 }}</td>
+                    <td>{{ $data->nilai_tp2 }}</td>
+                    <td>{{ $data->nilai_tp3 }}</td>
+                    <td>{{ $data->nilai_tp4 }}</td>
+                    <td>{{ $data->nilai_monitoring }}</td>
                 </tr>
                 @endforeach
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2"><strong>Total Nilai</strong></td>
-                    <td>{{ $totalNilai }}</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><strong>Rata-Rata</strong></td>
-                    <td>{{ number_format($rataRata, 2) }}</td>
-                </tr>
-            </tfoot>
         </table>
+    </div> <br><br>
 
-        <div class="footer">
-            <p>Dicetak pada {{ now()->format('d-m-Y') }}</p>
-        </div>
+    <div class="footer">
+        <p>Dicetak pada {{ now()->format('d-m-Y') }}</p>
     </div>
+
 </body>
 </html>

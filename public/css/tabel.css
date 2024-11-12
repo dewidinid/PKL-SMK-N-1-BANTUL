@@ -16,7 +16,7 @@
 
 /* Gaya header tabel */
 .table thead th, .custom-table thead th {
-    background-color: #0275d8;
+    background-color: #439AC7;
     color: white;
     text-align: center; /* Memusatkan teks di header */
     
@@ -61,7 +61,7 @@
 
 /* Styling untuk footer tabel */
 .table tfoot td, .custom-table tfoot td {
-    background-color: #0275d8 !important; /* Warna footer */
+    background-color: #439AC7 !important; /* Warna footer */
     color: white !important;
     font-weight: bold; /* Membuat teks lebih tebal */
     text-align: center; /* Memusatkan teks di footer */
@@ -88,7 +88,7 @@
 
 
 .pagination-btn {
-    background-color: #0275d8;
+    background-color: #439AC7;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -104,7 +104,17 @@
 
 .pagination-number {
     padding: 10px;
-    border: 1px solid #0275d8;
+    border: 1px solid #439AC7;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.student-info {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px; /* Sesuaikan ukuran font jika diperlukan */
+}
+.student-info td {
+    border: none;
+    padding: 4px 3px;
 }

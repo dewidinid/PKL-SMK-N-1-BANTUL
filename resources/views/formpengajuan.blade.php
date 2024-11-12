@@ -15,24 +15,24 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         
         <div class="form-container">
-            <h4 class="text-center mb-3" style="color: #ffffff">Form Pengajuan PKL</h4> 
+            <h4 class="text-center mb-3" style="color: #1A5276">Form Pengajuan PKL</h4> 
             <br>
             <form action="{{ route('formpengajuan') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
-                    <label for="nis" class="form-label">NIS</label>
-                    <label for="" style="color: #ffffff">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
+                    <label for="nis" class="form-label" style="color: #1A5276 !important">NIS</label>
+                    <label for="" style="color: #1A5276">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
                     <textarea class="form-control" id="nis" name="nis" rows="3"  placeholder="Masukkan NIS" oninput="this.value = this.value.replace(/[^0-9,\n]/g, '');"></textarea>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="nama_siswa" class="form-label">Nama</label>
-                    <label for="" style="color: #ffffff">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
+                    <label for="nama_siswa" class="form-label" style="color: #1A5276 !important">Nama</label>
+                    <label for="" style="color: #1A5276">*Jika anggota lebih dari satu, pisahkan dengan tanda koma (,) lalu enter</label>
                     <textarea class="form-control" id="nama_siswa" name="nama_siswa" rows="3" placeholder="Masukkan Nama" oninput="this.value = this.value.replace(/[^a-zA-Z,\n\s]/g, '');" required></textarea>
                 </div>
                 
                 <div class="mb-3">
-                    <label for="konsentrasi_keahlian" class="form-label">Konsentrasi Keahlian</label>
+                    <label for="konsentrasi_keahlian" class="form-label" style="color: #1A5276 !important">Konsentrasi Keahlian</label>
                     <select class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" required>
                         <option value="" disabled selected>Pilih Konsentrasi Keahlian</option>
                         @foreach($konsentrasiKeahlianList as $konsentrasi)
@@ -42,12 +42,12 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="no_telp" class="form-label">No Telp Ketua</label>
+                    <label for="no_telp" class="form-label" style="color: #1A5276 !important">No Telp Ketua</label>
                     <input type="" class="form-control" id="no_telp" name="no_telp" placeholder="Masukkan No Handphone" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="mb-3">
-                    <label for="nama_dudi" class="form-label">Rencana Tempat PKL</label>
-                    <p style="color: #ffffff; font-size: 12px;">*Pastikan kamu sudah ajukan data dudi ke admin</p>
+                    <label for="nama_dudi" class="form-label" style="color: #1A5276 !important">Rencana Tempat PKL</label>
+                    <p style="color: #1A5276 !important; font-size: 12px;">*Pastikan kamu sudah ajukan data dudi ke admin</p>
                     <div class="dropdown-wrapper">
                         <select class="form-control dropdown-custom" id="nama_dudi" name="nama_dudi" onchange="updateNoTelpDudi()">
                             <option value="" disabled selected>Pilih Rencana Tempat PKL</option>
@@ -66,11 +66,11 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="no_telp_dudi" class="form-label">No Telp Dudi</label>
+                    <label for="no_telp_dudi" class="form-label" style="color: #1A5276 !important">No Telp Dudi</label>
                     <input type="text" class="form-control" id="no_telp_dudi" name="no_telp_dudi" readonly>
                 </div>                                                                   
                 <div class="mb-3">
-                    <label for="proposal_pkl" class="form-label">Proposal PKL (Dijadikan satu)</label>
+                    <label for="proposal_pkl" class="form-label" style="color: #1A5276 !important">Proposal PKL (Dijadikan satu)</label>
                     <div class="custom-file-upload" 
                         style="display: inline-block; position: relative; background-color:#ffffff; border: 2px dashed #cccccc; padding: 20px; text-align: center;" 
                         ondragover="event.preventDefault()" 
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-submit" style="background-color: #ffffff; color:#000000;">Submit</button>
+                <button type="submit" class="btn btn-submit" style="background-color: #1A5276; color:#fff;">Submit</button>
             </form>
             <br>
             <br>

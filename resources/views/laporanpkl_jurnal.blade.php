@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5 table-wrapper" id="jurnal-table-container">
         <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
-            <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+            <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
                 <i class="bi bi-arrow-left"></i> Kembali
             </button>
         </div>
@@ -12,7 +12,7 @@
 
         <!-- Button to Open the Form -->
         <div class="d-flex justify-content-end mb-3">
-            <button onclick="openForm()" class="btn btn-primary d-flex align-items-center custom-btn">
+            <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
                 Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
             </button>
         </div>
@@ -43,7 +43,7 @@
                         <td>{{ $jurnal->konsentrasi_keahlian }}</td>
                         <td>{{ $jurnal->kelas }}</td>
                         {{-- <td>{{ $jurnal->kode_kelompok }}</td> --}}
-                        <td>{{ $jurnal->nama_dudi }}</td>
+                        <td>{{ $jurnal->ploting ? $jurnal->ploting->nama_dudi : 'Tidak ada data DUDI' }}</td>
                         <td>{{ $jurnal->kegiatan }}</td>
                         <td>{{ $jurnal->lokasi }}</td>
                     </tr>
@@ -99,7 +99,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_dudi" class="form-label">Tempat Dudi</label>
-                            <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $siswa->nama_dudi }}" readonly>
+                            <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $ploting->nama_dudi }}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="kegiatan" class="form-label">Kegiatan / Progres</label>

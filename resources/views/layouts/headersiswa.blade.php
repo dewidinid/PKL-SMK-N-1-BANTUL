@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Dashboard Siswa</title>
     <link rel="stylesheet" href="{{ asset('css/header-siswa.css') }}">
     <link rel="stylesheet" href="{{ asset('css/carousel.css') }}">
@@ -48,27 +49,34 @@
                 </a>
             </div>            
         </div>
-  
-        <nav class="navbar navbar-expand-lg ">
+
+
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{{ route('home_siswa') }}">
                     <img src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
                     <strong>PKL SMK N 1 BANTUL</strong>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('home_siswa') }}">Beranda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profil_siswa') }}">
-                                <img src="{{ isset($siswa) && $siswa->profile_picture ? asset('storage/' . $siswa->profile_picture) : asset('image/default-profile.jpg') }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px;">
-                            </a>
-                        </li>                        
-                    </ul>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('home_siswa') }}">Beranda</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profil_siswa') }}">
+                                    <img src="{{ isset($siswa) && $siswa->profile_picture ? asset('storage/' . $siswa->profile_picture) : asset('image/default-profile.jpg') }}" alt="Profile Picture" class="rounded-circle" style="width: 30px; height: 30px;">
+                                </a>
+                            </li>                        
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -177,70 +185,472 @@
             });
         }
     </script>
+
     
-    <script>
-    document.getElementById('toggle-current-password').addEventListener('click', function () {
-        var input = document.getElementById('current_password');
-        if (input.type === 'password') {
-            input.type = 'text';
-            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
+    {{-- <script>
+       document.addEventListener('DOMContentLoaded', function () {
+        // Toggle visibility untuk setiap kolom password
+            toggleVisibility('current_password', 'toggle-current-password');
+            toggleVisibility('password', 'toggle-password');
+            toggleVisibility('password_confirmation', 'toggle-confirmation-password');
 
-    document.getElementById('toggle-password').addEventListener('click', function () {
-        var input = document.getElementById('password');
-        if (input.type === 'password') {
-            input.type = 'text';
-            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
+            // Validasi password lama saat Enter ditekan
+            document.getElementById('current_password').addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Cegah form terkirim
+                    validateCurrentPassword(); // Panggil fungsi validasi
+                }
+            });
+        });
 
-    document.getElementById('toggle-confirmation-password').addEventListener('click', function () {
-        var input = document.getElementById('password_confirmation');
-        if (input.type === 'password') {
-            input.type = 'text';
-            this.querySelector('i').classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            input.type = 'password';
-            this.querySelector('i').classList.replace('fa-eye-slash', 'fa-eye');
+        // Fungsi toggle untuk menampilkan atau menyembunyikan password
+        function toggleVisibility(fieldId, toggleButtonId) {
+            document.getElementById(toggleButtonId).addEventListener('click', function () {
+                const input = document.getElementById(fieldId);
+                input.type = input.type === 'password' ? 'text' : 'password';
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
         }
-    });
 
-    document.getElementById('current_password').addEventListener('input', function() {
-        const currentPassword = this.value;
-        // Melakukan permintaan AJAX untuk memvalidasi password lama
-        // Misalnya menggunakan fetch API
-        fetch('/validate-password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ current_password: currentPassword })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.valid) {
-                // Aktifkan field password baru dan konfirmasi
-                document.getElementById('password').disabled = false;
-                document.getElementById('password_confirmation').disabled = false;
+        // Fungsi untuk validasi password lama
+        function validateCurrentPassword() {
+            const currentPassword = document.getElementById('current_password').value;
+
+            fetch('/validate-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ current_password: currentPassword })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Terjadi kesalahan dalam memverifikasi password.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.valid) {
+                    // Aktifkan kolom password baru dan konfirmasi jika password lama benar
+                    document.getElementById('password').disabled = false;
+                    document.getElementById('password_confirmation').disabled = false;
+                    document.getElementById('password').focus();
+                } else {
+                    // Jika password lama salah, tampilkan pesan kesalahan
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Password lama yang Anda masukkan salah',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    document.getElementById('current_password').focus();
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message || 'Terjadi kesalahan dalam memverifikasi password. Silakan coba lagi.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
+
+        // Fungsi untuk validasi password baru dan konfirmasi
+        function validateNewPasswords() {
+            const newPassword = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password_confirmation').value;
+
+            if (newPassword === confirmPassword && newPassword !== '') {
+                // Jika password baru dan konfirmasi sesuai, tampilkan notifikasi berhasil
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: 'Password berhasil diperbarui.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             } else {
-                // Notifikasi password salah
-                alert('Password lama yang Anda masukkan salah.');
+                // Jika password baru dan konfirmasi tidak sesuai, munculkan notifikasi dalam bahasa Indonesia
+                Swal.fire({
+                    title: 'Kesalahan',
+                    text: 'Password baru dan konfirmasi tidak sesuai. Silakan periksa kembali.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                document.getElementById('password').focus();
+            }
+        }
+
+        // Panggil `validateNewPasswords` saat konfirmasi password di-submit atau saat Enter ditekan
+        document.getElementById('password_confirmation').addEventListener('blur', validateNewPasswords);
+        document.getElementById('password_confirmation').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault(); // Cegah form terkirim
+                validateNewPasswords();
             }
         });
-    });
-</script>
 
-    
-    
-    
+
+
+    </script> --}}
+
+    {{-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Toggle visibility untuk setiap kolom password
+            toggleVisibility('current_password', 'toggle-current-password');
+            toggleVisibility('password', 'toggle-password');
+            toggleVisibility('password_confirmation', 'toggle-confirmation-password');
+
+            // Validasi password lama saat Enter ditekan
+            document.getElementById('current_password').addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Cegah form terkirim
+                    validateCurrentPassword(); // Panggil fungsi validasi
+                }
+            });
+
+            // Event listener untuk tombol Simpan Password
+            document.getElementById('save-password-button').addEventListener('click', validateNewPasswords);
+        });
+
+        // Fungsi toggle untuk menampilkan atau menyembunyikan password
+        function toggleVisibility(fieldId, toggleButtonId) {
+            document.getElementById(toggleButtonId).addEventListener('click', function () {
+                const input = document.getElementById(fieldId);
+                input.type = input.type === 'password' ? 'text' : 'password';
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
+        }
+
+        // Fungsi untuk validasi password lama
+        function validateCurrentPassword() {
+            const currentPassword = document.getElementById('current_password').value;
+
+            fetch('/validate-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({ current_password: currentPassword })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Terjadi kesalahan dalam memverifikasi password.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.valid) {
+                    // Aktifkan kolom password baru, konfirmasi, dan tombol simpan jika password lama benar
+                    document.getElementById('password').disabled = false;
+                    document.getElementById('password_confirmation').disabled = false;
+                    document.getElementById('save-password-button').disabled = false;
+                    document.getElementById('password').focus();
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Password lama yang Anda masukkan salah',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    document.getElementById('current_password').focus();
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: error.message || 'Terjadi kesalahan dalam memverifikasi password. Silakan coba lagi.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+        }
+
+        // Fungsi untuk validasi password baru dan konfirmasi saat tombol Simpan Password diklik
+        function validateNewPasswords() {
+            const newPassword = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('password_confirmation').value;
+
+            if (newPassword === confirmPassword && newPassword !== '') {
+                Swal.fire({
+                    title: 'Berhasil',
+                    text: 'Password berhasil diperbarui.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Kesalahan',
+                    text: 'Password baru dan konfirmasi tidak sesuai. Silakan periksa kembali.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                document.getElementById('password').focus();
+            }
+        }
+
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPassword = document.getElementById('current_password');
+            const newPassword = document.getElementById('password');
+            const confirmPassword = document.getElementById('password_confirmation');
+            const saveButton = document.getElementById('save-password-button');
+            const resetButton = document.getElementById('reset-password-button');
+            
+            const toggleCurrentPassword = document.getElementById('toggle-current-password');
+            const toggleNewPassword = document.getElementById('toggle-new-password');
+            const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
+
+            let isCurrentPasswordValid = false;
+            let isShowingPopup = false; // Flag untuk mencegah pop-up ganda
+
+            // Fungsi Toggle Visibility
+            function toggleVisibility(inputField, toggleButton) {
+                if (inputField.type === 'password') {
+                    inputField.type = 'text';
+                    toggleButton.innerHTML = '<i class="far fa-eye-slash"></i>';
+                } else {
+                    inputField.type = 'password';
+                    toggleButton.innerHTML = '<i class="far fa-eye"></i>';
+                }
+            }
+
+            // Event Listener untuk Toggle Visibility
+            toggleCurrentPassword.addEventListener('click', () => toggleVisibility(currentPassword, toggleCurrentPassword));
+            toggleNewPassword.addEventListener('click', () => toggleVisibility(newPassword, toggleNewPassword));
+            toggleConfirmPassword.addEventListener('click', () => toggleVisibility(confirmPassword, toggleConfirmPassword));
+
+            let isValidating = false; // Tambahkan flag untuk mencegah validasi berulang
+           
+            
+            // Fungsi validasi password lama
+            async function validatePasswordOld() {
+                if (isValidating) return; // Cegah pemanggilan fungsi jika sedang validasi
+                isValidating = true;
+
+                const currentPasswordValue = currentPassword.value.trim();
+
+                // Cek apakah input kosong
+                if (currentPasswordValue === "") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Kesalahan',
+                        text: 'Password lama tidak boleh kosong.',
+                    });
+                    isValidating = false; // Reset flag
+                    return;
+                }
+
+                try {
+                    console.log('Mengirim request untuk validasi password lama...');
+                    const response = await fetch('/validate-password', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: JSON.stringify({ current_password: currentPasswordValue }),
+                    });
+
+                    // Log respons dari server
+                    console.log('Respons dari server:', response);
+
+                    // Cek status respons
+                    if (!response.ok) {
+                        console.error('Gagal mendapatkan respons dari server:', response.status);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan',
+                            text: 'Terjadi kesalahan saat memvalidasi password. (Status ' + response.status + ')',
+                        });
+                        return;
+                    }
+
+                    // Mengambil hasil validasi sebagai JSON
+                    const result = await response.json();
+                    console.log('Hasil validasi (JSON):', result);
+
+                    // Menampilkan hasil validasi
+                    if (result.valid) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Password Valid',
+                            text: 'Password lama yang Anda masukkan benar.',
+                        }).then(() => {
+                            isCurrentPasswordValid = true;
+                            currentPassword.disabled = true;
+                            newPassword.disabled = false;
+                            confirmPassword.disabled = false;
+                            saveButton.disabled = false;
+                            resetButton.disabled = false; // Aktifkan tombol reset
+                            newPassword.focus();
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Password Salah',
+                            text: result.message || 'Password lama yang Anda masukkan salah.',
+                        });
+                        isCurrentPasswordValid = false;
+                        newPassword.disabled = true;
+                        confirmPassword.disabled = true;
+                        saveButton.disabled = true;
+                        resetButton.disabled = true; // Nonaktifkan tombol reset
+                    }
+                } catch (error) {
+                    console.error('Kesalahan saat memvalidasi password:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan',
+                        text: 'Terjadi kesalahan saat memvalidasi password. Periksa koneksi Anda atau coba lagi.',
+                    });
+                }
+
+                isValidating = false; // Reset flag
+            }
+
+            // Event Listener untuk validasi
+            currentPassword.addEventListener('blur', validatePasswordOld);
+            currentPassword.addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    validatePasswordOld();
+                }
+            });
+
+            
+            // Menghindari Double Pop-up Saat Konfirmasi Password Baru
+            function showWarningPopup() {
+                if (!isShowingPopup && newPassword.value.trim() === "") {
+                    isShowingPopup = true;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Perhatian',
+                        text: 'Harap isi Password Baru terlebih dahulu sebelum mengisi Konfirmasi Password Baru.',
+                    }).then(() => {
+                        isShowingPopup = false; // Reset flag setelah SweetAlert ditutup
+                        newPassword.focus();
+                    });
+                }
+            }
+
+            // Menambahkan Listener Fokus untuk Konfirmasi Password
+            confirmPassword.addEventListener('focus', showWarningPopup);
+
+            // Fungsi Menyimpan Password Baru
+            async function validateAndSavePassword() {
+                const newPasswordValue = newPassword.value.trim();
+                const confirmPasswordValue = confirmPassword.value.trim();
+
+                // Validasi jika password baru kosong
+                if (newPasswordValue === "") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Perhatian',
+                        text: 'Password baru tidak boleh kosong.',
+                    });
+                    newPassword.focus();
+                    return;
+                }
+
+                // Validasi jika konfirmasi password kosong
+                if (confirmPasswordValue === "") {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Perhatian',
+                        text: 'Konfirmasi password tidak boleh kosong.',
+                    });
+                    confirmPassword.focus();
+                    return;
+                }
+
+                // Validasi kesesuaian password baru dan konfirmasi
+                if (newPasswordValue !== confirmPasswordValue) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan',
+                        text: 'Password baru dan konfirmasi password tidak sesuai. Silakan periksa kembali.',
+                    });
+                    confirmPassword.focus();
+                    return;
+                }
+
+                try {
+                    const formData = new FormData();
+                    formData.append('current_password', currentPassword.value);
+                    formData.append('password', newPasswordValue);
+                    formData.append('password_confirmation', confirmPasswordValue);
+
+                    // Mengirimkan perubahan password ke server
+                    const saveResponse = await fetch('/profile/update', {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        },
+                        body: formData,
+                    });
+
+                    const saveResult = await saveResponse.json();
+
+                    if (saveResult.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: 'Password berhasil diubah. Klik OK untuk logout.',
+                        }).then(() => {
+                            window.location.href = '/login';
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: saveResult.message || 'Gagal mengubah password.',
+                        });
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Kesalahan',
+                        text: 'Terjadi kesalahan saat memvalidasi atau menyimpan password.',
+                    });
+                }
+            }
+
+             // Event Listener saat tombol Simpan Password diklik
+            saveButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                validateAndSavePassword();
+            });
+
+
+            // Fungsi Reset Password
+            resetButton.addEventListener('click', () => {
+                // Reset input field
+                currentPassword.value = '';
+                newPassword.value = '';
+                confirmPassword.value = '';
+                currentPassword.disabled = false;
+                newPassword.disabled = true;
+                confirmPassword.disabled = true;
+                saveButton.disabled = true;
+                resetButton.disabled = true; // Nonaktifkan tombol reset setelah reset
+                currentPassword.focus();
+                isCurrentPasswordValid = false;
+            });
+
+            // Mulai dengan tombol reset dan save disabled
+            saveButton.disabled = true;
+            resetButton.disabled = true;
+        });
+
+
+    </script>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -325,20 +735,80 @@
         });
     </script>  
 
-    <!-- Kemudian ubah script menjadi: -->
+    
     <script>
-    $(document).ready(function() {
-        $('#nama_dudi').on('change', function() {
-            var selectedOption = $(this).find('option:selected');
-            var noTelp = selectedOption.data('telp');
-            
-            console.log('Selected DUDI:', selectedOption.text());
-            console.log('Phone Number:', noTelp);
-            
-            $('#no_telp_dudi').val(noTelp || '');
+        $(document).ready(function() {
+            $('#nama_dudi').on('change', function() {
+                var selectedOption = $(this).find('option:selected');
+                var noTelp = selectedOption.data('telp');
+                
+                console.log('Selected DUDI:', selectedOption.text());
+                console.log('Phone Number:', noTelp);
+                
+                $('#no_telp_dudi').val(noTelp || '');
+            });
         });
-    });
     </script>
+
+    <script>
+        let nisAlertShown = false;
+        let namaAlertShown = false;
+
+        document.getElementById('nis').addEventListener('blur', function () {
+            validateNIS();
+        });
+
+        document.getElementById('nama_siswa').addEventListener('blur', function () {
+            validateNama();
+        });
+
+        function validateNIS() {
+            var nisField = document.getElementById('nis').value.trim();
+            
+            // Regex untuk validasi NIS: angka yang dipisahkan koma dengan atau tanpa spasi, koma tidak boleh di akhir
+            if (nisField && !/^\d+(,\s*\d+)*$/.test(nisField)) {
+                if (!nisAlertShown) {
+                    nisAlertShown = true; 
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Format NIS Salah',
+                        text: 'Pisahkan NIS dengan tanda koma jika lebih dari satu, dan jangan ada koma di akhir.',
+                        confirmButtonColor: '#1A5276'
+                    }).then(() => {
+                        document.getElementById('nis').focus();  
+                        nisAlertShown = false;
+                    });
+                }
+            } else {
+                nisAlertShown = false; // Reset alert jika format sudah benar
+            }
+        }
+
+        function validateNama() {
+            var namaField = document.getElementById('nama_siswa').value.trim();
+            
+            // Regex untuk validasi Nama: setiap nama dipisahkan koma dan baris baru diperbolehkan, koma tidak boleh di akhir
+            if (namaField && !/^(?:[a-zA-Z\s]+,\n?)+[a-zA-Z\s]+$/.test(namaField)) {
+                if (!namaAlertShown) {
+                    namaAlertShown = true;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Format Nama Salah',
+                        text: 'Pisahkan setiap nama dengan koma dan baris baru jika lebih dari satu. Pastikan koma hanya ada di akhir setiap nama kecuali yang terakhir.',
+                        confirmButtonColor: '#1A5276'
+                    }).then(() => {
+                        document.getElementById('nama_siswa').focus();  
+                        namaAlertShown = false;
+                    });
+                }
+            } else {
+                namaAlertShown = false; // Reset alert jika format sudah benar
+            }
+        }
+    </script>
+
+
+
 
     {{-- <script>
         function getLocation() {
@@ -523,17 +993,6 @@
         displayTablePage(currentPage);
         setupPagination();
         updatePaginationButtons();
-    </script>
-
-
-    <script>
-        document.getElementById('navbarNav').addEventListener('shown.bs.collapse', function () {
-            console.log('Navbar collapse shown');
-        });
-
-        document.getElementById('navbarNav').addEventListener('hidden.bs.collapse', function () {
-            console.log('Navbar collapse hidden');
-        });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>

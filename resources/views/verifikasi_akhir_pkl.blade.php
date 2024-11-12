@@ -5,7 +5,7 @@
 <br>
 <div class="container table-wrapper">
     <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
-        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
             <i class="bi bi-arrow-left"></i> Kembali
         </button>
     </div>
@@ -17,7 +17,10 @@
         <br>
         <br>
         <div class="text-start">
-            <a href="#" class="text-primary">Template Pengimbasan</a>
+            <a href="https://docs.google.com/document/d/1pwCM780nlOwdchJ0b3rXhpdbUpW89_gt/edit?usp=sharing&ouid=103935379902975604390&rtpof=true&sd=true " 
+                class="custom-btn" style="background-color: #F4A261; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+                Template Laporan Pengimbasan
+            </a>
         </div>
         <br>
     
@@ -42,7 +45,7 @@
                         <td>{{ $siswa->nama_siswa }}</td>
                         <td>{{ $siswa->konsentrasi_keahlian }}</td>
                         <td>{{ $siswa->kelas }}</td>
-                        <td>{{ $siswa->nama_dudi }}</td>
+                        <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
                         <td>
                             <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
@@ -52,13 +55,14 @@
                         </td>
                         <td>
                             @if ($isLaporanPengimbasanUploaded)
-                                <a href="{{ Storage::url('public/laporan_pengimbasan/laporan_pengimbasan_' . $siswa->NIS . '.pdf') }}" target="_blank" >Lihat File</a>
+                            <a href="{{ asset('storage/laporan_pengimbasan/' . $siswa->laporan_pengimbasan) }}" target="_blank">Lihat File</a>
+
                             @else
                                 <span class="text-muted">Belum Upload</span>
                             @endif
                         </td>
                         <td>
-                            <input type="checkbox" {{ $isLaporanPengimbasanUploaded ? 'checked' : '' }}>
+                            <input type="checkbox" {{ $isLaporanPengimbasanUploaded ? 'checked' : '' }} disabled>
                             <span class="custom-checkbox"></span>
                         </td>
                     </tr>
@@ -74,7 +78,10 @@
         <br>
         <br>
         <div class="text-start">
-            <a href="#" class="text-primary">Template Laporan Akhir</a>
+            <a href="https://docs.google.com/document/d/1oZWlK7EMudl40blQK7lvM5mSHMxHN5PL/edit?usp=sharing&ouid=103935379902975604390&rtpof=true&sd=true " 
+                class="custom-btn" style="background-color: #F4A261; border-radius: 5px; color: white; padding: 10px 20px; text-decoration: none; display: center; font-weight: bold;">
+                Template Laporan Akhir
+            </a>
         </div>
         <br>
     
@@ -99,7 +106,7 @@
                         <td>{{ $siswa->nama_siswa }}</td>
                         <td>{{ $siswa->konsentrasi_keahlian }}</td>
                         <td>{{ $siswa->kelas }}</td>
-                        <td>{{ $siswa->nama_dudi }}</td>
+                        <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
                         <td>
                             <!-- Form untuk upload Laporan Akhir -->
                             <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data">
@@ -110,13 +117,13 @@
                         </td>
                         <td>
                             @if ($isLaporanAkhirUploaded)
-                                <a href="{{ Storage::url('public/laporan_akhir/laporan_akhir_' . $siswa->NIS . '.pdf') }}" target="_blank" >Lihat File</a>
+                            <a href="{{ asset('storage/laporan_akhir/' . $siswa->laporan_akhir) }}" target="_blank">Lihat File</a>
                             @else
                                 <span class="text-muted">Belum Upload</span>
                             @endif
                         </td>
                         <td>
-                            <input type="checkbox" {{ $isLaporanAkhirUploaded ? 'checked' : '' }}>
+                            <input type="checkbox" {{ $isLaporanAkhirUploaded ? 'checked' : '' }} disabled>
                             <span class="custom-checkbox"></span>
                         </td>
                     </tr>

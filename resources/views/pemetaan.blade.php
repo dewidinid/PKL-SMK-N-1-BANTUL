@@ -5,7 +5,7 @@
 <div class="container mt-5" >
 
     <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
-        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
             <i class="bi bi-arrow-left"></i> Kembali
         </button>
     </div>
@@ -17,10 +17,27 @@
     </div>
 
     <br>
+    <br>
 
     {{-- pengumuman --}}
     <h4 style="text-align: center;">Pengumuman</h4>
     <br>
+    <br>
+
+    <div class="d-flex justify-content-end align-items-center mb-3">
+        <form method="GET" action="{{ route('pemetaan') }}" >
+            <div>
+                <select name="tahun" onchange="this.form.submit()" class="form-select d-inline-block w-auto">
+                    <option value="">Pilih Tahun</option>
+                    @foreach ($availableYears as $year)
+                        <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary" >Filter</button>
+            </div> 
+        </form>
+    </div>
+
     <div style="max-height: 400px; overflow-y: auto;" id="jurnal-table-container"> <!-- Wadah scrollable -->
         <table class="table-striped custom-table">
             <thead class="table-primary text-center">
@@ -31,6 +48,7 @@
                     <th>Nama</th>
                     <th>Konsentrasi Keahlian</th>
                     <th>Kelas</th>
+                    <th>Tahun</th>
                     <th>Pembimbing</th>
                     <th>Dudi</th>
                     <th>Alamat Dudi</th>
@@ -45,6 +63,7 @@
                     <td>{{ $ploting->siswa->nama_siswa }}</td>
                     <td>{{ $ploting->siswa->konsentrasi_keahlian }}</td>
                     <td>{{ $ploting->siswa->kelas }}</td>
+                    <td>{{ $ploting->siswa->tahun }}</td>
                     <td>{{ $ploting->nama_pembimbing }}</td>
                     <td>{{ $ploting->dudi->nama_dudi }}</td>
                     <td>{{ $ploting->dudi->alamat_dudi }}</td>

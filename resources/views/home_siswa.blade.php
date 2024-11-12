@@ -54,5 +54,7 @@
     <p>Silakan login untuk mengakses halaman ini.</p>
 @endauth
 
-
+<br>
+<br>
+<br>
 @endsection

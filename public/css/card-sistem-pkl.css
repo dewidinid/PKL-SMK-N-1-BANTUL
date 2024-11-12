@@ -1,7 +1,7 @@
 .sistem-card {
     width: 150px; 
     height: 150px;
-    background-color: #007bff; /* Warna background card */
+    background-color: #439AC7; /* Warna background card */
     color: #fff; /* Warna teks */
     border-radius: 8px; /* Sudut melengkung */
     transition: transform 0.3s ease, box-shadow 0.3s ease;

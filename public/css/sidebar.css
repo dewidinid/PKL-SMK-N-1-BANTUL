@@ -23,7 +23,7 @@
 
 .custom-sidebar .nav-link.active {
     /* background: linear-gradient(to right, #0275d8, #000); */
-    background-color: #0275d8;
+    background-color: #439AC7 !important;
     color: #fff;
     border: none;
 }
@@ -33,11 +33,11 @@
 }
 
 .nav-link.active {
-    background-color: #007bff; /* Warna background untuk link yang aktif */
+    background-color: #439AC7; /* Warna background untuk link yang aktif */
     color: white;              /* Warna teks untuk link yang aktif */
 }
 
 .nav-link:hover {
-    background-color: #0056b3; /* Warna saat hover */
+    background-color: #439AC7; /* Warna saat hover */
     color: white;
 }

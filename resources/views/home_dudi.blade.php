@@ -36,7 +36,7 @@
                     <div class="box-info">
                         <div class="box-table">
                             <br>
-                            <h3 style="text-align: center">Laporan/Jurnal PKL Siswa</h3>
+                            <h3 style="text-align: center">Laporan Jurnal PKL Siswa</h3>
                             <br>
                             <br>
                             <table class="table-mini table-striped custom-mini-table">
@@ -46,7 +46,10 @@
                                         <th>Tanggal</th>
                                         <th>NIS</th>
                                         <th id="nama">Nama</th>
-                                        <th>Konsentrasi Keahlian</th>
+                                        {{-- <th>Konsentrasi Keahlian</th> --}}
+                                        <th>Kelas</th>
+                                        <th>Kelompok</th>
+                                        <th>Tahun</th>
                                         <th>Kegiatan</th>
                                         <th>Lokasi</th>
                                     </tr>
@@ -54,7 +57,7 @@
                                 <tbody>
                                     @if ($laporan_jurnal->isEmpty())
                                         <tr>
-                                            <td colspan="7" class="text-center">Tidak ada data jurnal untuk hari ini.</td>
+                                            <td colspan="10" class="text-center">Tidak ada data jurnal untuk hari ini.</td>
                                         </tr>
                                     @else
                                         @foreach ($laporan_jurnal as $index => $jurnal)
@@ -63,7 +66,10 @@
                                                 <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
                                                 <td>{{ $jurnal->siswa->NIS }}</td>
                                                 <td>{{ $jurnal->siswa->nama_siswa }}</td>
-                                                <td>{{ $jurnal->konsentrasi_keahlian }}</td>
+                                                {{-- <td>{{ $jurnal->konsentrasi_keahlian }}</td> --}}
+                                                <td>{{ $jurnal->siswa->kelas }}</td>
+                                                <td>{{ $jurnal->siswa->kode_kelompok }}</td>
+                                                <td>{{ $jurnal->siswa->tahun }}</td>
                                                 <td>{{ $jurnal->kegiatan }}</td>
                                                 <td>{{ $jurnal->lokasi }}</td>
                                             </tr>

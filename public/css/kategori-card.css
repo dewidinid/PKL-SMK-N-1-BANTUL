@@ -2,7 +2,7 @@
     
     width: 150px; /* Lebar penuh pada kolom grid */
     height: 150px; /* Biarkan tinggi otomatis mengikuti konten */
-    background-color: #007bff !important; /* Warna background card kategori */
+    background-color: #439AC7 !important; /* Warna background card kategori */
     color: #fff; /* Warna teks */
     border-radius: 8px; /* Sudut melengkung */
     transition: transform 0.3s ease, box-shadow 0.3s ease;

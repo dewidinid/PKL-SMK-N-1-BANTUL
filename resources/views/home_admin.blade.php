@@ -50,24 +50,36 @@
                 <br>
                 <br>
                 <div class="box-info">
-                    <div class="box-ver">
-                        <div class="icon-ver" style="background-color: rgb(228, 225, 165);">
-                            <i class="bi bi-envelope"></i>
+                    <a href="{{ route ('suratPengajuan')}}" class="box-link">
+                        <div class="card">
+                            <div class="icon" style="background-color: rgb(228, 225, 165);">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                            <div class="content">
+                                <h4>Surat Pengajuan Mandiri</h4>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h3 style="text-align: left;">Surat Pengajuan PKL Mandiri</h3>
-                            <a href="{{ route ('suratPengajuan')}}" class="lihat-semua">Lihat Semua</a>
+                    </a>
+                    <a href="{{ route ('ploting_siswa')}}" class="box-link">
+                        <div class="card">
+                            <div class="icon" style="background-color: #db9898;">
+                                <i class="bi bi-diagram-3"></i>
+                            </div>
+                            <div class="content">
+                                <h4>Ploting Siswa</h4>
+                            </div>
                         </div>
-                    </div>
-                    <div class="box-ver">
-                        <div class="icon-ver" style="background-color: #db9898;">
-                            <i class="bi bi-diagram-3"></i>
+                    </a>
+                    <a href="{{ route ('report_siswa')}}" class="box-link">
+                        <div class="card">
+                            <div class="icon"  style="background-color: #e4a0da;">
+                                <i class="bi bi-clipboard-check"></i>
+                            </div>
+                            <div class="content">
+                                <h4>Report Siswa</h4>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h3 style="text-align: left;">Ploting Siswa</h3>
-                            <a href="{{ route ('ploting_siswa')}}" class="lihat-semua">Lihat Semua</a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
     </div>

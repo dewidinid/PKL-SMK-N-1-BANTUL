@@ -24,6 +24,7 @@ class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
         'nama_siswa',
         'konsentrasi_keahlian',
         'password',
+        'is_default_password',
         'kelas',
         'tahun',
         'kode_kelompok',
@@ -52,17 +53,6 @@ class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
         return $this->ploting ? $this->ploting->kode_kelompok : null;
     }
 
-    // Relationship to konsentrasi_keahlian
-    public function konsentrasiKeahlian()
-    {
-        return $this->belongsTo(KonsentrasiKeahlian::class, 'konsentrasi_keahlian', 'kode_konsentrasi');
-    }
-
-    // Relationship to kelompok
-    public function kelompok()
-    {
-        return $this->belongsTo(Kelompok::class, 'kode_kelompok', 'kode_kelompok');
-    }
 
     // Relationship to dudi
     public function dudi()
@@ -99,9 +89,9 @@ class Siswa extends Authenticatable // Ganti dari Model menjadi Authenticatable
         return $this->belongsToMany(Pengajuan::class, 'pengajuan_siswa', 'nis', 'id_pengajuan');
     }
 
-public function laporanJurnal()
-{
-    return $this->hasMany(LaporanJurnal::class, 'NIS', 'NIS');
-}
+    public function laporanJurnal()
+    {
+        return $this->hasMany(LaporanJurnal::class, 'NIS', 'NIS');
+    }
 
 }

@@ -6,21 +6,46 @@
 
     <div class="" style="background-color: #ffffff; border-radius: 10px; padding: 30px;">
         <div class="d-flex justify-content-start mb-3">
-            <button onclick="window.history.back()" style="background-color: #0275d8; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
+            <button onclick="window.history.back()" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px;">
                 <i class="bi bi-arrow-left"></i> Kembali
             </button>
         </div>
 
-        <h2 class="text-center">Laporan/Jurnal Per Siswa</h2>
+        <h2 class="text-center">Laporan Jurnal Per Siswa</h2>
         <br>
 
-        <div>
-            <p><strong>Nama :</strong> {{ $siswa->nama_siswa }}</p>
-            <p><strong>NIS :</strong> {{ $siswa->NIS }}</p>
-            <p><strong>Konsentrasi Keahlian :</strong> {{ $siswa->konsentrasi_keahlian }}</p>
-            <p><strong>Kelas :</strong> {{ $siswa->kelas }}</p>
-            <p><strong>DUDI :</strong> {{ $siswa->nama_dudi }}</p>
-        </div>
+        <table class="student-info">
+            <tr>
+                <td><strong>NIS</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->NIS }}</td>
+            </tr>
+            <tr>
+                <td><strong>Nama</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->nama_siswa }}</td>
+            </tr>
+            <tr>
+                <td><strong>Konsentrasi Keahlian</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->konsentrasi_keahlian }}</td>
+            </tr>
+            <tr>
+                <td><strong>Kelas</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->kelas }}</td>
+            </tr>
+            <tr>
+                <td><strong>Kelompok</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->kode_kelompok }}</td>
+            </tr>
+            <tr>
+                <td><strong>Dudi</strong></td>
+                <td><strong>:</strong></td>
+                <td>{{ $siswa->nama_dudi }}</td>
+            </tr>
+        </table>
         <br>
 
         <div>

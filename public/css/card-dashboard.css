@@ -3,6 +3,7 @@
     padding-bottom: 100%; /* Tinggi diatur berdasarkan lebar untuk membuat persegi */
     position: relative; /* Membuat elemen di dalamnya menjadi relatif */
     transform: translateY(-5px); /* Efek hover untuk mengangkat kartu */
+    
 }
 
 .square-card .card-body {

@@ -40,19 +40,15 @@ class Dudi extends Authenticatable
     ];
 
     public function pengajuans()
-{
-    return $this->hasMany(Pengajuan::class, 'nama_dudi', 'nama_dudi');
-}
+    {
+        return $this->hasMany(Pengajuan::class, 'nama_dudi', 'nama_dudi');
+    }
 
-// public function ploting()
-// {
-//     return $this->hasMany(Ploting::class, 'nama_dudi', 'nama_dudi');
-// }
 
-public function ploting()
-{
-    return $this->hasMany(Ploting::class, 'kode_dudi', 'kode_dudi');
-}
+    public function ploting()
+    {
+        return $this->hasMany(Ploting::class, 'kode_dudi', 'kode_dudi');
+    }
 
     public function siswa()
     {

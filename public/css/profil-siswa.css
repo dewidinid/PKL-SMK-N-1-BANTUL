@@ -1,19 +1,50 @@
 .profile-container {
-    background: linear-gradient(to bottom, #0275d8, #000);
+    background: linear-gradient(to bottom, #439AC7, #adbfc7);
     background-size: cover;
     text-align: center;
     padding: 100px 0; /*Menambahkan padding atas dan bawah */
 }
 
-.profile-container img {
-    
-    width: 150px; /* Ukuran gambar profil */
-    height: 150px; /* Ukuran gambar profil */
-    border-radius: 50%; /* Membuat gambar menjadi lingkaran */
-    object-fit: cover; /* Menjaga rasio aspek gambar */
-    margin-bottom: 20px; /* Spasi di bawah gambar */
-    border: 2px solid #ccc; /* Tambahkan border jika diinginkan */
+/* Container for profile picture and icon */
+.profile-picture-container {
+    position: relative;
+    width: 200px; /* Sesuaikan ukuran sesuai kebutuhan */
+    margin: 0 auto 20px;
 }
+
+.profile-picture-container img {
+    width: 200px;
+    height: 200px;
+}
+
+/* Profile picture styling */
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+}
+
+/* Camera icon styling */
+.camera-icon {
+    position: absolute;
+    width: 40px;
+    bottom: 5px;
+    right: 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    color: #000000;
+    font-size: 1.2em;
+}
+
+
 
 .form-control {
     margin-bottom: 15px;
@@ -73,4 +104,14 @@
     font-size: 1.2em; /* Sesuaikan ukuran ikon sesuai kebutuhan */
 }
 
-
+.profile-data {
+    background: rgba(255, 255, 255, 0.374); /* Semi-transparent white */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    width: 50%;
+    height: 900px;
+    max-width: 80%;
+    /* margin-bottom: 8%; */
+    margin-left: 25%;
+}

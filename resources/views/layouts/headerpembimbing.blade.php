@@ -171,7 +171,7 @@
     </script>
     @endif
 
-    <script>
+    {{-- <script>
         // Function to handle file upload
         function handleFileUpload() {
             const fileUploadInput = document.getElementById('file-upload');
@@ -193,7 +193,7 @@
             // Optionally, submit the form for the file upload here
             document.getElementById('upload-form').submit();
         }
-    </script>
+    </script> --}}
 
     <script>
         //Script Pagination
@@ -217,6 +217,81 @@
                 }
             });
         }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script>
+        function handleFileUpload(input) {
+            if (input.files.length > 0) {
+                Swal.fire({
+                    title: 'Mengunggah File...',
+                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                // Setelah file di-submit, submit form secara otomatis
+                input.form.submit();
+            }
+        }
+
+        // Notifikasi setelah upload selesai
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    </script> --}}
+
+    <script>
+        function handleFileUpload(input) {
+            if (input.files.length > 0) {
+                Swal.fire({
+                    title: 'Mengunggah File...',
+                    text: 'Proses upload sedang berlangsung, mohon tunggu!',
+                    icon: 'info',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                // Setelah file di-submit, submit form secara otomatis
+                input.form.submit();
+            }
+        }
+
+        // Notifikasi setelah upload selesai
+        @if (session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        @endif
+
+        @if (session('error'))
+            Swal.fire({
+                title: 'Gagal!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
     </script>
 
     <script>

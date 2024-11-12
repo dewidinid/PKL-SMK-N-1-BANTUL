@@ -10,6 +10,7 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -59,7 +60,11 @@
                 <strong>PKL SMK N 1 BANTUL</strong>
             </a>
             <div>
-                <a href="{{ route('dashboard')}}">Beranda</a>
+                {{-- <a href="{{ route('dashboard')}}">Beranda</a> --}}
+                <a class="nav-link btn" href="{{ route('dashboard')}}" 
+                    style="border: 2px solid white ;color: #white !important;  padding: 5px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
+                    Beranda
+                </a>
             </div>
             </div>
         </nav>
@@ -80,6 +85,34 @@
         });
     </script>
     @endif
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mengambil semua tombol toggle password
+            const toggleButtons = document.querySelectorAll('.toggle-password');
+    
+            toggleButtons.forEach(button => {
+                // Menambahkan event listener untuk setiap tombol toggle
+                button.addEventListener('click', function () {
+                    const passwordField = this.previousElementSibling;
+                    const icon = this.querySelector('i');
+    
+                    // Toggle visibility password
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        passwordField.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

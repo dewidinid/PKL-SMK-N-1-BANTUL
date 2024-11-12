@@ -7,30 +7,32 @@
     <h4 class="text-center">EVALUASI PKL</h4>
     <br><br>
     
-  <!-- Filter Tahun dan konsentrasi_keahlian -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <form action="{{ route('filterEvalPem') }}" method="GET" class="d-flex">
-        <select class="form-select d-inline-block w-auto" name="tahun" >
-            <option value="">Pilih Tahun</option>
-            @foreach($tahunOptions as $option)
-                <option value="{{ $option }}" {{ request('tahun') == $option ? 'selected' : '' }}>
-                    {{ $option }}
-                </option>
-            @endforeach
-        </select>
+    <!-- Filter Tahun dan konsentrasi_keahlian -->
+    <form action="{{ route('filterEvalPem') }}" method="GET">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="tahun" >
+                    <option value="">Pilih Tahun</option>
+                    @foreach($tahunOptions as $option)
+                        <option value="{{ $option }}" {{ request('tahun') == $option ? 'selected' : '' }}>
+                            {{ $option }}
+                        </option>
+                    @endforeach
+                </select>
 
-        <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" >
-            <option value="">Pilih Konsentrasi Keahlian</option>
-            @foreach($keahlianOptions as $option)
-                <option value="{{ $option }}" {{ request('konsentrasi_keahlian') == $option ? 'selected' : '' }}>
-                    {{ $option }}
-                </option>
-            @endforeach
-        </select>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" >
+                    <option value="">Pilih Konsentrasi Keahlian</option>
+                    @foreach($keahlianOptions as $option)
+                        <option value="{{ $option }}" {{ request('konsentrasi_keahlian') == $option ? 'selected' : '' }}>
+                            {{ $option }}
+                        </option>
+                    @endforeach
+                </select>
 
-        <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
     </form>
-</div>
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">

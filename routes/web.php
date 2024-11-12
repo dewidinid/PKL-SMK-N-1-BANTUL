@@ -34,6 +34,7 @@ Route::get('/profil', [SiswaController::class, 'showProfile'])->name('profil_sis
 Route::post('/profile/update-picture', [SiswaController::class, 'updateProfilePicture'])->name('update.profile.picture')->middleware('auth:siswa');
 
 Route::post('/profile/update', [SiswaController::class, 'updateProfile'])->name('update.profile')->middleware('auth:siswa');
+Route::post('/validate-password', [SiswaController::class, 'validatePassword'])->name('validate.password')->middleware('auth:siswa');
 
 // Route untuk halaman verifikasi akhir PKL
 Route::get('/verifikasi_akhir_pkl', [SiswaController::class, 'verifikasiAkhirPKL'])->name('verifikasi_akhir_pkl')->middleware('auth:siswa');
@@ -74,6 +75,11 @@ Route::post('/import-pembimbing', [AdminController::class, 'importPembimbing'])-
 Route::post('/store-pembimbing', [AdminController::class, 'storePembimbing'])->name('store.pembimbing')->middleware('auth:admin');
 Route::put('/pembimbing/{NIP_NIK}/update', [AdminController::class, 'updatePembimbing'])->name('update.pembimbing')->middleware('auth:admin');
 
+Route::get('/admin/report_siswa', [AdminController::class, 'reportSiswa'])->name('report_siswa')->middleware('auth:admin');
+Route::get('/admin/report_siswa/{nis}', [AdminController::class, 'reportSiswaPerSiswa'])->name('report_siswa_persiswa')->middleware('auth:admin');
+Route::get('/admin/download-nilai-pkl/{nis}', [AdminController::class, 'downloadNilaiPkl'])->name('admin.download.nilai.pkl')->middleware('auth:admin');
+
+
 // Home Dudi
 Route::get('/home_dudi', [DudiController::class, 'indexDudi'])->name('home_dudi')->middleware('auth:dudi');
 Route::get('/daftar_siswa_pkl', [DudiController::class, 'daftarSiswaPKL'])->name('daftar_siswa_pkl')->middleware('auth:dudi');
@@ -92,40 +98,41 @@ Route::get('/dudi_laporanjurnal_persiswa/{nis}', [DudiController::class, 'dudiLa
 // Home Pembimbing
 Route::get('/home_pembimbing', [PembimbingController::class, 'indexPembimbing'])->name('home_pembimbing')->middleware('auth:pembimbing');
 // Rute untuk halaman monitoring
-Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring');
+Route::get('/monitoring', [PembimbingController::class, 'monitoringPKL'])->name('monitoring')->middleware('auth:pembimbing');
 
-Route::get('/filter-monitoring', [PembimbingController::class, 'filterMonitoring'])->name('filterMonitoring');
+Route::get('/filter-monitoring', [PembimbingController::class, 'filterMonitoring'])->name('filterMonitoring')->middleware('auth:pembimbing');
 //Route::post('/monitoring/upload/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload');
-Route::get('/monitoring/siswa/{nis}', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa');
+Route::get('/monitoring/siswa/{nis}', [PembimbingController::class, 'monitoringPerSiswa'])->name('monitoring_persiswa')->middleware('auth:pembimbing');
 
 
-Route::get('/evaluasi', [PembimbingController::class, 'evaluasiPKL'])->name('evaluasi');
-Route::get('/evaluasi_persiswa/{nis}', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa');
-Route::get('/filter-evaluasipem', [PembimbingController::class, 'evaluasiPKL'])->name('filterEvalPem');
+Route::get('/evaluasi', [PembimbingController::class, 'evaluasiPKL'])->name('evaluasi')->middleware('auth:pembimbing');
+Route::get('/evaluasi_persiswa/{nis}', [PembimbingController::class, 'evaluasiPerSiswa'])->name('evaluasi_persiswa')->middleware('auth:pembimbing');
+Route::get('/filter-evaluasipem', [PembimbingController::class, 'evaluasiPKL'])->name('filterEvalPem')->middleware('auth:pembimbing');
 
 
-Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->name('hasil_nilaipkl');
+Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->name('hasil_nilaipkl')->middleware('auth:pembimbing');
 
-Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan');
+Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan')->middleware('auth:pembimbing');
 
-Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal');
-Route::get('/pembimbing_laporanjurnal_persiswa/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa');
+Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal')->middleware('auth:pembimbing');
+Route::get('/pembimbing_laporanjurnal_persiswa/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa')->middleware('auth:pembimbing');
 
-Route::post('/approve_laporanakhir', [PembimbingController::class, 'approveLaporanAkhir'])->name('approve_laporanakhir');
+// Route::get('/pembimbing/laporan-jurnal/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing.laporanJurnalPerSiswa');
 
-Route::post('/approve_laporanpengimbasan', [PembimbingController::class, 'approveLaporanPengimbasan'])->name('approve_laporanpengimbasan');
+Route::post('/approve_laporanakhir', [PembimbingController::class, 'approveLaporanAkhir'])->name('approve_laporanakhir')->middleware('auth:pembimbing');
 
-Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkhir'])->name('hasil_laporanakhir');
+Route::post('/approve_laporanpengimbasan', [PembimbingController::class, 'approveLaporanPengimbasan'])->name('approve_laporanpengimbasan')->middleware('auth:pembimbing');
 
-// Route for exporting Excel
-Route::get('/monitoring_persiswa/{nis}/export/excel', [CetakController::class, 'exportMonitoringExcel'])->name('monitoring.export.excel');
+Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkhir'])->name('hasil_laporanakhir')->middleware('auth:pembimbing');
 
-// Route for exporting PDF
-Route::get('/monitoring_persiswa/{nis}/export/pdf', [CetakController::class, 'exportMonitoringPDF'])->name('monitoring.export.pdf');
 
-// Rute untuk export evaluasi PKL ke Excel dan PDF
-Route::get('/export_evaluasi_excel/{nis}', [CetakController::class, 'exportEvaluasiExcel'])->name('export_evaluasi_excel');
-Route::get('/export_evaluasi_pdf/{nis}', [CetakController::class, 'exportEvaluasiPDF'])->name('export_evaluasi_pdf');
+Route::post('/monitoring/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload')->middleware('auth:pembimbing');
+
+Route::get('/monitoring/export/pdf/{nis}', [CetakController::class, 'exportMonitoringPerSiswaPDF'])->name('monitoring.export.pdf');
+Route::get('/monitoring/export/excel/{nis}', [CetakController::class, 'exportMonitoringPerSiswaExcel'])->name('monitoring.export.excel');
+
+Route::get('/export/evaluasi/{nis}/excel', [CetakController::class, 'exportEvaluasiPersiswaExcel'])->name('exportEvaluasiPersiswaExcel');
+Route::get('/export/evaluasi/{nis}/pdf', [CetakController::class, 'exportEvaluasiPersiswaPDF'])->name('exportEvaluasiPersiswaPDF');
 
 Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel');
 Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf');
@@ -135,4 +142,3 @@ Route::get('/nilai-pkl/export-pdf', [CetakController::class, 'exportNilaiPklPdf'
 
 Route::get('/admin/insert-to-monitoring', [AdminController::class, 'insertToMonitoring'])->name('admin.insertToMonitoring');
 
-Route::post('/monitoring/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload');

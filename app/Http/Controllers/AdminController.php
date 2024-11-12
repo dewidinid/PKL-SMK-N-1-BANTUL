@@ -15,6 +15,12 @@ use App\Models\Ploting;
 use App\Models\NilaiPkl;
 use App\Models\Pengajuan;
 use App\Models\PengajuanSiswa;
+use App\Models\LaporanPengimbasan;
+use App\Models\LaporanAkhir;
+use App\Models\LaporanJurnal;
+use App\Models\Monitoring;
+use App\Models\MonitoringPerSiswa;
+use App\Models\Evaluasi;
 
 class AdminController extends Controller
 {
@@ -31,7 +37,7 @@ class AdminController extends Controller
     public function dataSiswa()
     {
         // Ambil semua siswa dengan relasi dan urutkan berdasarkan nama_siswa
-        $siswa = Siswa::with('kelompok', 'dudi')->orderBy('nama_siswa', 'asc')->get();
+        $siswa = Siswa::with( 'dudi')->orderBy('nama_siswa', 'asc')->get();
         return view('data_siswa', ['siswa' => $siswa]);
     }
 
@@ -114,7 +120,7 @@ class AdminController extends Controller
         }
 
         // Menjalankan query dan mengambil data siswa
-        $siswa = $query->with('kelompok', 'dudi')->get();
+        $siswa = $query->with( 'dudi')->get();
 
         // Mengembalikan view dengan data siswa yang telah difilter
         return view('data_siswa', ['siswa' => $siswa]);
@@ -212,7 +218,8 @@ class AdminController extends Controller
 
     public function guruPembimbing()
     {
-        $pembimbing = Pembimbing::all();
+        $pembimbing = Pembimbing::orderBy('nama_pembimbing', 'asc')->get();
+        
         return view('guru_pembimbing', compact('pembimbing'));
     }
 
@@ -417,9 +424,9 @@ class AdminController extends Controller
                         'notelp_dudi' => $pengajuan->dudi->notelp_dudi ?? null,
                     ]);
         
-                    $pengajuan->update([
-                        'status_acc' => 1
-                    ]);
+                     // Update `status_acc` ke 1
+                    $pengajuan->status_acc = 1;
+                    $pengajuan->save();
                 }
             }
         }
@@ -456,6 +463,148 @@ class AdminController extends Controller
 
         return $singkatan . $newIndex;
     }
+
+    public function reportSiswa(Request $request)
+    {
+        // Mengambil data siswa dari tabel 'ploting' dengan filter 'tahun' dan 'konsentrasi keahlian'
+        $tahun = Siswa::distinct()->pluck('tahun');
+        $konsentrasiKeahlian = Ploting::distinct()->pluck('konsentrasi_keahlian');
+        
+        $query = Ploting::with('siswa', 'dudi', 'pembimbing');
+    
+        // Menambahkan filter berdasarkan tahun
+        if ($request->has('tahun') && $request->tahun != 'Tahun') {
+            $query->whereHas('siswa', function ($q) use ($request) {
+                $q->where('tahun', $request->tahun);
+            });
+        }
+    
+        if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+            $query->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+        }
+    
+        $dataSiswa = $query->get();
+
+        return view('report_siswa', compact('dataSiswa', 'tahun', 'konsentrasiKeahlian'));
+    }
+    
+    public function reportSiswaPerSiswa($nis, Request $request)
+    {
+        // Mengambil data siswa dan laporan terkait berdasarkan NIS
+        $siswa = Siswa::where('NIS', $nis)->with( 'dudi')->first();
+        $laporanPengimbasan = LaporanPengimbasan::where('NIS', $nis)->first();
+        $laporanAkhir = LaporanAkhir::where('NIS', $nis)->first();
+
+        // Menghitung nilai jurnal
+        $jurnal = LaporanJurnal::where('NIS', $nis)->count();
+        $jurnalTotal = 6 * 20;
+        $persentaseJurnal = ($jurnal / $jurnalTotal) * 10;
+        $nilaiJurnalFull = min(($jurnal / $jurnalTotal) * 100, 100);
+
+        // Menghitung nilai Dudi
+        $nilaiPklDudi = NilaiPkl::where('NIS', $nis)->first();
+        $nilaiAkhirDudi = $nilaiPklDudi ? ($nilaiPklDudi->nilai * 50) / 100 : 0;
+        $nilaiDudiFull = $nilaiPklDudi ? $nilaiPklDudi->nilai : 0;
+
+        // Mengambil data monitoring per siswa
+        $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
+        $jumlahUploadMonitoring = $monitoringPerSiswa->count();
+
+        // Nilai akhir monitoring (rata-rata nilai monitoring jika ada)
+        $nilaiAkhirMonitoring = $monitoringPerSiswa->avg('nilai_monitoring');
+
+        // Menghitung nilai Monitoring berdasarkan rata-rata nilai akhir
+        $nilaiMonitoring = $nilaiAkhirMonitoring ? ($nilaiAkhirMonitoring * 20) / 100 : 0;
+        $nilaiMonitoringFull = min(($jumlahUploadMonitoring / 6) * 100, 100);
+
+        // Tentukan status warna untuk monitoring
+        if ($jumlahUploadMonitoring >= 6) {
+            $statusMonitoringColor = 'text-success'; // Hijau jika sudah 6 kali upload
+        } elseif ($jumlahUploadMonitoring > 0 && $jumlahUploadMonitoring < 6) {
+            $statusMonitoringColor = 'text-warning'; // Kuning jika belum mencapai 6 kali upload
+        } else {
+            $statusMonitoringColor = 'text-danger'; // Merah jika belum ada upload
+        }
+
+        // Menghitung nilai Pengimbasan
+        $pengimbasanUploaded = $laporanPengimbasan ? true : false;
+        $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
+        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+
+        // Menghitung nilai Laporan Akhir PKL
+        $laporanAkhirUploaded = $laporanAkhir ? true : false;
+        $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
+        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
+
+        // Menghitung total nilai
+        $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;
+
+        // $jurnals = LaporanJurnal::where('NIS', $nis)->get();
+
+         // Filter bulan dan tahun untuk laporan jurnal
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+        
+        // Query laporan jurnal dengan filter bulan dan tahun
+        $jurnalsQuery = LaporanJurnal::where('NIS', $nis);
+        if ($bulan) {
+            $jurnalsQuery->whereMonth('tanggal', $bulan);
+        }
+        if ($tahun) {
+            $jurnalsQuery->whereYear('tanggal', $tahun);
+        }
+        $jurnals = $jurnalsQuery->get();
+
+        // Daftar tahun yang tersedia untuk laporan jurnal
+        $availableYears = LaporanJurnal::selectRaw('YEAR(tanggal) as year')
+            ->where('NIS', $nis)
+            ->distinct()
+            ->pluck('year');
+
+        // Membuat URL file dan mengirim nama asli file ke view
+        $laporanPengimbasanUrl = $laporanPengimbasan ? asset('storage/laporan_pengimbasan/' . $laporanPengimbasan->laporan_pengimbasan) : null;
+        $laporanAkhirUrl = $laporanAkhir ? asset('storage/laporan_akhir/' . $laporanAkhir->laporan_akhir) : null;
+
+        // URL file nilai PKL yang diupload oleh DUDI
+        $nilaiPklDudiFilePath = $nilaiPklDudi && $nilaiPklDudi->file_path ? asset('storage/nilai_pkl/' . $nilaiPklDudi->file_path) : null;
+
+        $nis = $nilaiPklDudi->NIS ?? null; // Sesuaikan dengan struktur data Anda
+
+    
+        return view('report_siswa_persiswa', compact(
+            'siswa', 'laporanPengimbasan', 'laporanAkhir', 'laporanPengimbasanUrl', 'laporanAkhirUrl',
+            'persentaseJurnal', 'nilaiAkhirDudi', 'nilaiPklDudi', 'nis', 'nilaiPklDudiFilePath', 'nilaiMonitoring',  'monitoringPerSiswa',  'statusMonitoringColor','nilaiAkhirMonitoring','nilaiPengimbasan', 'nilaiAkhirPKL', 'totalNilai',
+            'jurnals', 'bulan', 'tahun', 'availableYears', 'nilaiJurnalFull', 'nilaiDudiFull', 'nilaiMonitoringFull', 'nilaiPengimbasanFull', 'nilaiAkhirPKLFull'
+        ));
+    }
+
+    // Fungsi baru untuk mengunduh file dengan nama yang diinginkan
+    public function downloadNilaiPkl($nis)
+    {
+        // Ambil data Nilai PKL berdasarkan NIS
+        $nilaiPkl = NilaiPkl::where('NIS', $nis)->first();
+
+        if (!$nilaiPkl || !$nilaiPkl->file_path) {
+            abort(404, 'File nilai PKL tidak ditemukan.');
+        }
+
+        // Path file di storage
+        $filePath = storage_path('app/public/nilai_pkl/' . $nilaiPkl->file_path);
+
+        // Cek apakah file ada
+        if (!file_exists($filePath)) {
+            abort(404, 'File tidak ditemukan di server.');
+        }
+
+        // Nama file download (misalnya: nilai_pkl_16728.xlsx)
+        $fileName = 'nilai_pkl_' . $nis . '.' . pathinfo($nilaiPkl->file_path, PATHINFO_EXTENSION);
+
+        // Mengirim response untuk mendownload file dengan nama yang disesuaikan
+        return response()->download($filePath, $fileName);
+    }
+
+
+    
 
 // public function approveSelected(Request $request)
 // {

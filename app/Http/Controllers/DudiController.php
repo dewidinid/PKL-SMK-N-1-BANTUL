@@ -38,10 +38,16 @@ class DudiController extends Controller
 
         $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
             ->whereHas('siswa', function ($query) use ($namaDudi) {
-                $query->where('nama_dudi', $namaDudi); // Asumsi ada kolom nama_dudi di tabel siswa
+                $query->where('nama_dudi', $namaDudi);
             })
             ->with(['siswa'])
             ->get();
+
+        // $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)->with('siswa')->get();
+
+
+        // dd($laporan_jurnal);
+    
 
         // Kirimkan data yang difilter ke view 'home_dudi'
         return view('home_dudi', compact('laporan_jurnal', 'dudi', 'jumlahSiswa'));
@@ -59,6 +65,7 @@ class DudiController extends Controller
 
         // Ambil filter tahun dari request
         $tahun = $request->input('tahun');
+        $kodeKelompok = $request->input('kode_kelompok'); 
 
         // Ambil data siswa dari tabel ploting berdasarkan nama_dudi dan filter tahun jika ada
         $query = Ploting::where('nama_dudi', $namaDudi)
@@ -71,6 +78,11 @@ class DudiController extends Controller
             });
         }
 
+        if ($kodeKelompok) {
+            $query->where('kode_kelompok', $kodeKelompok); // Filter berdasarkan kode kelompok
+        }
+
+
         // Dapatkan hasil query
         $ploting = $query->get();
 
@@ -82,7 +94,11 @@ class DudiController extends Controller
             ->unique()
             ->sortDesc();
 
-        return view('daftar_pkl', compact('ploting', 'availableYears', 'tahun'));
+        $availableKelompok = Ploting::where('nama_dudi', $namaDudi)
+            ->pluck('kode_kelompok')
+            ->unique();
+
+        return view('daftar_pkl', compact('ploting', 'availableYears', 'availableKelompok' , 'tahun'));
     }
 
     public function nilaiPKL(Request $request)
@@ -94,6 +110,7 @@ class DudiController extends Controller
         // Filter berdasarkan tahun dan konsentrasi keahlian
         $tahun = $request->input('tahun');
         $konsentrasiKeahlian = $request->input('konsentrasi_keahlian');
+        $kodeKelompok = $request->input('kode_kelompok'); 
 
         // Query ke tabel ploting untuk mengambil data siswa
         $query = Ploting::with('siswa', 'nilaiPkl')->where('nama_dudi', $namaDudi);
@@ -111,6 +128,10 @@ class DudiController extends Controller
             });
         }
 
+        if ($kodeKelompok) {
+            $query->where('kode_kelompok', $kodeKelompok); // Filter berdasarkan kode kelompok
+        }
+
         $nilai_pkl = $query->with('nilaiPkl')->get();
 
         $availableYears = Ploting::where('nama_dudi', $namaDudi)
@@ -126,11 +147,16 @@ class DudiController extends Controller
             ->pluck('siswa.konsentrasi_keahlian')
             ->unique();
 
+        $availableKelompok = Ploting::where('nama_dudi', $namaDudi)
+            ->pluck('kode_kelompok')
+            ->unique();
+
         // Ambil total nilai untuk detail nilai
         $detail_nilai = $nilai_pkl->map(function ($item) {
             return [
                 'NIS' => $item->siswa->NIS ?? 'N/A', // Mengambil NIS dari relasi siswa
                 'Nama' => $item->siswa->nama_siswa ?? 'N/A', // Nama siswa dari relasi
+                'Kelompok' => $item->siswa->kode_kelompok ?? 'N/A',
                 'tp1_soft_skills' => $item->nilaiPkl->tp1_soft_skills ?? 0, 
                 'tp2_norma_pos' => $item->nilaiPkl->tp2_norma_pos ?? 0,
                 'tp3_kompetensi_teknis' => $item->nilaiPkl->tp3_kompetensi_teknis ?? 0,
@@ -141,7 +167,7 @@ class DudiController extends Controller
 
 
         // Filter dan kirim data ke view
-        return view('nilai_pkl', compact('nilai_pkl', 'detail_nilai', 'availableYears', 'availableKonsentrasi', 'tahun', 'konsentrasiKeahlian'));    
+        return view('nilai_pkl', compact('nilai_pkl', 'detail_nilai', 'availableYears', 'availableKelompok' , 'availableKonsentrasi', 'tahun', 'konsentrasiKeahlian'));    
     }
 
     public function uploadNilaiPKL(Request $request, $nis)
@@ -231,6 +257,7 @@ class DudiController extends Controller
         // Filter berdasarkan tahun dan konsentrasi keahlian
         $tahun = $request->input('tahun');
         $konsentrasiKeahlian = $request->input('konsentrasi_keahlian');
+        $kodeKelompok = $request->input('kode_kelompok'); 
 
         // Ambil data siswa dari tabel ploting berdasarkan nama_dudi dan filter tahun jika ada
         $query = Ploting::where('nama_dudi', $namaDudi)
@@ -249,6 +276,10 @@ class DudiController extends Controller
             });
         }
 
+        if ($kodeKelompok) {
+            $query->where('kode_kelompok', $kodeKelompok); // Filter berdasarkan kode kelompok
+        }
+
         // Dapatkan hasil query
         $ploting = $query->get();
 
@@ -265,9 +296,13 @@ class DudiController extends Controller
             ->pluck('siswa.konsentrasi_keahlian')
             ->unique();
 
+        $availableKelompok = Ploting::where('nama_dudi', $namaDudi)
+            ->pluck('kode_kelompok')
+            ->unique();
+
 
         // Kirimkan data ke view
-        return view('dudi_laporanjurnal', compact('ploting', 'availableYears', 'availableKonsentrasi', 'tahun', 'konsentrasiKeahlian'));
+        return view('dudi_laporanjurnal', compact('ploting', 'availableYears', 'availableKelompok' , 'availableKonsentrasi', 'tahun', 'konsentrasiKeahlian'));
     }
 
 

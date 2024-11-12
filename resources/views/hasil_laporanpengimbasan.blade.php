@@ -6,12 +6,11 @@
         <h4 class="text-center">LAPORAN PENGIMBASAN</h4>
         <br> <br>
         
-    <!-- Filter Tahun dan konsentrasi_keahlian -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <form action="{{ route('hasil_laporanpengimbasan') }}" method="GET" class="mb-4">
             <div class="d-flex justify-content-between">
                 <select class="form-select me-2" name="tahun" required>
-                    <option value="">Pilih Tahun</option>
+                    <option value=""> Pilih Tahun</option>
                     @foreach ($tahunOptions as $tahun)
                         <option value="{{ $tahun }}">{{ $tahun }}</option>
                     @endforeach
@@ -49,18 +48,22 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $laporan->kode_kelompok}}</td>
                     <td>{{ $laporan->NIS }}</td>
-                    <td class="left-align">{{ $laporan->nama_siswa }}</td>
+                    <td class="left-align">{{ $laporan->nama }}</td>
                     <td>{{ $laporan->siswa->konsentrasi_keahlian }}</td>
                     <td>{{ $laporan->kelas  }}</td>
                     <td>{{$laporan->siswa->tahun}}</td>
+
                     <td>
-                        <a href="{{ asset('storage/laporan_pengimbasan/' . $laporan->laporan_pengimbasan) }}" ></a>
-                            <button class="btn btn-link" style="background-color: #F99417; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
-                                Lihat Laporan
-                                <i class="bi bi-view" style="font-size: 1rem; margin-left: 5px;"></i>
-                            </button>
-                        </a> 
+                        @if(!empty($laporan->laporan_pengimbasan))
+                            <a href="{{ asset('storage/laporan_pengimbasan/' . $laporan->laporan_pengimbasan) }}" target="_blank"
+                               style="background-color: #db9898;; color: white; padding: 5px 5px; border-radius: 5px; text-decoration: none; display: inline-flex; align-items: center;">
+                                <span style="font-size: 0.9rem;">Lihat Laporan</span>
+                            </a>
+                        @else
+                            Belum diunggah
+                        @endif
                     </td>
+                    
                     <td>
                         @if($laporan->approved)
                             <span class="badge bg-success">Approved</span>
