@@ -99,7 +99,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nama_dudi" class="form-label">Tempat Dudi</label>
-                            <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $ploting->nama_dudi }}" readonly>
+                            <input type="text" class="form-control" id="nama_dudi" name="nama_dudi" value="{{ $ploting ? $ploting->nama_dudi : 'Siswa belum diploting' }}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="kegiatan" class="form-label">Kegiatan / Progres</label>
@@ -120,6 +120,7 @@
             </div>
         </div>
     </div>
+    
     <style>
         .form-label{
             color: black !important;

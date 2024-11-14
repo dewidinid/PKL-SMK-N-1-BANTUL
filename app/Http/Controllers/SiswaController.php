@@ -320,7 +320,7 @@ class SiswaController extends Controller
                 'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
                 // 'kode_kelompok' => $siswa->kode_kelompok,
                 'kelas' => $siswa->kelas,
-                'nama_dudi' => $ploting->nama_dudi,
+                'nama_dudi' => $ploting ? $ploting->nama_dudi : 'DUDI tidak terdaftar',
                 'kegiatan' => $request->input('kegiatan'),
                 'lokasi' => $request->input('lokasi'),
             ]);
@@ -332,30 +332,34 @@ class SiswaController extends Controller
         }        
     }
 
+
     public function verifikasiAkhirPKL()
     {
         // Mengambil data siswa yang sedang login
         $siswa = Auth::user();
-        $ploting = Ploting::all();
-
+        
         if (!$siswa) {
             return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
         }    
 
-       // Cek apakah laporan pengimbasan sudah diupload (ambil dari tabel laporan_pengimbasan)
-        $isLaporanPengimbasanUploaded = DB::table('laporan_pengimbasan')
+        // Cek apakah laporan pengimbasan sudah diupload dan ambil nama filenya
+        $laporanPengimbasan = DB::table('laporan_pengimbasan')
             ->where('NIS', $siswa->NIS)
-            ->exists();
+            ->first();
 
-        // Cek apakah laporan akhir sudah diupload (ambil dari tabel laporan_akhir)
-        $isLaporanAkhirUploaded = DB::table('laporan_akhir')
+        $isLaporanPengimbasanUploaded = $laporanPengimbasan !== null;
+        $laporanPengimbasanUrl = $isLaporanPengimbasanUploaded ? asset('storage/laporan_pengimbasan/' . $laporanPengimbasan->laporan_pengimbasan) : null;
+
+        // Cek apakah laporan akhir sudah diupload dan ambil nama filenya
+        $laporanAkhir = DB::table('laporan_akhir')
             ->where('NIS', $siswa->NIS)
-            ->exists();
-        
+            ->first();
+
+        $isLaporanAkhirUploaded = $laporanAkhir !== null;
+        $laporanAkhirUrl = $isLaporanAkhirUploaded ? asset('storage/laporan_akhir/' . $laporanAkhir->laporan_akhir) : null;
+
         // Path file nilai PKL berdasarkan NIS siswa
         $nilaiPklFilePath = 'public/nilai_pkl/nilai_pkl_' . $siswa->NIS . '.xlsx';
-        
-        // Cek apakah file nilai PKL ada di storage
         $isNilaiPklAvailable = Storage::exists($nilaiPklFilePath);
         
         // Mengembalikan view dengan data yang diperlukan
@@ -363,16 +367,20 @@ class SiswaController extends Controller
             'siswa' => $siswa,
             'isLaporanPengimbasanUploaded' => $isLaporanPengimbasanUploaded,
             'isLaporanAkhirUploaded' => $isLaporanAkhirUploaded,
+            'laporanPengimbasanUrl' => $laporanPengimbasanUrl,
+            'laporanAkhirUrl' => $laporanAkhirUrl,
             'isNilaiPklAvailable' => $isNilaiPklAvailable,
             'nilaiPklFilePath' => $nilaiPklFilePath,
         ]);
     }
+
 
     // Fungsi untuk upload laporan pengimbasan dan laporan akhir
     public function uploadLaporan(Request $request)
     {
         $siswa = Auth::user();
         $dudi = $siswa->ploting->nama_dudi ?? null; 
+        $ploting = Ploting::where('NIS', $siswa->NIS)->first();
 
         // Validasi file laporan pengimbasan dan laporan akhir
         $request->validate([
@@ -401,8 +409,13 @@ class SiswaController extends Controller
                         'nama' => $siswa->nama_siswa,
                         'kelas' => $siswa->kelas,
                         'nama_dudi' => $dudi, // Menggunakan variabel $dudi
+                        'kode_kelompok' => $siswa->kode_kelompok, // Memasukkan kode_kelompok
+                        'kode_dudi' => $ploting->kode_dudi, // Memasukkan kode_dudi
                     ]
                 );
+
+                // Menambahkan pesan sukses untuk laporan pengimbasan
+                $messages[] = 'Berhasil mengunggah laporan pengimbasan.';
             }
             
 
@@ -423,8 +436,13 @@ class SiswaController extends Controller
                         'nama_siswa' => $siswa->nama_siswa,
                         'kelas' => $siswa->kelas,
                         'nama_dudi' => $dudi, // Menggunakan variabel $dudi
+                        'kode_kelompok' => $siswa->kode_kelompok, // Memasukkan kode_kelompok
+                        'kode_dudi' => $ploting->kode_dudi, // Memasukkan kode_dudi
                     ]
                 );
+
+                // Menambahkan pesan sukses untuk laporan akhir
+                $messages[] = 'Berhasil mengunggah laporan akhir.';
             }
 
             // Gabungkan pesan sukses dan kirim ke view
@@ -433,8 +451,6 @@ class SiswaController extends Controller
             return redirect()->back()->with('error', 'Gagal mengunggah laporan: ' . $e->getMessage());
         }
     }
-
-
 
     public function lihatNilaiPkl()
     {

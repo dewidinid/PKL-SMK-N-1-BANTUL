@@ -47,16 +47,15 @@
                         <td>{{ $siswa->kelas }}</td>
                         <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
                         <td>
-                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
                                 @csrf
                                 <input type="file" name="laporan_pengimbasan" class="form-control mb-2" accept=".pdf,.doc,.docx">
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
                         </td>
                         <td>
-                            @if ($isLaporanPengimbasanUploaded)
-                            <a href="{{ asset('storage/laporan_pengimbasan/' . $siswa->laporan_pengimbasan) }}" target="_blank">Lihat File</a>
-
+                            @if ($isLaporanPengimbasanUploaded && $laporanPengimbasanUrl)
+                                <a href="{{ $laporanPengimbasanUrl }}" target="_blank">Lihat File</a>
                             @else
                                 <span class="text-muted">Belum Upload</span>
                             @endif
@@ -109,15 +108,15 @@
                         <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
                         <td>
                             <!-- Form untuk upload Laporan Akhir -->
-                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
                                 @csrf
                                 <input type="file" name="laporan_akhir" class="form-control mb-2" accept=".pdf,.doc,.docx">
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
                         </td>
                         <td>
-                            @if ($isLaporanAkhirUploaded)
-                            <a href="{{ asset('storage/laporan_akhir/' . $siswa->laporan_akhir) }}" target="_blank">Lihat File</a>
+                            @if ($isLaporanAkhirUploaded && $laporanAkhirUrl)
+                                <a href="{{ $laporanAkhirUrl }}" target="_blank">Lihat File</a>
                             @else
                                 <span class="text-muted">Belum Upload</span>
                             @endif

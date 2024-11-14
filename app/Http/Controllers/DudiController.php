@@ -34,17 +34,25 @@ class DudiController extends Controller
         $request->session()->put('nama_dudi', $dudi->nama_dudi);
 
         // Ambil tanggal hari ini
-        $today = Carbon::today();
+        // $today = Carbon::today();
 
-        $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
-            ->whereHas('siswa', function ($query) use ($namaDudi) {
-                $query->where('nama_dudi', $namaDudi);
-            })
-            ->with(['siswa'])
-            ->get();
+        // $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
+        //     ->whereHas('siswa', function ($query) use ($namaDudi) {
+        //         $query->where('nama_dudi', $namaDudi);
+        //     })
+        //     ->with(['siswa'])
+        //     ->get();
 
         // $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)->with('siswa')->get();
 
+         // Ambil tanggal hari ini
+        $today = Carbon::today();
+
+        // Ambil jurnal yang terkait dengan siswa magang di DUDI yang sedang login dan tanggal hari ini
+        $laporan_jurnal = LaporanJurnal::whereDate('tanggal', $today)
+            ->where('nama_dudi', $namaDudi) // Pastikan nama DUDI terkait
+            ->with('siswa') // Eager load relasi siswa
+            ->get();
 
         // dd($laporan_jurnal);
     
@@ -319,6 +327,8 @@ class DudiController extends Controller
             })
             ->firstOrFail();
 
+        $ploting = Ploting::where('NIS', $siswa->NIS)->first();
+
         // Ambil filter bulan dan tahun dari request
         $bulan = $request->input('bulan');
         $tahun = $request->input('tahun');
@@ -346,7 +356,7 @@ class DudiController extends Controller
 
 
         // Kirimkan data siswa dan jurnal ke view
-        return view('dudi_laporanjurnal_persiswa', compact('siswa', 'jurnals', 'bulan', 'tahun', 'availableYears'));
+        return view('dudi_laporanjurnal_persiswa', compact('siswa', 'ploting','jurnals', 'bulan', 'tahun', 'availableYears'));
     }   
  
 
