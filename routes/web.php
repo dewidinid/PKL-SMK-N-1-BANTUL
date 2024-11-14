@@ -67,6 +67,7 @@ Route::get('/ploting_siswa', [AdminController::class, 'plotingSiswa'])->name('pl
 Route::post('/admin/import-ploting', [AdminController::class, 'importPloting'])->name('admin.importPloting')->middleware('auth:admin');
 Route::get('/admin/ploting-siswa', [AdminController::class, 'plotingSiswa'])->name('admin.plotingSiswa')->middleware('auth:admin');
 
+
 Route::get('/surat-pengajuan', [AdminController::class, 'suratPengajuan'])->name('suratPengajuan')->middleware('auth:admin');
 Route::post('/approve-pengajuan', [AdminController::class, 'approvePengajuan'])->name('approvePengajuan')->middleware('auth:admin');
 
@@ -130,17 +131,19 @@ Route::get('/hasil_laporanakhir', [PembimbingController::class, 'hasilLaporanAkh
 
 Route::post('/monitoring/{nis}', [PembimbingController::class, 'uploadMonitoring'])->name('monitoring.upload')->middleware('auth:pembimbing');
 
-Route::get('/monitoring/export/pdf/{nis}', [CetakController::class, 'exportMonitoringPerSiswaPDF'])->name('monitoring.export.pdf');
-Route::get('/monitoring/export/excel/{nis}', [CetakController::class, 'exportMonitoringPerSiswaExcel'])->name('monitoring.export.excel');
+Route::get('/monitoring/export/pdf/{nis}', [CetakController::class, 'exportMonitoringPerSiswaPDF'])->name('monitoring.export.pdf')->middleware('auth:pembimbing');
+Route::get('/monitoring/export/excel/{nis}', [CetakController::class, 'exportMonitoringPerSiswaExcel'])->name('monitoring.export.excel')->middleware('auth:pembimbing');
 
-Route::get('/export/evaluasi/{nis}/excel', [CetakController::class, 'exportEvaluasiPersiswaExcel'])->name('exportEvaluasiPersiswaExcel');
-Route::get('/export/evaluasi/{nis}/pdf', [CetakController::class, 'exportEvaluasiPersiswaPDF'])->name('exportEvaluasiPersiswaPDF');
+Route::get('/export/evaluasi/{nis}/excel', [CetakController::class, 'exportEvaluasiPersiswaExcel'])->name('exportEvaluasiPersiswaExcel')->middleware('auth:pembimbing');
+Route::get('/export/evaluasi/{nis}/pdf', [CetakController::class, 'exportEvaluasiPersiswaPDF'])->name('exportEvaluasiPersiswaPDF')->middleware('auth:pembimbing');
 
-Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel');
-Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf');
+Route::get('/export/detail-nilai-excel', [CetakController::class, 'exportDetailNilaiExcel'])->name('export.detail.nilai.excel')->middleware('auth:dudi');
+Route::get('/export/detail-nilai-pdf', [CetakController::class, 'exportDetailNilaiPDF'])->name('export.detail.nilai.pdf')->middleware('auth:dudi');
 
 Route::get('/nilai-pkl/export-pdf', [CetakController::class, 'exportNilaiPklPdf'])->name('exportNilaiPklPdf')->middleware('auth:siswa');
 
+Route::get('/export-ploting-excel', [CetakController::class, 'exportPlotingToExcel'])->name('export.ploting.excel')->middleware('auth:admin');
+Route::get('/export-ploting-pdf', [CetakController::class, 'exportPlotingToPdf'])->name('export_ploting_pdf')->middleware('auth:admin');
 
 Route::get('/admin/insert-to-monitoring', [AdminController::class, 'insertToMonitoring'])->name('admin.insertToMonitoring');
 

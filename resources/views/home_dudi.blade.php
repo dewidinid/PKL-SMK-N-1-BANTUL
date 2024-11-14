@@ -11,34 +11,37 @@
                 <br>
                 <br>
                 <div class="container-kolom-info">
-                    <div class="box-kolom">
-                        <a href="{{ route ('daftar_siswa_pkl')}}" class="box-link">
+                    <div class="box-info-kolom">
+                        <!-- Box informasi Siswa -->
+                        <a href="{{ route('daftar_siswa_pkl') }}" class="box-link">
                             <div class="card-kolom">
                                 <div class="icon-kolom" style="background-color: #c9a3f2;">
                                     <i class="bi bi-people-fill"></i>
                                 </div>
                                 <div class="content-kolom">
                                     <p>Siswa</p>
-                                    <h3>{{ $jumlahSiswa }}</h3> 
+                                    <h3>{{ $jumlahSiswa }}</h3>
                                 </div>
                             </div>
                         </a>
-                        <div class="card-kolom">
+                        <!-- Box informasi Nilai PKL -->
+                        <div class="card-kolom" >
                             <div class="icon-kolom" style="background-color: rgb(228, 225, 165);">
                                 <i class="bi bi-file-earmark-text"></i>
                             </div>
                             <div class="content-kolom">
                                 <h5>Nilai PKL Siswa</h5>
-                                <a href="{{ route ('nilai_pkl')}}" class="lihat-semua-kolom">Lihat Semua</a>
+                                <a href="{{ route('nilai_pkl') }}" class="lihat-semua-kolom">Lihat Semua</a>
                             </div>
                         </div>
                     </div>
+                
+                    <!-- Pindahkan box-table laporan jurnal di bawah box-info siswa dan nilai pkl -->
                     <div class="box-info">
                         <div class="box-table">
                             <br>
                             <h3 style="text-align: center">Laporan Jurnal PKL Siswa</h3>
-                            <br>
-                            <br>
+                            <br><br>
                             <table class="table-mini table-striped custom-mini-table">
                                 <thead class="table-primary text-center">
                                     <tr class="text-center">
@@ -46,7 +49,6 @@
                                         <th>Tanggal</th>
                                         <th>NIS</th>
                                         <th id="nama">Nama</th>
-                                        {{-- <th>Konsentrasi Keahlian</th> --}}
                                         <th>Kelas</th>
                                         <th>Kelompok</th>
                                         <th>Tahun</th>
@@ -57,7 +59,7 @@
                                 <tbody>
                                     @if ($laporan_jurnal->isEmpty())
                                         <tr>
-                                            <td colspan="10" class="text-center">Tidak ada data jurnal untuk hari ini.</td>
+                                            <td colspan="9" class="text-center">Tidak ada data jurnal untuk hari ini.</td>
                                         </tr>
                                     @else
                                         @foreach ($laporan_jurnal as $index => $jurnal)
@@ -66,7 +68,6 @@
                                                 <td>{{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d/m/Y') }}</td>
                                                 <td>{{ $jurnal->siswa->NIS }}</td>
                                                 <td>{{ $jurnal->siswa->nama_siswa }}</td>
-                                                {{-- <td>{{ $jurnal->konsentrasi_keahlian }}</td> --}}
                                                 <td>{{ $jurnal->siswa->kelas }}</td>
                                                 <td>{{ $jurnal->siswa->kode_kelompok }}</td>
                                                 <td>{{ $jurnal->siswa->tahun }}</td>
@@ -75,15 +76,16 @@
                                             </tr>
                                         @endforeach
                                     @endif
-                                </tbody>                                                          
+                                </tbody>
                             </table>
                             <br>
-                            <div class="content" >
-                                <a href="{{ route ('dudi_laporanjurnal')}}" class="lihat-semua" style="padding-top: 20px;">Lihat Semua</a>
+                            <div class="content">
+                                <a href="{{ route('dudi_laporanjurnal') }}" class="lihat-semua" style="padding-top: 20px;">Lihat Semua</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
     </div>
 @else

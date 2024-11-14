@@ -127,7 +127,6 @@
     @endif
 
     <script>
-        // Menampilkan pop-up saat proses pengiriman jurnal
         function showAddingNotification() {
             Swal.fire({
                 title: 'Menambahkan Data...',
@@ -142,6 +141,7 @@
             // Izinkan form untuk dikirim setelah pop-up muncul
             return true; // Mengizinkan pengiriman form
         }
+
     
         // SweetAlert untuk menampilkan hasil setelah submit
         @if (session('success'))
@@ -161,6 +161,8 @@
                 confirmButtonText: 'OK'
             });
         @endif
+
+    
     </script>
 
     <script>

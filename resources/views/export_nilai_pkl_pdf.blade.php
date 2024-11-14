@@ -122,29 +122,29 @@
         <tbody id="data-table">
             <tr>
                 <td>Laporan / Jurnal PKL</td>
-                <td>{{ $nilaiPkl->persentase_jurnal }}</td>
+                <td>{{ number_format($nilaiPkl->persentase_jurnal, 2) }}</td>
             </tr>
             <tr>
                 <td>Nilai PKL Dudi</td>
-                <td>{{ $nilaiPkl->nilai_akhir_dudi }}</td>
+                <td>{{ number_format($nilaiPkl->nilai_akhir_dudi, 2) }}</td>
             </tr>
             <tr>
                 <td>Monitoring Pembimbing</td>
-                <td>{{ $nilaiPkl->monitoring_pembimbing }}</td>
+                <td>{{ number_format($nilaiPkl->monitoring_pembimbing, 2) }}</td>
             </tr>
             <tr>
                 <td>Laporan Pengimbasan</td>
-                <td>{{ $nilaiPkl->nilai_pengimbasan }}</td>
+                <td>{{ number_format($nilaiPkl->nilai_pengimbasan, 2) }}</td>
             </tr>
             <tr>
                 <td>Laporan Akhir PKL</td>
-                <td>{{ $nilaiPkl->nilai_akhir_pkl }}</td>
+                <td>{{ number_format($nilaiPkl->nilai_akhir_pkl, 2) }}</td>
             </tr>
         </tbody>
         <tfoot>
             <tr>
                 <th>Total Nilai</th>
-                <th>{{ $totalNilai }}</th>
+                <th>{{ number_format($totalNilai, 2) }}</th>
             </tr>
         </tfoot>
     </table>

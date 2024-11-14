@@ -33,37 +33,37 @@
                             <tr>
                                 <td>Laporan / Jurnal PKL</td>
                                 <td class="{{ $nilaiPkl->persentase_jurnal >= 10 ? 'text-success' : ($nilaiPkl->persentase_jurnal > 0 ? 'text-warning' : 'text-danger') }}">
-                                    {{ $nilaiPkl->persentase_jurnal }}
+                                    {{ number_format($nilaiPkl->persentase_jurnal, 2) }}
                                 </td>
                                 
                             </tr>
                             <tr>
                                 <td>Nilai PKL Dudi</td>
                                 <td class="{{ $nilaiPkl->nilai_akhir_dudi  > 0 ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiPkl->nilai_akhir_dudi  }}
+                                    {{ number_format($nilaiPkl->nilai_akhir_dudi, 2)  }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>Monitoring Pembimbing</td>
-                                <td class=" {{ $statusMonitoringColor }}">{{ $nilaiPkl->monitoring_pembimbing  }}</td>
+                                <td class=" {{ $statusMonitoringColor }}">{{ number_format($nilaiPkl->monitoring_pembimbing, 2)  }}</td>
                             </tr>
                             <tr>
                                 <td>Laporan Pengimbasan</td>
                                 <td class="{{ $nilaiPkl->nilai_pengimbasan ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiPkl->nilai_pengimbasan }}
+                                    {{ number_format($nilaiPkl->nilai_pengimbasan, 2) }}
                                 </td>
                             </tr>
                             <tr>
                                 <td>Laporan Akhir PKL</td>
                                 <td class="{{ $nilaiPkl->nilai_akhir_pkl ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiPkl->nilai_akhir_pkl }}
+                                    {{ number_format($nilaiPkl->nilai_akhir_pkl, 2) }}
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>Total Nilai</td>
-                                <td>{{ $totalNilai }}</td>
+                                <td>{{ number_format($totalNilai, 2) }}</td>
                             </tr>
                         </tfoot>
                     </table>

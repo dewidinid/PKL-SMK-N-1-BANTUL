@@ -42,11 +42,36 @@
             <tr>
                 <td><strong>Dudi</strong></td>
                 <td><strong>:</strong></td>
-                <td>{{ $siswa->nama_dudi }}</td>
+                <td>{{ $ploting->nama_dudi }}</td>
             </tr>
         </table>
         <br>
        
+        <h4 class="mt-3">Proposal Pengajuan PKL</h4>
+        <br>
+        <div class="col-md-8" >
+            <table class="table-striped custom-table">
+                <thead>
+                    <tr>
+                        <th>File Proposal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @if($proposalUrl)
+                                <a href="{{ $proposalUrl }}" target="_blank">{{ $namaFileProposal }}</a>
+                            @else
+                                {{ $namaFileProposal }}
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <br>
+        
         <h4 class="mt-3">Nilai PKL</h4>
         <br>
 
@@ -67,14 +92,14 @@
                             <tr>
                                 <td style="text-align: left;">Laporan Jurnal PKL</td>
                                 <td class="{{ $nilaiJurnalFull  >= 100 ? 'text-success' : ($nilaiJurnalFull  > 0 ? 'text-warning' : 'text-danger') }}">
-                                    {{ $nilaiJurnalFull  }}
+                                    {{ number_format($nilaiJurnalFull, 2)  }}
                                 </td>
                                 <td>Silahkan scroll ke bawah</td>
                             </tr>
                             <tr>
                                 <td style="text-align: left;">Nilai PKL Dudi</td>
                                 <td class="{{ $nilaiDudiFull > 0 ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiDudiFull }}
+                                    {{ number_format($nilaiDudiFull, 2) }}
                                 </td>
                                 <td>
                                     @if($nilaiPklDudi && $nilaiPklDudi->file_path)
@@ -86,13 +111,13 @@
                             </tr>
                             <tr >
                                 <td style="text-align: left;">Monitoring Pembimbing</td>
-                                <td class=" {{ $statusMonitoringColor }}">{{ $nilaiMonitoringFull }}</td>
+                                <td class=" {{ $statusMonitoringColor }}">{{ number_format($nilaiMonitoringFull, 2) }}</td>
                                 <td>Silahkan scroll ke bawah</td>
                             </tr>                
                             <tr>
                                 <td style="text-align: left;">Laporan Pengimbasan</td>
                                 <td class="{{ $nilaiPengimbasanFull ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiPengimbasanFull }}
+                                    {{ number_format($nilaiPengimbasanFull, 2) }}
                                 </td>
                                 <td>
                                     @if($laporanPengimbasanUrl && $laporanPengimbasan->laporan_pengimbasan)
@@ -105,7 +130,7 @@
                             <tr>
                                 <td style="text-align: left;">Laporan Akhir PKL</td>
                                 <td class="{{ $nilaiAkhirPKLFull ? 'text-success' : 'text-danger' }}">
-                                    {{ $nilaiAkhirPKLFull }}
+                                    {{ number_format($nilaiAkhirPKLFull, 2) }}
                                 </td>
                                 <td>
                                     @if($laporanAkhirUrl && $laporanAkhir->laporan_akhir)
@@ -120,7 +145,7 @@
                             <tr>
                                 <td>Total Nilai</td>
                                 <td class="{{ $totalNilai == 50 ? 'text-success' : ($totalNilai > 0 ? 'text-warning' : 'text-danger') }}">
-                                    {{ $totalNilai }}
+                                    {{ number_format($totalNilai, 2) }}
                                 </td>
                                 <td></td>
                             </tr>

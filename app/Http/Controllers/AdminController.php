@@ -127,11 +127,29 @@ class AdminController extends Controller
     }
 
 
-    public function dataMitraDudi()
+    // public function dataMitraDudi()
+    // {
+    //     $dudi = Dudi::all();
+    //     return view('data_mitradudi', compact('dudi'));
+    // }
+
+    public function dataMitraDudi(Request $request)
     {
-        $dudi = Dudi::all();
-        return view('data_mitradudi', compact('dudi'));
+        // Check if a filter for bidang_usaha is applied
+        $query = Dudi::query();
+
+        if ($request->has('bidang_usaha') && $request->bidang_usaha != '') {
+            $query->where('bidang_usaha', 'like', '%' . $request->bidang_usaha . '%');
+        }
+
+        $dudi = $query->get();
+
+        // Optionally, you can pass all unique bidang_usaha values to populate the filter dropdown
+        $bidangUsahaList = Dudi::select('bidang_usaha')->distinct()->get();
+
+        return view('data_mitradudi', compact('dudi', 'bidangUsahaList'));
     }
+
 
     public function importDudi(Request $request)
     {
@@ -320,23 +338,38 @@ class AdminController extends Controller
     {
         $tahun = Siswa::select('tahun')->distinct()->pluck('tahun');
         $kelompok = Ploting::select('kode_kelompok')->distinct()->pluck('kode_kelompok');
+        $konsentrasiKeahlian = Siswa::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
+
+        // Ambil data pembimbing dan dudi untuk dropdown
+        $pembimbing = Pembimbing::all();
+        $dudi = Dudi::all();
 
         $query = Ploting::with('siswa', 'pembimbing', 'dudi');
 
+        // Filter berdasarkan tahun
         if ($request->filled('tahun') && $request->tahun != 'Tahun') {
             $query->whereHas('siswa', function ($q) use ($request) {
                 $q->where('tahun', $request->tahun);
             });
         }
 
+        // Filter berdasarkan kelompok
         if ($request->filled('kelompok') && $request->kelompok != 'Kelompok') {
             $query->where('kode_kelompok', $request->kelompok);
         }
 
+        // Filter berdasarkan konsentrasi keahlian
+        if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+            $query->whereHas('siswa', function ($q) use ($request) {
+                $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+            });
+        }
+
         $ploting = $query->get();
 
-        return view('ploting_siswa', compact('ploting', 'kelompok', 'tahun'));
+        return view('ploting_siswa', compact('ploting', 'pembimbing', 'dudi', 'kelompok', 'tahun', 'konsentrasiKeahlian'));
     }
+
 
     public function importPloting(Request $request)
     {
@@ -351,17 +384,44 @@ class AdminController extends Controller
         (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicateData) {
             $ploting = Ploting::where('NIS', $line['NIS'])->first();
 
+            // Cek apakah data ploting sudah ada berdasarkan NIS
             if (!$ploting) {
+                // Ambil data pembimbing berdasarkan nama
+                $pembimbing = Pembimbing::where('nama_pembimbing', $line['Pembimbing'])->first();
+                $nipNik = $pembimbing ? $pembimbing->NIP_NIK : null;
+
+                // Ambil data DUDI berdasarkan nama
+                $dudi = Dudi::where('nama_dudi', $line['Dudi'])->first();
+                $kodeDudi = $dudi ? $dudi->kode_dudi : null;
+                $notelpDudi = $dudi ? $dudi->notelp_dudi : null;
+                $alamatDudi = $dudi ? $dudi->alamat_dudi : null;
+
+                // Ambil data siswa berdasarkan NIS
+                $siswa = Siswa::where('NIS', $line['NIS'])->first();
+                $namaSiswa = $siswa ? $siswa->nama_siswa : null;
+                $konsentrasiKeahlian = $siswa ? $siswa->konsentrasi_keahlian : $line['Konsentrasi Keahlian'];
+
+                // Mengisi konsentrasi keahlian jika tidak ada di file Excel
+                if (empty($konsentrasiKeahlian)) {
+                    $konsentrasiKeahlian = $siswa->konsentrasi_keahlian ?? null;
+                }
+
+                // Simpan data baru ke tabel ploting
                 $importedData[] = Ploting::create([
                     'kode_kelompok' => $line['Kode Kelompok'],
                     'NIS' => $line['NIS'],
-                    'nama_siswa' => $line['Nama'],
+                    'nama_siswa' => $namaSiswa,
                     'kelas' => $line['Kelas'],
                     'nama_pembimbing' => $line['Pembimbing'],
                     'nama_dudi' => $line['Dudi'],
-                    'alamat_dudi' => $line['Alamat Dudi']
+                    'alamat_dudi' => $alamatDudi,
+                    'NIP_NIK' => $nipNik,
+                    'kode_dudi' => $kodeDudi,
+                    'notelp_dudi' => $notelpDudi,
+                    'konsentrasi_keahlian' => $konsentrasiKeahlian
                 ]);
             } else {
+                // Simpan data duplikat
                 $duplicateData[] = $line['NIS'];
             }
         });
@@ -370,6 +430,8 @@ class AdminController extends Controller
             ? redirect()->back()->with('success', 'Data berhasil ditambahkan.')
             : redirect()->back()->with('error', 'Data sudah ditemukan (upload tidak bertambah).');
     }
+
+
 
     // Method untuk menampilkan halaman surat pengajuan
     public function suratPengajuan()
@@ -387,9 +449,6 @@ class AdminController extends Controller
 
         return view('suratpengajuanmandiri', compact('pengajuans', 'pembimbings', 'dudi'));
     }
-    
-
-
     
     public function approvePengajuan(Request $request)
     {
@@ -464,6 +523,8 @@ class AdminController extends Controller
         return $singkatan . $newIndex;
     }
 
+    
+
     public function reportSiswa(Request $request)
     {
         // Mengambil data siswa dari tabel 'ploting' dengan filter 'tahun' dan 'konsentrasi keahlian'
@@ -492,6 +553,8 @@ class AdminController extends Controller
     {
         // Mengambil data siswa dan laporan terkait berdasarkan NIS
         $siswa = Siswa::where('NIS', $nis)->with( 'dudi')->first();
+        $ploting = Ploting::where('NIS', $siswa->NIS)->first();
+
         $laporanPengimbasan = LaporanPengimbasan::where('NIS', $nis)->first();
         $laporanAkhir = LaporanAkhir::where('NIS', $nis)->first();
 
@@ -568,13 +631,36 @@ class AdminController extends Controller
         // URL file nilai PKL yang diupload oleh DUDI
         $nilaiPklDudiFilePath = $nilaiPklDudi && $nilaiPklDudi->file_path ? asset('storage/nilai_pkl/' . $nilaiPklDudi->file_path) : null;
 
+        // Mencari pengajuan terkait berdasarkan NIS di PengajuanSiswa
+        $proposalPengajuan = Pengajuan::whereHas('siswa', function ($query) use ($nis) {
+            $query->where('pengajuan_siswa.nis', $nis);
+        })->first();        
+
+        // Cek apakah ada proposal pengajuan
+        if ($proposalPengajuan) {
+            // Mengambil semua NIS anggota kelompok
+            $anggotaKelompok = PengajuanSiswa::where('id_pengajuan', $proposalPengajuan->id_pengajuan)
+                ->pluck('nis')
+                ->toArray();
+
+            // Menggabungkan NIS anggota kelompok dalam satu string
+            $namaFileProposal = 'proposal pkl [' . implode(' ', $anggotaKelompok) . ']';
+            $proposalUrl = Storage::url('proposals/' . $proposalPengajuan->proposal_pkl);
+        } else {
+            // Jika tidak ada pengajuan, berikan nilai default
+            $namaFileProposal = 'Tidak ada proposal';
+            $proposalUrl = null;
+        }
+
+        
         $nis = $nilaiPklDudi->NIS ?? null; // Sesuaikan dengan struktur data Anda
 
     
         return view('report_siswa_persiswa', compact(
-            'siswa', 'laporanPengimbasan', 'laporanAkhir', 'laporanPengimbasanUrl', 'laporanAkhirUrl',
+            'siswa', 'ploting','laporanPengimbasan', 'laporanAkhir', 'laporanPengimbasanUrl', 'laporanAkhirUrl',
             'persentaseJurnal', 'nilaiAkhirDudi', 'nilaiPklDudi', 'nis', 'nilaiPklDudiFilePath', 'nilaiMonitoring',  'monitoringPerSiswa',  'statusMonitoringColor','nilaiAkhirMonitoring','nilaiPengimbasan', 'nilaiAkhirPKL', 'totalNilai',
-            'jurnals', 'bulan', 'tahun', 'availableYears', 'nilaiJurnalFull', 'nilaiDudiFull', 'nilaiMonitoringFull', 'nilaiPengimbasanFull', 'nilaiAkhirPKLFull'
+            'jurnals', 'bulan', 'tahun', 'availableYears', 'nilaiJurnalFull', 'nilaiDudiFull', 'nilaiMonitoringFull', 'nilaiPengimbasanFull', 
+            'nilaiAkhirPKLFull', 'proposalPengajuan', 'proposalUrl', 'namaFileProposal'
         ));
     }
 
@@ -603,7 +689,38 @@ class AdminController extends Controller
         return response()->download($filePath, $fileName);
     }
 
+// public function importPloting(Request $request)
+    // {
+    //     $request->validate([
+    //         'file' => 'required|mimes:xlsx'
+    //     ]);
 
+    //     $file = $request->file('file');
+    //     $importedData = [];
+    //     $duplicateData = [];
+
+    //     (new FastExcel)->import($file, function ($line) use (&$importedData, &$duplicateData) {
+    //         $ploting = Ploting::where('NIS', $line['NIS'])->first();
+
+    //         if (!$ploting) {
+    //             $importedData[] = Ploting::create([
+    //                 'kode_kelompok' => $line['Kode Kelompok'],
+    //                 'NIS' => $line['NIS'],
+    //                 'nama_siswa' => $line['Nama'],
+    //                 'kelas' => $line['Kelas'],
+    //                 'nama_pembimbing' => $line['Pembimbing'],
+    //                 'nama_dudi' => $line['Dudi'],
+    //                 'alamat_dudi' => $line['Alamat Dudi'],
+    //             ]);
+    //         } else {
+    //             $duplicateData[] = $line['NIS'];
+    //         }
+    //     });
+
+    //     return count($importedData) > 0
+    //         ? redirect()->back()->with('success', 'Data berhasil ditambahkan.')
+    //         : redirect()->back()->with('error', 'Data sudah ditemukan (upload tidak bertambah).');
+    // }
     
 
 // public function approveSelected(Request $request)

@@ -44,7 +44,7 @@
             <tr>
                 <td><strong>Dudi</strong></td>
                 <td><strong>:</strong></td>
-                <td>{{ $siswa->nama_dudi }}</td>
+                <td>{{ $ploting->nama_dudi }}</td>
             </tr>
         </table>
         

@@ -1,11 +1,11 @@
 /* Container for the new layout */
 .container-kolom-info {
     display: flex;
-    gap: 20px; /* Space between box-kolom and box-info */
-    justify-content: flex-start; /* Align items to the left */
-    align-items: flex-start; /* Align items at the top */
-    width: 100%; /* Ensure container takes full width */
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
 }
+
 
 .box-info {
     display: flex;
@@ -240,3 +240,9 @@
     position: relative; /* Ensures the link can be positioned */
 } 
 
+/* Mengatur container box-info untuk siswa dan nilai pkl */
+.box-info-kolom {
+    display: flex;
+    gap: 20px; /* Jarak antara card siswa dan nilai pkl */
+    align-items: center; /* Rata tengah secara vertikal */
+}

@@ -13,15 +13,32 @@
     <br>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
+        <form method="GET" action="{{ route('data_mitradudi') }}">
+            <div>
+                <select name="bidang_usaha" class="form-select d-inline-block w-auto"  >
+                    <option value="">Pilih Bidang Usaha</option>
+                    @foreach($bidangUsahaList as $item)
+                        <option value="{{ $item->bidang_usaha }}" 
+                            {{ request('bidang_usaha') == $item->bidang_usaha ? 'selected' : '' }}>
+                            {{ $item->bidang_usaha }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </form>
+
         <!-- Button to trigger the modal (left-aligned) -->
-        <div>
-            <button type="button" class="btn btn-primary d-flex align-items-center custom-btn" data-bs-toggle="modal" data-bs-target="#addDudiModal">
-                Tambah Dudi <i class="bi bi-plus" style="font-size: 19px;"></i>
-            </button>
-        </div>
+        
     
         <!-- File Upload and Import Buttons (right-aligned) -->
         <div class="d-flex">
+            <div style="margin-right: 10px;">
+                <button type="button" class="btn btn-primary d-flex align-items-center custom-btn" data-bs-toggle="modal" data-bs-target="#addDudiModal">
+                    Tambah Dudi <i class="bi bi-plus" style="font-size: 19px;"></i>
+                </button>
+            </div>
+
             <form method="POST" action="{{ route('import.dudi') }}" enctype="multipart/form-data" class="d-flex">
                 @csrf
                 <div class="me-2">

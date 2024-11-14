@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
+use App\Models\Dudi;
 use App\Models\Monitoring;
 use App\Models\Evaluasi;
 use App\Models\NilaiPkl;
@@ -15,6 +16,7 @@ use App\Models\LaporanJurnal;
 use App\Models\LaporanAkhir;
 use App\Models\LaporanPengimbasan;
 use App\Models\MonitoringPerSiswa;
+use App\Models\Ploting;
 
 
 class CetakController extends Controller
@@ -277,6 +279,49 @@ class CetakController extends Controller
 
         // Return PDF untuk diunduh
         return $pdf->download('nilai_pkl_' . $siswa->NIS . '.pdf');
+    }
+
+    public function exportPlotingToPdf()
+    {
+        // Ambil data plotting dari database
+        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+        $dudi = Dudi::all();
+        $siswa = Siswa::all();
+        $tahunAngkatan = $plotingData->first()->siswa->tahun ?? 'N/A';
+
+        // Buat file PDF menggunakan data plotting
+        $pdf = Pdf::loadView('export_ploting_pdf', compact('plotingData', 'dudi', 'siswa', 'tahunAngkatan'))
+            ->setPaper('a4', 'landscape');
+
+        // Unduh file PDF
+        return $pdf->download('data_ploting.pdf');
+    }
+
+    public function exportPlotingToExcel()
+    {
+        // Ambil data plotting dari database
+        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+        $dudi = Dudi::all();
+
+        // Atur data yang akan diekspor
+        $data = $plotingData->map(function($ploting) {
+            return [
+                'Kode Kelompok' => $ploting->kode_kelompok,
+                'NIS' => $ploting->NIS,
+                'Nama Siswa' => optional($ploting->siswa)->nama_siswa,
+                'Kelas' => $ploting->kelas,
+                'Konsentrasi Keahlian' => optional($ploting->siswa)->konsentrasi_keahlian,
+                'NIP/NIK Pembimbing' => $ploting->NIP_NIK,
+                'Pembimbing' => $ploting->nama_pembimbing,
+                'Kode DUDI' => $ploting->kode_dudi,
+                'DUDI' => $ploting->nama_dudi,
+                'No Telp DUDI' => $ploting->dudi->notelp_dudi,
+                'Alamat DUDI' => $ploting->dudi->alamat_dudi,
+            ];
+        });
+
+        // Ekspor data ke Excel
+        return (new FastExcel($data))->download('data_ploting.xlsx');
     }
 
 
