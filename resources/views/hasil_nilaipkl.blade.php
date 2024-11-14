@@ -11,6 +11,12 @@
     <form action="{{ route('hasil_nilaipkl') }}" method="GET">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok" onchange="this.form.submit()">
+                    <option selected>Kode Kelompok</option>
+                    @foreach ($kode_kelompok as $kelompok)
+                        <option value="{{ $kelompok }}" {{ request('kode_kelompok') == $kelompok ? 'selected' : '' }}>{{ $kelompok }}</option>
+                    @endforeach
+                </select>
                 <!-- Dropdown Tahun -->
                 <select class="form-select d-inline-block w-auto" name="tahun" onchange="this.form.submit()">
                     <option selected>Tahun</option>

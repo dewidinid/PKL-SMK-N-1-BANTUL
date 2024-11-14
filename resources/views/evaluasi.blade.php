@@ -7,32 +7,39 @@
     <h4 class="text-center">EVALUASI PKL</h4>
     <br><br>
     
-    <!-- Filter Tahun dan konsentrasi_keahlian -->
-    <form action="{{ route('filterEvalPem') }}" method="GET">
+    <form method="GET" action="{{ route('filterEvalPem') }}">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <select class="form-select d-inline-block w-auto" name="tahun" >
-                    <option value="">Pilih Tahun</option>
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok">
+                    <option selected>Kode Kelompok</option>
+                    @foreach ($kodeKelompokOptions as $kodeKelompok)
+                        <option value="{{ $kodeKelompok }}" {{ request('kode_kelompok') == $kodeKelompok ? 'selected' : '' }}>
+                            {{ $kodeKelompok }}
+                        </option>
+                    @endforeach
+                </select>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
                     @foreach($tahunOptions as $option)
                         <option value="{{ $option }}" {{ request('tahun') == $option ? 'selected' : '' }}>
                             {{ $option }}
                         </option>
                     @endforeach
                 </select>
-
-                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" >
-                    <option value="">Pilih Konsentrasi Keahlian</option>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
                     @foreach($keahlianOptions as $option)
                         <option value="{{ $option }}" {{ request('konsentrasi_keahlian') == $option ? 'selected' : '' }}>
                             {{ $option }}
                         </option>
                     @endforeach
                 </select>
-
+    
                 <button type="submit" class="btn btn-primary">Filter</button>
             </div>
         </div>
     </form>
+    
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
@@ -52,10 +59,10 @@
                 <tr class="text-center">
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $evaluasi->kode_kelompok }}</td>
-                    <td>{{ $evaluasi->NIS }}</td>
-                    <td>{{ $evaluasi->nama_siswa }}</td>
+                    <td>{{ $evaluasi->siswa->NIS }}</td>
+                    <td>{{ $evaluasi->siswa->nama_siswa }}</td>
                     <td>{{ $evaluasi->siswa->konsentrasi_keahlian }}</td>
-                    <td>{{ $evaluasi->kelas }}</td>
+                    <td>{{ $evaluasi->siswa->kelas }}</td>
                     <td>{{ $evaluasi->siswa->tahun }}</td>
                     <td>
                         <a href="{{ route('evaluasi_persiswa', ['nis' => $evaluasi->NIS]) }}" class="btn" style="background-color: #e67e55; border-radius: 5px; padding: 5px;">

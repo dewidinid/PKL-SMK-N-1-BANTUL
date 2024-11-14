@@ -59,10 +59,33 @@
         .table-striped tbody tr:nth-child(even) {
             background-color: #C5D7E0 !important;
         }
+        tfoot td {
+            background-color: #0275d8; 
+            color: white;
+            font-weight: bold;
+        }
+
         .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             text-align: right;
-            margin-top: 20px;
             font-size: 12px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Styling khusus untuk cetak */
+        @media print {
+            body, html {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .footer {
+                position: fixed;
+                bottom: 0;
+            }
         }
     </style>
 </head>
@@ -136,13 +159,15 @@
                     <td>10%</td>
                     <td>{{ $data->nilai_lap_akhir }}</td>
                 </tr>
+                @endforeach
+            </tbody>
+            <tfoot>
                 <tr>
                     <td>Nilai Akhir </td>
                     <td>10%</td>
                     <td>{{ $data->nilai_akhir}}</td>
                 </tr>
-                @endforeach
-            </tbody>
+            </tfoot>
         </table>
     </div> <br><br>
 

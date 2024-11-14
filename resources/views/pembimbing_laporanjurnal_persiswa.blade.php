@@ -50,14 +50,27 @@
 
         <div>
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <select class="form-select d-inline-block w-auto" name="bulan">
-                        <option selected>Bulan</option>
-                    </select>
-                    <select class="form-select d-inline-block w-auto" name="tahun">
-                        <option selected>Tahun</option>
-                    </select>
-                </div>
+                <form method="GET" action="{{ route('pembimbing.laporanJurnalPerSiswa', ['nis' => $siswa->NIS]) }}">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <select class="form-select d-inline-block w-auto" name="bulan">
+                                <option selected>Bulan</option>
+                                @foreach ($bulanOptions as $bulan)
+                                    <option value="{{ $bulan }}" {{ request('bulan') == $bulan ? 'selected' : '' }}>
+                                        {{ $namaBulan[$bulan] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <select class="form-select d-inline-block w-auto" name="tahun">
+                                <option selected>Tahun</option>
+                                @foreach ($tahunOptions as $tahun)
+                                    <option value="{{ $tahun }}" {{ request('tahun') == $tahun ? 'selected' : '' }}>{{ $tahun }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-primary">Filter</button>
+                        </div>
+                    </div>
+                </form>
             </div>
 
             <table class="table-striped custom-table">

@@ -125,8 +125,6 @@
              </tbody>
             <tfoot>
                 <tr>
-                    {{-- <td colspan="5">Nilai Akhir Monitoring</td>
-                    <td>{{ $monitoringPerSiswa->first()->nilai_akhir_monitoring ?? 'N/A' }}</td> --}}
                     <td colspan="5">Nilai Akhir Monitoring</td>
                     <td>
                         @php

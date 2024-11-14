@@ -10,6 +10,12 @@
     <div class="d-flex justify-content-between align-items-center mb-3">
         <form method="GET" action="{{ route('pembimbing_laporanjurnal') }}">
             <div>
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok">
+                    <option selected>Kode Kelompok</option>
+                    @foreach($kodeKelompokOptions as $kode)
+                        <option value="{{ $kode }}">{{ $kode }}</option>
+                    @endforeach
+                </select>
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option selected>Tahun</option>
                     @foreach ($tahunOptions as $tahun)
@@ -47,7 +53,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $data->kode_kelompok }}</td>
                 <td>{{ $data->NIS }}</td>
-                <td class="left-align">{{ $data->nama_siswa }}</td>
+                <td class="left-align">{{ $data->siswa->nama_siswa }}</td>
                 <td>{{ $data->siswa->konsentrasi_keahlian }}</td>
                 <td>{{ $data->kelas }}</td>
                 <td>{{ $data->siswa->tahun }}</td>

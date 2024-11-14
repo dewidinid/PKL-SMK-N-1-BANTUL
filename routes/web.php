@@ -115,9 +115,11 @@ Route::get('/hasil_nilaipkl', [PembimbingController::class, 'hasilNilaiPKL'])->n
 Route::get('/hasil_laporanpengimbasan', [PembimbingController::class, 'hasilLaporanPengimbasan'])->name('hasil_laporanpengimbasan')->middleware('auth:pembimbing');
 
 Route::get('/pembimbing_laporanjurnal', [PembimbingController::class, 'pembimbingLaporanJurnal'])->name('pembimbing_laporanjurnal')->middleware('auth:pembimbing');
+//filter laporan jurnal
 Route::get('/pembimbing_laporanjurnal_persiswa/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing_laporanjurnal_persiswa')->middleware('auth:pembimbing');
+// Filter laporan jurnal persiswa
+Route::get('/pembimbing/laporan-jurnal/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing.laporanJurnalPerSiswa');
 
-// Route::get('/pembimbing/laporan-jurnal/{nis}', [PembimbingController::class, 'pembimbingLaporanJurnalPerSiswa'])->name('pembimbing.laporanJurnalPerSiswa');
 
 Route::post('/approve_laporanakhir', [PembimbingController::class, 'approveLaporanAkhir'])->name('approve_laporanakhir')->middleware('auth:pembimbing');
 

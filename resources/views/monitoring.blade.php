@@ -11,6 +11,12 @@
         <div>
             <form action="{{ route('filterMonitoring') }}" method="GET">
                 @csrf
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok">
+                    <option selected>Kode Kelompok</option>
+                    @foreach($kode_kelompok as $kode_kel)
+                        <option value="{{ $kode_kel }}">{{ $kode_kel }}</option>
+                    @endforeach
+                </select>
                 <!-- Dropdown untuk filter tahun -->
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option selected>Tahun</option>

@@ -67,8 +67,8 @@
                             <tr>
                                 <td>Laporan / Jurnal PKL</td>
                                 <td>10%</td>
-                                <td class="{{ $nilaiJurnalFull >= 100 ? 'text-success' : ($nilaiJurnalFull > 0 ? 'text-warning' : 'text-danger') }}">
-                                    {{ number_format($nilaiJurnalFull, 2) }}
+                                <td class="{{ $nilaiJurnal >= 100 ? 'text-success' : ($nilaiJurnal > 0 ? 'text-warning' : 'text-danger') }}">
+                                    {{ number_format($nilaiJurnal, 2) }}
                                 </td>
                             </tr>
                             <tr>
@@ -102,6 +102,7 @@
                             <tr>
                                 <td colspan="2">Nilai Akhir</td>
                                 <td>{{ number_format($totalNilai, 2) }}</td>
+                                
                             </tr>
                         </tfoot>
                     </table>

@@ -5,28 +5,34 @@
 <div class="container mt-5 table-wrapper">
         <h4 class="text-center">LAPORAN PENGIMBASAN</h4>
         <br> <br>
-        
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <form action="{{ route('hasil_laporanpengimbasan') }}" method="GET" class="mb-4">
-            <div class="d-flex justify-content-between">
-                <select class="form-select me-2" name="tahun" required>
-                    <option value=""> Pilih Tahun</option>
+
+    <form method="GET" action="{{ route('hasil_laporanpengimbasan') }}">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok">
+                    <option selected>Kode Kelompok</option>
+                    @foreach ($kodeKelompokOptions as $kodeKelompok)
+                        <option value="{{ $kodeKelompok }}">{{ $kodeKelompok }}</option>
+                    @endforeach
+                </select>
+                <select class="form-select d-inline-block w-auto" name="tahun">
+                    <option selected>Tahun</option>
                     @foreach ($tahunOptions as $tahun)
                         <option value="{{ $tahun }}">{{ $tahun }}</option>
                     @endforeach
                 </select>
-
-                <select class="form-select" name="konsentrasi_keahlian" required>
-                    <option value="">Pilih Konsentrasi Keahlian</option>
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                    <option selected>Konsentrasi Keahlian</option>
                     @foreach ($konsentrasiOptions as $konsentrasi)
                         <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
                     @endforeach
                 </select>
 
-                <button type="submit" class="btn btn-primary ms-2">Filter</button>
+                <button type="submit" class="btn btn-primary">Filter</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
+
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
             <tr>
@@ -83,7 +89,6 @@
         </tbody> 
     </table>
 
-    <br>
     <br>
     <br>
 

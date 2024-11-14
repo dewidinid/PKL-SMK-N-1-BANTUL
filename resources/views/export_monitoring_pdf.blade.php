@@ -60,10 +60,32 @@
         .table-striped tbody tr:nth-child(even) {
             background-color: #C5D7E0 !important;
         }
+        tfoot td {
+            background-color: #0275d8; 
+            color: white;
+            font-weight: bold;
+        }
         .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
             text-align: right;
-            margin-top: 20px;
             font-size: 12px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Styling khusus untuk cetak */
+        @media print {
+            body, html {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .footer {
+                position: fixed;
+                bottom: 0;
+            }
         }
     </style>
 </head>
@@ -125,6 +147,21 @@
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5">Nilai Akhir Monitoring</td>
+                    <td>
+                        @php
+                            // Hitung jumlah nilai_monitoring saat ini
+                            $totalNilaiMonitoring = $monitoringPerSiswa->sum('nilai_monitoring');
+                            // Hitung rata-rata nilai monitoring saat ini
+                            $jumlahUpload = $monitoringPerSiswa->count();
+                            $nilaiAkhirMonitoring = $jumlahUpload > 0 ? $totalNilaiMonitoring / $jumlahUpload : 0;
+                        @endphp
+                        {{ number_format($nilaiAkhirMonitoring, 2) }}
+                    </td>
+                </tr> 
+            </tfoot>
         </table>
     </div> <br><br>
 
