@@ -32,10 +32,15 @@ class Ploting extends Model
 
 
     // Relasi ke model Pembimbing
+    // public function pembimbing()
+    // {
+    //     return $this->belongsTo(Pembimbing::class, 'nama_pembimbing', 'nama_pembimbing');
+    // }
+
     public function pembimbing()
-    {
-        return $this->belongsTo(Pembimbing::class, 'nama_pembimbing', 'nama_pembimbing');
-    }
+{
+    return $this->belongsTo(Pembimbing::class, 'NIP_NIK', 'NIP_NIK');
+}
 
     //Relasi ke model Dudi
     public function dudi()

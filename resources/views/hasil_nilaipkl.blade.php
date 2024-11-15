@@ -11,14 +11,14 @@
     <form action="{{ route('hasil_nilaipkl') }}" method="GET">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <div>
-                <select class="form-select d-inline-block w-auto" name="kode_kelompok" onchange="this.form.submit()">
+                <select class="form-select d-inline-block w-auto" name="kode_kelompok" >
                     <option selected>Kode Kelompok</option>
                     @foreach ($kode_kelompok as $kelompok)
                         <option value="{{ $kelompok }}" {{ request('kode_kelompok') == $kelompok ? 'selected' : '' }}>{{ $kelompok }}</option>
                     @endforeach
                 </select>
                 <!-- Dropdown Tahun -->
-                <select class="form-select d-inline-block w-auto" name="tahun" onchange="this.form.submit()">
+                <select class="form-select d-inline-block w-auto" name="tahun" >
                     <option selected>Tahun</option>
                     @foreach ($tahun as $thn)
                         <option value="{{ $thn }}" {{ request('tahun') == $thn ? 'selected' : '' }}>{{ $thn }}</option>
@@ -26,7 +26,7 @@
                 </select>
 
                 <!-- Dropdown Konsentrasi Keahlian -->
-                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" onchange="this.form.submit()">
+                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian" >
                     <option selected>Konsentrasi Keahlian</option>
                     @foreach ($konsentrasi_keahlian as $keahlian)
                         <option value="{{ $keahlian }}" {{ request('konsentrasi_keahlian') == $keahlian ? 'selected' : '' }}>{{ $keahlian }}</option>

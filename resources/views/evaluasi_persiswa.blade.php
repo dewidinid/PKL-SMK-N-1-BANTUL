@@ -43,7 +43,7 @@
             <tr>
                 <td><strong>Dudi</strong></td>
                 <td><strong>:</strong></td>
-                <td>{{ $siswa->nama_dudi }}</td>
+                <td>{{ $siswa->ploting->nama_dudi }}</td>
             </tr>
         </table>
 
@@ -125,9 +125,9 @@
         <br><br>
 
         <div>
-            <a href="{{ route('exportEvaluasiPersiswaExcel', ['nis' => $siswa->NIS]) }}" class="btn btn-success">
+            {{-- <a href="{{ route('exportEvaluasiPersiswaExcel', ['nis' => $siswa->NIS]) }}" class="btn btn-success">
                 <i class="bi bi-file-earmark-excel"></i> Export Excel
-            </a>
+            </a> --}}
             
             <a href="{{ route('exportEvaluasiPersiswaPDF', ['nis' => $siswa->NIS]) }}" class="btn btn-danger">
                 <i class="bi bi-file-earmark-pdf"></i> Export PDF

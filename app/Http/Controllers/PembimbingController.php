@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Http\Request;
 use Rap2hpoutre\FastExcel\FastExcel;
@@ -14,6 +15,7 @@ use App\Models\NilaiPKL;
 use App\Models\LaporanPengimbasan;
 use App\Models\LaporanJurnal;
 use App\Models\LaporanAkhir;
+use App\Models\Pembimbing;
 use App\Models\Ploting;
 
 class PembimbingController extends Controller
@@ -27,90 +29,159 @@ class PembimbingController extends Controller
         return view('home_pembimbing', compact('siswaList'));
     }
 
-    public function monitoringPKL()
-    {
-        if (!auth('pembimbing')->check()) {
-            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
-        }
-
-        $nipNik = auth('pembimbing')->user()->NIP_NIK;
-
-        $plotingData = Ploting::with('siswa')
-            ->where('NIP_NIK', $nipNik) // Filter data berdasarkan nip_nik pembimbing yang login
-            ->get();
-
-        foreach ($plotingData as $ploting) {
-            Monitoring::updateOrCreate(
-                ['NIS' => $ploting->siswa->NIS],
-                [
-                    'NIS' => $ploting->siswa->NIS,
-                    'kode_kelompok' => $ploting->kode_kelompok,
-                    'nama_siswa' => $ploting->siswa->nama_siswa,
-                    'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
-                    'kelas' => $ploting->siswa->kelas,
-                    'kode_dudi' => $ploting->kode_dudi,
-                    'nama_dudi' => $ploting->nama_dudi,
-                    'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
-                    'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
-                    'tahun' => $ploting->siswa->tahun,
-                ]
-            );
-        }
-
-        $monitoring = Monitoring::with('siswa')->where('NIP_NIK', $nipNik)->get();
-
-        $tahun = Monitoring::select('tahun')->distinct()->pluck('tahun');
-        $konsentrasi_keahlian = Monitoring::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
-        $kode_kelompok = Monitoring::select('kode_kelompok')->distinct()->pluck('kode_kelompok');
-
-        return view('monitoring', [
-            'monitoring' => $monitoring,
-            'tahun' => $tahun,
-            'konsentrasi_keahlian' => $konsentrasi_keahlian,
-            'kode_kelompok' =>$kode_kelompok
-        ]);
+    public function monitoringPKL(Request $request)
+{
+    if (!auth('pembimbing')->check()) {
+        return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
     }
+
+    $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+    // Sinkronisasi data ploting ke tabel monitoring
+    $plotingData = Ploting::with('siswa', 'pembimbing')
+        ->where('NIP_NIK', $nipNik)
+        ->get();
+
+    // Update atau insert data monitoring berdasarkan ploting
+    foreach ($plotingData as $ploting) {
+        Monitoring::updateOrCreate(
+            ['NIS' => $ploting->siswa->NIS],
+            [
+                'NIS' => $ploting->siswa->NIS,
+                'kode_kelompok' => $ploting->kode_kelompok,
+                'nama_siswa' => $ploting->siswa->nama_siswa,
+                'konsentrasi_keahlian' => $ploting->siswa->konsentrasi_keahlian,
+                'kelas' => $ploting->siswa->kelas,
+                'kode_dudi' => $ploting->kode_dudi,
+                'nama_dudi' => $ploting->nama_dudi,
+                'NIP_NIK' => $ploting->pembimbing->NIP_NIK,
+                'nama_pembimbing' => $ploting->pembimbing->nama_pembimbing,
+                'tahun' => $ploting->siswa->tahun,
+            ]
+        );
+    }
+
+    // Mengambil opsi filter
+    $tahunOptions = Siswa::whereHas('ploting', function($query) use ($nipNik) {
+        $query->where('NIP_NIK', $nipNik);
+    })->distinct()->pluck('tahun');
+
+    $konsentrasiOptions = Siswa::whereHas('ploting', function($query) use ($nipNik) {
+        $query->where('NIP_NIK', $nipNik);
+    })->distinct()->pluck('konsentrasi_keahlian');
+
+    $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+
+    // Query Monitoring sesuai dengan filter
+    $query = Monitoring::with('siswa')->where('NIP_NIK', $nipNik);
+
+    if ($request->has('tahun') && $request->tahun !== 'Tahun') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('tahun', $request->tahun);
+        });
+    }
+
+    if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== 'Konsentrasi Keahlian') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+        });
+    }
+
+    if ($request->has('kode_kelompok') && $request->kode_kelompok !== 'Kode Kelompok') {
+        $query->where('kode_kelompok', $request->kode_kelompok);
+    }
+
+    // Mengambil hasil query
+    $monitoring = $query->get();
+
+    return view('monitoring', compact('monitoring', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+}
+
     
-    public function filterMonitoring(Request $request)
-    {
-        if (!auth('pembimbing')->check()) {
-            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
-        }
+    // public function filterMonitoring(Request $request)
+    // {
+    //     if (!auth('pembimbing')->check()) {
+    //         return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+    //     }
 
-        $nipNik = auth('pembimbing')->user()->NIP_NIK;
+    //     $nipNik = auth('pembimbing')->user()->NIP_NIK;
 
-        $tahun = Monitoring::where('NIP_NIK', $nipNik)->select('tahun')->distinct()->pluck('tahun');
-        $konsentrasi_keahlian = Monitoring::where('NIP_NIK', $nipNik)->select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
-        $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+    //     $tahun = Monitoring::where('NIP_NIK', $nipNik)->select('tahun')->distinct()->pluck('tahun');
+    //     $konsentrasi_keahlian = Monitoring::where('NIP_NIK', $nipNik)->select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
+    //     $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
         
-        $query = Monitoring::with('siswa')->where('NIP_NIK', $nipNik);
+    //     $query = Monitoring::with('siswa')->where('NIP_NIK', $nipNik);
 
-        if ($request->filled('tahun') && $request->tahun != 'Tahun') {
-            $query->where('tahun', $request->tahun);
-        }
+    //     if ($request->filled('tahun') && $request->tahun != 'Tahun') {
+    //         $query->where('tahun', $request->tahun);
+    //     }
 
-        if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
-            $query->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
-        }
+    //     if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+    //         $query->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    //     }
 
-        if ($request->filled('kode_kelompok') && $request->kode_kelompok != 'Kode Kelompok') {
-            $query->where('kode_kelompok', $request->kode_kelompok);
-        }
+    //     if ($request->filled('kode_kelompok') && $request->kode_kelompok != 'Kode Kelompok') {
+    //         $query->where('kode_kelompok', $request->kode_kelompok);
+    //     }
 
-        $monitoring = $query->get();
+    //     $monitoring = $query->get();
 
-        return view('monitoring', compact('monitoring', 'tahun', 'konsentrasi_keahlian', 'kode_kelompok'));
-    }
+    //     return view('monitoring', compact('monitoring', 'tahun', 'konsentrasi_keahlian', 'kode_kelompok'));
+    // }
+
+//     public function filterMonitoring(Request $request)
+// {
+//     if (!auth('pembimbing')->check()) {
+//         return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+//     }
+
+//     $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+//     // Ambil data filter berdasarkan pembimbing login
+//     $tahun = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('tahun');
+//     $konsentrasi_keahlian = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('konsentrasi_keahlian');
+//     $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+//     // Query Monitoring sesuai dengan filter
+//     $query = Monitoring::with('siswa')->where('NIP_NIK', $nipNik);
+
+//     if ($request->filled('tahun')) {
+//         $query->where('tahun', $request->tahun);
+//     }
+
+//     if ($request->filled('konsentrasi_keahlian')) {
+//         $query->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+//     }
+
+//     if ($request->filled('kode_kelompok')) {
+//         $query->where('kode_kelompok', $request->kode_kelompok);
+//     }
+
+//     // Dapatkan hasil query
+//     $monitoring = $query->get();
+
+//     return view('monitoring', [
+//         'monitoring' => $monitoring,
+//         'tahun' => $tahun,
+//         'konsentrasi_keahlian' => $konsentrasi_keahlian,
+//         'kodeKelompokOptions' => $kodeKelompokOptions
+//     ]);
+// }
+
 
     public function monitoringPerSiswa($nis)
     {
         $monitoringPerSiswa = MonitoringPerSiswa::where('NIS', $nis)->get();
         $siswa = Siswa::where('NIS', $nis)->first(); 
+        $ploting = Ploting::all();
+        
 
         // Debugging untuk memastikan data ada sebelum di-render
         // dd($monitoringPerSiswa, $siswa); 
 
-        return view('monitoring_persiswa', compact('monitoringPerSiswa', 'siswa', 'nis'));
+        return view('monitoring_persiswa', compact('monitoringPerSiswa', 'siswa', 'nis', 'ploting'));
     }
 
     public function uploadMonitoring(Request $request, $nis)
@@ -202,6 +273,7 @@ class PembimbingController extends Controller
     {
         // Ambil data siswa dan ploting berdasarkan NIS
         $siswa = Siswa::with('ploting')->where('NIS', $nis)->firstOrFail();
+        $ploting = Ploting::all();
 
         // Hitung komponen evaluasi lainnya
         $jurnal = LaporanJurnal::where('NIS', $nis)->count();
@@ -372,6 +444,7 @@ class PembimbingController extends Controller
     public function pembimbingLaporanJurnalPerSiswa(Request $request, $nis)
     {
         $nipNik = auth('pembimbing')->user()->NIP_NIK;
+        $ploting = Ploting::all();
 
         $siswa = Siswa::with(['ploting' => function($query) use ($nipNik) {
             $query->where('NIP_NIK', $nipNik);
@@ -408,87 +481,216 @@ class PembimbingController extends Controller
         return view('pembimbing_laporanjurnal_persiswa', compact('siswa', 'jurnals', 'bulanOptions', 'tahunOptions', 'namaBulan'));
     }
 
-    public function sinkronisasiLaporanPengimbasan()
-    {
-        $plotingData = Ploting::with('siswa')->get();
+    // public function sinkronisasiLaporanPengimbasan()
+    // {
+    //     $plotingData = Ploting::with('siswa')->get();
 
-        foreach ($plotingData as $ploting) {
-            $siswa = $ploting->siswa;
+    //     foreach ($plotingData as $ploting) {
+    //         $siswa = $ploting->siswa;
 
-            if ($siswa) {
-                $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
+    //         if ($siswa) {
+    //             $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
 
-                if ($laporanPengimbasan) {
-                    // Jika sudah ada, perbarui data terbaru dari tabel ploting
-                    $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
-                    $laporanPengimbasan->nis = $siswa->NIS;
-                    $laporanPengimbasan->nama = $siswa->nama_siswa;
-                    $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
-                    $laporanPengimbasan->kelas = $siswa->kelas;
-                    $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
-                    $laporanPengimbasan->nama_dudi = $ploting->nama_dudi;
+    //             if ($laporanPengimbasan) {
+    //                 // Jika sudah ada, perbarui data terbaru dari tabel ploting
+    //                 $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
+    //                 $laporanPengimbasan->nis = $siswa->NIS;
+    //                 $laporanPengimbasan->nama = $siswa->nama_siswa;
+    //                 $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
+    //                 $laporanPengimbasan->kelas = $siswa->kelas;
+    //                 $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
+    //                 $laporanPengimbasan->nama_dudi = $ploting->nama_dudi;
 
-                    if (empty($laporanPengimbasan->laporan_pengimbasan)) {
-                        $laporanPengimbasan->laporan_pengimbasan = null; 
-                    }
+    //                 if (empty($laporanPengimbasan->laporan_pengimbasan)) {
+    //                     $laporanPengimbasan->laporan_pengimbasan = null; 
+    //                 }
 
-                    $laporanPengimbasan->save(); 
-                } else {
-                    // Jika belum ada, entri baru di laporan_pengimbasan
-                    LaporanPengimbasan::create([
-                        'kode_kelompok' => $ploting->kode_kelompok,
-                        'NIS' => $siswa->NIS,
-                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
-                        'nama' => $ploting->nama_siswa,
-                        'kelas' => $siswa->kelas,
-                        'kode_dudi' => $ploting->kode_dudi,
-                        'nama_dudi' => $ploting->nama_dudi,
-                        'laporan_pengimbasan' => '',
-                        'approved' => false
-                    ]);
-                }
-            }
-        }
-    }
+    //                 $laporanPengimbasan->save(); 
+    //             } else {
+    //                 // Jika belum ada, entri baru di laporan_pengimbasan
+    //                 LaporanPengimbasan::create([
+    //                     'kode_kelompok' => $ploting->kode_kelompok,
+    //                     'NIS' => $siswa->NIS,
+    //                     'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+    //                     'nama' => $ploting->nama_siswa,
+    //                     'kelas' => $siswa->kelas,
+    //                     'kode_dudi' => $ploting->kode_dudi,
+    //                     'nama_dudi' => $ploting->nama_dudi,
+    //                     'laporan_pengimbasan' => null ,
+    //                     'approved' => false
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
+
+//     public function sinkronisasiLaporanPengimbasan()
+// {
+//     $plotingData = Ploting::with('siswa')->get();
+
+//     foreach ($plotingData as $ploting) {
+//         $siswa = $ploting->siswa;
+
+//         if ($siswa) {
+//             // Ambil data dari laporan_pengimbasan
+//             $laporanPengimbasan = LaporanPengimbasan::where('NIS', $siswa->NIS)->first();
+
+//             // Perbarui data hanya jika laporan_pengimbasan sudah ada dan file laporan sudah diunggah
+//             if ($laporanPengimbasan && !empty($laporanPengimbasan->laporan_pengimbasan)) {
+//                 $laporanPengimbasan->kode_kelompok = $ploting->kode_kelompok;
+//                 $laporanPengimbasan->nama = $siswa->nama_siswa;
+//                 $laporanPengimbasan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
+//                 $laporanPengimbasan->kelas = $siswa->kelas;
+//                 $laporanPengimbasan->kode_dudi = $ploting->kode_dudi;
+//                 $laporanPengimbasan->nama_dudi = $ploting->nama_dudi;
+//                 $laporanPengimbasan->save(); 
+//             }
+//         }
+//     }
+// }
+
+
+    // public function hasilLaporanPengimbasan(Request $request)
+    // {
+    //     // Panggil fungsi sinkronisasi agar data selalu diperbarui
+    //     $this->sinkronisasiLaporanPengimbasan();
+
+    //     if (!auth('pembimbing')->check()) {
+    //         return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+    //     }
+
+    //     $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+    //     $tahunOptions = Siswa::distinct()->pluck('tahun');
+    //     $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+    //     $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+    //     $laporanPengimbasan = LaporanPengimbasan::with('siswa')
+    //         ->whereHas('siswa.ploting', function ($query) use ($nipNik) {
+    //             $query->where('NIP_NIK', $nipNik);
+    //         });
+
+    //     if ($request->has('tahun') && $request->tahun !== '') {
+    //         $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('tahun', $request->tahun);
+    //         });
+    //     }
+    //     if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== '') {
+    //         $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    //         });
+    //     }
+    //         if ($request->has('kode_kelompok') && $request->kode_kelompok !== '') {
+    //         $laporanPengimbasan->where('kode_kelompok', $request->kode_kelompok);
+    //     }
+
+    //     $laporanPengimbasan = $laporanPengimbasan->get();
+
+    //     return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+    // }
+
+    // public function hasilLaporanPengimbasan(Request $request)
+    // {
+    //     if (!auth('pembimbing')->check()) {
+    //         return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+    //     }
+    
+    //     $nipNik = auth('pembimbing')->user()->NIP_NIK;
+    
+    //      // Mengambil opsi filter
+    //     $tahunOptions = Siswa::distinct()->pluck('tahun');
+    //     $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+    //     $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+
+    //     if ($request->has('tahun') && $request->tahun !== 'Tahun') {
+    //         $query->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('tahun', $request->tahun);
+    //         });
+    //     }
+
+    //     if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== 'Konsentrasi Keahlian') {
+    //         $query->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    //         });
+    //     }
+
+    //     if ($request->has('kode_kelompok') && $request->kode_kelompok !== 'Kode Kelompok') {
+    //         $query->where('kode_kelompok', $request->kode_kelompok);
+    //     }
+
+    
+    //     // Query siswa yang dibimbing oleh pembimbing yang sedang login
+    //     $laporanPengimbasan = DB::table('ploting')
+    //         ->leftJoin('siswa', 'ploting.NIS', '=', 'siswa.NIS')
+    //         ->leftJoin('laporan_pengimbasan', 'ploting.NIS', '=', 'laporan_pengimbasan.NIS')
+    //         ->where('ploting.NIP_NIK', $nipNik)
+    //         ->select(
+    //             'siswa.nama_siswa as nama',
+    //             'siswa.kelas',
+    //             'siswa.konsentrasi_keahlian',
+    //             'siswa.NIS',
+    //             'siswa.tahun',
+    //             'ploting.kode_kelompok',
+    //             'laporan_pengimbasan.laporan_pengimbasan',
+    //             'laporan_pengimbasan.approved'
+    //         )
+    //         ->get();
+            
+    
+    //     return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+    // }
 
     public function hasilLaporanPengimbasan(Request $request)
-    {
-        // Panggil fungsi sinkronisasi agar data selalu diperbarui
-        $this->sinkronisasiLaporanPengimbasan();
-
-        if (!auth('pembimbing')->check()) {
-            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
-        }
-
-        $nipNik = auth('pembimbing')->user()->NIP_NIK;
-
-        $tahunOptions = Siswa::distinct()->pluck('tahun');
-        $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
-        $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
-
-        $laporanPengimbasan = LaporanPengimbasan::with('siswa')
-            ->whereHas('siswa.ploting', function ($query) use ($nipNik) {
-                $query->where('NIP_NIK', $nipNik);
-            });
-
-        if ($request->has('tahun') && $request->tahun !== '') {
-            $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
-                $q->where('tahun', $request->tahun);
-            });
-        }
-        if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== '') {
-            $laporanPengimbasan->whereHas('siswa', function ($q) use ($request) {
-                $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
-            });
-        }
-            if ($request->has('kode_kelompok') && $request->kode_kelompok !== '') {
-            $laporanPengimbasan->where('kode_kelompok', $request->kode_kelompok);
-        }
-
-        $laporanPengimbasan = $laporanPengimbasan->get();
-
-        return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+{
+    if (!auth('pembimbing')->check()) {
+        return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
     }
+
+    $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+    // Mengambil opsi filter
+    $tahunOptions = Siswa::distinct()->pluck('tahun');
+    $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+    $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+    // Query siswa yang dibimbing oleh pembimbing yang sedang login
+    $query = DB::table('ploting')
+        ->leftJoin('siswa', 'ploting.NIS', '=', 'siswa.NIS')
+        ->leftJoin('laporan_pengimbasan', 'ploting.NIS', '=', 'laporan_pengimbasan.NIS')
+        ->where('ploting.NIP_NIK', $nipNik)
+        ->select(
+            'siswa.nama_siswa as nama',
+            'siswa.kelas',
+            'siswa.konsentrasi_keahlian',
+            'siswa.NIS',
+            'siswa.tahun',
+            'ploting.kode_kelompok',
+            'laporan_pengimbasan.laporan_pengimbasan',
+            'laporan_pengimbasan.approved'
+        );
+
+    // Filter berdasarkan input dari view
+    if ($request->filled('tahun')) {
+        $query->where('siswa.tahun', $request->tahun);
+    }
+
+    if ($request->filled('konsentrasi_keahlian')) {
+        $query->where('siswa.konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    }
+
+    if ($request->filled('kode_kelompok')) {
+        $query->where('ploting.kode_kelompok', $request->kode_kelompok);
+    }
+
+    // Mengambil hasil query
+    $laporanPengimbasan = $query->get();
+
+    return view('hasil_laporanpengimbasan', compact('laporanPengimbasan', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+}
+
+    
+
 
     public function updateLaporanPengimbasan()
     {
@@ -561,50 +763,101 @@ class PembimbingController extends Controller
     }
 
 
+    // public function hasilLaporanAkhir(Request $request)
+    // {
+    //     if (!auth('pembimbing')->check()) {
+    //         return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
+    //     }
+
+    //     // Sinkronisasi data ploting ke laporan_akhir
+    //     $this->sinkronisasiLaporanAkhir();
+
+    //     $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+    //     $tahunOptions = Siswa::distinct()->pluck('tahun');
+    //     $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+    //     $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+    //     // Query data laporan akhir berdasarkan pembimbing yang login
+    //     $query = LaporanAkhir::with(['siswa' => function ($query) {
+    //         $query->select('NIS', 'nama_siswa', 'konsentrasi_keahlian', 'kelas', 'tahun');
+    //     }])->whereHas('siswa.ploting', function ($q) use ($nipNik) {
+    //         $q->where('NIP_NIK', $nipNik);
+    //     });
+
+    //     if ($request->has('tahun') && $request->tahun !== 'Tahun') {
+    //         $query->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('tahun', $request->tahun);
+    //         });
+    //     }
+
+    //     if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== 'Konsentrasi Keahlian') {
+    //         $query->whereHas('siswa', function ($q) use ($request) {
+    //             $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    //         });
+    //     }
+
+    //     if ($request->has('kode_kelompok') && $request->kode_kelompok !== 'Kode Kelompok') {
+    //         $query->whereHas('siswa.ploting', function ($q) use ($request) {
+    //             $q->where('kode_kelompok', $request->kode_kelompok);
+    //         });
+    //     }
+
+    //     $laporanAkhir = $query->get();
+
+    //     return view('hasil_laporanakhir', compact('laporanAkhir', 'tahunOptions', 'konsentrasiOptions','kodeKelompokOptions'));
+    // }
+
     public function hasilLaporanAkhir(Request $request)
-    {
-        if (!auth('pembimbing')->check()) {
-            return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
-        }
-
-        // Sinkronisasi data ploting ke laporan_akhir
-        $this->sinkronisasiLaporanAkhir();
-
-        $nipNik = auth('pembimbing')->user()->NIP_NIK;
-
-        $tahunOptions = Siswa::distinct()->pluck('tahun');
-        $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
-        $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
-
-        // Query data laporan akhir berdasarkan pembimbing yang login
-        $query = LaporanAkhir::with(['siswa' => function ($query) {
-            $query->select('NIS', 'nama_siswa', 'konsentrasi_keahlian', 'kelas', 'tahun');
-        }])->whereHas('siswa.ploting', function ($q) use ($nipNik) {
-            $q->where('NIP_NIK', $nipNik);
-        });
-
-        if ($request->has('tahun') && $request->tahun !== 'Tahun') {
-            $query->whereHas('siswa', function ($q) use ($request) {
-                $q->where('tahun', $request->tahun);
-            });
-        }
-
-        if ($request->has('konsentrasi_keahlian') && $request->konsentrasi_keahlian !== 'Konsentrasi Keahlian') {
-            $query->whereHas('siswa', function ($q) use ($request) {
-                $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
-            });
-        }
-
-        if ($request->has('kode_kelompok') && $request->kode_kelompok !== 'Kode Kelompok') {
-            $query->whereHas('siswa.ploting', function ($q) use ($request) {
-                $q->where('kode_kelompok', $request->kode_kelompok);
-            });
-        }
-
-        $laporanAkhir = $query->get();
-
-        return view('hasil_laporanakhir', compact('laporanAkhir', 'tahunOptions', 'konsentrasiOptions','kodeKelompokOptions'));
+{
+    if (!auth('pembimbing')->check()) {
+        return redirect()->route('login')->withErrors('Anda harus login terlebih dahulu.');
     }
+
+    $nipNik = auth('pembimbing')->user()->NIP_NIK;
+
+    // Mengambil opsi filter
+    $tahunOptions = Siswa::distinct()->pluck('tahun');
+    $konsentrasiOptions = Siswa::distinct()->pluck('konsentrasi_keahlian');
+    $kodeKelompokOptions = Ploting::where('NIP_NIK', $nipNik)->distinct()->pluck('kode_kelompok');
+
+    // Query siswa yang dibimbing oleh pembimbing yang sedang login
+    $query = DB::table('ploting')
+        ->leftJoin('siswa', 'ploting.NIS', '=', 'siswa.NIS')
+        ->leftJoin('laporan_akhir', 'ploting.NIS', '=', 'laporan_akhir.NIS')
+        ->where('ploting.NIP_NIK', $nipNik)
+        ->select(
+            'siswa.nama_siswa as nama',
+            'siswa.kelas',
+            'siswa.konsentrasi_keahlian',
+            'siswa.NIS',
+            'siswa.tahun',
+            'ploting.kode_kelompok',
+            'laporan_akhir.laporan_akhir',
+            'laporan_akhir.approved'
+        );
+
+    // Filter berdasarkan input dari view
+    if ($request->filled('tahun')) {
+        $query->where('siswa.tahun', $request->tahun);
+    }
+
+    if ($request->filled('konsentrasi_keahlian')) {
+        $query->where('siswa.konsentrasi_keahlian', $request->konsentrasi_keahlian);
+    }
+
+    if ($request->filled('kode_kelompok')) {
+        $query->where('ploting.kode_kelompok', $request->kode_kelompok);
+    }
+
+    // Mengambil hasil query
+    $laporanAkhir = $query->get();
+
+    return view('hasil_laporanakhir', compact('laporanAkhir', 'tahunOptions', 'konsentrasiOptions', 'kodeKelompokOptions'));
+}
+
+    
+
 
     public function approveLaporanAkhir(Request $request)
     {
@@ -653,33 +906,59 @@ class PembimbingController extends Controller
         return redirect()->route('hasil_laporanakhir')->with('success', 'Data laporan akhir berhasil diperbarui.');
     }
 
-    public function sinkronisasiLaporanAkhir()
-    {
-        // Ambil data dari tabel ploting
-        $plotingData = Ploting::with('siswa')->get();
+    // public function sinkronisasiLaporanAkhir()
+    // {
+    //     // Ambil data dari tabel ploting
+    //     $plotingData = Ploting::with('siswa')->get();
 
-        foreach ($plotingData as $ploting) {
-            $siswa = $ploting->siswa;
+    //     foreach ($plotingData as $ploting) {
+    //         $siswa = $ploting->siswa;
 
-            if ($siswa) {
-                // Cek apakah siswa sudah ada di laporan_akhir
-                $existingLaporan = LaporanAkhir::where('NIS', $siswa->NIS)->first();
-                if (!$existingLaporan) {
-                    // Jika tidak ada, tambahkan data ke dalam laporan_akhir
-                    LaporanAkhir::create([
-                        'kode_kelompok' => $ploting->kode_kelompok,
-                        'kode_dudi' => $ploting->kode_dudi,
-                        'NIS' => $siswa->NIS,
-                        'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
-                        'nama_siswa' => $siswa->nama_siswa,
-                        'kelas' => $siswa->kelas,
-                        'nama_dudi' => $ploting->nama_dudi,
-                        'laporan_akhir' => '', 
-                        'approved' => false
-                    ]);
-                }
-            }
-        }
-    }
+    //         if ($siswa) {
+    //             // Cek apakah siswa sudah ada di laporan_akhir
+    //             $existingLaporan = LaporanAkhir::where('NIS', $siswa->NIS)->first();
+    //             if (!$existingLaporan) {
+    //                 // Jika tidak ada, tambahkan data ke dalam laporan_akhir
+    //                 LaporanAkhir::create([
+    //                     'kode_kelompok' => $ploting->kode_kelompok,
+    //                     'kode_dudi' => $ploting->kode_dudi,
+    //                     'NIS' => $siswa->NIS,
+    //                     'konsentrasi_keahlian' => $siswa->konsentrasi_keahlian,
+    //                     'nama_siswa' => $siswa->nama_siswa,
+    //                     'kelas' => $siswa->kelas,
+    //                     'nama_dudi' => $ploting->nama_dudi,
+    //                     'laporan_akhir' => null, 
+    //                     'approved' => false
+    //                 ]);
+    //             }
+    //         }
+    //     }
+    // }
+
+//     public function sinkronisasiLaporanAkhir()
+// {
+//     $plotingData = Ploting::with('siswa')->get();
+
+//     foreach ($plotingData as $ploting) {
+//         $siswa = $ploting->siswa;
+
+//         if ($siswa) {
+//             // Ambil data dari laporan_akhir
+//             $existingLaporan = LaporanAkhir::where('NIS', $siswa->NIS)->first();
+
+//             // Perbarui data hanya jika laporan_akhir sudah ada dan file laporan sudah diunggah
+//             if ($existingLaporan && !empty($existingLaporan->laporan_akhir)) {
+//                 $existingLaporan->kode_kelompok = $ploting->kode_kelompok;
+//                 $existingLaporan->nama_siswa = $siswa->nama_siswa;
+//                 $existingLaporan->konsentrasi_keahlian = $siswa->konsentrasi_keahlian;
+//                 $existingLaporan->kelas = $siswa->kelas;
+//                 $existingLaporan->kode_dudi = $ploting->kode_dudi;
+//                 $existingLaporan->nama_dudi = $ploting->nama_dudi;
+//                 $existingLaporan->save();
+//             }
+//         }
+//     }
+// }
+
 
 }

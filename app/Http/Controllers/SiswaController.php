@@ -347,7 +347,7 @@ class SiswaController extends Controller
             ->where('NIS', $siswa->NIS)
             ->first();
 
-        $isLaporanPengimbasanUploaded = $laporanPengimbasan !== null;
+        $isLaporanPengimbasanUploaded = $laporanPengimbasan !== null && !empty($laporanPengimbasan->laporan_pengimbasan);
         $laporanPengimbasanUrl = $isLaporanPengimbasanUploaded ? asset('storage/laporan_pengimbasan/' . $laporanPengimbasan->laporan_pengimbasan) : null;
 
         // Cek apakah laporan akhir sudah diupload dan ambil nama filenya
@@ -355,7 +355,7 @@ class SiswaController extends Controller
             ->where('NIS', $siswa->NIS)
             ->first();
 
-        $isLaporanAkhirUploaded = $laporanAkhir !== null;
+        $isLaporanAkhirUploaded = $laporanAkhir !== null && !empty($laporanAkhir->laporan_akhir);
         $laporanAkhirUrl = $isLaporanAkhirUploaded ? asset('storage/laporan_akhir/' . $laporanAkhir->laporan_akhir) : null;
 
         // Path file nilai PKL berdasarkan NIS siswa

@@ -6,36 +6,30 @@
     <h4 class="text-center">MONITORING</h4>
     <br><br>
     
-  <!-- Form Filter -->
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <div>
-            <form action="{{ route('filterMonitoring') }}" method="GET">
-                @csrf
+        <form method="GET" action="{{ route('monitoring') }}">
+            <div>
                 <select class="form-select d-inline-block w-auto" name="kode_kelompok">
                     <option selected>Kode Kelompok</option>
-                    @foreach($kode_kelompok as $kode_kel)
-                        <option value="{{ $kode_kel }}">{{ $kode_kel }}</option>
+                    @foreach($kodeKelompokOptions as $kode)
+                        <option value="{{ $kode }}">{{ $kode }}</option>
                     @endforeach
                 </select>
-                <!-- Dropdown untuk filter tahun -->
                 <select class="form-select d-inline-block w-auto" name="tahun">
                     <option selected>Tahun</option>
-                    @foreach($tahun as $t)
-                        <option value="{{ $t }}">{{ $t }}</option>
+                    @foreach ($tahunOptions as $tahun)
+                        <option value="{{ $tahun }}">{{ $tahun }}</option>
                     @endforeach
                 </select>
-        
-                <!-- Dropdown untuk filter konsentrasi keahlian -->
                 <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
                     <option selected>Konsentrasi Keahlian</option>
-                    @foreach($konsentrasi_keahlian as $kk)
-                        <option value="{{ $kk }}">{{ $kk }}</option>
+                    @foreach ($konsentrasiOptions as $konsentrasi)
+                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
                     @endforeach
                 </select>
-        
                 <button type="submit" class="btn btn-primary">Filter</button>
-            </form>
-        </div>    
+            </div>
+        </form>
     </div>
 
     <table class="table-striped custom-table">

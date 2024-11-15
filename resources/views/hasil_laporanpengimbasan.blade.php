@@ -6,32 +6,35 @@
         <h4 class="text-center">LAPORAN PENGIMBASAN</h4>
         <br> <br>
 
-    <form method="GET" action="{{ route('hasil_laporanpengimbasan') }}">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div>
-                <select class="form-select d-inline-block w-auto" name="kode_kelompok">
-                    <option selected>Kode Kelompok</option>
-                    @foreach ($kodeKelompokOptions as $kodeKelompok)
-                        <option value="{{ $kodeKelompok }}">{{ $kodeKelompok }}</option>
-                    @endforeach
-                </select>
-                <select class="form-select d-inline-block w-auto" name="tahun">
-                    <option selected>Tahun</option>
-                    @foreach ($tahunOptions as $tahun)
-                        <option value="{{ $tahun }}">{{ $tahun }}</option>
-                    @endforeach
-                </select>
-                <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
-                    <option selected>Konsentrasi Keahlian</option>
-                    @foreach ($konsentrasiOptions as $konsentrasi)
-                        <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
-                    @endforeach
-                </select>
-
-                <button type="submit" class="btn btn-primary">Filter</button>
+        <form method="GET" action="{{ route('hasil_laporanpengimbasan') }}">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <select class="form-select d-inline-block w-auto" name="kode_kelompok">
+                        <option selected value="">Kode Kelompok</option>
+                        @foreach($kodeKelompokOptions as $kode_kel)
+                            <option value="{{ $kode_kel }}">{{ $kode_kel }}</option>
+                        @endforeach
+                    </select>
+                    
+                    <select class="form-select d-inline-block w-auto" name="tahun">
+                        <option selected value="">Tahun</option>
+                        @foreach($tahunOptions as $tahun)
+                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                        @endforeach
+                    </select>
+                    
+                    <select class="form-select d-inline-block w-auto" name="konsentrasi_keahlian">
+                        <option selected value="">Konsentrasi Keahlian</option>
+                        @foreach($konsentrasiOptions as $konsentrasi)
+                            <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>
+                        @endforeach
+                    </select>
+                    
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+        
 
     <table class="table-striped custom-table">
         <thead class="table-primary text-center">
@@ -55,9 +58,9 @@
                     <td>{{ $laporan->kode_kelompok}}</td>
                     <td>{{ $laporan->NIS }}</td>
                     <td class="left-align">{{ $laporan->nama }}</td>
-                    <td>{{ $laporan->siswa->konsentrasi_keahlian }}</td>
+                    <td>{{ $laporan->konsentrasi_keahlian }}</td>
                     <td>{{ $laporan->kelas  }}</td>
-                    <td>{{$laporan->siswa->tahun}}</td>
+                    <td>{{$laporan->tahun}}</td>
 
                     <td>
                         @if(!empty($laporan->laporan_pengimbasan))
