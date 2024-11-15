@@ -589,16 +589,37 @@ class AdminController extends Controller
             $statusMonitoringColor = 'text-danger'; // Merah jika belum ada upload
         }
 
-        // Menghitung nilai Pengimbasan
-        $pengimbasanUploaded = $laporanPengimbasan ? true : false;
-        $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
-        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+        // // Menghitung nilai Pengimbasan
+        // $pengimbasanUploaded = $laporanPengimbasan ? true : false;
+        // $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
+        // $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+
+
+        // Nilai Pengimbasan
+    if ($laporanPengimbasan && $laporanPengimbasan->approved) {
+        $nilaiPengimbasan = 10;
+        $nilaiPengimbasanFull = 100;
+    } else {
+        $nilaiPengimbasan = 0;
+        $nilaiPengimbasanFull = 0;
+    }
+
+
 
         // Menghitung nilai Laporan Akhir PKL
-        $laporanAkhirUploaded = $laporanAkhir ? true : false;
-        $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
-        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
+        // $laporanAkhirUploaded = $laporanAkhir ? true : false;
+        // $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
+        // $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
 
+
+        if ($laporanAkhir && $laporanAkhir->approved) {
+            $nilaiAkhirPKL = 10;
+            $nilaiAkhirPKLFull = 100;
+        } else {
+            $nilaiAkhirPKL = 0;
+            $nilaiAkhirPKLFull = 0;
+        }
+        
         // Menghitung total nilai
         $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;
 

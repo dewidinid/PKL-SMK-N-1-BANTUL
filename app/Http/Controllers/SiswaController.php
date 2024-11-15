@@ -488,13 +488,23 @@ class SiswaController extends Controller
             $statusMonitoringColor = 'text-danger'; // Merah jika belum ada upload
         }
 
-        $pengimbasanUploaded = LaporanPengimbasan::where('NIS', $nis)->exists();
-        $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
-        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+        $laporanPengimbasan = LaporanPengimbasan::where('NIS', $nis)->first();
+        if ($laporanPengimbasan && $laporanPengimbasan->approved) {
+            $nilaiPengimbasan = 10; // 10% dari nilai 100 jika di-approve
+            $nilaiPengimbasanFull = 100;
+        } else {
+            $nilaiPengimbasan = 0;
+            $nilaiPengimbasanFull = 0;
+        }
 
-        $laporanAkhirUploaded = LaporanAkhir::where('NIS', $nis)->exists();
-        $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
-        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
+        $laporanAkhir = LaporanAkhir::where('NIS', $nis)->first();
+        if ($laporanAkhir && $laporanAkhir->approved) {
+            $nilaiAkhirPKL = 10; // 10% dari nilai 100 jika di-approve
+            $nilaiAkhirPKLFull = 100;
+        } else {
+            $nilaiAkhirPKL = 0;
+            $nilaiAkhirPKLFull = 0;
+        }
 
         // Hitung total nilai
         $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;
@@ -511,9 +521,5 @@ class SiswaController extends Controller
             'statusMonitoringColor' => $statusMonitoringColor
         ]);
     }
-
-
-    
-
 
 }

@@ -120,8 +120,8 @@
                                     {{ number_format($nilaiPengimbasanFull, 2) }}
                                 </td>
                                 <td>
-                                    @if($laporanPengimbasanUrl && $laporanPengimbasan->laporan_pengimbasan)
-                                        <a href="{{ $laporanPengimbasanUrl }}" target="_blank">{{ $laporanPengimbasan->laporan_pengimbasan }}</a>
+                                    @if($laporanPengimbasan && $laporanPengimbasan->laporan_pengimbasan)
+                                        <a href="{{ $laporanPengimbasanUrl }}" target="_blank">Lihat Laporan</a>
                                     @else
                                         <span class="text-danger">Belum Diunggah</span>
                                     @endif
@@ -133,8 +133,8 @@
                                     {{ number_format($nilaiAkhirPKLFull, 2) }}
                                 </td>
                                 <td>
-                                    @if($laporanAkhirUrl && $laporanAkhir->laporan_akhir)
-                                        <a href="{{ $laporanAkhirUrl }}" target="_blank">{{ $laporanAkhir->laporan_akhir }}</a>
+                                    @if($laporanAkhir && $laporanAkhir->laporan_akhir)
+                                        <a href="{{ $laporanAkhirUrl }}" target="_blank">Lihat Laporan</a>
                                     @else
                                         <span class="text-danger">Belum Diunggah</span>
                                     @endif
