@@ -84,8 +84,8 @@
                         @endif
                     </td>
                     <td>
-                        <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled 
-                               style="cursor: not-allowed; accent-color: #007bff; background-color: #0069d9; border-color: #0056b3;">
+                        <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled >
+                        <span class="custom-checkbox"></span>
                     </td>
                 </tr>
             @endforeach

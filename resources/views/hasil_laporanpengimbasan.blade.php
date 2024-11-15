@@ -86,6 +86,7 @@
                     </td>
                     <td>
                         <input type="checkbox" {{ $laporan->approved ? 'checked' : '' }} disabled>
+                        <span class="custom-checkbox"></span>
                     </td>
                 </tr>
             @endforeach                        
