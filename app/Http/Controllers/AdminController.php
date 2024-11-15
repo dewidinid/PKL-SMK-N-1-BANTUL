@@ -337,7 +337,13 @@ class AdminController extends Controller
     public function plotingSiswa(Request $request)
     {
         $tahun = Siswa::select('tahun')->distinct()->pluck('tahun');
-        $kelompok = Ploting::select('kode_kelompok')->distinct()->pluck('kode_kelompok');
+
+        $kelompok = DB::table('ploting')
+            ->select('kode_kelompok')
+            ->distinct()
+            ->orderByRaw('LENGTH(kode_kelompok), kode_kelompok')
+            ->pluck('kode_kelompok');
+
         $konsentrasiKeahlian = Siswa::select('konsentrasi_keahlian')->distinct()->pluck('konsentrasi_keahlian');
 
         // Ambil data pembimbing dan dudi untuk dropdown
@@ -434,21 +440,40 @@ class AdminController extends Controller
 
 
     // Method untuk menampilkan halaman surat pengajuan
+    // public function suratPengajuan()
+    // {
+    //     $pengajuans = Pengajuan::with(['siswa', 'dudi'])
+    //         ->where('status_acc', 0)
+    //         ->get();
+
+    //     $pembimbings = Pembimbing::all();
+    //     $dudi = Dudi::all();
+
+    //     foreach ($pengajuans as $pengajuan) {
+    //         $pengajuan->kode_kelompok = $this->generateKodeKelompok($pengajuan->siswa->first()->konsentrasi_keahlian);
+    //     }
+
+    //     return view('suratpengajuanmandiri', compact('pengajuans', 'pembimbings', 'dudi'));
+    // }
+
     public function suratPengajuan()
-    {
-        $pengajuans = Pengajuan::with(['siswa', 'dudi'])
-            ->where('status_acc', 0)
-            ->get();
+{
+    $pengajuans = Pengajuan::with(['siswa', 'dudi'])
+        ->where('status_acc', 0)
+        ->get();
 
-        $pembimbings = Pembimbing::all();
-        $dudi = Dudi::all();
+    $pembimbings = Pembimbing::all();
+    $dudi = Dudi::all();
 
-        foreach ($pengajuans as $pengajuan) {
-            $pengajuan->kode_kelompok = $this->generateKodeKelompok($pengajuan->siswa->first()->konsentrasi_keahlian);
-        }
-
-        return view('suratpengajuanmandiri', compact('pengajuans', 'pembimbings', 'dudi'));
+     // Loop pengajuan untuk menambahkan kode kelompok yang digenerate
+     foreach ($pengajuans as $item) {
+        $konsentrasiKeahlian = $item->siswa->first()->konsentrasi_keahlian ?? '';
+        $item->kode_kelompok = $this->generateKodeKelompok($konsentrasiKeahlian);
     }
+
+    return view('suratpengajuanmandiri', compact('pengajuans', 'pembimbings', 'dudi'));
+}
+
     
     public function approvePengajuan(Request $request)
     {
@@ -463,7 +488,8 @@ class AdminController extends Controller
         
             if ($pengajuan && $pengajuan->siswa) {
                 $pembimbingNIP = $request->input("pembimbing_{$id}");
-                $kodeKelompok = $request->input("kode_kelompok_{$id}");
+                $kodeKelompok = $request->input("kode_kelompok_{$id}") ?? $this->generateKodeKelompok($pengajuan->siswa->first()->konsentrasi_keahlian);
+
         
                 // Dapatkan nama pembimbing berdasarkan NIP yang dipilih
                 $pembimbing = Pembimbing::where('NIP_NIK', $pembimbingNIP)->first();
@@ -509,19 +535,54 @@ class AdminController extends Controller
     }
 
 
+    // private function generateKodeKelompok($konsentrasi_keahlian)
+    // {
+    //     $singkatan = $this->getSingkatan($konsentrasi_keahlian);
+
+    //     $lastGroup = DB::table('ploting')
+    //         ->where('kode_kelompok', 'LIKE', $singkatan . '%')
+    //         ->orderBy('kode_kelompok', 'desc')
+    //         ->first();
+
+    //     $newIndex = $lastGroup ? ((int) filter_var($lastGroup->kode_kelompok, FILTER_SANITIZE_NUMBER_INT)) + 1 : 1;
+
+    //     return $singkatan . $newIndex;
+    // }
+
     private function generateKodeKelompok($konsentrasi_keahlian)
     {
+        // Ambil singkatan dari konsentrasi keahlian
         $singkatan = $this->getSingkatan($konsentrasi_keahlian);
-
+    
+        // Ambil kode kelompok terakhir berdasarkan singkatan
         $lastGroup = DB::table('ploting')
             ->where('kode_kelompok', 'LIKE', $singkatan . '%')
             ->orderBy('kode_kelompok', 'desc')
             ->first();
-
-        $newIndex = $lastGroup ? ((int) filter_var($lastGroup->kode_kelompok, FILTER_SANITIZE_NUMBER_INT)) + 1 : 1;
-
-        return $singkatan . $newIndex;
+    
+        // Jika ada kode terakhir, ambil nomor terakhir dan tambah 1
+        if ($lastGroup) {
+            // Mengambil angka dari kode terakhir, contoh: TKJ11 -> 11
+            $lastNumber = (int) filter_var($lastGroup->kode_kelompok, FILTER_SANITIZE_NUMBER_INT);
+            $newIndex = $lastNumber + 1;
+        } else {
+            // Jika belum ada kode kelompok, mulai dari 1
+            $newIndex = 1;
+        }
+    
+        // Buat kode kelompok baru
+        $kodeKelompok = $singkatan . $newIndex;
+    
+        // Pastikan kode kelompok yang baru tidak duplikat
+        while (Ploting::where('kode_kelompok', $kodeKelompok)->exists()) {
+            $newIndex++;
+            $kodeKelompok = $singkatan . $newIndex;
+        }
+    
+        return $kodeKelompok;
     }
+    
+
 
     
 

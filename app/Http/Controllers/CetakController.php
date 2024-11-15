@@ -281,48 +281,132 @@ class CetakController extends Controller
         return $pdf->download('nilai_pkl_' . $siswa->NIS . '.pdf');
     }
 
-    public function exportPlotingToPdf()
-    {
-        // Ambil data plotting dari database
-        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
-        $dudi = Dudi::all();
-        $siswa = Siswa::all();
-        $tahunAngkatan = $plotingData->first()->siswa->tahun ?? 'N/A';
+    // public function exportPlotingToPdf()
+    // {
+    //     // Ambil data plotting dari database
+    //     $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+    //     $dudi = Dudi::all();
+    //     $siswa = Siswa::all();
+    //     $tahunAngkatan = $plotingData->first()->siswa->tahun ?? 'N/A';
 
-        // Buat file PDF menggunakan data plotting
-        $pdf = Pdf::loadView('export_ploting_pdf', compact('plotingData', 'dudi', 'siswa', 'tahunAngkatan'))
-            ->setPaper('a4', 'landscape');
+    //     // Buat file PDF menggunakan data plotting
+    //     $pdf = Pdf::loadView('export_ploting_pdf', compact('plotingData', 'dudi', 'siswa', 'tahunAngkatan'))
+    //         ->setPaper('a4', 'landscape');
 
-        // Unduh file PDF
-        return $pdf->download('data_ploting.pdf');
-    }
+    //     // Unduh file PDF
+    //     return $pdf->download('data_ploting.pdf');
+    // }
 
-    public function exportPlotingToExcel()
-    {
-        // Ambil data plotting dari database
-        $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
-        $dudi = Dudi::all();
+    public function exportPlotingToPdf(Request $request)
+{
+    // Ambil data plotting dari database dengan filter
+    $query = Ploting::with('siswa', 'pembimbing', 'dudi');
 
-        // Atur data yang akan diekspor
-        $data = $plotingData->map(function($ploting) {
-            return [
-                'Kode Kelompok' => $ploting->kode_kelompok,
-                'NIS' => $ploting->NIS,
-                'Nama Siswa' => optional($ploting->siswa)->nama_siswa,
-                'Kelas' => $ploting->kelas,
-                'Konsentrasi Keahlian' => optional($ploting->siswa)->konsentrasi_keahlian,
-                'NIP/NIK Pembimbing' => $ploting->NIP_NIK,
-                'Pembimbing' => $ploting->nama_pembimbing,
-                'Kode DUDI' => $ploting->kode_dudi,
-                'DUDI' => $ploting->nama_dudi,
-                'No Telp DUDI' => $ploting->dudi->notelp_dudi,
-                'Alamat DUDI' => $ploting->dudi->alamat_dudi,
-            ];
+    // Filter berdasarkan tahun
+    if ($request->filled('tahun') && $request->tahun != 'Tahun') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('tahun', $request->tahun);
         });
-
-        // Ekspor data ke Excel
-        return (new FastExcel($data))->download('data_ploting.xlsx');
     }
+
+    // Filter berdasarkan kelompok
+    if ($request->filled('kelompok') && $request->kelompok != 'Kelompok') {
+        $query->where('kode_kelompok', $request->kelompok);
+    }
+
+    // Filter berdasarkan konsentrasi keahlian
+    if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+        });
+    }
+
+    $plotingData = $query->get();
+    $tahunAngkatan = $plotingData->first()->siswa->tahun ?? 'N/A';
+
+    // Buat file PDF menggunakan data plotting
+    $pdf = Pdf::loadView('export_ploting_pdf', compact('plotingData', 'tahunAngkatan'))
+        ->setPaper('a4', 'landscape');
+
+    // Unduh file PDF
+    return $pdf->download('data_ploting_filtered.pdf');
+}
+
+
+    // public function exportPlotingToExcel()
+    // {
+    //     // Ambil data plotting dari database
+    //     $plotingData = Ploting::with('siswa', 'pembimbing', 'dudi')->get();
+    //     $dudi = Dudi::all();
+
+    //     // Atur data yang akan diekspor
+    //     $data = $plotingData->map(function($ploting) {
+    //         return [
+    //             'Kode Kelompok' => $ploting->kode_kelompok,
+    //             'NIS' => $ploting->NIS,
+    //             'Nama Siswa' => optional($ploting->siswa)->nama_siswa,
+    //             'Kelas' => $ploting->kelas,
+    //             'Konsentrasi Keahlian' => optional($ploting->siswa)->konsentrasi_keahlian,
+    //             'NIP/NIK Pembimbing' => $ploting->NIP_NIK,
+    //             'Pembimbing' => $ploting->nama_pembimbing,
+    //             'Kode DUDI' => $ploting->kode_dudi,
+    //             'DUDI' => $ploting->nama_dudi,
+    //             'No Telp DUDI' => $ploting->dudi->notelp_dudi,
+    //             'Alamat DUDI' => $ploting->dudi->alamat_dudi,
+    //         ];
+    //     });
+
+    //     // Ekspor data ke Excel
+    //     return (new FastExcel($data))->download('data_ploting.xlsx');
+    // }
+
+    public function exportPlotingToExcel(Request $request)
+{
+    // Ambil data plotting dari database dengan filter
+    $query = Ploting::with('siswa', 'pembimbing', 'dudi');
+
+    // Filter berdasarkan tahun
+    if ($request->filled('tahun') && $request->tahun != 'Tahun') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('tahun', $request->tahun);
+        });
+    }
+
+    // Filter berdasarkan kelompok
+    if ($request->filled('kelompok') && $request->kelompok != 'Kelompok') {
+        $query->where('kode_kelompok', $request->kelompok);
+    }
+
+    // Filter berdasarkan konsentrasi keahlian
+    if ($request->filled('konsentrasi_keahlian') && $request->konsentrasi_keahlian != 'Konsentrasi Keahlian') {
+        $query->whereHas('siswa', function ($q) use ($request) {
+            $q->where('konsentrasi_keahlian', $request->konsentrasi_keahlian);
+        });
+    }
+
+    $plotingData = $query->get();
+
+    // Atur data yang akan diekspor
+    $data = $plotingData->map(function($ploting) {
+        return [
+            'Kode Kelompok' => $ploting->kode_kelompok,
+            'NIS' => $ploting->NIS,
+            'Nama Siswa' => optional($ploting->siswa)->nama_siswa,
+            'Kelas' => $ploting->kelas,
+            'Konsentrasi Keahlian' => optional($ploting->siswa)->konsentrasi_keahlian,
+            'NIP/NIK Pembimbing' => $ploting->NIP_NIK,
+            'Pembimbing' => $ploting->nama_pembimbing,
+            'Kode DUDI' => $ploting->kode_dudi,
+            'DUDI' => $ploting->nama_dudi,
+            'No Telp DUDI' => $ploting->dudi->notelp_dudi,
+            'Alamat DUDI' => $ploting->dudi->alamat_dudi,
+        ];
+    });
+
+    // Ekspor data ke Excel
+    return (new FastExcel($data))->download('data_ploting_filtered.xlsx');
+}
+
 
 
 

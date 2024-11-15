@@ -13,13 +13,22 @@
             Template Upload Ploting
         </a>
 
-        <a href="{{ route('export.ploting.excel') }}" class="btn btn-success me-2">
+        {{-- <a href="{{ route('export.ploting.excel') }}" class="btn btn-success me-2">
             <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
 
         <a href="{{ route('export_ploting_pdf') }}" class="btn btn-danger">
             <i class="bi bi-file-earmark-pdf"></i> Export PDF
+        </a> --}}
+
+        <a href="{{ route('export.ploting.excel', request()->query()) }}" class="btn btn-success me-2">
+            <i class="bi bi-file-earmark-excel"></i> Export Excel
         </a>
+        
+        <a href="{{ route('export_ploting_pdf', request()->query()) }}" class="btn btn-danger">
+            <i class="bi bi-file-earmark-pdf"></i> Export PDF
+        </a>
+        
     </div>
     <br>
 
