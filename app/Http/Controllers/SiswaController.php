@@ -303,7 +303,13 @@ class SiswaController extends Controller
         // Lanjutkan jika validasi berhasil
         $siswa = Auth::user();
 
+        // $ploting = Ploting::where('NIS', $siswa->NIS)->first();
+
+        // Cek apakah siswa sudah di ploting
         $ploting = Ploting::where('NIS', $siswa->NIS)->first();
+        if (!$ploting) {
+            return redirect()->route('laporanpkl_jurnal')->with('error', 'Anda belum terploting, tidak dapat menambahkan jurnal.');
+        }
 
         // Validasi input lainnya (kegiatan, tempat dudi, dll.)
         $validated = $request->validate([

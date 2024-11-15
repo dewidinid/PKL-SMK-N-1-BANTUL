@@ -685,6 +685,18 @@
     </script>
 
     <script>
+        function showNotPlotedAlert() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Belum Terploting',
+                text: 'Anda belum dapat menambah jurnal. Tunggu sampai Anda di ploting terlebih dahulu!',
+                confirmButtonText: 'OK'
+            });
+        }
+    </script>
+
+
+    <script>
         function showFileName(input) {
             var file = input.files[0];
             var label = document.getElementById("file-label");

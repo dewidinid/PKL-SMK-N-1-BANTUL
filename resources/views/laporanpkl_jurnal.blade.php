@@ -11,11 +11,27 @@
         <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
 
         <!-- Button to Open the Form -->
-        <div class="d-flex justify-content-end mb-3">
+        {{-- <div class="d-flex justify-content-end mb-3">
             <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
                 Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
             </button>
+        </div> --}}
+
+        <!-- Button to Open the Form -->
+        <div class="d-flex justify-content-end mb-3">
+            @if ($ploting) 
+                <!-- Jika siswa sudah terploting, tampilkan tombol tambah jurnal -->
+                <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @else
+                <!-- Jika siswa belum terploting, tampilkan notifikasi -->
+                <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @endif
         </div>
+
 
         <!-- Journal Table -->
         <table class="table-striped custom-table">

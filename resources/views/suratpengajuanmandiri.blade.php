@@ -55,8 +55,14 @@
                         </select>                        
                     </td>
                     <td>
-                        <input style="text-align: center;" type="text" name="kode_kelompok_{{ $item->id_pengajuan }}" value="{{ $item->kode_kelompok }}" readonly>
-                    </td>                    
+                        <input
+                            style="text-align: center;"
+                            type="text"
+                            name="kode_kelompok_{{ $item->id_pengajuan }}"
+                            value="{{ $item->kode_kelompok }}"
+                            readonly
+                        >
+                    </td>                                                          
                     <td class="text-center">
                         <input type="checkbox" name="check[]" value="{{ $item->id_pengajuan }}" {{ $item->status_acc == 1 ? 'checked disabled' : '' }} style="visibility: visible;">
                     </td>
