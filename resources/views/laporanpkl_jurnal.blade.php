@@ -17,19 +17,46 @@
             </button>
         </div> --}}
 
-        <!-- Button to Open the Form -->
-        <div class="d-flex justify-content-end mb-3">
-            @if ($ploting) 
-                <!-- Jika siswa sudah terploting, tampilkan tombol tambah jurnal -->
-                <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                </button>
-            @else
-                <!-- Jika siswa belum terploting, tampilkan notifikasi -->
-                <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                </button>
-            @endif
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <form action="{{ route('laporanpkl_jurnal') }}" method="GET" >
+                    <!-- Dropdown filter Bulan -->
+                    <select class="form-select d-inline-block w-auto" name="bulan">
+                        <option value="">Pilih Bulan</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                            </option>
+                        @endfor
+                    </select>
+            
+                    <!-- Dropdown filter Tahun -->
+                    <select class="form-select d-inline-block w-auto" name="tahun">
+                        <option value="">Pilih Tahun</option>
+                        @foreach ($availableYears as $year)
+                            <option value="{{ $year }}" {{ $tahun == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+            
+                    <!-- Tombol Submit -->
+                    <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+            
+            
+            <div class="d-flex">
+                @if ($ploting) 
+                    <!-- Jika siswa sudah terploting, tampilkan tombol tambah jurnal -->
+                    <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                        Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                    </button>
+                @else
+                    <!-- Jika siswa belum terploting, tampilkan notifikasi -->
+                    <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                        Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                    </button>
+                @endif
+            </div>
         </div>
 
 
@@ -50,7 +77,7 @@
                 </tr>
             </thead>
             <tbody id="data-table">
-                @foreach ($jurnals as $index => $jurnal)
+                @forelse ($jurnals as $index => $jurnal)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>{{ $jurnal->created_at }}</td>
@@ -63,7 +90,11 @@
                         <td>{{ $jurnal->kegiatan }}</td>
                         <td>{{ $jurnal->lokasi }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="9" class="text-center">Tidak ada data jurnal untuk bulan dan tahun yang dipilih.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

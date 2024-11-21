@@ -37,12 +37,12 @@
                     </div>
                 
                     <!-- Pindahkan box-table laporan jurnal di bawah box-info siswa dan nilai pkl -->
-                    <div class="box-info">
-                        <div class="box-table">
+                    <div >
+                        <div class="box-table" >
                             <br>
                             <h3 style="text-align: center">Laporan Jurnal PKL Siswa</h3>
                             <br><br>
-                            <table class="table-mini table-striped custom-mini-table">
+                            <table class="table-mini table-striped custom-mini-table"  style="max-width: 100%">
                                 <thead class="table-primary text-center">
                                     <tr class="text-center">
                                         <th>No</th>

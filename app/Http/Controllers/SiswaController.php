@@ -275,24 +275,45 @@ class SiswaController extends Controller
     
 
 
-    public function laporanJurnal() 
+    public function laporanJurnal(Request $request)
     {
         // Ambil data siswa yang sedang login
         $siswa = Auth::user();
 
-        // Jika siswa tidak ditemukan (belum login)
         if (!$siswa) {
             return redirect()->route('login')->withErrors(['login' => 'Silakan login terlebih dahulu.']);
         }
 
-        // Ambil data jurnal berdasarkan NIS siswa yang sedang login dengan eager loading relasi `ploting`
-        $jurnals = LaporanJurnal::with('ploting')->where('NIS', $siswa->NIS)->get(); 
+        // Ambil filter bulan dan tahun dari request
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        // Query jurnal berdasarkan NIS, filter bulan, dan tahun
+        $query = LaporanJurnal::with('ploting')->where('NIS', $siswa->NIS);
+
+        if ($bulan) {
+            $query->whereMonth('tanggal', $bulan);
+        }
+
+        if ($tahun) {
+            $query->whereYear('tanggal', $tahun);
+        }
+
+        $jurnals = $query->get();
+
+        // Ambil tahun yang tersedia untuk dropdown
+        $availableYears = LaporanJurnal::where('NIS', $siswa->NIS)
+            ->selectRaw('YEAR(tanggal) as year')
+            ->distinct()
+            ->pluck('year');
 
         // Ambil data ploting untuk nama_dudi
         $ploting = Ploting::where('NIS', $siswa->NIS)->first();
 
-        return view('laporanpkl_jurnal', compact('jurnals', 'siswa', 'ploting'));
+        return view('laporanpkl_jurnal', compact('jurnals', 'siswa', 'ploting', 'bulan', 'tahun', 'availableYears'));
     }
+
+
 
 
     public function submitJurnal(Request $request)

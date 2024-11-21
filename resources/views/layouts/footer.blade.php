@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; Copyright SMK N 1 Bantul. All Rights Reserved
+            &copy; Copyright Universitas Amikom Yogyakarta. All Rights Reserved
         </div>
     </footer>
 

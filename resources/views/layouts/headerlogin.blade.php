@@ -56,7 +56,8 @@
         <nav class="navbar">
             <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
+                <img src="{{ asset('image/logo-amikom.png') }}" alt="Logo" style="height: 70px;">
+                <img class="me-3" src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
                 <strong>PKL SMK N 1 BANTUL</strong>
             </a>
             <div>
