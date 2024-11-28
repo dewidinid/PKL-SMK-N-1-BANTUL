@@ -122,7 +122,7 @@ class AuthController extends Controller
         
             if (!$admin) {
                 // Jika username admin tidak ditemukan
-                $request->session()->flash('error', 'Username tidak ditemukan.');
+                $request->session()->flash('error', 'Kode admin tidak ditemukan.');
                 return back();
             }
         

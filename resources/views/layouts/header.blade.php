@@ -20,23 +20,23 @@
     <header class="header">
         <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
-                <a href="mailto:smkn1bantul@gmail.com" class="me-3" style="text-decoration: none;">
+                <a href="" class="me-3" style="text-decoration: none;">
                     <i class="bi bi-envelope me-2"></i>
-                    <span>smkn1bantul@gmail.com</span> 
+                    <span>semeabtl@yahoo.com</span> 
                 </a>
-                <a href="tel:089024516" style="text-decoration: none;">
+                <a href="" style="text-decoration: none;">
                     <i class="bi bi-phone me-2"></i>
-                    <span>0890 24516</span>
+                    <span>(0274) 367156</span>
                 </a>
             </div>
             <div class="mt-2 mt-md-0">
-                <a href="#" class="me-2" style="text-decoration: none;">
+                <a href="https://x.com/skansaba_id " class="me-2" style="text-decoration: none;">
                     <i class="bi bi-twitter-x"></i>
                 </a>
-                <a href="#" class="me-2" style="text-decoration: none;">
-                    <i class="bi bi-facebook"></i>
+                <a href="https://www.tiktok.com/@skansaba.id " class="me-2" style="text-decoration: none;">
+                    <i class="bi bi-tiktok"></i>
                 </a>
-                <a href="#" style="text-decoration: none;">
+                <a href="https://www.instagram.com/smkn1bantul?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="text-decoration: none;">
                     <i class="bi bi-instagram"></i>
                 </a>
             </div>            
@@ -74,7 +74,7 @@
                             <li class="nav-item">
                                 <a class="nav-link btn btn-masuk" href="{{ route('login') }}" 
                                    style="border: 2px solid white; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold;">
-                                   Masuk
+                                   Login
                                 </a>
                             </li>                        
                         </ul>

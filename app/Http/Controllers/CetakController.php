@@ -233,6 +233,9 @@ class CetakController extends Controller
 
         $nis = $siswa->NIS;
 
+        $laporanPengimbasan = LaporanPengimbasan::where('NIS', $nis)->first();
+        $laporanAkhir = LaporanAkhir::where('NIS', $nis)->first();
+
         // Ambil data yang sama seperti di SiswaController
         $jurnal = LaporanJurnal::where('NIS', $nis)->count();
         $jurnalTotal = 6 * 20;
@@ -254,13 +257,21 @@ class CetakController extends Controller
         $nilaiMonitoring = $nilaiAkhirMonitoring ? ($nilaiAkhirMonitoring * 20) / 100 : 0;
         $nilaiMonitoringFull = min(($jumlahUploadMonitoring / 6) * 100, 100);
 
-        $pengimbasanUploaded = LaporanPengimbasan::where('NIS', $nis)->exists();
-        $nilaiPengimbasan = $pengimbasanUploaded ? 10 : 0;
-        $nilaiPengimbasanFull = $pengimbasanUploaded ? 100 : 0;
+        if ($laporanPengimbasan && $laporanPengimbasan->approved) {
+            $nilaiPengimbasan = 10;
+            $nilaiPengimbasanFull = 100;
+        } else {
+            $nilaiPengimbasan = 0;
+            $nilaiPengimbasanFull = 0;
+        }
 
-        $laporanAkhirUploaded = LaporanAkhir::where('NIS', $nis)->exists();
-        $nilaiAkhirPKL = $laporanAkhirUploaded ? 10 : 0;
-        $nilaiAkhirPKLFull = $laporanAkhirUploaded ? 100 : 0;
+        if ($laporanAkhir && $laporanAkhir->approved) {
+            $nilaiAkhirPKL = 10;
+            $nilaiAkhirPKLFull = 100;
+        } else {
+            $nilaiAkhirPKL = 0;
+            $nilaiAkhirPKLFull = 0;
+        }
 
         // Hitung total nilai
         $totalNilai = $persentaseJurnal + $nilaiAkhirDudi + $nilaiMonitoring + $nilaiPengimbasan + $nilaiAkhirPKL;

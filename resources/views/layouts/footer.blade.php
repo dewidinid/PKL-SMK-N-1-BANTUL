@@ -14,9 +14,15 @@
                 <h5>E-PKL</h5>
                 <p>Sebuah website yang menyediakan informasi dan monitoring PKL (Praktek Kerja Lapangan) SMK N 1 Bantul</p>
                 <div class="social-icons">
-                    <a href="#"><i class="bi bi-twitter-x"></i></i></a>
-                    <a href="#"><i class="bi bi-facebook"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="https://x.com/skansaba_id " class="me-2" style="text-decoration: none;">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@skansaba.id " class="me-2" style="text-decoration: none;">
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+                    <a href="https://www.instagram.com/smkn1bantul?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="text-decoration: none;">
+                        <i class="bi bi-instagram"></i>
+                    </a>
                 </div>
             </div>
             <div class="footer-contact">
@@ -27,7 +33,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            &copy; Copyright Universitas Amikom Yogyakarta. All Rights Reserved
+            &copy; Copyright Prodi Manajemen Informatika - Universitas Amikom Yogyakarta. 
         </div>
     </footer>
 
