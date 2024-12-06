@@ -24,49 +24,51 @@
         </div>
         <br>
     
-        <table class="table-striped custom-table">
-            <thead class="table-primary text-center">
-                <tr>
-                    <th>No</th>
-                    <th>NIS</th>
-                    <th>Nama</th>
-                    <th>Konsentrasi Keahlian</th>
-                    <th>Kelas</th>
-                    <th>Tempat Dudi</th>
-                    <th>Laporan Pengimbasan</th>
-                    <th>Lihat File</th>
-                    <th>Keterangan</th> <!-- Tambahkan kolom Keterangan -->
-                </tr>
-            </thead>
-            <tbody id="data-table">
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead class="table-primary text-center">
                     <tr>
-                        <td>1</td>
-                        <td>{{ $siswa->NIS }}</td>
-                        <td>{{ $siswa->nama_siswa }}</td>
-                        <td>{{ $siswa->konsentrasi_keahlian }}</td>
-                        <td>{{ $siswa->kelas }}</td>
-                        <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
-                        <td>
-                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
-                                @csrf
-                                <input type="file" name="laporan_pengimbasan" class="form-control mb-2" accept=".pdf,.doc,.docx">
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </form>
-                        </td>
-                        <td>
-                            @if ($isLaporanPengimbasanUploaded && $laporanPengimbasanUrl)
-                                <a href="{{ $laporanPengimbasanUrl }}" target="_blank">Lihat File</a>
-                            @else
-                                <span class="text-muted">Belum Upload</span>
-                            @endif
-                        </td>
-                        <td>
-                            <input type="checkbox" {{ $isLaporanPengimbasanUploaded ? 'checked' : '' }} disabled>
-                            <span class="custom-checkbox"></span>
-                        </td>
+                        <th>No</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Konsentrasi Keahlian</th>
+                        <th>Kelas</th>
+                        <th>Tempat Dudi</th>
+                        <th>Laporan Pengimbasan</th>
+                        <th>Lihat File</th>
+                        <th>Keterangan</th> <!-- Tambahkan kolom Keterangan -->
                     </tr>
-            </tbody>            
-        </table>
+                </thead>
+                <tbody id="data-table">
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $siswa->NIS }}</td>
+                            <td>{{ $siswa->nama_siswa }}</td>
+                            <td>{{ $siswa->konsentrasi_keahlian }}</td>
+                            <td>{{ $siswa->kelas }}</td>
+                            <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
+                            <td>
+                                <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
+                                    @csrf
+                                    <input type="file" name="laporan_pengimbasan" class="form-control mb-2" accept=".pdf,.doc,.docx">
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </form>
+                            </td>
+                            <td>
+                                @if ($isLaporanPengimbasanUploaded && $laporanPengimbasanUrl)
+                                    <a href="{{ $laporanPengimbasanUrl }}" target="_blank">Lihat File</a>
+                                @else
+                                    <span class="text-muted">Belum Upload</span>
+                                @endif
+                            </td>
+                            <td>
+                                <input type="checkbox" {{ $isLaporanPengimbasanUploaded ? 'checked' : '' }} disabled>
+                                <span class="custom-checkbox"></span>
+                            </td>
+                        </tr>
+                </tbody>            
+            </table>
+        </div>
     </div>
     
     <br>
@@ -84,50 +86,52 @@
         </div>
         <br>
     
-        <table class="table-striped custom-table">
-            <thead class="table-primary text-center">
-                <tr>
-                    <th>No</th>
-                    <th>NIS</th>
-                    <th>Nama</th>
-                    <th>Konsentrasi Keahlian</th>
-                    <th>Kelas</th>
-                    <th>Tempat Dudi</th>
-                    <th>Laporan Akhir</th>
-                    <th>Lihat File</th>
-                    <th>Keterangan</th>
-                </tr>
-            </thead>
-            <tbody id="data-table">
+        <div class="table-responsive">
+            <table class="table table-striped custom-table">
+                <thead class="table-primary text-center">
                     <tr>
-                        <td>1</td>
-                        <td>{{ $siswa->NIS }}</td>
-                        <td>{{ $siswa->nama_siswa }}</td>
-                        <td>{{ $siswa->konsentrasi_keahlian }}</td>
-                        <td>{{ $siswa->kelas }}</td>
-                        <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
-                        <td>
-                            <!-- Form untuk upload Laporan Akhir -->
-                            <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
-                                @csrf
-                                <input type="file" name="laporan_akhir" class="form-control mb-2" accept=".pdf,.doc,.docx">
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </form>
-                        </td>
-                        <td>
-                            @if ($isLaporanAkhirUploaded && $laporanAkhirUrl)
-                                <a href="{{ $laporanAkhirUrl }}" target="_blank">Lihat File</a>
-                            @else
-                                <span class="text-muted">Belum Upload</span>
-                            @endif
-                        </td>
-                        <td>
-                            <input type="checkbox" {{ $isLaporanAkhirUploaded ? 'checked' : '' }} disabled>
-                            <span class="custom-checkbox"></span>
-                        </td>
+                        <th>No</th>
+                        <th>NIS</th>
+                        <th>Nama</th>
+                        <th>Konsentrasi Keahlian</th>
+                        <th>Kelas</th>
+                        <th>Tempat Dudi</th>
+                        <th>Laporan Akhir</th>
+                        <th>Lihat File</th>
+                        <th>Keterangan</th>
                     </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody id="data-table">
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $siswa->NIS }}</td>
+                            <td>{{ $siswa->nama_siswa }}</td>
+                            <td>{{ $siswa->konsentrasi_keahlian }}</td>
+                            <td>{{ $siswa->kelas }}</td>
+                            <td>{{ $siswa->ploting->nama_dudi ?? 'Belum Ada' }}</td>
+                            <td>
+                                <!-- Form untuk upload Laporan Akhir -->
+                                <form action="{{ route('upload_laporan') }}" method="POST" enctype="multipart/form-data" onsubmit="showAddingNotification()">
+                                    @csrf
+                                    <input type="file" name="laporan_akhir" class="form-control mb-2" accept=".pdf,.doc,.docx">
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </form>
+                            </td>
+                            <td>
+                                @if ($isLaporanAkhirUploaded && $laporanAkhirUrl)
+                                    <a href="{{ $laporanAkhirUrl }}" target="_blank">Lihat File</a>
+                                @else
+                                    <span class="text-muted">Belum Upload</span>
+                                @endif
+                            </td>
+                            <td>
+                                <input type="checkbox" {{ $isLaporanAkhirUploaded ? 'checked' : '' }} disabled>
+                                <span class="custom-checkbox"></span>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <br>

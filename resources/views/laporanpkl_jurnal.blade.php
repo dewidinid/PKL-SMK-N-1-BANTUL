@@ -1,26 +1,21 @@
 @extends('layouts.headersiswa')
 
 @section('content')
-    <div class="container mt-5 table-wrapper" id="jurnal-table-container">
-        <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
-            <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </button>
-        </div>
-        <br>
-        <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+<div class="container mt-5 table-wrapper" id="jurnal-table-container">
+    <div class="d-flex justify-content-start mb-3" style="margin-left: 20px;">
+        <button onclick="window.location.href='{{ route('home_siswa') }}'" style="background-color: #439AC7; color: #ffffff; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 10px;">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </button>
+    </div>
+    <br>
+    <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
 
-        <!-- Button to Open the Form -->
-        {{-- <div class="d-flex justify-content-end mb-3">
-            <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-            </button>
-        </div> --}}
-
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <form action="{{ route('laporanpkl_jurnal') }}" method="GET" >
-                    <!-- Dropdown filter Bulan -->
-                    <select class="form-select d-inline-block w-auto" name="bulan">
+    {{-- <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+        <!-- Filter di sisi kiri -->
+        <div class="filter-section">
+            <form action="{{ route('laporanpkl_jurnal') }}" method="GET">
+                <div class="mb-2">
+                    <select class="form-select" name="bulan">
                         <option value="">Pilih Bulan</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
@@ -28,9 +23,9 @@
                             </option>
                         @endfor
                     </select>
-            
-                    <!-- Dropdown filter Tahun -->
-                    <select class="form-select d-inline-block w-auto" name="tahun">
+                </div>
+                <div class="mb-2">
+                    <select class="form-select" name="tahun">
                         <option value="">Pilih Tahun</option>
                         @foreach ($availableYears as $year)
                             <option value="{{ $year }}" {{ $tahun == $year ? 'selected' : '' }}>
@@ -38,39 +33,112 @@
                             </option>
                         @endforeach
                     </select>
-            
-                    <!-- Tombol Submit -->
-                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
             </form>
-            
-            
-            <div class="d-flex">
-                @if ($ploting) 
-                    <!-- Jika siswa sudah terploting, tampilkan tombol tambah jurnal -->
-                    <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                        Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                    </button>
-                @else
-                    <!-- Jika siswa belum terploting, tampilkan notifikasi -->
-                    <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                        Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                    </button>
-                @endif
-            </div>
         </div>
+    
+        <!-- Tambah Jurnal di sisi kanan -->
+        <div class="add-journal-section">
+            @if ($ploting)
+                <button onclick="openForm()" class="btn btn-block custom-btn w-100" style="background-color: #F4A261; font-size: 18px; padding: 10px;">
+                    Tambah Jurnal <i class="bi bi-plus" style="font-size: 20px;"></i>
+                </button>
+            @else
+                <button onclick="showNotPlotedAlert()" class="btn btn-block custom-btn w-100" style="background-color: #F4A261; font-size: 18px; padding: 10px;">
+                    Tambah Jurnal <i class="bi bi-plus" style="font-size: 20px;"></i>
+                </button>
+            @endif
+        </div>
+    </div> --}}
 
+    <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+        <!-- Filter di sisi kiri -->
+        <div class="filter-section">
+            <form action="{{ route('laporanpkl_jurnal') }}" method="GET">
+                <div class="mb-2">
+                    <select class="form-select" name="bulan">
+                        <option value="">Pilih Bulan</option>
+                        @for ($i = 1; $i <= 12; $i++)
+                            <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                                {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                            </option>
+                        @endfor
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <select class="form-select" name="tahun">
+                        <option value="">Pilih Tahun</option>
+                        @foreach ($availableYears as $year)
+                            <option value="{{ $year }}" {{ $tahun == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Filter</button>
+            </form>
+        </div>
+    
+        <!-- Tambah Jurnal di sisi kanan -->
+        <div class="add-journal-section ms-3">
+            @if ($ploting)
+                <button onclick="openForm()" class="btn custom-btn btn-lg w-100 text-center" style="background-color: #F4A261;">
+                    Tambah Jurnal <i class="bi bi-plus" style="font-size: 20px;"></i>
+                </button>
+            @else
+                <button onclick="showNotPlotedAlert()" class="btn custom-btn btn-lg w-100 text-center" style="background-color: #F4A261;">
+                    Tambah Jurnal <i class="bi bi-plus" style="font-size: 20px;"></i>
+                </button>
+            @endif
+        </div>
+    </div>
+    
+    
+    {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+        <form action="{{ route('laporanpkl_jurnal') }}" method="GET">
+            <select class="form-select d-inline-block w-auto" name="bulan">
+                <option value="">Pilih Bulan</option>
+                @for ($i = 1; $i <= 12; $i++)
+                    <option value="{{ $i }}" {{ $bulan == $i ? 'selected' : '' }}>
+                        {{ \Carbon\Carbon::create()->month($i)->translatedFormat('F') }}
+                    </option>
+                @endfor
+            </select>
+            <select class="form-select d-inline-block w-auto" name="tahun">
+                <option value="">Pilih Tahun</option>
+                @foreach ($availableYears as $year)
+                    <option value="{{ $year }}" {{ $tahun == $year ? 'selected' : '' }}>
+                        {{ $year }}
+                    </option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+        <div class="d-flex">
+            @if ($ploting)
+                <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @else
+                <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @endif
+        </div>
+    </div> --}}
 
-        <!-- Journal Table -->
-        <table class="table-striped custom-table">
+    <!-- Wrapper khusus untuk tabel -->
+    <div class="table-responsive">
+        <table class="table table-striped custom-table">
             <thead class="table-primary text-center">
-                <tr class="text-center">
+                <tr>
                     <th>No</th>
                     <th>Tanggal</th>
                     <th>NIS</th>
                     <th>Nama</th>
                     <th>Konsentrasi Keahlian</th>
                     <th>Kelas</th>
-                    {{-- <th>Kelompok</th> --}}
                     <th>Tempat Dudi</th>
                     <th>Kegiatan / Progres</th>
                     <th>Lokasi</th>
@@ -85,7 +153,6 @@
                         <td>{{ $jurnal->nama_siswa }}</td>
                         <td>{{ $jurnal->konsentrasi_keahlian }}</td>
                         <td>{{ $jurnal->kelas }}</td>
-                        {{-- <td>{{ $jurnal->kode_kelompok }}</td> --}}
                         <td>{{ $jurnal->ploting ? $jurnal->ploting->nama_dudi : 'Tidak ada data DUDI' }}</td>
                         <td>{{ $jurnal->kegiatan }}</td>
                         <td>{{ $jurnal->lokasi }}</td>
@@ -98,6 +165,8 @@
             </tbody>
         </table>
     </div>
+</div>
+
 
     <br>
     <br>

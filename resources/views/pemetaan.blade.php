@@ -38,8 +38,8 @@
         </form>
     </div>
 
-    <div style="max-height: 400px; overflow-y: auto;" id="jurnal-table-container"> <!-- Wadah scrollable -->
-        <table class="table-striped custom-table">
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;" id="jurnal-table-container"> <!-- Wadah scrollable -->
+        <table class="table table-striped custom-table">
             <thead class="table-primary text-center">
                 <tr class="text-center">
                     <th>No</th>

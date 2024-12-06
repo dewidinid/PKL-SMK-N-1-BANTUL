@@ -18,7 +18,8 @@
 
         <br>
         <br>
-        <div class="container" style="max-width: 80%; margin-left: 200px;">
+        <div class="container" >
+            {{-- style="max-width: 80%; margin-left: 200px;" --}}
             <div class="row">
                 <!-- Left Column: Table -->
                 <div class="col-md-9" >
@@ -67,11 +68,12 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <br>
                 </div>
 
                 <!-- Right Column: Info Status -->
                 <div class="col-md-3">
-                    <div style=" margin-top: 20px; text-align: left">
+                    <div style=" text-align: left">
                         <p style="margin-left: 15px"><strong>Info Status</strong></p>
                         <ul>
                             <li><span class="text-success">Hijau:</span> Sudah lengkap</li>

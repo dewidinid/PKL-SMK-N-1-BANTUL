@@ -14,19 +14,29 @@
 
 .form-container {
     background: rgba(255, 255, 255, 0.374); /* Semi-transparent white */
-    padding: 30px;
+    padding: 10px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
-    width: 50%;
+    width: 70%;
     max-width: 80%;
     margin-bottom: 8%;
 }
 
+.form-label, 
 .form-control {
+    display: block; /* Pastikan elemen tampil dalam satu kolom */
+    width: 100%;    /* Pastikan elemen mengambil lebar penuh */
+    box-sizing: border-box; /* Hitung padding dan border sebagai bagian dari ukuran elemen */
+}
+
+.form-control {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
     background-color: #1b262c;
     color: white;
     border: 1px solid #3282b8;
-    border-radius: 20px;
+    border-radius: 5px;
 }
 
 .form-control::placeholder {
@@ -35,6 +45,10 @@
 
 .form-label {
     color: #fff !important;
+    width: 100%;
+    height: 100%;
+
+    position: relative;
 }
 
 .custom-file-upload {
