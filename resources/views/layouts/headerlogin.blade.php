@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>SMK N 1 BANTUL</title>
-      
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SMK N 1 BANTUL</title>
         <link rel="stylesheet" href="{{ asset('css/login.css') }}">
         <link rel="stylesheet" href="{{ asset('css/header-login.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> --}}
         <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">  
+        {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">   --}}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 
-<body>
+<body style="background: linear-gradient(to bottom, #439AC7, #7391a0) !important;">
     <header class="header-login">
-        <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center  px-md-8">
+        <div class="contact-info d-flex flex-column flex-md-row justify-content-between align-items-center p-8 px-md-7">
             <div>
                 <a href="" class="me-3" style="text-decoration: none;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
@@ -53,27 +53,41 @@
             </div>            
         </div>
 
-        <nav class="navbar">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('image/logo-amikom.png') }}" alt="Logo" style="height: 70px;">
-                <img class="me-3" src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
+                <img class="logo" src="{{ asset('image/logo-amikom.png') }}" alt="Logo" style="height: 70px;">
+                <img class="logo" class="me-3" src="{{ asset('image/Logo_SMKN1Bantul.png') }}" alt="Logo" style="height: 70px;">
                 <strong>PKL SMK N 1 BANTUL</strong>
             </a>
-            <div>
-                {{-- <a href="{{ route('dashboard')}}">Beranda</a> --}}
-                <a class="nav-link btn" href="{{ route('dashboard')}}" 
-                    style="border: 2px solid white ;color: #white !important;  padding: 5px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
-                    Beranda
-                </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link btn btn-masuk" href="{{ route('dashboard')}}" 
+                                style="border: 2px solid white ;color: white ;  padding: 5px 15px; border-radius: 5px; font-weight: bold; text-align: center;">
+                                Beranda
+                            </a>
+                        </li>                        
+                    </ul>
+                </div>
             </div>
             </div>
         </nav>
           
     </header>
 
-
-    @yield('content')
+    <div class="main-content">
+        @yield('content')
+    </div>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     @if(session('error'))
@@ -113,9 +127,6 @@
         });
     </script>
     
-    
-
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

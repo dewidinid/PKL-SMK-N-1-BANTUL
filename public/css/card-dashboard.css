@@ -1,6 +1,6 @@
 .square-card {
-    width: 100%; /* Lebar mengikuti kolom */
-    padding-bottom: 100%; /* Tinggi diatur berdasarkan lebar untuk membuat persegi */
+    width: 200px; /* Lebar mengikuti kolom */
+    padding-bottom: 200px;
     position: relative; /* Membuat elemen di dalamnya menjadi relatif */
     transform: translateY(-5px); /* Efek hover untuk mengangkat kartu */
     
@@ -23,6 +23,57 @@
     margin-left: 40px;
 }
 
+
 .custom-shadow {
     box-shadow: 10px 15px 8px rgba(0, 0, 0, 0.2), 10px 15px 20px rgba(0, 0, 0, 0.19);
 }
+
+.container .row {
+    margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    .square-card {
+        margin-bottom: 15px;
+    }
+    .card-title, .card-text {
+        font-size: 14px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .square-card {
+        width: 80%; /* Kurangi lebar card menjadi 80% dari kolom */
+        padding-bottom: 80%; /* Sesuaikan tinggi agar tetap persegi */
+        margin-bottom: 10px; /* Kurangi margin bawah */
+        margin-left: 15px; /* Jarak kiri untuk layar kecil */
+        margin-right: 5px; /* Jarak kanan untuk layar kecil */
+        margin-top: 5px;
+    }
+    .square-card .card-body {
+        font-size: 14px; /* Perkecil ukuran font di dalam card */
+    }
+    .card-title, .card-text {
+        font-size: 12px; /* Lebih kecil untuk teks title dan isi */
+        text-align: center;
+    }
+
+    /* Flexbox untuk row */
+    .row {
+        display: flex;
+        flex-wrap: wrap; /* Pastikan elemen membungkus */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .col-6 {
+        flex: 0 0 50%; /* Setiap card 50% lebar */
+        max-width: 50%; /* Membatasi lebar kolom */
+        padding: 5px; /* Menambahkan padding antar kolom */
+    }
+}
+
+
+
+

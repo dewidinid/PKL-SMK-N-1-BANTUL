@@ -30,6 +30,24 @@
 .header .navbar a:hover {
     color: white;
 }
+
+.navbar {
+    display: flex;
+    align-items: center; /* Sejajarkan elemen secara vertikal */
+    justify-content: space-between; /* Spasi antara logo dan tombol */
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-toggler {
+    border: none; /* Opsional, untuk menghapus border */
+    background-color: transparent; /* Opsional, untuk warna tombol */
+}
+
 .navbar-nav .nav-link {
     color: white !important; /* Warna teks default hitam */
     border-radius: 5px; /* Memberikan sedikit radius untuk tampilan yang lebih baik */
@@ -40,6 +58,8 @@
     color: white !important; /* Warna teks saat hover */
     padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
 }
+
+
 
 
 
@@ -54,6 +74,32 @@
         color: white !important;
         background-color: #439AC7 !important; 
         border-radius: 5px; /* Contoh styling tambahan */
+    }
+
+    .navbar {
+        flex-wrap: nowrap; /* Jangan biarkan elemen turun ke bawah */
+    }
+
+    .navbar-brand img {
+        margin-right: 20; /* Pastikan logo berada di kiri */
+        width:auto;
+    }
+
+    .navbar-toggler {
+        margin-left: auto; /* Pastikan tombol berada di kanan */
+    }
+
+    .header .contact-info {
+        background-color: #00000014;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .header .contact-info a {
+        color: white;
+        margin: 10px;
     }
 
      /* Styling khusus untuk tombol "Masuk" */
@@ -71,9 +117,26 @@
 
     /* Hover untuk tombol "Masuk" */
     .nav-link.btn-masuk:hover {
-        background-color: #439AC7 !important; /* Warna lebih gelap saat di-hover */
+        background-color: white !important; /* Warna lebih gelap saat di-hover */
+        color: #439AC7;
     }
 }
+
+/* Responsif untuk header dan navbar */
+@media (max-width: 720px) {
+    /* Padding dan ukuran font pada header */
+    .header .contact-info {
+        padding: 0 15px;
+    }
+    .header .navbar {
+        padding: 10px 15px;
+    }
+    .navbar-brand img {
+        height: auto; /* Mengurangi ukuran logo pada mobile */
+        width: auto;
+    }
+}
+
 
 /* Responsif untuk header dan navbar */
 @media (max-width: 767.98px) {
@@ -85,7 +148,8 @@
         padding: 10px 15px;
     }
     .navbar-brand img {
-        height: 50px; /* Mengurangi ukuran logo pada mobile */
+        height: auto; /* Mengurangi ukuran logo pada mobile */
+        width: auto;
     }
 }
 
@@ -102,35 +166,97 @@
         
 }
 
-/* Responsif untuk card di dashboard */
-@media (max-width: 767.98px) {
-    .card-body {
-        padding: 10px !important;
-        font-size: 14px; /* Mengurangi ukuran font di card */
+@media (max-width: 576px) {
+    .navbar {
+        display: flex;
+        align-items: center; /* Elemen di tengah secara vertikal */
+        justify-content: space-between; /* Jarak antara elemen kiri dan kanan */
+        padding: 0 10px; /* Tambahkan padding agar tidak terlalu menempel di tepi */
     }
-    .card .bi {
-        width: 30px; /* Mengurangi ukuran ikon */
-        height: 30px;
+
+    .navbar-brand {
+        display: flex;
+        align-items: center; /* Logo dan teks di tengah */
+    }
+
+    .navbar-brand img.logo {
+        max-height: 30px; /* Ukuran logo lebih kecil */
+        width: auto; /* Jaga proporsi logo */
+        margin-right: 2px; /* Jarak antara logo dan teks */
+    }
+
+    .navbar-brand strong {
+        font-size: 14px; /* Ukuran teks lebih kecil */
+        white-space: nowrap; /* Hindari teks terpotong ke bawah */
+    }
+
+    .navbar-toggler {
+        font-size: 12px; /* Ukuran teks lebih kecil */
+        padding: 5px 10px; /* Mengurangi padding agar tombol lebih kecil */
+        border: none; /* Menghilangkan border */
+    }
+
+    .navbar-toggler-icon {
+        width: 15px !important; /* Ikon lebih kecil */
+        height: 15px !important;
+    }
+
+    .offcanvas-body {
+        padding: 10px; /* Tambahkan padding agar nyaman */
+        text-align: center; /* Pusatkan isi */
+    }
+
+    .nav-link {
+        font-size: 14px; /* Ukuran link responsif */
     }
 }
 
-/* Responsif untuk bagian "Tentang PKL" dan logo scrolling */
-@media (max-width: 767.98px) {
-    .logo-container img {
-        width: 80px; /* Mengurangi ukuran logo */
-    }
-    .logo-scroll {
-        justify-content: center; /* Mengubah alignment ke tengah */
+
+@media (max-width: 768px) {
+    .img-full {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
     }
 }
 
-/* Responsif untuk sistem PKL buttons */
-@media (max-width: 767.98px) {
-    .sistem-card {
-        font-size: 12px; /* Mengurangi ukuran font di tombol */
-        padding: 8px;
+@media (max-width: 768px) {
+    .row {
+        justify-content: center;
+        text-align: center;
+    }
+    .custom-spacing {
+        margin-left: 0;
+        margin-right: 0;
     }
 }
+
+
+@media (max-width: 480px) {
+    .header .contact-info {
+        flex-direction: column; /* Susun vertikal untuk layar kecil */
+        align-items: flex-start; /* Rata kiri */
+        padding: 0 15px;
+    }
+    .header .contact-info a {
+        margin: 5px 0; /* Beri jarak antar elemen */
+    }
+}
+
+@media (max-width: 576px) {
+    .header .contact-info {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+    }
+    .header .contact-info a {
+        font-size: 14px; /* Perkecil teks */
+        margin: 0 5px; /* Kurangi jarak antar elemen */
+    }
+}
+
+
 
 
 

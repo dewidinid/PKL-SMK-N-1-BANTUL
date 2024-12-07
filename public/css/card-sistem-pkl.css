@@ -12,3 +12,21 @@
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
 }
 
+/* Responsif untuk sistem PKL buttons */
+@media (max-width: 767.98px) {
+    .sistem-card {
+        font-size: 12px; /* Mengurangi ukuran font di tombol */
+        padding: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sistem-card {
+        width: 100px; /* Perkecil lebar */
+        height: 100px; /* Sesuaikan tinggi */
+        font-size: 10px; /* Kurangi ukuran font */
+        padding: 5px;
+    }
+}
+
+

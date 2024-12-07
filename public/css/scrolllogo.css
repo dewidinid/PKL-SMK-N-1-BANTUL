@@ -3,6 +3,7 @@
 }
 
 .logo-scroll {
+    padding: 0 10px;
     display: flex;
     white-space: nowrap;
     overflow-x: auto;
@@ -12,4 +13,37 @@
 
 .logo-scroll::-webkit-scrollbar { 
     display: none;  /* Safari and Chrome */
+}
+
+/* Media query untuk perangkat kecil */
+@media (max-width: 768px) {
+    .logo-scroll img {
+        max-height: 60px; /* Kurangi tinggi logo untuk perangkat kecil */
+    }
+
+    .logo-scroll {
+        gap: 10px; /* Kurangi jarak antar logo */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-scroll img {
+        max-height: 50px; /* Tambahan untuk perangkat sangat kecil */
+    }
+}
+
+@media (max-width: 576px) {
+    .logo-scroll img {
+        width: 60px; /* Kurangi ukuran logo */
+    }
+}
+
+/* Responsif untuk bagian "Tentang PKL" dan logo scrolling */
+@media (max-width: 767.98px) {
+    .logo-container img {
+        width: 80px; /* Mengurangi ukuran logo */
+    }
+    .logo-scroll {
+        justify-content: center; /* Mengubah alignment ke tengah */
+    }
 }

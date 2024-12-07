@@ -2,7 +2,7 @@
     background-color: #439AC7;
     color: white;
     padding-top: 30px;
-    
+    margin-top: auto;
 }
 .footer .container {
     display: flex;
@@ -26,4 +26,14 @@
     text-align: center;
     padding: 10px 0;
     font-size: 14px;
+}
+
+@media (max-width: 576px) {
+    .footer {
+        font-size: 12px; /* Sesuaikan ukuran font */
+    }
+
+    .footer-bottom {
+        font-size: 12px;
+    }
 }

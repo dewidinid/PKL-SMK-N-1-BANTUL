@@ -90,6 +90,7 @@
                             </td>
                             <td>
                                 <input type="checkbox" id="checkbox{{ $i }}" name="check[]" value="{{ $i + 1 }}" {{ isset($monitoringPerSiswa[$i]) ? 'checked' : '' }} disabled>
+                                <span class="custom-checkbox"></span>
                             </td>                    
                         </tr>
                     @endfor

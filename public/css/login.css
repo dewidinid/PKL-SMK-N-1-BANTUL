@@ -1,44 +1,54 @@
-body {
-  /* background: -webkit-linear-gradient(to bottom, #000c40, #f0f2f0); */
-  /* background: linear-gradient(to bottom, #000C40, #f0f2f0); */
-  background: linear-gradient(to bottom, #439AC7, #7391a0);
-  background-size: cover;
+.container {
+  justify-content: center;
+  
+  display: flex;
 }
 
-.register {
-  margin-top: 1%;
-  padding: 1%;
-}
 
-.register-left {
-  text-align: center;
-  color: #fff;
-  margin-top: 3%;
-  margin-left: 3%;
-}
-
-.register-left input {
-  border: none;
-  border-radius: 1.5rem;
-  padding: 2%;
-  width: 60%;
-  background: #f8f9fa;
-  font-weight: bold;
-  color: #66727b;
-  margin-top: 30%;
-  margin-bottom: 3%;
-  cursor: pointer;
-}
-
-.register-right {
-  background: #f8f9fa;
-  border-top-left-radius: 0 0;
-  border-bottom-left-radius: 10% 50%;
-  margin-left: -4%;
-  height: 400px;
+/* Content */
+.content {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 1000px;
+  max-width: 90%;
   
 }
 
+/* Welcome Section */
+.welcome-section {
+  background-color: transparent;
+  padding: 20px;
+  text-align: center;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  margin-right: 50px;
+}
+
+.welcome-section h1 {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.welcome-section p {
+  font-size: 22px;
+}
+
+/* Login Section */
+.login-section {
+  padding: 20px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #333;
+  
+}
+
+/* Frosted Glass Effect */
 .frosted-glass {
   background: rgba(255, 255, 255, 0.308); /* Semi-transparent white */
   backdrop-filter: blur(10px); /* Adjust blur intensity */
@@ -47,103 +57,241 @@ body {
   padding: 2%;
 }
 
-.register-left img {
-  margin-top: 15%;
-  margin-bottom: 5%;
-  width: 25%;
-  -webkit-animation: mover 2s infinite alternate;
-  animation: mover 1s infinite alternate;
+/* Tab Container */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  padding: 4px; /* Kurangi padding horizontal */
+  border: 2px solid white !important;
+  background-color: transparent !important; /* Warna latar belakang container tab */
+  border-radius: 30px; /* Radius luar container */
+  margin: 0 auto; /* Hilangkan jarak margin */
+  max-width: 80%;
 }
 
-@-webkit-keyframes mover {
-  0% {
-    transform: translateY(0);
-  }
 
-  100% {
-    transform: translateY(-20px);
-  }
+/* Tab Link */
+.nav-tabs .nav-link {
+    margin: 0 3px; /* Kurangi jarak horizontal antar link */
+    border-radius: 30px !important;
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    text-align: center;
+    transition: all 0.3s;
+    border: none !important;
 }
 
-@keyframes mover {
-  0% {
-    transform: translateY(0);
-  }
-
-  100% {
-    transform: translateY(-20px);
-  }
+/* Tab Aktif */
+.nav-tabs .nav-link.active {
+  color: #439AC7 !important; /* Teks putih */
 }
 
-.register-left p {
-  font-weight: lighter;
-  padding: 12%;
-  margin-top: -9%;
+/* Hover Efek */
+.nav-tabs .nav-link:hover {
+  background-color: white; /* Warna hover lebih lembut */
+  color: #439AC7; /* Warna teks tetap biru */
 }
 
-.register .register-form {
-  padding: 10%;
-  margin-top: 10%;
+/* Untuk mengatur ukuran hover agar sesuai */
+.nav-tabs .nav-link:focus {
+  outline: none;
 }
 
-.btnRegister {
-  float: right;
-  margin-top: 10%;
-  border: none;
-  border-radius: 1.5rem;
-  padding: 2%;
-  background: #0062cc;
-  color: #fff;
-  font-weight: 600;
-  width: 50%;
-  cursor: pointer;
+/* Tab Content */
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.register .nav-tabs {
-  margin-top: 3%;
-  border: 2px solid white;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 1.5rem;
-  width: 28%;
-  float: right;
-}
-
-.register .nav-tabs .nav-link {
-  padding: 1%;
-  height: 34px;
-  font-weight: 600;
-  color: white;
-  border-top-right-radius: 1.5rem;
-  border-bottom-right-radius: 1.5rem;
-}
-
-.register .nav-tabs .nav-link:hover {
-  border: none;
-}
-
-.register .nav-tabs .nav-link.active {
-  width: 120px;
-  color: #439AC7;
-  border: 3px solid #ffffff;
-  /* background-color: #2e6986; */
-  border-top-left-radius: 1.5rem;
-  border-bottom-left-radius: 1.5rem;
-}
-
-.register-heading {
+.tab-pane {
+  display: none;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  margin-top: 8%;
-  margin-bottom: -15%;
+  width: 80%;
+}
+
+.tab-pane.active {
+  display: flex;
+}
+
+
+/* Field Input */
+input {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #6BAFD9;
+  box-shadow: 0 0 5px rgba(107, 175, 217, 0.5);
+}
+
+/* Password Field with Toggle */
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  padding-right: 40px; /* Space for the eye icon */
+}
+
+.password-field .toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #aaa;
+  outline: none;
+  transition: color 0.3s;
+}
+
+.password-field .toggle-password:hover {
+  color: rgb(72, 72, 72);
+}
+
+/* Button */
+button.login-button {
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #8ac0e1;
   color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.form-control {
-  border-radius: 0.75rem;
+button.login-button:hover {
+  background-color: #439AC7;
 }
 
-  /* Nonaktifkan panah pada input type number untuk Chrome, Safari, Edge */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+/* Media Query untuk Responsif di Layar Kecil */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column; /* Mengubah layout menjadi kolom pada layar kecil */
+    width: 100%;
+  }
+
+  .welcome-section {
+    width: 100%;
+    margin-right: 0;
+    padding: 20px;
+  }
+
+  .login-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .nav-tabs {
+    flex-direction: column; /* Tab menu menjadi vertikal */
+  }
+
+  .nav-tabs .nav-link {
+    width: 100%; /* Membuat tab menjadi lebar penuh pada perangkat kecil */
+    text-align: center;
+  }
+
+  .tab-pane {
+    width: 100%; /* Menyesuaikan lebar form login */
+  }
+
+  .frosted-glass {
+    padding: 15px; /* Mengurangi padding untuk ruang yang lebih optimal */
+  }
+
+  h3, h2 {
+    font-size: 20px; /* Menyesuaikan ukuran font judul */
+  }
+
+  input, button.login-button {
+    font-size: 14px; /* Mengurangi ukuran font pada input dan button untuk perangkat kecil */
+  }
+}
+
+/* Media Query untuk Responsif di Layar Kecil (max-width: 576px) */
+@media (max-width: 576px) {
+  .container {
     margin: 0;
+    padding: 10px;
+    height: auto;
+  }
+
+  .content {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .welcome-section {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .welcome-section h1 {
+    font-size: 22px;
+  }
+
+  .welcome-section p {
+    font-size: 14px;
+  }
+
+  .login-section {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .nav-tabs {
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+  }
+
+  .nav-tabs .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .tab-content {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .tab-pane {
+    width: 100%;
+    padding: 10px;
+  }
+
+  input {
+    font-size: 14px;
+  }
+
+  button.login-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 14px;
+    background-color: #439AC7;
+  }
 }
+
+

@@ -1,31 +1,279 @@
+
 .header-login {
-    /* background-color: #0275d8; */
-    color: #fff !important;
-    padding: 0 0;
+  position: relative;
+  z-index: 1;
+  /* color: #FFF !important; */
+  padding: 0 0;
+  
 }
 .header-login .contact-info {
-    background-color: #00000014;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 70px;
+  background-color: #00000014;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 70px;
 }
 .header-login .contact-info a {
-    color: white;
-    margin-left: 10px;
+  color: white;
+  margin-left: 10px;
 }
 .header-login .navbar {
-    /* background-color: white; */
-    background-color: transparent;
-    color: white;
-    padding: 10px 70px;
+  background-color: transparent;
+  /* background-color: #fff; */
+  color: black;
+  padding: 10px 70px;
 }
 .header-login .navbar a {
-    color: white;
-    margin-right: 10px;
-    text-decoration: none;
-    font-weight: bold;
+  color: white;
+  margin-right: 10px;
+  text-decoration: none;
+  font-weight: bold;
 }
 .header-login .navbar a:hover {
-    color: white;
+  color: white;
 }
+
+.navbar {
+  display: flex;
+  align-items: center; /* Sejajarkan elemen secara vertikal */
+  justify-content: space-between; /* Spasi antara logo dan tombol */
+  padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-toggler {
+  border: none; /* Opsional, untuk menghapus border */
+  background-color: transparent; /* Opsional, untuk warna tombol */
+}
+
+.navbar-nav .nav-link {
+  color: white !important; /* Warna teks default hitam */
+  border-radius: 5px; /* Memberikan sedikit radius untuk tampilan yang lebih baik */
+}
+
+.navbar-nav .nav-link:hover {
+  text-decoration: white;
+  color: white !important; /* Warna teks saat hover */
+  padding: 5px 10px; /* Padding untuk membuat efek hover lebih terasa */
+}
+
+
+
+/* Saat navbar dalam mode offcanvas (untuk ukuran kecil), atur warna teks menjadi hitam */
+@media (max-width: 991.98px) {
+  .offcanvas .nav-link {
+      color: black !important;
+  }
+
+  /* Ubah warna teks dan beri background saat di-hover */
+  .offcanvas .nav-link:hover {
+      color: white !important;
+      background-color: #439AC7 !important; 
+      border-radius: 5px; /* Contoh styling tambahan */
+  }
+
+  .navbar {
+      flex-wrap: nowrap; /* Jangan biarkan elemen turun ke bawah */
+  }
+
+  .navbar-brand img {
+      margin-right: 20; /* Pastikan logo berada di kiri */
+      width:auto;
+  }
+
+  .navbar-toggler {
+      margin-left: auto; /* Pastikan tombol berada di kanan */
+  }
+
+  .header-login .contact-info {
+      background-color: #00000014;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+  }
+
+  .header-login .contact-info a {
+      color: white;
+      margin: 10px;
+  }
+
+   /* Styling khusus untuk tombol "Masuk" */
+   .nav-link.btn-masuk {
+      /* background-color: #007bff !important;  */
+      border-color: #439AC7 !important;
+      color: black !important;
+      padding: 5px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      border: none;
+      transition: background-color 0.3s;
+  }
+
+  /* Hover untuk tombol "Masuk" */
+  .nav-link.btn-masuk:hover {
+      background-color: #439AC7 !important; /* Warna lebih gelap saat di-hover */
+  }
+}
+
+/* Responsif untuk header-login dan navbar */
+@media (max-width: 720px) {
+  /* Padding dan ukuran font pada header-login */
+  .header-login .contact-info {
+      padding: 0 15px;
+  }
+  .header-login .navbar {
+      padding: 10px 15px;
+  }
+  .navbar-brand img {
+      height: auto; /* Mengurangi ukuran logo pada mobile */
+      width: auto;
+  }
+}
+
+
+/* Responsif untuk header-login dan navbar */
+@media (max-width: 767.98px) {
+  /* Padding dan ukuran font pada header-login */
+  .header-login .contact-info {
+      padding: 0 15px;
+  }
+  .header-login .navbar {
+      padding: 10px 15px;
+  }
+  .navbar-brand img {
+      height: auto; /* Mengurangi ukuran logo pada mobile */
+      width: auto;
+  }
+}
+
+/* Responsif untuk gambar landing page */
+@media (max-width: 767.98px) {
+  .img-fluid {
+      height: auto !important;
+  }
+
+  .img-full {
+      width: 100%;
+      height: auto;
+  }
+      
+}
+
+
+@media (max-width: 576px) {
+  .navbar {
+      display: flex;
+      align-items: center; /* Elemen di tengah secara vertikal */
+      justify-content: space-between; /* Jarak antara elemen kiri dan kanan */
+      padding: 0 10px; /* Tambahkan padding agar tidak terlalu menempel di tepi */
+  }
+
+  .navbar-brand {
+      display: flex;
+      align-items: center; /* Logo dan teks di tengah */
+  }
+
+  .navbar-brand img.logo {
+      max-height: 30px; /* Ukuran logo lebih kecil */
+      width: auto; /* Jaga proporsi logo */
+      margin-right: 2px; /* Jarak antara logo dan teks */
+  }
+
+  .navbar-brand strong {
+      font-size: 14px; /* Ukuran teks lebih kecil */
+      white-space: nowrap; /* Hindari teks terpotong ke bawah */
+  }
+
+  .navbar-toggler {
+      font-size: 12px; /* Ukuran teks lebih kecil */
+      padding: 5px 10px; /* Mengurangi padding agar tombol lebih kecil */
+      border: none; /* Menghilangkan border */
+  }
+
+  .navbar-toggler-icon {
+      width: 15px !important; /* Ikon lebih kecil */
+      height: 15px !important;
+  }
+
+  .offcanvas-body {
+      padding: 10px; /* Tambahkan padding agar nyaman */
+      text-align: center; /* Pusatkan isi */
+      
+  }
+
+  /* Styling khusus untuk tombol "Masuk" */
+  .nav-link.btn-masuk {
+      /* background-color: #007bff !important;  */
+      border-color: #439AC7 !important;
+      color: black !important;
+      padding: 5px 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      text-align: center;
+      border: none;
+      transition: background-color 0.3s;
+  }
+
+  /* Hover untuk tombol "Masuk" */
+  .nav-link.btn-masuk:hover {
+    background-color: white !important; /* Warna lebih gelap saat di-hover */
+    color: #439AC7 !important;
+}
+}
+
+
+@media (max-width: 768px) {
+  .img-full {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+      justify-content: center;
+      text-align: center;
+  }
+  .custom-spacing {
+      margin-left: 0;
+      margin-right: 0;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .header-login .contact-info {
+      flex-direction: column; /* Susun vertikal untuk layar kecil */
+      align-items: flex-start; /* Rata kiri */
+      padding: 0 15px;
+  }
+  .header-login .contact-info a {
+      margin: 5px 0; /* Beri jarak antar elemen */
+  }
+}
+
+@media (max-width: 576px) {
+  .header-login .contact-info {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+  }
+  .header-login .contact-info a {
+      font-size: 14px; /* Perkecil teks */
+      margin: 0 5px; /* Kurangi jarak antar elemen */
+  }
+}
+
+
+
+
+
+
