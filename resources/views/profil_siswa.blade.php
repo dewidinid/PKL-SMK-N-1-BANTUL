@@ -33,7 +33,7 @@
 
             <div class="profile-data" style="">
                 <!-- Form to Update Other Profile Data -->
-                <form method="POST" action="{{ route('update.profile', $siswa->NIS) }}" style="padding-bottom: 100px;">
+                <form method="POST" action="{{ route('update.profile', $siswa->NIS) }}" style="padding-bottom: 50px;">
                     @csrf
                     <div class="form-group">
                         <label for="nis" class="form-label" style="color: #1A5276 !important">NIS</label>
@@ -55,7 +55,7 @@
                         <label for="tahun" class="form-label" style="color: #1A5276 !important">Tahun</label>
                         <input type="text" name="tahun" class="form-control" style="background-color: #fff" placeholder="Tahun" value="{{ $siswa->tahun }}"readonly>
                     </div>
-                    <div class="container " style="background-color: #fff; padding: 20px; max-width: 80%; border-radius: 10px;">
+                    <div class="container " style="background-color: #fff; padding: 20px; max-width: 90%; border-radius: 10px;">
                         <!-- Password Lama -->
                         <div class="form-group position-relative">
                             <label for="current_password" class="form-label" style="color: black !important">Password Lama</label>
@@ -82,15 +82,13 @@
                                 <i class="far fa-eye" style="color:  rgb(173, 173, 173)"></i>
                             </button>
                         </div>
-                        <div class="form-group mt-3" style="display: flex;  gap: 10px;">
-                            <button type="button" id="reset-password-button" class="btn btn-secondary mt-4 ml-2" style="text-align: left; display: block;" disabled>Reset</button>
+                        <div class="form-group mt-2" style="display: flex;  gap: 10px;">
+                            <button type="button" id="reset-password-button" class="btn btn-danger mt-4 " style="flex: 1; padding: 10px; text-align: center;" disabled>Reset</button>
                             
                             <!-- Tombol Simpan Password -->
-                            <button type="button" id="save-password-button" class="btn btn-primary mt-4 ml-2" style="text-align: left; display: block;" disabled>Simpan Password</button>
+                            <button type="button" id="save-password-button" class="btn btn-primary mt-4 " style="flex: 1; padding: 10px; text-align: center;" disabled>Simpan Password</button>
                         </div>
                     </div>                                              
-                    <br>
-                    {{-- <button type="submit" class="btn btn-primary">Simpan</button> --}}
                 </form>
             </div>
         </div>
