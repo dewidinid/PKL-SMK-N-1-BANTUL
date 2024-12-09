@@ -14,7 +14,7 @@
 
 .form-container {
     background: rgba(255, 255, 255, 0.374); /* Semi-transparent white */
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
     width: 70%;
@@ -41,6 +41,7 @@
 
 .form-control::placeholder {
     color: #cfd8dc;
+    
 }
 
 .form-label {
@@ -99,3 +100,16 @@
     background-color:#3282b8;
 } */
 
+.kembali {
+    margin-left: 100px;
+}
+
+@media (max-width: 576px) {
+    .kembali {
+        margin-left: 30px;
+    }
+
+    .form-container {
+        width: 80%;
+    }
+}

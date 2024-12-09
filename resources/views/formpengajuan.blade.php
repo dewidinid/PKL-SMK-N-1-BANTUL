@@ -5,16 +5,16 @@
 
 <div class="body-formmandiri">
 
-    <div class="d-flex justify-content-start mb-3" style="margin-left: 100px;">
+    <div class="kembali d-flex justify-content-start mb-3" style="">
         <button onclick="window.location.href='{{ route('mandiri') }}'" style="background-color: #ffffff; color: #0275d8; border: none; padding: 5px 10px; border-radius: 5px; margin-top: 50px;">
             <i class="bi bi-arrow-left"></i> Kembali
         </button>
     </div>
     <!-- Form Container -->
     <br>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="d-flex justify-content-center align-items-center">
         
-        <div class="form-container" style="width: 70%; padding: 40px; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); ">
+        <div class="form-container">
             <h4 class="text-center mb-3" style="color: #21516f">Form Pengajuan PKL</h4> 
             <br>
             <form action="{{ route('formpengajuan') }}" method="POST" enctype="multipart/form-data">
@@ -33,7 +33,7 @@
                 
                 <div class="mb-3">
                     <label for="konsentrasi_keahlian" class="form-label" style="color: #1A5276 !important">Konsentrasi Keahlian</label>
-                    <select class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian" style="font-size: 16px; padding: 10px;" required>
+                    <select class="form-control" id="konsentrasi_keahlian" name="konsentrasi_keahlian"  required>
                         <option value="" disabled selected>Pilih Konsentrasi Keahlian</option>
                         @foreach($konsentrasiKeahlianList as $konsentrasi)
                             <option value="{{ $konsentrasi }}">{{ $konsentrasi }}</option>

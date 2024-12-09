@@ -82,26 +82,6 @@
     margin-bottom: 20px; /* Spasi di bawah gambar */
 }
 
-.input-group {
-    display: flex;
-    align-items: center;
-    width: 100%; /* Pastikan input group memiliki lebar penuh */
-}
-
-.input-group-text {
-    background: transparent; /* Pastikan latar belakang transparan */
-    border: none; /* Menghilangkan border untuk tampilan yang lebih bersih */
-    cursor: pointer; /* Menampilkan pointer saat hover */
-    display: flex;
-    align-items: center; /* Tengah secara vertikal */
-    padding: 0 10px; /* Padding horizontal */
-}
-
-.input-group-text i {
-    color: #000; /* Pastikan warna ikon terlihat */
-    font-size: 1.2em; /* Sesuaikan ukuran ikon sesuai kebutuhan */
-}
-
 .profile-data {
     background: rgba(255, 255, 255, 0.374); /* Semi-transparent white */
     padding: 30px; /* Tambahkan padding agar konten memiliki lebih banyak ruang */
@@ -113,6 +93,34 @@
     margin-left: 15%; /* Kurangi margin untuk pusatkan */
     margin: 20px auto;
 }
+
+/* Container untuk password dan ikon */
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px; /* Beri ruang untuk tombol ikon */
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    color: #666;
+}
+
+.password-container .toggle-password:focus {
+    outline: none;
+}
+
 
 @media (max-width: 768px) {
     .profile-data {
@@ -126,3 +134,26 @@
         width: 60%; /* Perbesar card pada layar besar */
     }
 }
+
+@media (max-width: 768px) {
+    .password-container .form-control {
+        font-size: 14px;
+        padding-right: 35px; /* Ruang untuk ikon lebih kecil */
+    }
+
+    .password-container .toggle-password {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 576px) {
+    .password-container .form-control {
+        font-size: 14px;
+        padding-right: 35px; /* Ruang untuk ikon lebih kecil */
+    }
+
+    .password-container .toggle-password {
+        font-size: 1em;
+    }
+}
+

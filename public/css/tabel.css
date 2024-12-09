@@ -118,3 +118,35 @@
     border: none;
     padding: 4px 3px;
 }
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+    .custom-table th, .custom-table td {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+}
+
+/* Tabel pada perangkat dengan ukuran sangat kecil (di bawah 576px) */
+@media (max-width: 576px) {
+
+
+    .custom-table th, .custom-table td {
+        font-size: 12px;
+        padding: 4px;
+    }
+
+    
+    /* Mengatur lebar tabel agar lebih sesuai pada layar kecil */
+    .custom-table tbody td {
+        font-size: 12px;
+        padding: 4px;
+        word-wrap: break-word;
+    }
+}

@@ -39,7 +39,7 @@
     </div>
 
     <div class="table-responsive" style="max-height: 400px; overflow-y: auto;" id="jurnal-table-container"> <!-- Wadah scrollable -->
-        <table class="table table-striped custom-table">
+        <table class="table-striped custom-table">
             <thead class="table-primary text-center">
                 <tr class="text-center">
                     <th>No</th>
@@ -54,7 +54,7 @@
                     <th>Alamat Dudi</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 @foreach ($plotingData as $index => $ploting)
                 <tr>
                     <td>{{ $index + 1 }}</td>

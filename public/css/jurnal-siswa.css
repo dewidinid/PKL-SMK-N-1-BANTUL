@@ -1,0 +1,67 @@
+/* Mengatur elemen filter agar tampil dalam satu baris pada tampilan mobile */
+.jurnal-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Tombol Tambah Jurnal */
+.jurnal-btn {
+    background-color: #F4A261;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Form filter yang akan sebaris */
+.jurnal-filter {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Filter dropdown dan tombol filter */
+.jurnal-select, .jurnal-filter-btn {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.jurnal-filter-btn {
+    background-color: #007bff; /* Sesuaikan dengan warna tombol filter */
+    color: white;
+}
+
+/* Pada layar lebih besar dari 576px, tombol dan filter berada dalam satu baris */
+@media (min-width: 576px) {
+    .jurnal-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .jurnal-filter {
+        width: auto;
+        justify-content: flex-end;
+    }
+}
+
+/* Pada tampilan mobile (max-width: 576px), tombol "Tambah Jurnal" tetap di atas, filter sebaris */
+@media (max-width: 576px) {
+    .jurnal-container {
+        flex-direction: column;
+    }
+
+    .jurnal-filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px; /* Mengurangi jarak antar elemen */
+    }
+
+    .jurnal-select, .jurnal-filter-btn {
+        width: 30%; /* Memberikan lebar lebih kecil agar elemen muat dalam satu baris */
+        font-size: 12px;
+        padding: 5px;
+    }
+}

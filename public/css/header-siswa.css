@@ -222,6 +222,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
     /* Hover untuk tombol "Masuk" */
     .nav-link.btn-masuk:hover {
         background-color: #439AC7 !important; /* Warna lebih gelap saat di-hover */
+        color: white !important;
     }
 }
 
@@ -309,8 +310,17 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
         text-align: left; /* Pusatkan isi */
     }
 
-    .nav-link {
-        font-size: 14px; /* Ukuran link responsif */
+    .nav-item .nav-link {
+        font-size: 16px; /* Ukuran link responsif */
+        color: white;
+    }
+
+    .nav-item .nav-link:hover{
+        color: white !important;
+    }
+
+    .header-siswa .navbar a:hover {
+        color: white !important;
     }
 }
 

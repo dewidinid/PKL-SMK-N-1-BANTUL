@@ -25,7 +25,7 @@
         <br>
     
         <div class="table-responsive">
-            <table class="table table-striped custom-table">
+            <table class="table-striped custom-table">
                 <thead class="table-primary text-center">
                     <tr>
                         <th>No</th>
@@ -87,7 +87,7 @@
         <br>
     
         <div class="table-responsive">
-            <table class="table table-striped custom-table">
+            <table class="table-striped custom-table">
                 <thead class="table-primary text-center">
                     <tr>
                         <th>No</th>

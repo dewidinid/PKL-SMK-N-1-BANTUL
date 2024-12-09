@@ -9,6 +9,8 @@
     </div>
     <br>
     <h2 class="text-center mb-4">Laporan PKL (Jurnal)</h2>
+    <br>
+    <br>
 
     {{-- <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
         <!-- Filter di sisi kiri -->
@@ -52,7 +54,7 @@
         </div>
     </div> --}}
 
-    <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
+    {{-- <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap">
         <!-- Filter di sisi kiri -->
         <div class="filter-section">
             <form action="{{ route('laporanpkl_jurnal') }}" method="GET">
@@ -92,11 +94,23 @@
                 </button>
             @endif
         </div>
-    </div>
+    </div> --}}
     
     
-    {{-- <div class="d-flex justify-content-between align-items-center mb-3">
-        <form action="{{ route('laporanpkl_jurnal') }}" method="GET">
+    <div class="d-flex jurnal-container  flex-column flex-md-row justify-content-between mb-3">
+        <div class="d-flex mb-3 mb-md-0">
+            @if ($ploting)
+                <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @else
+                <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
+                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
+                </button>
+            @endif
+        </div>
+        
+        <form action="{{ route('laporanpkl_jurnal') }}" method="GET" class="d-flex jurnal-filter gap-2 ">
             <select class="form-select d-inline-block w-auto" name="bulan">
                 <option value="">Pilih Bulan</option>
                 @for ($i = 1; $i <= 12; $i++)
@@ -115,22 +129,11 @@
             </select>
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
-        <div class="d-flex">
-            @if ($ploting)
-                <button onclick="openForm()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                </button>
-            @else
-                <button onclick="showNotPlotedAlert()" class="btn d-flex align-items-center custom-btn" style="background-color: #F4A261">
-                    Tambah Jurnal <i class="bi bi-plus " style="font-size: 19px;"></i>
-                </button>
-            @endif
-        </div>
-    </div> --}}
+    </div>
 
     <!-- Wrapper khusus untuk tabel -->
     <div class="table-responsive">
-        <table class="table table-striped custom-table">
+        <table class="table-striped custom-table">
             <thead class="table-primary text-center">
                 <tr>
                     <th>No</th>

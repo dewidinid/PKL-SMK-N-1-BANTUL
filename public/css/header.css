@@ -118,7 +118,7 @@
     /* Hover untuk tombol "Masuk" */
     .nav-link.btn-masuk:hover {
         background-color: white !important; /* Warna lebih gelap saat di-hover */
-        color: #439AC7;
+        color: #439AC7 !important;
     }
 }
 
