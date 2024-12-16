@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 07, 2024 at 04:07 PM
+-- Generation Time: Dec 12, 2024 at 06:50 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.23
 
@@ -59,33 +59,33 @@ CREATE TABLE `dudi` (
 --
 
 INSERT INTO `dudi` (`kode_dudi`, `nama_dudi`, `bidang_usaha`, `password`, `alamat_dudi`, `notelp_dudi`) VALUES
-('TI001', 'Reds Computer', 'Teknologi', '$2y$12$gxktJswkSbCqrQBESlLlye2oYi2OVGHWgxjdE0qQkWjieJ8W/jp9K', 'Jl. Jogoripon, Geneng, Pendowoharjo, Sewon, Bantul, Yogyakarta 55188', '19182746'),
-('TI002', 'CV Latansa Jogjakarta', 'Teknologi', '$2y$12$yDoVzWjBXDGsRXZ69PP4xexCCvvGrgbWERGqnH4SQ7DuBe6b3I4Zm', 'Nangsri RT 02, Srihardono Pundong, Bantul, Yogyakarta 55771', '86761132'),
-('TI003', 'ALBIS Jogja', 'Teknologi', '$2y$12$lxbk3Okl.xXQI9JQxyoXyOtAEF74YJD9Hcw/PVFqrqI1y0ktesI3u', 'Jl. Parangtritis No.7,5, Cabean, Panggungharjo, Sewon, Bantul, Yogyakarta 55185', '67474355'),
-('TI004', 'Harrisma Computer', 'Teknologi', '$2y$12$8PKgOEbTWInto0nt3YjpqOuymzkXJJBMlXtk2AtkGsDDlIEvu81n2', 'Jl. C. Simanjuntak No.33-37, Terban, Gondokusuman, Yogyakarta 55223', '13124356'),
-('TI005', 'RR COMPUTER', 'Teknologi', '$2y$12$sxO71dvVrBZYiEzP8KLW6.JDWxgCBR/UaRTYrXqnYLhYVg4aKE2AW', 'Jl. Pandeyan No.32, Pandeyan, Umbulharjo, Yogyakarta 55161', '86761132'),
-('TI006', 'Azzam Computer', 'Teknologi', '$2y$12$nfvikF9CNzinn0bP0N/eTuh5RNtKoK8wRT2UCi6atzlQ3BfcnZpTi', 'Jl. IKIP PGRI I Sonosewu No.248, Sonosewu, Ngestiharjo, Kasihan, Bantul, Yogyakarta', '86761132'),
-('TI007', 'Doctor Laptop Jogja', 'Teknologi', '$2y$12$7d94zvLGuDAwdVbU5ZLD8eZNSEc7ZPk5jzHGn6BtwjwmXMvkhKQ3y', 'Jl. Menteri Supeno No.100, Pandeyan, Umbulharjo, Kota Yogyakarta, Yogyakarta 55161', '124214'),
-('TI008', 'Youvee Computer', 'Teknologi', '$2y$12$GX.Ss/O.85qX6EMywPbqSOjkulUzceh/ZV8bZsVvDwbBL95i1BSAu', 'Jl. Madukismo, Padokan Lor, Tirtonirmolo, Kasihan, Bantul, Yogyakarta 55181', '92827363'),
-('TI009', 'PT. Broadband Indonesia Pratama (BIPNET)', 'Teknologi', '$2y$12$zqXsoiApvdnUDB5UrAUyB.ewSXbaU7ZFXqqvc.v6neCSwt6/xzaFe', 'Jl. Purbayan No.6, Purbayan, Kotagede, Kota Yogyakarta, Yogyakarta 55173', '8171629182'),
-('TI010', 'PT. Gmedia Prime Building', 'Teknologi', '$2y$12$vBXuqkjM6Ko26sV3rdzb7O8/ksFdnLn.yxF58pkmXBAy43DrF3co.', 'Jl. Siliwangi No.32G, Nogotirto, Gamping, Sleman, Yogyakarta 55592', '132453657'),
-('TI011', 'AIR NET ( CV. Buana Nirwana Jaya )', 'Teknologi', '$2y$12$GbG2J0/ARRIG4aqulW2Ci.XJg8BTVIXEXKcDvkEibBUH73f2yyOCq', 'Kepuh, Mulyodadi, Bambanglipuro, Bantul, Yogyakarta 55764', '646344247'),
-('TI012', 'PT Jaringan Lintas Utara (JATARA)', 'Teknologi', '$2y$12$/REm3H1uEKLISzMoQ.rYW.NYmv76RhWBz6E/DNTkAHgPvide9IV7a', 'Jl. Gading Sari II No.21, Banyuraden, Gamping, Sleman, Yogyakarta 55293', '756745322'),
-('TI013', 'PT. Wahana Lintas Nusa Persada', 'Teknologi', '$2y$12$hOquT3nqVvhZquZAKVJz5ujKoHKMDTarVqFA5napzmcTjgQx71Ul.', 'Jl. Lempongsari Raya No.132, Jongkang, Sariharjo, Ngaglik, Sleman, Yogyakarta 55281', '899163181'),
-('TI014', 'Life Medianet', 'Teknologi', '$2y$12$zSSF7x0ylLpffq1pNsxeY.eber1qEGRk1.OJFBO5z.2IW//OLbFJW', 'Jl. Parangtritis No.97, Brontokusuman, Mergangsan, Kota Yogyakarta, Yogyakarta 55153', '028172633531'),
-('TI015', 'PT. Yetoya Solusi Indonesia (Jujungnet)', 'Teknologi', '$2y$12$kEIPG7EBDQdA6fpaGp2iU.IKYszkzTWovqxF8A5/ot1NdGyGqYPOC', 'Jl. Ringroad Timur No.14B, Wonocatur, Banguntapan, Banguntapan, Bantul, Yogyakarta 55198', ''),
-('TI016', 'PT. DINAMIKA MEDIAKOM', 'Teknologi', '$2y$12$2eWtsvRCUYCmUnUpPI2lpuSJDWw9fIAgqnuBtARxgw4eqtf.KmCXW', 'Jl. Raya Kledokan No.38, Kledokan, Caturtunggal, Depok, Sleman, Yogyakarta 55281', ''),
-('TI017', 'CITRANET', 'Teknologi', '$2y$12$noangKxEGY.XcAONaFk3ROlXNuuogdbD1PblPdBoAbr9EUb/w9lfO', 'Jl. Petung No.31, Demangan Baru, Caturtunggal, Depok, Sleman, Yogyakarta 55281', '081972363'),
-('TI018', 'CSS Media - PT Cahaya Sinergi Semesta', 'Teknologi', '$2y$12$lgrwxw0Z4KQhUkPAR8fJIu53rZfr/o1Nowu4qwitZbrL7HUGV9e9S', 'Jl. Imogiri Barat KM11 No.101A, Bantul, Yogyakarta 55781', ''),
-('TI019', 'PT.Global Prima Utama (UIINET)', 'Teknologi', '$2y$12$0nHur59iJZEmUJjCm42Ng.CFeVxOLHaqkTAjd9KNVyTkz6/7Vr3Lm', 'Jl. Cik Di Tiro No 1, Terban, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55223', ''),
-('TI020', 'Mahameru Computer', 'Teknologi', '$2y$12$uOugo54wsP.J11su3jEYxO3ufFNtbD4El1Sv9vBH6EuLyrgIBgIB.', 'Jl. Imogiri Timur No.KM 11 Karanganom RT 08 Karanganom, Wonokromo, Pleret, Bantul, Yogyakarta 55791', ''),
-('TI021', 'AFTROCOM (Servis Laptop Jogja - Servis Komputer Jogja)', 'Teknologi', '$2y$12$AUuH9OKv5P10V3owaQAsruB5ngBh28gsXp9Y3I9m.gKg1DcCxzADu', 'Jl. KH Djawad Faqih MG III No.851, Brontokusuman, Mergangsan, Kota Yogyakarta, Yogyakarta 55153', ''),
-('TI022', 'RAZKA NET', 'Teknologi', '$2y$12$tCxzdV0n5.2CCrc4ZIIfyOe7Zv6BHPkN7G4mriXcUywZgsag30xeW', 'Grudo Rt 04, Grudo, Panjangrejo, Pundong, Bantul, Yogyakarta 55771', ''),
-('TI023', 'Bestcamp Network', 'Teknologi', '$2y$12$i2WNyve1SpzwSTX5DM2QyOAJMBAz7i.7S2eMopD.lB4m/5D5y0Sj.', 'Karang Tengah Kidul, Margosari, Pengasih, Kulon Progo, Yogyakarta 55652', ''),
-('TI024', 'Tren Komputer Yogyakarta', 'Teknologi', '$2y$12$CK0YMp4EHCC/jFYBdmrZZOHAnER5pGGVKO14P.z9Ijzja3yBBAwP6', 'Jl. Tri Brata No.11, RW.02, Klitren, Gondokusuman, Kota Yogyakarta, Yogyakarta 55221', ''),
-('TI025', 'AR Computer', 'Teknologi', '$2y$12$ECfZuGKluSXoXTl7tvUbgeL4Ukw36g9PP468pUjiLPu8kdUsZ0PEq', 'Jl. Ambarbinangun No.256, Brajan, Tamantirto, Kasihan, Bantul, Yogyakarta 55184', ''),
-('TI026', 'PONDOK NETWORK', 'Teknologi', '$2y$12$cuhKzcn6SYCwZbc6FHDnceWdoaSPiOWFuxtzPCUk/Ko1eX./93T0.', 'Pondok, Trimurti Srandakan Bantul Yogyakarta 55762', ''),
-('TI027', 'Dary Computer', 'Teknologi', '$2y$12$U5XS9knVYlZilMyJxL/13utWYMssTY10qORemyi5ElscBc/RmlcC2', 'najhaja', '86544'),
+('TI001', 'Reds Computer', 'Teknologi', '$2y$12$gxktJswkSbCqrQBESlLlye2oYi2OVGHWgxjdE0qQkWjieJ8W/jp9K', 'Jl. Jogoripon, Geneng, Pendowoharjo, Sewon, Bantul, Yogyakarta 55188', '081221221737'),
+('TI002', 'CV Latansa Jogjakarta', 'Teknologi', '$2y$12$yDoVzWjBXDGsRXZ69PP4xexCCvvGrgbWERGqnH4SQ7DuBe6b3I4Zm', 'Nangsri RT 02, Srihardono Pundong, Bantul, Yogyakarta 55771', '0'),
+('TI003', 'ALBIS Jogja', 'Teknologi', '$2y$12$lxbk3Okl.xXQI9JQxyoXyOtAEF74YJD9Hcw/PVFqrqI1y0ktesI3u', 'Jl. Parangtritis No.7,5, Cabean, Panggungharjo, Sewon, Bantul, Yogyakarta 55185', '085101581105'),
+('TI004', 'Harrisma Computer', 'Teknologi', '$2y$12$8PKgOEbTWInto0nt3YjpqOuymzkXJJBMlXtk2AtkGsDDlIEvu81n2', 'Jl. C. Simanjuntak No.33-37, Terban, Gondokusuman, Yogyakarta 55223', '08170674007'),
+('TI005', 'RR COMPUTER', 'Teknologi', '$2y$12$sxO71dvVrBZYiEzP8KLW6.JDWxgCBR/UaRTYrXqnYLhYVg4aKE2AW', 'Jl. Pandeyan No.32, Pandeyan, Umbulharjo, Yogyakarta 55161', '085743534490'),
+('TI006', 'Azzam Computer', 'Teknologi', '$2y$12$nfvikF9CNzinn0bP0N/eTuh5RNtKoK8wRT2UCi6atzlQ3BfcnZpTi', 'Jl. IKIP PGRI I Sonosewu No.248, Sonosewu, Ngestiharjo, Kasihan, Bantul, Yogyakarta', '085747392555'),
+('TI007', 'Doctor Laptop Jogja', 'Teknologi', '$2y$12$7d94zvLGuDAwdVbU5ZLD8eZNSEc7ZPk5jzHGn6BtwjwmXMvkhKQ3y', 'Jl. Menteri Supeno No.100, Pandeyan, Umbulharjo, Kota Yogyakarta, Yogyakarta 55161', '082313775532'),
+('TI008', 'Youvee Computer', 'Teknologi', '$2y$12$GX.Ss/O.85qX6EMywPbqSOjkulUzceh/ZV8bZsVvDwbBL95i1BSAu', 'Jl. Madukismo, Padokan Lor, Tirtonirmolo, Kasihan, Bantul, Yogyakarta 55181', '081804000195'),
+('TI009', 'PT. Broadband Indonesia Pratama (BIPNET)', 'Teknologi', '$2y$12$zqXsoiApvdnUDB5UrAUyB.ewSXbaU7ZFXqqvc.v6neCSwt6/xzaFe', 'Jl. Purbayan No.6, Purbayan, Kotagede, Kota Yogyakarta, Yogyakarta 55173', '081229886303'),
+('TI010', 'PT. Gmedia Prime Building', 'Teknologi', '$2y$12$vBXuqkjM6Ko26sV3rdzb7O8/ksFdnLn.yxF58pkmXBAy43DrF3co.', 'Jl. Siliwangi No.32G, Nogotirto, Gamping, Sleman, Yogyakarta 55592', '(0274) 380345'),
+('TI011', 'AIR NET ( CV. Buana Nirwana Jaya )', 'Teknologi', '$2y$12$GbG2J0/ARRIG4aqulW2Ci.XJg8BTVIXEXKcDvkEibBUH73f2yyOCq', 'Kepuh, Mulyodadi, Bambanglipuro, Bantul, Yogyakarta 55764', '0'),
+('TI012', 'PT Jaringan Lintas Utara (JATARA)', 'Teknologi', '$2y$12$/REm3H1uEKLISzMoQ.rYW.NYmv76RhWBz6E/DNTkAHgPvide9IV7a', 'Jl. Gading Sari II No.21, Banyuraden, Gamping, Sleman, Yogyakarta 55293', '(0274) 5026423'),
+('TI013', 'PT. Wahana Lintas Nusa Persada', 'Teknologi', '$2y$12$hOquT3nqVvhZquZAKVJz5ujKoHKMDTarVqFA5napzmcTjgQx71Ul.', 'Jl. Lempongsari Raya No.132, Jongkang, Sariharjo, Ngaglik, Sleman, Yogyakarta 55281', '085159774742'),
+('TI014', 'Life Medianet', 'Teknologi', '$2y$12$zSSF7x0ylLpffq1pNsxeY.eber1qEGRk1.OJFBO5z.2IW//OLbFJW', 'Jl. Parangtritis No.97, Brontokusuman, Mergangsan, Kota Yogyakarta, Yogyakarta 55153', '(0274) 6055655'),
+('TI015', 'PT. Yetoya Solusi Indonesia (Jujungnet)', 'Teknologi', '$2y$12$kEIPG7EBDQdA6fpaGp2iU.IKYszkzTWovqxF8A5/ot1NdGyGqYPOC', 'Jl. Ringroad Timur No.14B, Wonocatur, Banguntapan, Banguntapan, Bantul, Yogyakarta 55198', '0'),
+('TI016', 'PT. DINAMIKA MEDIAKOM', 'Teknologi', '$2y$12$2eWtsvRCUYCmUnUpPI2lpuSJDWw9fIAgqnuBtARxgw4eqtf.KmCXW', 'Jl. Raya Kledokan No.38, Kledokan, Caturtunggal, Depok, Sleman, Yogyakarta 55281', '0'),
+('TI017', 'CITRANET', 'Teknologi', '$2y$12$noangKxEGY.XcAONaFk3ROlXNuuogdbD1PblPdBoAbr9EUb/w9lfO', 'Jl. Petung No.31, Demangan Baru, Caturtunggal, Depok, Sleman, Yogyakarta 55281', '(0274) 553066'),
+('TI018', 'CSS Media - PT Cahaya Sinergi Semesta', 'Teknologi', '$2y$12$lgrwxw0Z4KQhUkPAR8fJIu53rZfr/o1Nowu4qwitZbrL7HUGV9e9S', 'Jl. Imogiri Barat KM11 No.101A, Bantul, Yogyakarta 55781', '(0274) 2811113'),
+('TI019', 'PT.Global Prima Utama (UIINET)', 'Teknologi', '$2y$12$0nHur59iJZEmUJjCm42Ng.CFeVxOLHaqkTAjd9KNVyTkz6/7Vr3Lm', 'Jl. Cik Di Tiro No 1, Terban, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55223', '(0274) 555888'),
+('TI020', 'Mahameru Computer', 'Teknologi', '$2y$12$uOugo54wsP.J11su3jEYxO3ufFNtbD4El1Sv9vBH6EuLyrgIBgIB.', 'Jl. Imogiri Timur No.KM 11 Karanganom RT 08 Karanganom, Wonokromo, Pleret, Bantul, Yogyakarta 55791', '085643037478'),
+('TI021', 'AFTROCOM (Servis Laptop Jogja - Servis Komputer Jogja)', 'Teknologi', '$2y$12$AUuH9OKv5P10V3owaQAsruB5ngBh28gsXp9Y3I9m.gKg1DcCxzADu', 'Jl. KH Djawad Faqih MG III No.851, Brontokusuman, Mergangsan, Kota Yogyakarta, Yogyakarta 55153', '081325519008'),
+('TI022', 'RAZKA NET', 'Teknologi', '$2y$12$tCxzdV0n5.2CCrc4ZIIfyOe7Zv6BHPkN7G4mriXcUywZgsag30xeW', 'Grudo Rt 04, Grudo, Panjangrejo, Pundong, Bantul, Yogyakarta 55771', '0'),
+('TI023', 'Bestcamp Network', 'Teknologi', '$2y$12$i2WNyve1SpzwSTX5DM2QyOAJMBAz7i.7S2eMopD.lB4m/5D5y0Sj.', 'Karang Tengah Kidul, Margosari, Pengasih, Kulon Progo, Yogyakarta 55652', '0'),
+('TI024', 'Tren Komputer Yogyakarta', 'Teknologi', '$2y$12$CK0YMp4EHCC/jFYBdmrZZOHAnER5pGGVKO14P.z9Ijzja3yBBAwP6', 'Jl. Tri Brata No.11, RW.02, Klitren, Gondokusuman, Kota Yogyakarta, Yogyakarta 55221', '085643157220'),
+('TI025', 'AR Computer', 'Teknologi', '$2y$12$ECfZuGKluSXoXTl7tvUbgeL4Ukw36g9PP468pUjiLPu8kdUsZ0PEq', 'Jl. Ambarbinangun No.256, Brajan, Tamantirto, Kasihan, Bantul, Yogyakarta 55184', '089525155201'),
+('TI026', 'PONDOK NETWORK', 'Teknologi', '$2y$12$cuhKzcn6SYCwZbc6FHDnceWdoaSPiOWFuxtzPCUk/Ko1eX./93T0.', 'Pondok, Trimurti Srandakan Bantul Yogyakarta 55762', '0'),
+('TI027', 'Dary Computer', 'Teknologi', '$2y$12$U5XS9knVYlZilMyJxL/13utWYMssTY10qORemyi5ElscBc/RmlcC2', 'Klagaran, Gadingsari, Sanden, Bantul', '087838741631'),
 ('TI028', 'AMBAR CORP', 'Teknologi', '$2y$12$1IoU5o3oeikBfteqMaZBxeh2LrxuSk07XVf5N2TNo9iJMxj5tDDca', 'majhadjhdq', '76722');
 
 --
@@ -206,12 +206,12 @@ CREATE TABLE `laporan_jurnal` (
 INSERT INTO `laporan_jurnal` (`id_jurnal`, `tanggal`, `NIS`, `kode_dudi`, `nama_siswa`, `nama_dudi`, `kegiatan`, `lokasi`, `kelas`, `kode_kelompok`, `konsentrasi_keahlian`, `created_at`, `updated_at`, `alamat_dudi`, `NIP_NIK`) VALUES
 (3, '2024-10-21 22:44:11', '16711', NULL, 'ADE DANI OKTAVIAN', 'ALBIS Jogja', 'software', 'Jalan Perumnas, Condongcatur, Depok, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55821, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-10-21 22:44:11', '2024-10-21 22:44:11', 'Jl. Parangtritis No.7,5, Cabean, Panggungharjo, Sewon, Bantul, Yogyakarta 55185', '197812072014062002'),
 (4, '2024-10-24 04:14:23', '16711', NULL, 'ADE DANI OKTAVIAN', 'ALBIS Jogja', 'rakit hardware', 'Gang Kasuari, RW 04, Patemon, Gunung Pati, Semarang, Jawa Tengah, Jawa, 50264, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-10-24 04:14:23', '2024-10-24 04:14:23', 'Jl. Parangtritis No.7,5, Cabean, Panggungharjo, Sewon, Bantul, Yogyakarta 55185', '197812072014062002'),
-(7, '2024-11-12 08:23:58', '16715', NULL, 'AMANDA SETYAWATI', 'Youvee Computer', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 08:23:58', '2024-11-12 08:23:58', NULL, NULL),
-(8, '2024-11-12 08:43:21', '16715', NULL, 'AMANDA SETYAWATI', 'Youvee Computer', 'software', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 08:43:21', '2024-11-12 08:43:21', NULL, NULL),
-(9, '2024-11-12 09:34:18', '16711', NULL, 'ADE DANI OKTAVIAN', 'ALBIS Jogja', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 09:34:18', '2024-11-12 09:34:18', NULL, NULL),
-(10, '2024-11-12 10:19:48', '16717', NULL, 'ARINA MAULA MANASIKANA', 'Youvee Computer', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 10:19:48', '2024-11-12 10:19:48', NULL, NULL),
-(16, '2024-11-28 08:01:07', '16728', NULL, 'MUHAMMAD AKMAL RASYID', 'Reds Computer', 'instalasi', 'RW 05, Gondangdia, Menteng, Jakarta Pusat, Daerah Khusus Ibukota Jakarta, Jawa, 10350, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-28 08:01:07', '2024-11-28 08:01:07', NULL, NULL),
-(17, '2024-11-29 00:48:18', '16698', NULL, 'Raditya Eka E', 'Mahameru Computer', 'praktek', 'Kauman, Surakarta, Kecamatan Pasar Kliwon, Jawa Tengah, Jawa, 57115, Indonesia', 'XI TKJ 1', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-29 00:48:18', '2024-11-29 00:48:18', NULL, NULL);
+(7, '2024-11-12 08:23:58', '16715', NULL, 'AMANDA SETYAWATI', 'Youvee Computer', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 08:23:58', '2024-11-12 08:23:58', 'Jl. Madukismo, Padokan Lor, Tirtonirmolo, Kasihan, Bantul, Yogyakarta 55181', '197812072014062002'),
+(8, '2024-11-12 08:43:21', '16715', NULL, 'AMANDA SETYAWATI', 'Youvee Computer', 'software', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 08:43:21', '2024-11-12 08:43:21', 'Jl. Madukismo, Padokan Lor, Tirtonirmolo, Kasihan, Bantul, Yogyakarta 55181', '197812072014062002'),
+(9, '2024-11-12 09:34:18', '16711', NULL, 'ADE DANI OKTAVIAN', 'ALBIS Jogja', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 09:34:18', '2024-11-12 09:34:18', 'Jl. Parangtritis No.7,5, Cabean, Panggungharjo, Sewon, Bantul, Yogyakarta 55185', '197812072014062002'),
+(10, '2024-11-12 10:19:48', '16717', NULL, 'ARINA MAULA MANASIKANA', 'Youvee Computer', 'instalasi', 'Jalan Gabugan, Pandowo Harjo, Pandowoharjo, Sleman, Daerah Istimewa Yogyakarta, Jawa, 55512, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-12 10:19:48', '2024-11-12 10:19:48', 'Jl. Madukismo, Padokan Lor, Tirtonirmolo, Kasihan, Bantul, Yogyakarta 55181', '197812072014062002'),
+(16, '2024-11-28 08:01:07', '16728', NULL, 'MUHAMMAD AKMAL RASYID', 'Reds Computer', 'instalasi', 'RW 05, Gondangdia, Menteng, Jakarta Pusat, Daerah Khusus Ibukota Jakarta, Jawa, 10350, Indonesia', 'XI TKJ 2', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-28 08:01:07', '2024-11-28 08:01:07', 'Jl. Jogoripon, Geneng, Pendowoharjo, Sewon, Bantul, Yogyakarta 55188', '197604052024211002'),
+(17, '2024-11-29 00:48:18', '16698', NULL, 'Raditya Eka E', 'Mahameru Computer', 'praktek', 'Kauman, Surakarta, Kecamatan Pasar Kliwon, Jawa Tengah, Jawa, 57115, Indonesia', 'XI TKJ 1', NULL, 'Teknik Komputer dan Jaringan (TKJ)', '2024-11-29 00:48:18', '2024-11-29 00:48:18', 'Jl. Imogiri Timur No.KM 11 Karanganom RT 08 Karanganom, Wonokromo, Pleret, Bantul, Yogyakarta 55791', '196709222007012012');
 
 -- --------------------------------------------------------
 
@@ -390,21 +390,21 @@ CREATE TABLE `pembimbing` (
 --
 
 INSERT INTO `pembimbing` (`NIP_NIK`, `nama_pembimbing`, `jenis_kelamin`, `jabatan`, `alamat`, `no_telp`, `password`, `created_at`, `updated_at`) VALUES
-('196706051997021002', 'SUJAR HARTONO S.Pd.', 'Laki-laki', 'PPPK', 'afsdfewf', '16761268', '$2y$12$unVU8A0X1daqHwk2AwjyvuD.gViebaaOBbfl6/0YomzbGxlnW7.fi', '2024-10-07 02:06:32', '2024-10-25 08:30:02'),
-('196709222007012012', 'MULATI S.Pd.', 'Perempuan', 'Guru Muda', 'bsjhajhd', '1918371', '$2y$12$I4C2hUQrv5jnP4lnR2TVBe8XbsZQRgJyPyPxaj2mPM5BvGf3tfGi.', '2024-10-11 07:35:38', '2024-11-12 03:34:27'),
-('197410222008012005', 'MURDIASIH KADARWATIS.Pd', 'Perempuan', 'Guru Muda', 'bsgsj', '91827', '$2y$12$PvzBaBFV6Hj7d/ZL.ZwlSOjBb8ZGDzl/RCqI4qzb.PLyomHwb6AC2', '2024-10-11 09:33:40', '2024-10-25 08:30:02'),
-('197604052024211002', 'RUSDIYANTO, S.Pd', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$rJrUYzIrI4F3PcPlxD89WOy1wtIpvGpBmR0FtGPv3.Zng6m2SPqr2', '2024-10-11 07:29:17', '2024-10-25 08:30:02'),
-('197702212022211001', 'AHMAD MUHLASHIN, S.Pd', 'Laki-laki', 'PPPK', 'bantul', '01871291', '$2y$12$es7g2yUFeUo3rUL/rMyv9.s.K3MXAfAV/H0of.tTEnYd19hj4vmsi', '2024-11-12 03:37:26', '2024-11-28 04:02:17'),
-('197812072014062002', 'DARIYATI, S.KOM', 'Laki-laki', 'PPPK', 'bantul', '9819361', '$2y$12$nMVwGGV2XQzQ6Q5/z420e.UCuRyOH6ABBhEfWRcnJOWFh7G0SKeby', '2024-10-07 02:06:32', '2024-11-04 04:08:19'),
-('198603032022212007', 'WATI, S.Pd.I', 'Perempuan', 'PPPK', '', NULL, '$2y$12$kzDBONPoPo53F3MMKE6dqusiC2P/VGZN0dYuLoVreyCdD.yn79SUO', '2024-11-12 03:37:26', '2024-11-12 03:37:26'),
-('198610062022211003', 'NURHIDAYAT SULISTIAWAN, S.Pd', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$/VlDi1pzbtLkS3UWGs/Hvui0hVN8xhCp2Zu8YCsDRe.FDYGiAt1pi', '2024-11-12 03:37:26', '2024-11-12 03:37:26'),
-('198810162022211001', 'HARIS BUDIAWAN, S.Pd', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$xF13KGqB2PQE2vCFAT/w9uVaV370qjVrQtV39rOkZhPuXEW57IHVS', '2024-11-12 03:37:27', '2024-11-12 03:37:27'),
-('198810272023211007', 'ROHMAD DWIYANTO S.Pd', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$hpj92Gj8jJhmQCMEEaKllOwoA866Alfe/9xh5L8QuTZtXH0p9tq8S', '2024-10-11 07:29:17', '2024-10-25 08:30:02'),
-('199003202024211002', 'DUWI RIANTO S. Pd.', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$ikFgZJv.i9QRZhaJgka4vOu6LnXO1bce12TXoOkIioEZurw/sydfu', '2024-10-11 07:29:17', '2024-10-25 08:30:02'),
-('199310252024211004', 'MUHAMMAD FURQON S.Sos', 'Laki-laki', 'PPPK', '', NULL, '$2y$12$L4R7vj4KPlzzX.ysQOvJyOJizzScveVn61aWDoWH2Lx4XmwSz85y2', '2024-10-15 02:48:55', '2024-10-25 08:30:02'),
-('199408062023212019', 'NOVIA RAHMALINA, S.Pd', 'Perempuan', 'PPPK', 'bahgasghajh', '812717671', '$2y$12$85atByMW8ZtdFvtw.Mz29.CvFaPFvccnOxG80UU9ILMbxxDI/Dlye', '2024-11-12 03:43:14', '2024-11-12 03:43:14'),
-('199503272022212001', 'RYAWIDYANINGTYAS, S.Pd', 'Perempuan', 'PPPK', '', NULL, '$2y$12$tIoqNW9VUOptZz5ZsT8y4uRXoHkjBALABc3N72YVpQeRs7ZZKet2i', '2024-11-12 03:37:27', '2024-11-12 03:37:27'),
-('199804102024212010', 'RISA RESTI AFRIANI S. Pd.', 'Perempuan', 'PPPK', 'sleman', '1223456789', '$2y$12$6grHfHo5hPuN7qqM3dSI4OVCYgoY02nb0BBO.5kW3qXTY7NXlYFPe', '2024-10-12 09:01:14', '2024-10-25 08:30:02');
+('196706051997021002', 'SUJAR HARTONO S.Pd.', 'Laki-laki', 'PPPK', 'Mangunan, Dlingo', '081804047297', '$2y$12$unVU8A0X1daqHwk2AwjyvuD.gViebaaOBbfl6/0YomzbGxlnW7.fi', '2024-10-07 02:06:32', '2024-12-11 23:46:45'),
+('196709222007012012', 'MULATI S.Pd.', 'Perempuan', 'Guru Muda', 'Karangmojo, Trirenggo, Bantul, Bantul', '081328389799', '$2y$12$I4C2hUQrv5jnP4lnR2TVBe8XbsZQRgJyPyPxaj2mPM5BvGf3tfGi.', '2024-10-11 07:35:38', '2024-12-11 03:00:09'),
+('197410222008012005', 'MURDIASIH KADARWATIS.Pd', 'Perempuan', 'PNS', 'Jl. Imogiri Timur KM.11, Blawong I, Trimulyo, Jetis', '081275445779', '$2y$12$PvzBaBFV6Hj7d/ZL.ZwlSOjBb8ZGDzl/RCqI4qzb.PLyomHwb6AC2', '2024-10-11 09:33:40', '2024-12-11 23:35:19'),
+('197604052024211002', 'RUSDIYANTO, S.Pd', 'Laki-laki', 'PPPK', 'Jl. Raya Playen-Paliyan KM.3, Wiyoko Utara, Plembutan, Playen', '085290410466', '$2y$12$rJrUYzIrI4F3PcPlxD89WOy1wtIpvGpBmR0FtGPv3.Zng6m2SPqr2', '2024-10-11 07:29:17', '2024-12-11 23:42:48'),
+('197702212022211001', 'AHMAD MUHLASHIN, S.Pd', 'Laki-laki', 'PPPK', 'Mutihan, Srimartani, Piyungan, Bantul', '082226846299', '$2y$12$es7g2yUFeUo3rUL/rMyv9.s.K3MXAfAV/H0of.tTEnYd19hj4vmsi', '2024-11-12 03:37:26', '2024-12-11 02:50:00'),
+('197812072014062002', 'DARIYATI, S.KOM', 'Laki-laki', 'PPPK', 'Klagaran, Gadingsari, Sanden, Bantul', '087838741631', '$2y$12$nMVwGGV2XQzQ6Q5/z420e.UCuRyOH6ABBhEfWRcnJOWFh7G0SKeby', '2024-10-07 02:06:32', '2024-12-11 02:52:09'),
+('198603032022212007', 'WATI, S.Pd.I', 'Perempuan', 'PPPK', 'Cangkring, Sumberagung, Jetis', '085643353921', '$2y$12$kzDBONPoPo53F3MMKE6dqusiC2P/VGZN0dYuLoVreyCdD.yn79SUO', '2024-11-12 03:37:26', '2024-12-11 23:48:06'),
+('198610062022211003', 'NURHIDAYAT SULISTIAWAN, S.Pd', 'Laki-laki', 'PPPK', 'Gedongan, Sumbermulyo, Bambang Lipuro', '081802725001', '$2y$12$/VlDi1pzbtLkS3UWGs/Hvui0hVN8xhCp2Zu8YCsDRe.FDYGiAt1pi', '2024-11-12 03:37:26', '2024-12-11 23:39:13'),
+('198810162022211001', 'HARIS BUDIAWAN, S.Pd', 'Laki-laki', 'PPPK', 'Karangasem, Gilangharjo, Pandak, Bantul', '082134700674', '$2y$12$xF13KGqB2PQE2vCFAT/w9uVaV370qjVrQtV39rOkZhPuXEW57IHVS', '2024-11-12 03:37:27', '2024-12-11 02:57:43'),
+('198810272023211007', 'ROHMAD DWIYANTO S.Pd', 'Laki-laki', 'PPPK', 'Kurahan, Bantul, Bantul', '089632188966', '$2y$12$hpj92Gj8jJhmQCMEEaKllOwoA866Alfe/9xh5L8QuTZtXH0p9tq8S', '2024-10-11 07:29:17', '2024-12-11 23:41:29'),
+('199003202024211002', 'DUWI RIANTO S. Pd.', 'Laki-laki', 'PPPK', 'Jl. Samas Kuwaru Karang, Poncosari, Srandakan', '085701119153', '$2y$12$ikFgZJv.i9QRZhaJgka4vOu6LnXO1bce12TXoOkIioEZurw/sydfu', '2024-10-11 07:29:17', '2024-12-11 02:57:00'),
+('199310252024211004', 'MUHAMMAD FURQON S.Sos', 'Laki-laki', 'PPPK', 'Jl. Karangsari Wetan, Pringgolayan, Tegaltandan, Banguntapan', '085655001619', '$2y$12$L4R7vj4KPlzzX.ysQOvJyOJizzScveVn61aWDoWH2Lx4XmwSz85y2', '2024-10-15 02:48:55', '2024-12-11 02:59:21'),
+('199408062023212019', 'NOVIA RAHMALINA, S.Pd', 'Perempuan', 'PPPK', 'Ponggok II, Trimulyo, Jetis', '087708893058', '$2y$12$85atByMW8ZtdFvtw.Mz29.CvFaPFvccnOxG80UU9ILMbxxDI/Dlye', '2024-11-12 03:43:14', '2024-12-11 23:37:40'),
+('199503272022212001', 'RYAWIDYANINGTYAS, S.Pd', 'Perempuan', 'PPPK', 'Tanjung Lor, Patalan, Jetis', '085927426966', '$2y$12$tIoqNW9VUOptZz5ZsT8y4uRXoHkjBALABc3N72YVpQeRs7ZZKet2i', '2024-11-12 03:37:27', '2024-12-11 23:44:06'),
+('199804102024212010', 'RISA RESTI AFRIANI S. Pd.', 'Perempuan', 'PPPK', 'Mandungan, Srimartani, Piyungan', '085726878530', '$2y$12$6grHfHo5hPuN7qqM3dSI4OVCYgoY02nb0BBO.5kW3qXTY7NXlYFPe', '2024-10-12 09:01:14', '2024-12-11 23:40:14');
 
 --
 -- Triggers `pembimbing`
@@ -612,12 +612,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('0HJip6Si7tIKgck9A5ZG0UZFjoomGMl1nn3nEtdh', NULL, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiOHhTZEo0YWxBYUVZaGpWOUs2dEs3ZHNnMVFPTGJOMkRJTFNieEdWaiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Njk6Imh0dHA6Ly8yNjlmLTI0MDctMC0zMDAyLWMyYTEtYzg4MS1mZTNjLTQzMmQtY2U3OC5uZ3Jvay1mcmVlLmFwcC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1733577162),
-('8IBiWzB1hnLdwjuhYIzyk7pjeIke7w9hNWXscXAH', NULL, '127.0.0.1', 'WhatsApp/2.2447.5 W', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRENHazg5RDBadWliNldMQWJJUnhOY2RKMTM3ME5teno0VVRPOWhVSSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8yNjlmLTI0MDctMC0zMDAyLWMyYTEtYzg4MS1mZTNjLTQzMmQtY2U3OC5uZ3Jvay1mcmVlLmFwcCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1733577007),
-('FmRRcuEhDBZQMmSU0VRCextCX2czkwm5oVWltmbN', NULL, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36 (compatible; Google-Read-Aloud; +https://support.google.com/webmasters/answer/1061943)', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoib2FwbnoxSTF5dGNxNm9WdE5CbGRjUk1menJmdTVJMDg5WmtWbno5WiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo3NDoiaHR0cDovLzI2OWYtMjQwNy0wLTMwMDItYzJhMS1jODgxLWZlM2MtNDMyZC1jZTc4Lm5ncm9rLWZyZWUuYXBwL2hvbWUtc2lzd2EiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo3NDoiaHR0cDovLzI2OWYtMjQwNy0wLTMwMDItYzJhMS1jODgxLWZlM2MtNDMyZC1jZTc4Lm5ncm9rLWZyZWUuYXBwL2hvbWUtc2lzd2EiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1733577162),
-('hDijjI53TfmkBQ9QJhz4kpvOUeidtEBOTsiOcNDq', NULL, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNkxITmFOVDJuY1lvRlQwM2F4RWxiMWZNck1GNWJHUDBtN2ZMUHhqTCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Njk6Imh0dHA6Ly8yNjlmLTI0MDctMC0zMDAyLWMyYTEtYzg4MS1mZTNjLTQzMmQtY2U3OC5uZ3Jvay1mcmVlLmFwcC9sb2dpbiI7fX0=', 1733587453),
-('liSDcPRyqxX7QLAbhhuxBxxCUtqse3lT5olhipHF', NULL, '127.0.0.1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZU1ScmFSQmtTbm9QZEU0anZhWFVVdEYxSGZ3VGlhdmNyYTFNRnh1MSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NjM6Imh0dHA6Ly8yNjlmLTI0MDctMC0zMDAyLWMyYTEtYzg4MS1mZTNjLTQzMmQtY2U3OC5uZ3Jvay1mcmVlLmFwcCI7fX0=', 1733581679),
-('SQQXMaNnIZRLrH91AD9Xniz3eqgY6LUDhPp2dg2t', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiREZEb2pxRHZXWXFHamlMbnVIS1p1NURycHU3T2FTczlmR282TUYwRiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1733587526);
+('fZGum7KxK4PBqEtPPL5HYHixlQEojatjaXeot0tA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYVVFQUtxNk5GTzkxajFlTUhIYUdIN3AxZGtkMk12SlVYZnhqeWlWQiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fX0=', 1733986218);
 
 -- --------------------------------------------------------
 
@@ -647,7 +642,6 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`NIS`, `nama_siswa`, `konsentrasi_keahlian`, `password`, `profile_picture`, `kelas`, `tahun`, `kode_kelompok`, `kode_dudi`, `nama_dudi`, `alamat_dudi`, `created_at`, `updated_at`, `is_default_password`) VALUES
-('', 'Retno Muninggar', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$QL4yjYocV/7FmkfkDqfQwOCGkmqu3ThxTzCwYE9JE2MwMs0Q1S5n2', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:11', '2024-10-29 01:22:11', 1),
 ('16674', 'ADITYA ARBAYU', 'Teknik Komputer dan Jaringan (TKJ)', 'pw16674', NULL, 'XI TKJ 1', '2023/2024', 'TKJ1', 'TI002', 'CV Latansa Jogjakarta', 'Nangsri RT 02, Srihardono Pundong, Bantul, Yogyakarta 55771', '2024-10-07 02:09:51', '2024-10-25 08:25:42', 1),
 ('16675', 'AGRAPRATAMA JANU PUTRA AJI', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$cGCo1iWBgV4KYgPPJaiAF.nwsFKvUhdcKogO4cIw/1hHMg7x8ULf6', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:13', '2024-10-29 01:22:13', 1),
 ('16677', 'ARUL REZA ALFAHREZI', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$dDSwxza3/2SthKV.STz/9OF8qZwTOEkqYBRpYI1luipHS8vxzv.We', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:13', '2024-10-29 01:22:13', 1),
@@ -676,6 +670,7 @@ INSERT INTO `siswa` (`NIS`, `nama_siswa`, `konsentrasi_keahlian`, `password`, `p
 ('16702', 'RAYHAN ADITYA PRADHANA', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$MsPuuQZeGqJBUM6MEseSuOqYBisGrCcOvdm9gqbLqNq6jborvO.oS', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:07', '2024-10-29 01:22:07', 1),
 ('16703', 'RAYHAN DAMARJATI WIJANARKO', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$EwoD5SpKWXNZF1UkEgMuiuMoJVLzlRAVOzv5oACR.IOUmFFzZYGhm', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:16', '2024-10-29 01:22:16', 1),
 ('16704', 'Rehan Herdian P', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$ngX0PZ0sJ5GbXF4FsFL0VeTFaGOFqbrhs299udqm6ScR9ViFDDgba', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:14', '2024-10-29 01:22:14', 1),
+('16705', 'Retno Muninggar', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$QL4yjYocV/7FmkfkDqfQwOCGkmqu3ThxTzCwYE9JE2MwMs0Q1S5n2', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:11', '2024-12-12 05:20:40', 1),
 ('16706', 'RIBBY SASKIA MECCA', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$C.va.hsDjoYOjQ8v/635FO5Q9XmUB8sv7ExGMlSgsd18kBWE3j1K2', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:04', '2024-10-29 01:22:04', 1),
 ('16707', 'SETO SUJATMIKO', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$TRGPXcE.mTVqQpsEK.8Xd.XBQD/4BhPXHgWs77kruPr4konqkno4S', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:06', '2024-10-29 01:22:06', 1),
 ('16708', 'SUNU WICAKSONO', 'Teknik Komputer dan Jaringan (TKJ)', '$2y$12$RbJOYuxieSgJOLb0FvLCWOR0ZacLba6gKe4Da6C1VIMRVWNxwnSyS', NULL, 'XI TKJ 1', '2023/2024', NULL, NULL, NULL, NULL, '2024-10-29 01:22:05', '2024-10-29 01:22:05', 1),
