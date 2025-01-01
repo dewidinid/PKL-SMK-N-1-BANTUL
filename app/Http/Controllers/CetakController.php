@@ -199,35 +199,33 @@ class CetakController extends Controller
         $dudi = Auth::guard('dudi')->user();
 
         // Ambil data nilai PKL hanya untuk siswa yang terkait dengan Dudi yang sedang login
-        $detailNilai = NilaiPkl::with('siswa')
-            ->whereHas('siswa', function ($query) use ($dudi) {
-                $query->where('kode_dudi', $dudi->kode_dudi);
-            })->get();
+        $detailNilai = Ploting::with(['siswa', 'nilaiPkl'])
+            ->where('nama_dudi', $dudi->nama_dudi)
+            ->get();
 
-        // Ambil nama Dudi dan tahun angkatan dari data yang sesuai
-        $namaDudi = $dudi->nama_dudi;
-        $tahunAngkatan = $detailNilai->first()->siswa->tahun ?? 'N/A';
+        // Ambil tahun angkatan dari data siswa
+        $tahunAngkatan = $detailNilai->pluck('siswa.tahun')->unique()->implode(', ') ?: 'N/A';
 
         // Siapkan data untuk export Excel
-        $data = $detailNilai->map(function ($item) {
+        $data = $detailNilai->map(function ($item, $index) {
             return [
-                'No' => $item->siswa->NIS,
-                'NIS' => $item->siswa->NIS,
-                'Nama' => $item->siswa->nama_siswa,
-                'Kelas' => $item->siswa->kelas,
-                'Konsentrasi Keahlian' => $item->siswa->konsentrasi_keahlian,
-                'TP1 (Soft Skills)' => $item->tp1_soft_skills,
-                'TP2 (Norma & POS)' => $item->tp2_norma_pos,
-                'TP3 (Kompetensi Teknis)' => $item->tp3_kompetensi_teknis,
-                'TP4 (Wawasan Wirausaha)' => $item->tp4_wawasan_wirausaha,
-                'Total Nilai' => $item->nilai,
+                'No' => $index + 1,
+                'NIS' => $item->siswa->NIS ?? 'N/A',
+                'Nama' => $item->siswa->nama_siswa ?? 'N/A',
+                'Kelas' => $item->siswa->kelas ?? 'N/A',
+                'Konsentrasi Keahlian' => $item->siswa->konsentrasi_keahlian ?? 'N/A',
+                'TP1 (Soft Skills)' => $item->nilaiPkl->tp1_soft_skills ?? 0,
+                'TP2 (Norma & POS)' => $item->nilaiPkl->tp2_norma_pos ?? 0,
+                'TP3 (Kompetensi Teknis)' => $item->nilaiPkl->tp3_kompetensi_teknis ?? 0,
+                'TP4 (Wawasan Wirausaha)' => $item->nilaiPkl->tp4_wawasan_wirausaha ?? 0,
+                'Total Nilai' => $item->nilaiPkl->nilai ?? 0,
             ];
         })->toArray();
 
         // Siapkan header untuk file Excel
         $header = [
-            ['Laporan Nilai PKL Siswa SMK Bantul'],
-            ['Nama Dudi: ' . $namaDudi],
+            ['Laporan Nilai PKL Siswa SMK'],
+            ['Nama Dudi: ' . $dudi->nama_dudi],
             ['Tahun Angkatan: ' . $tahunAngkatan],
             [],
             ['No', 'NIS', 'Nama', 'Kelas', 'Konsentrasi Keahlian', 'TP1 (Soft Skills)', 'TP2 (Norma & POS)', 'TP3 (Kompetensi Teknis)', 'TP4 (Wawasan Wirausaha)', 'Total Nilai']
@@ -272,36 +270,34 @@ class CetakController extends Controller
     // }
 
     public function exportDetailNilaiPDF()
-    {
-        // Ambil Dudi yang sedang login
-        $dudi = Auth::guard('dudi')->user();
+{
+    // Ambil Dudi yang sedang login
+    $dudi = Auth::guard('dudi')->user();
 
-        // Ambil data nilai PKL hanya untuk siswa yang terkait dengan Dudi yang sedang login
-        $detailNilai = NilaiPkl::with('siswa')
-            ->whereHas('siswa', function ($query) use ($dudi) {
-                $query->where('kode_dudi', $dudi->kode_dudi);
-            })->get();
+    // Ambil data nilai PKL hanya untuk siswa yang terkait dengan Dudi yang sedang login
+    $detailNilai = Ploting::with(['siswa', 'nilaiPkl'])
+        ->where('nama_dudi', $dudi->nama_dudi)
+        ->get();
 
-        // Ambil nama Dudi dan tahun angkatan
-        $namaDudi = $dudi->nama_dudi;
-        $tahunAngkatan = $detailNilai->first()->siswa->tahun ?? 'N/A';
+    // Ambil tahun angkatan dari data siswa
+    $tahunAngkatan = $detailNilai->pluck('siswa.tahun')->unique()->implode(', ') ?: 'N/A';
 
-        // Siapkan data untuk PDF
-        $data = [
-            'detailNilai' => $detailNilai,
-            'namaDudi' => $namaDudi,
-            'tahunAngkatan' => $tahunAngkatan,
-        ];
+    // Siapkan data untuk PDF
+    $data = [
+        'detailNilai' => $detailNilai,
+        'namaDudi' => $dudi->nama_dudi,
+        'tahunAngkatan' => $tahunAngkatan,
+    ];
 
-        // Generate PDF dari view
-        $pdf = Pdf::loadView('export_detail_nilai_pdf', $data);
+    // Generate PDF dari view
+    $pdf = Pdf::loadView('export_detail_nilai_pdf', $data);
 
-        // Nama file untuk PDF
-        $fileName = 'Detail_Nilai_' . date('Y-m-d') . '.pdf';
+    // Nama file untuk PDF
+    $fileName = 'Detail_Nilai_' . date('Y-m-d') . '.pdf';
 
-        // Return PDF
-        return $pdf->download($fileName);
-    }
+    // Return PDF
+    return $pdf->download($fileName);
+}
 
 
 

@@ -69,13 +69,13 @@
                         <td>{{ $data->kelas }}</td>
                         <td>{{ $data->kode_kelompok }}</td>
                         <td>{{ $data->siswa->tahun }}</td>
-                        <td style="text-align: center; vertical-align: middle;">
+                        {{-- <td style="text-align: center; vertical-align: middle;">
                             <form id="upload-form-{{ $data->siswa->NIS }}" action="{{ route('import_excel', $data->siswa->NIS) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <label for="file-upload-{{ $data->siswa->NIS }}" class="btn btn-primary d-flex align-items-center mt-2" style="background-color: #0275db; padding: 6px; border: none; border-radius: 5px;">
                                     Upload
                                 </label>
-                                <input id="file-upload-{{ $data->siswa->NIS }}" type="file" name="file" class="d-none" onchange="this.form.submit()">
+                                <input id="file-upload-{{ $data->siswa->NIS }}" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
                             </form>                            
                         </td>                      
                         <td>
@@ -89,6 +89,26 @@
                         </td>                                                                                                                                       
                         <td style="text-align: center; vertical-align: middle;">
                             <input type="checkbox"{{ $data->nilaiPkl && $data->nilaiPkl->is_imported ? 'checked' : '' }} disabled>
+                            <span class="custom-checkbox"></span>
+                        </td> --}}
+                        <td style="text-align: center; vertical-align: middle;">
+                            <form id="upload-form-{{ $data->siswa->NIS }}" action="{{ route('import_excel', $data->siswa->NIS) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <label for="file-upload-{{ $data->siswa->NIS }}" class="btn btn-primary mt-2" style="background-color: #0275db; padding: 6px; border-radius: 5px;">
+                                    Upload
+                                </label>
+                                <input id="file-upload-{{ $data->siswa->NIS }}" type="file" name="file" class="d-none" onchange="handleFileUpload(this)">
+                            </form>
+                        </td>
+                        <td>
+                            @if($data->nilaiPkl && $data->nilaiPkl->file_path)
+                                <a href="{{ route('nilai.pkl.show', ['fileName' => $data->nilaiPkl->file_path]) }}" target="_blank">Lihat/Download</a>
+                            @else
+                                Belum ada file
+                            @endif
+                        </td>
+                        <td style="text-align: center; vertical-align: middle;">
+                            <input type="checkbox" {{ $data->nilaiPkl && $data->nilaiPkl->is_imported ? 'checked' : '' }} disabled>
                             <span class="custom-checkbox"></span>
                         </td>
                     </tr>
@@ -132,8 +152,8 @@
                     @endforeach
                 </tbody>
             </table>
-<br>
-<br>
+            <br>
+            <br>
             <div>
                 <a href="{{ route('export.detail.nilai.excel') }}" class="btn btn-success">
                     <i class="bi bi-file-earmark-excel"></i> Export Excel

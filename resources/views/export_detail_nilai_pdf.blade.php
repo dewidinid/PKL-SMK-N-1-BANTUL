@@ -82,7 +82,7 @@
     <br>
     <br>
     <div class="table-container">
-        <table class="table table-striped">
+        {{-- <table class="table table-striped">
             <thead>
                 <tr>
                     <th>No</th>
@@ -113,7 +113,40 @@
                     </tr>
                 @endforeach
             </tbody>
+        </table> --}}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIS</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Konsentrasi Keahlian</th>
+                    <th>TP1 (Soft Skills)</th>
+                    <th>TP2 (Norma & POS)</th>
+                    <th>TP3 (Kompetensi Teknis)</th>
+                    <th>TP4 (Wawasan Wirausaha)</th>
+                    <th>Total Nilai</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($detailNilai as $index => $item)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $item->siswa->NIS ?? 'N/A' }}</td>
+                    <td>{{ $item->siswa->nama_siswa ?? 'N/A' }}</td>
+                    <td>{{ $item->siswa->kelas ?? 'N/A' }}</td>
+                    <td>{{ $item->siswa->konsentrasi_keahlian ?? 'N/A' }}</td>
+                    <td>{{ $item->nilaiPkl->tp1_soft_skills ?? 0 }}</td>
+                    <td>{{ $item->nilaiPkl->tp2_norma_pos ?? 0 }}</td>
+                    <td>{{ $item->nilaiPkl->tp3_kompetensi_teknis ?? 0 }}</td>
+                    <td>{{ $item->nilaiPkl->tp4_wawasan_wirausaha ?? 0 }}</td>
+                    <td>{{ $item->nilaiPkl->nilai ?? 0 }}</td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
+        
     </div>
 
     <br>

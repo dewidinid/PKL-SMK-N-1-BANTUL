@@ -146,11 +146,9 @@
                     text: 'Proses upload sedang berlangsung, mohon tunggu!',
                     icon: 'info',
                     allowOutsideClick: false,
-                    didOpen: () => {
-                        Swal.showLoading();
-                    }
+                    didOpen: () => Swal.showLoading()
                 });
-                input.form.submit(); // Submit form setelah file dipilih
+                input.form.submit();
             }
         }
     
@@ -172,6 +170,20 @@
             });
         @endif
     </script>
+
+    {{-- <script>
+        function handleFileUpload() {
+            // Aktifkan tombol import setelah file dipilih
+            document.getElementById('import-btn').disabled = false;
+        }
+
+        function handleImport() {
+            // Centang checkbox setelah tombol import diklik
+            document.getElementById('checkbox').checked = true;
+            // Submit form setelah tombol import diklik
+            document.getElementById('upload-form').submit();
+        }
+    </script> --}}
       
 
     <script>
@@ -197,7 +209,7 @@
         }
     </script>
 
-    <script>
+    {{-- <script>
         // Function to handle file upload
         function handleFileUpload() {
             const fileUploadInput = document.getElementById('file-upload');
@@ -219,9 +231,9 @@
             // Optionally, submit the form for the file upload here
             document.getElementById('upload-form').submit();
         }
-    </script>
+    </script> --}}
 
-<script>
+{{-- <script>
     function approveAction(form) {
         Swal.fire({
             title: 'Proses Approved...',
@@ -236,7 +248,7 @@
         // Submit form setelah pop-up loading ditampilkan
         form.submit();
     }
-</script>
+</script> --}}
 
     <script>
 
@@ -305,19 +317,7 @@
             AOS.init();
         </script>
         
-    <script>
-        function handleFileUpload() {
-            // Aktifkan tombol import setelah file dipilih
-            document.getElementById('import-btn').disabled = false;
-        }
-
-        function handleImport() {
-            // Centang checkbox setelah tombol import diklik
-            document.getElementById('checkbox').checked = true;
-            // Submit form setelah tombol import diklik
-            document.getElementById('upload-form').submit();
-        }
-    </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
